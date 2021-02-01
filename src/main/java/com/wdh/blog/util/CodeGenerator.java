@@ -25,8 +25,8 @@ public class CodeGenerator {
      */
     private static final String outPutDir = "/src/main/java";
     private static final String dataName = "root";
-    private static final String dataPwd = "root";
-    private static final String dataUrl = "jdbc:mysql://localhost:3306/my_blog_db?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&characterSetResults=utf8";
+    private static final String dataPwd = "54188wang";
+    private static final String dataUrl = "jdbc:mysql://localhost:3306/my_blog?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&characterSetResults=utf8";
     private static final String driverName = "com.mysql.jdbc.Driver";
     private static final String parentPackage = "com.wdh.blog";
     private static final String mapperName = "dao";
