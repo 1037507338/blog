@@ -2,6 +2,9 @@ server:
   port: 8084
 
 spring:
+  profiles:
+    active:
+
   datasource:
     name: myBlog
     url: jdbc:mysql://localhost:3306/my_blog?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&useSSL=false

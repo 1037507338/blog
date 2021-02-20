@@ -98,17 +98,15 @@ public class BlogController {
      */
     @ResponseBody
     @PostMapping("/v1/blog/uploadFile")
-    public Map<String, Object> uploadFileByEditormd(HttpServletRequest request,
+    public Map<String, Object> uploadFileByEditorMd(HttpServletRequest request,
                                                     @RequestParam(name = "editormd-image-file") MultipartFile file) throws URISyntaxException {
-        log.info("uploadFileByEditormd file " + file.getName());
+        log.info("uploadFileByEditorMd file " + file.getName());
         String suffixName = UploadFileUtils.getSuffixName(file);
         //生成文件名称通用方法
         String newFileName = UploadFileUtils.getNewFileName(suffixName);
         File fileDirectory = new File(UploadConstants.FILE_UPLOAD_DIC);
-        log.info("uploadFileByEditormd fileDirectory " + fileDirectory.getAbsolutePath());
         //创建文件
         File destFile = new File(UploadConstants.FILE_UPLOAD_DIC + newFileName);
-        log.info("uploadFileByEditormd destFile " + destFile.getAbsolutePath());
         Map<String, Object> result = new HashMap<>();
         try {
             if (!fileDirectory.exists()) {
@@ -116,7 +114,6 @@ public class BlogController {
                     throw new IOException("文件夹创建失败,路径为：" + fileDirectory);
                 }
             }
-            log.info("uploadFileByEditormd file " + file.getName());
             file.transferTo(destFile);
             String fileUrl = UploadConstants.FILE_SQL_DIC + newFileName;
             result.put("success", 1);
