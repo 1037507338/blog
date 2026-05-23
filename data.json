@@ -1,0 +1,322 @@
+{
+  "config": {
+    "websiteName": "My Blog",
+    "websiteDescription": "一个专注于 Java 后端开发与前沿技术的个人博客",
+    "websiteIcon": "./blog/amaze/images/compass.png",
+    "sysAuthor": "博主",
+    "sysAuthorImg": "./blog/amaze/images/wordImg.png",
+    "sysEmail": "admin@example.com",
+    "sysCopyRight": "2024 My Blog"
+  },
+  "blogs": [
+    {
+      "blogId": 1,
+      "blogTitle": "Spring Boot 3 实战：构建 RESTful API 的最佳实践",
+      "blogPreface": "本文详细介绍如何使用 Spring Boot 3 构建生产级 RESTful API，涵盖全局异常处理、参数校验、接口版本管理等核心话题。",
+      "blogContent": "# Spring Boot 3 实战：构建 RESTful API 的最佳实践\n\n## 前言\n\nSpring Boot 3 带来了诸多新特性，包括对 Jakarta EE 的全面支持、原生镜像编译等。本文将基于 Spring Boot 3.x 介绍如何构建规范的 RESTful API。\n\n## 项目初始化\n\n使用 Spring Initializr 创建项目，选择以下依赖：\n\n```xml\n<dependency>\n    <groupId>org.springframework.boot</groupId>\n    <artifactId>spring-boot-starter-web</artifactId>\n</dependency>\n<dependency>\n    <groupId>org.springframework.boot</groupId>\n    <artifactId>spring-boot-starter-validation</artifactId>\n</dependency>\n```\n\n## 统一响应格式\n\n定义统一响应体是 RESTful API 设计的第一步：\n\n```java\n@Data\n@AllArgsConstructor\n@NoArgsConstructor\npublic class ApiResponse<T> {\n    private int code;\n    private String message;\n    private T data;\n\n    public static <T> ApiResponse<T> success(T data) {\n        return new ApiResponse<>(200, \"success\", data);\n    }\n\n    public static <T> ApiResponse<T> error(int code, String message) {\n        return new ApiResponse<>(code, message, null);\n    }\n}\n```\n\n## 全局异常处理\n\n使用 `@RestControllerAdvice` 统一处理异常，避免在每个 Controller 中重复编写 try-catch：\n\n```java\n@RestControllerAdvice\npublic class GlobalExceptionHandler {\n\n    @ExceptionHandler(MethodArgumentNotValidException.class)\n    public ApiResponse<?> handleValidationException(MethodArgumentNotValidException ex) {\n        String msg = ex.getBindingResult()\n            .getFieldErrors()\n            .stream()\n            .map(FieldError::getDefaultMessage)\n            .collect(Collectors.joining(\", \"));\n        return ApiResponse.error(400, msg);\n    }\n\n    @ExceptionHandler(BusinessException.class)\n    public ApiResponse<?> handleBusinessException(BusinessException ex) {\n        return ApiResponse.error(ex.getCode(), ex.getMessage());\n    }\n}\n```\n\n## 参数校验\n\nSpring Boot 3 支持 Jakarta Validation，结合注解可以优雅地完成参数校验：\n\n```java\n@PostMapping(\"/users\")\npublic ApiResponse<UserVO> createUser(@Valid @RequestBody CreateUserRequest request) {\n    UserVO user = userService.createUser(request);\n    return ApiResponse.success(user);\n}\n\n@Data\npublic class CreateUserRequest {\n    @NotBlank(message = \"用户名不能为空\")\n    @Size(min = 2, max = 20, message = \"用户名长度应在2-20之间\")\n    private String username;\n\n    @Email(message = \"邮箱格式不正确\")\n    @NotBlank(message = \"邮箱不能为空\")\n    private String email;\n}\n```\n\n## API 版本管理\n\n推荐使用 URL 路径版本管理：\n\n- `/api/v1/users` - 版本 1\n- `/api/v2/users` - 版本 2\n\n## 总结\n\n本文介绍了 Spring Boot 3 构建 RESTful API 的几个关键实践：统一响应格式、全局异常处理和参数校验。这些模式能显著提升代码质量和开发效率。",
+      "blogCategoryName": "Spring Boot",
+      "createTime": "2024-01-15",
+      "blogViews": 1520,
+      "commentCount": 3,
+      "enableComment": 0,
+      "tags": [
+        {
+          "tagId": 1,
+          "tagName": "Spring Boot"
+        },
+        {
+          "tagId": 2,
+          "tagName": "Java"
+        },
+        {
+          "tagId": 3,
+          "tagName": "RESTful"
+        }
+      ]
+    },
+    {
+      "blogId": 2,
+      "blogTitle": "Java 虚拟线程深度解析：从原理到实战",
+      "blogPreface": "Java 21 正式发布了虚拟线程（Virtual Threads），本文深入剖析其实现原理，并通过实战案例展示如何利用虚拟线程提升系统吞吐量。",
+      "blogContent": "# Java 虚拟线程深度解析：从原理到实战\n\n## 什么是虚拟线程\n\n虚拟线程（Virtual Threads）是 Java 21 引入的轻量级线程实现，由 JVM 而非操作系统管理。它旨在解决传统平台线程在高并发场景下的资源瓶颈问题。\n\n## 平台线程 vs 虚拟线程\n\n| 特性 | 平台线程 | 虚拟线程 |\n|------|---------|---------|\n| 管理方 | 操作系统 | JVM |\n| 创建成本 | 高（约 1MB 栈空间） | 极低（数百字节） |\n| 上下文切换 | 内核态切换 | 用户态切换 |\n| 数量上限 | 数千 | 数百万 |\n\n## 创建虚拟线程\n\n```java\n// 方式一：通过 Thread.Builder\nThread virtualThread = Thread.ofVirtual()\n    .name(\"my-virtual-thread\")\n    .start(() -> {\n        System.out.println(\"Running in virtual thread: \" \n            + Thread.currentThread());\n    });\n\n// 方式二：通过 Executors\ntry (ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor()) {\n    for (int i = 0; i < 1_000_000; i++) {\n        executor.submit(() -> {\n            Thread.sleep(Duration.ofSeconds(1));\n            return \"Done\";\n        });\n    }\n}\n```\n\n## 工作原理\n\n虚拟线程的核心是 **Continuation** 机制。当虚拟线程执行阻塞 I/O 操作时：\n\n1. JVM 将虚拟线程从载体线程（Carrier Thread）上卸载\n2. 载体线程可以立即执行其他虚拟线程\n3. I/O 完成后，虚拟线程重新挂载到可用的载体线程\n\n```java\n// 虚拟线程在以下场景下会自动让出载体线程：\n// - Thread.sleep()\n// - 网络 I/O（Socket 读写）\n// - 文件 I/O\n// - ReentrantLock.lock()\n// - Condition.await()\n```\n\n## 实战：高并发 HTTP 客户端\n\n```java\npublic class VirtualThreadHttpClient {\n    private static final HttpClient client = HttpClient.newHttpClient();\n\n    public List<String> fetchUrls(List<String> urls) {\n        try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {\n            return urls.stream()\n                .map(url -> executor.submit(() -> fetch(url)))\n                .toList()\n                .stream()\n                .map(future -> {\n                    try { return future.get(); }\n                    catch (Exception e) { throw new RuntimeException(e); }\n                })\n                .toList();\n        }\n    }\n\n    private String fetch(String url) throws Exception {\n        var request = HttpRequest.newBuilder()\n            .uri(URI.create(url))\n            .GET()\n            .build();\n        return client.send(request, HttpResponse.BodyHandlers.ofString()).body();\n    }\n}\n```\n\n## 注意事项\n\n- 虚拟线程不适合 CPU 密集型任务\n- 避免在虚拟线程中使用 `synchronized` 块（会导致 pinning）\n- 使用 `ReentrantLock` 替代 `synchronized`\n\n## 总结\n\n虚拟线程是 Java 并发编程的重大革新。对于 I/O 密集型应用，它能以极低的成本实现超高并发。建议在新项目中优先考虑使用虚拟线程。",
+      "blogCategoryName": "Java",
+      "createTime": "2024-02-20",
+      "blogViews": 2340,
+      "commentCount": 5,
+      "enableComment": 0,
+      "tags": [
+        {
+          "tagId": 2,
+          "tagName": "Java"
+        },
+        {
+          "tagId": 4,
+          "tagName": "并发编程"
+        }
+      ]
+    },
+    {
+      "blogId": 3,
+      "blogTitle": "MySQL 索引优化实战：从 Explain 到慢查询调优",
+      "blogPreface": "索引是数据库性能优化的核心。本文通过实际案例讲解如何使用 EXPLAIN 分析执行计划，并给出常见索引优化策略。",
+      "blogContent": "# MySQL 索引优化实战：从 Explain 到慢查询调优\n\n## 前言\n\n在数据库优化中，索引优化是最直接有效的手段。一个合理的索引可以让查询速度提升几个数量级。\n\n## EXPLAIN 解读\n\n`EXPLAIN` 是 MySQL 提供的查询执行计划分析工具：\n\n```sql\nEXPLAIN SELECT * FROM orders \nWHERE user_id = 1001 \nAND status = 'paid' \nORDER BY create_time DESC;\n```\n\n关键字段说明：\n\n- **type**：访问类型，从优到差依次为 `system > const > eq_ref > ref > range > index > ALL`\n- **key**：实际使用的索引\n- **rows**：预估扫描行数\n- **Extra**：额外信息，`Using filesort` 和 `Using temporary` 是重点关注项\n\n## 联合索引与最左前缀\n\n创建一个联合索引：\n\n```sql\nCREATE INDEX idx_user_status_time \nON orders(user_id, status, create_time);\n```\n\n最左前缀原则要求查询条件必须从索引的最左列开始匹配：\n\n```sql\n-- 可以使用索引\nSELECT * FROM orders WHERE user_id = 1001;\n\n-- 可以使用索引\nSELECT * FROM orders WHERE user_id = 1001 AND status = 'paid';\n\n-- 不能使用索引（跳过了 user_id）\nSELECT * FROM orders WHERE status = 'paid';\n```\n\n## 覆盖索引\n\n当查询的所有列都在索引中时，MySQL 不需要回表：\n\n```sql\n-- 需要回表（SELECT *）\nSELECT * FROM orders WHERE user_id = 1001;\n\n-- 覆盖索引（不需要回表）\nSELECT user_id, status, create_time \nFROM orders WHERE user_id = 1001;\n```\n\n## 索引失效场景\n\n以下场景会导致索引失效：\n\n1. **在索引列上使用函数**\n```sql\n-- 索引失效\nSELECT * FROM orders WHERE YEAR(create_time) = 2024;\n\n-- 优化方式\nSELECT * FROM orders \nWHERE create_time >= '2024-01-01' AND create_time < '2025-01-01';\n```\n\n2. **隐式类型转换**\n```sql\n-- 索引失效（phone 是 VARCHAR 类型）\nSELECT * FROM users WHERE phone = 13800138000;\n```\n\n3. **LIKE 前置通配符**\n```sql\n-- 索引失效\nSELECT * FROM articles WHERE title LIKE '%Spring%';\n\n-- 可考虑全文索引\nALTER TABLE articles ADD FULLTEXT INDEX ft_title (title);\n```\n\n## 实战案例\n\n某电商系统订单查询耗时 3.2 秒，原始 SQL：\n\n```sql\nSELECT o.*, u.username \nFROM orders o \nLEFT JOIN users u ON o.user_id = u.id\nWHERE o.status = 'paid' \nAND o.create_time > '2024-01-01'\nORDER BY o.create_time DESC\nLIMIT 20;\n```\n\n优化步骤：\n1. 创建联合索引 `idx_status_time(status, create_time)`\n2. 确保 `user_id` 有索引\n3. 优化后耗时降至 0.02 秒\n\n## 总结\n\n索引优化需要结合业务场景，不能盲目添加。善用 EXPLAIN 分析执行计划，遵循最左前缀原则，避免索引失效场景。",
+      "blogCategoryName": "数据库",
+      "createTime": "2024-03-10",
+      "blogViews": 1890,
+      "commentCount": 2,
+      "enableComment": 0,
+      "tags": [
+        {
+          "tagId": 5,
+          "tagName": "MySQL"
+        },
+        {
+          "tagId": 6,
+          "tagName": "数据库"
+        }
+      ]
+    },
+    {
+      "blogId": 4,
+      "blogTitle": "Vue 3 Composition API 进阶：自定义 Hooks 设计模式",
+      "blogPreface": "Vue 3 的 Composition API 让逻辑复用变得优雅。本文探讨如何设计可复用的自定义 Hooks，提升代码组织性和可维护性。",
+      "blogContent": "# Vue 3 Composition API 进阶：自定义 Hooks 设计模式\n\n## 为什么需要自定义 Hooks\n\n在 Options API 中，逻辑分散在 data、methods、computed 等选项中，导致组件复杂时难以维护。Composition API 的 `setup()` 函数和自定义 Hooks 解决了这个问题。\n\n## 基础 Hooks 示例\n\n```typescript\n// useCounter.ts\nimport { ref, computed } from 'vue';\n\nexport function useCounter(initialValue = 0) {\n  const count = ref(initialValue);\n  const doubled = computed(() => count.value * 2);\n\n  function increment() {\n    count.value++;\n  }\n\n  function decrement() {\n    count.value--;\n  }\n\n  function reset() {\n    count.value = initialValue;\n  }\n\n  return {\n    count,\n    doubled,\n    increment,\n    decrement,\n    reset\n  };\n}\n```\n\n## 异步数据请求 Hooks\n\n```typescript\n// useFetch.ts\nimport { ref, watchEffect, toValue } from 'vue';\n\nexport function useFetch<T>(url: string | (() => string)) {\n  const data = ref<T | null>(null);\n  const error = ref<Error | null>(null);\n  const loading = ref(false);\n\n  async function execute() {\n    loading.value = true;\n    error.value = null;\n    try {\n      const response = await fetch(toValue(url));\n      if (!response.ok) throw new Error(`HTTP ${response.status}`);\n      data.value = await response.json();\n    } catch (e) {\n      error.value = e as Error;\n    } finally {\n      loading.value = false;\n    }\n  }\n\n  watchEffect(() => {\n    execute();\n  });\n\n  return { data, error, loading, refresh: execute };\n}\n```\n\n## 表单处理 Hooks\n\n```typescript\n// useForm.ts\nimport { reactive } from 'vue';\n\nexport function useForm<T extends Record<string, any>>(\n  initialValues: T,\n  validate?: (values: T) => Partial<Record<keyof T, string>>\n) {\n  const values = reactive({ ...initialValues }) as T;\n  const errors = reactive<Partial<Record<keyof T, string>>>({});\n\n  function setFieldValue(field: keyof T, value: any) {\n    values[field] = value;\n    if (validate) {\n      const newErrors = validate(values);\n      errors[field] = newErrors[field] || '';\n    }\n  }\n\n  function resetForm() {\n    Object.assign(values, initialValues);\n    Object.keys(errors).forEach(k => delete errors[k]);\n  }\n\n  return { values, errors, setFieldValue, resetForm };\n}\n```\n\n## 设计原则\n\n1. **单一职责**：每个 Hook 只做一件事\n2. **可组合**：Hooks 之间可以相互调用\n3. **响应式约定**：返回的响应式数据命名清晰，方法名动词化\n4. **类型安全**：充分利用 TypeScript 泛型\n5. **副作用清理**：在 `onUnmounted` 中清理定时器、事件监听等\n\n## 实战：组合多个 Hooks\n\n```vue\n<script setup lang=\"ts\">\nimport { useFetch } from './hooks/useFetch';\nimport { useCounter } from './hooks/useCounter';\n\nconst { data: posts, loading } = useFetch<Post[]>('/api/posts');\nconst { count, increment } = useCounter(0);\n</script>\n```\n\n## 总结\n\n自定义 Hooks 是 Vue 3 Composition API 的核心优势。合理设计 Hooks 可以让代码复用率达到新的高度，同时保持组件的清晰和简洁。",
+      "blogCategoryName": "前端",
+      "createTime": "2024-04-05",
+      "blogViews": 980,
+      "commentCount": 1,
+      "enableComment": 0,
+      "tags": [
+        {
+          "tagId": 7,
+          "tagName": "Vue"
+        },
+        {
+          "tagId": 8,
+          "tagName": "前端"
+        }
+      ]
+    },
+    {
+      "blogId": 5,
+      "blogTitle": "Docker 容器化部署 Spring Boot 应用全流程",
+      "blogPreface": "从 Dockerfile 编写到 Docker Compose 编排，再到 CI/CD 集成，本文涵盖 Spring Boot 应用容器化的完整流程。",
+      "blogContent": "# Docker 容器化部署 Spring Boot 应用全流程\n\n## 前言\n\n容器化是现代应用部署的标准方式。本文将以一个 Spring Boot 应用为例，展示完整的容器化流程。\n\n## 编写 Dockerfile\n\n多阶段构建是最佳实践，可以显著减小镜像体积：\n\n```dockerfile\n# 第一阶段：构建\nFROM maven:3.9-eclipse-temurin-21 AS builder\nWORKDIR /app\nCOPY pom.xml .\nRUN mvn dependency:go-offline -B\nCOPY src ./src\nRUN mvn package -DskipTests\n\n# 第二阶段：运行\nFROM eclipse-temurin:21-jre-alpine\nWORKDIR /app\nCOPY --from=builder /app/target/*.jar app.jar\n\nRUN addgroup -S appgroup && adduser -S appuser -G appgroup\nUSER appuser\n\nEXPOSE 8080\n\nENTRYPOINT [\"java\", \"-jar\", \"app.jar\"]\n```\n\n## Docker Compose 编排\n\n生产环境通常需要 MySQL、Redis 等服务：\n\n```yaml\nversion: '3.8'\nservices:\n  app:\n    build: .\n    ports:\n      - \"8080:8080\"\n    environment:\n      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/myapp\n      SPRING_DATASOURCE_USERNAME: root\n      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}\n      SPRING_REDIS_HOST: redis\n    depends_on:\n      db:\n        condition: service_healthy\n      redis:\n        condition: service_healthy\n    networks:\n      - app-network\n\n  db:\n    image: mysql:8.0\n    environment:\n      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}\n      MYSQL_DATABASE: myapp\n    volumes:\n      - db-data:/var/lib/mysql\n    healthcheck:\n      test: [\"CMD\", \"mysqladmin\", \"ping\", \"-h\", \"localhost\"]\n      interval: 10s\n      timeout: 5s\n      retries: 5\n    networks:\n      - app-network\n\n  redis:\n    image: redis:7-alpine\n    healthcheck:\n      test: [\"CMD\", \"redis-cli\", \"ping\"]\n      interval: 10s\n      timeout: 5s\n      retries: 5\n    networks:\n      - app-network\n\nvolumes:\n  db-data:\n\nnetworks:\n  app-network:\n    driver: bridge\n```\n\n## 镜像优化技巧\n\n1. **使用 Alpine 基础镜像**：大幅减小体积\n2. **多阶段构建**：分离构建环境和运行环境\n3. **`.dockerignore` 文件**：排除不必要的文件\n4. **合并 RUN 指令**：减少镜像层数\n5. **JVM 参数调优**：\n\n```dockerfile\nENTRYPOINT [\"java\",   \"-XX:+UseContainerSupport\",   \"-XX:MaxRAMPercentage=75.0\",   \"-jar\", \"app.jar\"]\n```\n\n## 总结\n\n通过 Docker 容器化，Spring Boot 应用可以实现环境一致性、快速部署和弹性伸缩。配合 Docker Compose 和 CI/CD 流水线，可以构建完整的 DevOps 工作流。",
+      "blogCategoryName": "DevOps",
+      "createTime": "2024-05-18",
+      "blogViews": 1250,
+      "commentCount": 4,
+      "enableComment": 0,
+      "tags": [
+        {
+          "tagId": 9,
+          "tagName": "Docker"
+        },
+        {
+          "tagId": 10,
+          "tagName": "DevOps"
+        }
+      ]
+    },
+    {
+      "blogId": 6,
+      "blogTitle": "Redis 缓存实战：从缓存策略到分布式锁",
+      "blogPreface": "Redis 不仅是缓存利器，还能实现分布式锁、消息队列等功能。本文通过实战案例介绍 Redis 的核心使用场景和最佳实践。",
+      "blogContent": "# Redis 缓存实战：从缓存策略到分布式锁\n\n## 缓存策略\n\n### Cache-Aside 模式\n\n这是最常见的缓存策略：\n\n```java\n@Service\npublic class UserService {\n\n    @Autowired\n    private StringRedisTemplate redisTemplate;\n\n    public User getUserById(Long id) {\n        // 1. 先查缓存\n        String key = \"user:\" + id;\n        String cached = redisTemplate.opsForValue().get(key);\n        if (cached != null) {\n            return JSON.parseObject(cached, User.class);\n        }\n\n        // 2. 缓存未命中，查数据库\n        User user = userMapper.selectById(id);\n        if (user != null) {\n            // 3. 写入缓存，设置过期时间\n            redisTemplate.opsForValue().set(\n                key, \n                JSON.toJSONString(user), \n                30, TimeUnit.MINUTES\n            );\n        }\n        return user;\n    }\n}\n```\n\n## 缓存穿透、击穿、雪崩\n\n| 问题 | 描述 | 解决方案 |\n|------|------|---------|\n| 缓存穿透 | 查询不存在的数据 | 布隆过滤器、缓存空值 |\n| 缓存击穿 | 热点 Key 过期 | 互斥锁、逻辑过期 |\n| 缓存雪崩 | 大量 Key 同时过期 | 随机过期时间、多级缓存 |\n\n### 缓存穿透防护\n\n```java\n// 使用布隆过滤器\n@Autowired\nprivate RBloomFilter<String> userBloomFilter;\n\npublic User getUserById(Long id) {\n    String key = \"user:\" + id;\n    if (!userBloomFilter.contains(key)) {\n        return null; // 直接返回，不查数据库\n    }\n    // ... 正常缓存逻辑\n}\n```\n\n## 分布式锁\n\n使用 Redis 实现分布式锁，防止缓存击穿：\n\n```java\n@Component\npublic class RedisLock {\n    @Autowired\n    private StringRedisTemplate redisTemplate;\n\n    public boolean tryLock(String key, String value, long expireSeconds) {\n        Boolean success = redisTemplate.opsForValue()\n            .setIfAbsent(key, value, expireSeconds, TimeUnit.SECONDS);\n        return Boolean.TRUE.equals(success);\n    }\n\n    public void unlock(String key, String value) {\n        String script = \n            \"if redis.call('get', KEYS[1]) == ARGV[1] then \" +\n            \"   return redis.call('del', KEYS[1]) \" +\n            \"else \" +\n            \"   return 0 \" +\n            \"end\";\n        redisTemplate.execute(\n            new DefaultRedisScript<>(script, Long.class),\n            Collections.singletonList(key),\n            value\n        );\n    }\n}\n```\n\n## 实战：热点数据预热\n\n```java\n@Component\npublic class CacheWarmer implements ApplicationRunner {\n    \n    @Override\n    public void run(ApplicationArguments args) {\n        // 启动时加载热门商品到缓存\n        List<Product> hotProducts = productMapper.selectHotProducts(100);\n        for (Product p : hotProducts) {\n            redisTemplate.opsForValue().set(\n                \"product:\" + p.getId(),\n                JSON.toJSONString(p),\n                1, TimeUnit.HOURS\n            );\n        }\n    }\n}\n```\n\n## 总结\n\nRedis 作为缓存层，能显著提升系统响应速度。合理使用缓存策略和分布式锁，可以有效解决高并发场景下的数据一致性和性能问题。",
+      "blogCategoryName": "中间件",
+      "createTime": "2024-06-22",
+      "blogViews": 3100,
+      "commentCount": 6,
+      "enableComment": 0,
+      "tags": [
+        {
+          "tagId": 11,
+          "tagName": "Redis"
+        },
+        {
+          "tagId": 6,
+          "tagName": "数据库"
+        },
+        {
+          "tagId": 2,
+          "tagName": "Java"
+        }
+      ]
+    }
+  ],
+  "hotTags": [
+    {
+      "tagId": 2,
+      "tagName": "Java",
+      "tagCount": 3
+    },
+    {
+      "tagId": 1,
+      "tagName": "Spring Boot",
+      "tagCount": 2
+    },
+    {
+      "tagId": 6,
+      "tagName": "数据库",
+      "tagCount": 2
+    },
+    {
+      "tagId": 5,
+      "tagName": "MySQL",
+      "tagCount": 1
+    },
+    {
+      "tagId": 7,
+      "tagName": "Vue",
+      "tagCount": 1
+    },
+    {
+      "tagId": 8,
+      "tagName": "前端",
+      "tagCount": 1
+    },
+    {
+      "tagId": 9,
+      "tagName": "Docker",
+      "tagCount": 1
+    },
+    {
+      "tagId": 11,
+      "tagName": "Redis",
+      "tagCount": 1
+    },
+    {
+      "tagId": 4,
+      "tagName": "并发编程",
+      "tagCount": 1
+    },
+    {
+      "tagId": 10,
+      "tagName": "DevOps",
+      "tagCount": 1
+    }
+  ],
+  "categories": [
+    {
+      "name": "Spring Boot",
+      "count": 1
+    },
+    {
+      "name": "Java",
+      "count": 1
+    },
+    {
+      "name": "数据库",
+      "count": 1
+    },
+    {
+      "name": "前端",
+      "count": 1
+    },
+    {
+      "name": "DevOps",
+      "count": 1
+    },
+    {
+      "name": "中间件",
+      "count": 1
+    }
+  ],
+  "links": {
+    "favoriteLinks": [
+      {
+        "linkName": "阮一峰的网络日志",
+        "linkUrl": "https://www.ruanyifeng.com/blog/",
+        "linkDescription": "科技爱好者周刊，每周五发布"
+      },
+      {
+        "linkName": "Spring 官方博客",
+        "linkUrl": "https://spring.io/blog",
+        "linkDescription": "Spring 框架官方博客"
+      },
+      {
+        "linkName": "Vue.js 中文文档",
+        "linkUrl": "https://cn.vuejs.org/",
+        "linkDescription": "Vue.js 官方中文文档"
+      }
+    ],
+    "recommendLinks": [
+      {
+        "linkName": "GitHub",
+        "linkUrl": "https://github.com",
+        "linkDescription": "全球最大的代码托管平台"
+      },
+      {
+        "linkName": "Stack Overflow",
+        "linkUrl": "https://stackoverflow.com",
+        "linkDescription": "程序员问答社区"
+      }
+    ],
+    "personalLinks": [
+      {
+        "linkName": "我的 GitHub",
+        "linkUrl": "https://github.com/1037507338",
+        "linkDescription": "个人开源项目"
+      }
+    ]
+  },
+  "comments": {
+    "1": [
+      {
+        "commentator": "技术爱好者",
+        "commentBody": "写得很好！全局异常处理那段代码很实用，已经用在了我的项目里。",
+        "commentCreateTime": "2024-01-16",
+        "replyBody": "感谢认可，能够帮到你我很高兴。",
+        "replyCreateTime": "2024-01-17"
+      },
+      {
+        "commentator": "Java新手",
+        "commentBody": "请问 Validation 和 Controller 层的校验如何配合使用？",
+        "commentCreateTime": "2024-02-01",
+        "replyBody": "Validation 注解放在 Request DTO 上，Controller 里用 @Valid 触发校验，异常由 GlobalExceptionHandler 统一处理。",
+        "replyCreateTime": "2024-02-02"
+      },
+      {
+        "commentator": "后端架构师",
+        "commentBody": "建议补充一下 API 版本管理的最佳实践，比如是否推荐 URL 版本还是 Header 版本。",
+        "commentCreateTime": "2024-03-10",
+        "replyBody": "",
+        "replyCreateTime": ""
+      }
+    ],
+    "2": [
+      {
+        "commentator": "并发专家",
+        "commentBody": "虚拟线程确实是 Java 的一大进步。补充一点：在使用虚拟线程时要注意 ThreadLocal 的使用，因为虚拟线程数量巨大。",
+        "commentCreateTime": "2024-02-22",
+        "replyBody": "好建议！大量虚拟线程下 ThreadLocal 确实需要谨慎使用，推荐使用 ScopedValue 替代。",
+        "replyCreateTime": "2024-02-23"
+      }
+    ],
+    "5": [
+      {
+        "commentator": "Docker爱好者",
+        "commentBody": "多阶段构建确实能大幅减小镜像体积，我试过从 600MB 降到了 200MB。",
+        "commentCreateTime": "2024-05-20",
+        "replyBody": "",
+        "replyCreateTime": ""
+      },
+      {
+        "commentator": "运维小王",
+        "commentBody": "请问 Docker Compose 在生产环境适用吗？还是建议用 K8s？",
+        "commentCreateTime": "2024-05-25",
+        "replyBody": "小规模项目 Docker Compose 足够，大规模集群建议 K8s。可以从 Compose 开始，后续迁移到 K8s。",
+        "replyCreateTime": "2024-05-26"
+      }
+    ],
+    "6": [
+      {
+        "commentator": "缓存高手",
+        "commentBody": "Redis 分布式锁那段 Lua 脚本很规范，避免了 unlock 时的并发问题。",
+        "commentCreateTime": "2024-06-23",
+        "replyBody": "是的，Lua 脚本保证原子性，是 Redis 分布式锁的关键。",
+        "replyCreateTime": "2024-06-24"
+      }
+    ]
+  }
+}

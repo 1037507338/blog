@@ -1,0 +1,9 @@
+{
+  "rewrites": [
+    {"source": "/blog/:id", "destination": "/detail.html"},
+    {"source": "/category/:name", "destination": "/list.html"},
+    {"source": "/tag/:id", "destination": "/list.html"},
+    {"source": "/page", "destination": "/index.html"},
+    {"source": "/(.*)", "destination": "/index.html"}
+  ]
+}
