@@ -203,13 +203,23 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   }
 
-  // 主题切换
+  // 主题切换（带图标切换动画）
   const themeToggleBtn = document.getElementById('theme-toggle');
+  const themeSun = themeToggleBtn?.querySelector('.theme-sun');
+  const themeMoon = themeToggleBtn?.querySelector('.theme-moon');
+  function updateThemeIcon(theme) {
+    if (themeSun && themeMoon) {
+      themeSun.style.display = theme === 'dark' ? 'none' : 'block';
+      themeMoon.style.display = theme === 'dark' ? 'block' : 'none';
+    }
+  }
+  updateThemeIcon(document.body.getAttribute('data-theme'));
   if (themeToggleBtn) {
     themeToggleBtn.onclick = () => {
       const cur = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       document.body.setAttribute('data-theme', cur);
       localStorage.setItem('theme', cur);
+      updateThemeIcon(cur);
     };
   }
 
