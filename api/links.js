@@ -1,7 +1,7 @@
 // Vercel Serverless Function - 链接 CRUD API
-// 使用 SUPABASE_URL + SUPABASE_SERVICE_KEY 环境变量
-// 内存缓存：首次请求时加载，后续请求直接读缓存
-// POST/PUT/DELETE 时更新缓存
+// 支持 page_type 字段，用于区分不同页面类型的链接
+// GET ?page_type=首页导航  →  筛选指定页面类型的链接
+// GET ?page_type=BD推荐    →  BD推荐页面专用数据
 
 // Supabase 客户端（模块级单例）
 let _supabase = null;
@@ -22,7 +22,6 @@ let cache = null;
 let cacheTime = 0;
 const CACHE_TTL = 5 * 60 * 1000; // 5 分钟自动过期
 
-// 从数据库加载全部数据并写入缓存
 async function rebuildCache() {
   const client = await getSupabase();
   const { data, error } = await client
@@ -38,7 +37,6 @@ async function rebuildCache() {
   return cache;
 }
 
-// 获取缓存（懒加载 + TTL 过期自动刷新）
 async function getCache() {
   if (!cache || Date.now() - cacheTime > CACHE_TTL) {
     await rebuildCache();
@@ -57,15 +55,24 @@ export default async function handler(req, res) {
   }
 
   try {
-    // GET - 读取链接（走缓存）
+    // GET - 读取链接（支持 page_type 筛选）
     if (req.method === 'GET') {
+      const { page_type } = req.query;
       const data = await getCache();
-      return res.status(200).json(data);
+
+      // 无 page_type → 返回全部
+      if (!page_type) {
+        return res.status(200).json(data);
+      }
+
+      // 有 page_type → 筛选
+      const filtered = data.filter(l => l.page_type === page_type);
+      return res.status(200).json(filtered);
     }
 
     // POST - 新增链接
     if (req.method === 'POST') {
-      const { title, description, url, category, sort_order } = req.body;
+      const { title, description, url, category, sort_order, page_type, link_type } = req.body;
 
       if (!title || !url) {
         return res.status(400).json({ error: '标题和URL为必填项' });
@@ -80,26 +87,22 @@ export default async function handler(req, res) {
           url,
           category: category || '未分类',
           sort_order: sort_order || 0,
+          page_type: page_type || '首页导航',
           link_type: link_type || 'external'
         }])
         .select();
 
       if (error) throw error;
-
-      // 缓存追加
       if (cache) cache.push(data[0]);
-
       return res.status(201).json(data[0]);
     }
 
     // PUT - 更新链接
     if (req.method === 'PUT') {
       const { id } = req.query;
-      const { title, description, url, category, sort_order } = req.body;
+      if (!id) return res.status(400).json({ error: '缺少链接ID' });
 
-      if (!id) {
-        return res.status(400).json({ error: '缺少链接ID' });
-      }
+      const { title, description, url, category, sort_order, page_type, link_type } = req.body;
 
       const updates = {};
       if (title !== undefined) updates.title = title;
@@ -107,6 +110,7 @@ export default async function handler(req, res) {
       if (url !== undefined) updates.url = url;
       if (category !== undefined) updates.category = category;
       if (sort_order !== undefined) updates.sort_order = sort_order;
+      if (page_type !== undefined) updates.page_type = page_type;
       if (link_type !== undefined) updates.link_type = link_type;
       updates.updated_at = new Date().toISOString();
 
@@ -118,40 +122,23 @@ export default async function handler(req, res) {
         .select();
 
       if (error) throw error;
-      if (!data.length) {
-        return res.status(404).json({ error: '链接不存在' });
-      }
-
-      // 缓存更新
+      if (!data.length) return res.status(404).json({ error: '链接不存在' });
       if (cache) {
         const idx = cache.findIndex(l => String(l.id) === String(id));
         if (idx !== -1) cache[idx] = data[0];
       }
-
       return res.status(200).json(data[0]);
     }
 
     // DELETE - 删除链接
     if (req.method === 'DELETE') {
       const { id } = req.query;
-
-      if (!id) {
-        return res.status(400).json({ error: '缺少链接ID' });
-      }
+      if (!id) return res.status(400).json({ error: '缺少链接ID' });
 
       const client = await getSupabase();
-      const { error } = await client
-        .from('links')
-        .delete()
-        .eq('id', id);
-
+      const { error } = await client.from('links').delete().eq('id', id);
       if (error) throw error;
-
-      // 缓存移除
-      if (cache) {
-        cache = cache.filter(l => String(l.id) !== String(id));
-      }
-
+      if (cache) cache = cache.filter(l => String(l.id) !== String(id));
       return res.status(200).json({ success: true, id });
     }
 

@@ -66,8 +66,8 @@ async function loadBuilds() {
     const resp = await fetch(API_URL);
     if (!resp.ok) throw new Error('加载失败');
     const links = await resp.json();
-    // 只显示 BD推荐 分类
-    const builds = links.filter(l => l.category === 'BD推荐');
+    // 按 page_type + category 双层筛选（优先 page_type）
+    const builds = links.filter(l => l.page_type === 'BD推荐');
     if (!builds.length) {
       grid.innerHTML = '<p style="text-align:center;color:var(--subtext);padding:2rem">暂无BD推荐，请先在管理后台添加</p>';
       return;
