@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>管理后台 - POE2 Hub</title>
+<style>
+:root{--bg:#f5f5f5;--card:#fff;--border:#e0e0e0;--text:#333;--sub:#666;--accent:#1a73e8;--danger:#c33;--success:#2a9040;--warn:#b8860b}
+[data-theme="dark"]{--bg:#1a1a1a;--card:#2a2a2a;--border:#444;--text:#e0e0e0;--sub:#aaa;--accent:#5ba3f5;--danger:#e55;--success:#5cb85c;--warn:#daa520}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;transition:.3s}
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--card);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:48px;display:flex;align-items:center;padding:0 1.5rem}
+.site-nav-logo{font-size:1rem;font-weight:700;color:var(--text);text-decoration:none;margin-right:auto;display:flex;align-items:center;gap:6px}
+.logo-icon{font-size:1.15rem;background:linear-gradient(135deg,#c9a227,#8b6914);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-back{font-size:.85rem;color:var(--sub);text-decoration:none;padding:6px 14px;border-radius:6px;border:1px solid var(--border);transition:.2s}
+.nav-back:hover{color:var(--accent);border-color:var(--accent)}
+#theme-toggle{position:fixed;right:1.5rem;top:6px;width:34px;height:34px;border-radius:17px;z-index:1100;display:flex;align-items:center;justify-content:center;border:none;background:var(--card);color:var(--text);cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+
+.wrap{max-width:1100px;margin:64px auto 2rem;padding:0 1.5rem}
+
+/* 统计 */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.stat-num{font-size:1.8rem;font-weight:700;color:var(--accent)}
+.stat-label{font-size:.82rem;color:var(--sub);margin-top:2px}
+
+/* 工具栏 */
+.toolbar{display:flex;gap:10px;align-items:center;margin-bottom:20px;flex-wrap:wrap}
+.btn{padding:8px 18px;border-radius:7px;font-size:.85rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--text);transition:.2s;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-primary:hover{opacity:.9;color:#fff}
+.btn-danger{color:var(--danger);border-color:var(--danger)}
+.btn-danger:hover{background:var(--danger);color:#fff}
+.btn-sm{padding:5px 12px;font-size:.78rem}
+.search-input{padding:8px 14px;border:1px solid var(--border);border-radius:7px;font-size:.85rem;background:var(--card);color:var(--text);width:220px;outline:none;transition:border-color .2s}
+.search-input:focus{border-color:var(--accent)}
+
+/* 表格 */
+.table-wrap{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+table{width:border-collapse:collapse;width:100%}
+thead{background:rgba(128,128,128,.04)}
+th{padding:10px 14px;text-align:left;font-size:.82rem;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border)}
+td{padding:10px 14px;font-size:.87rem;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(26,115,232,.03)}
+.cat-tag{display:inline-block;padding:2px 10px;border-radius:10px;font-size:.75rem;font-weight:600;background:rgba(26,115,232,.08);color:var(--accent)}
+.url-cell{max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--sub);font-size:.8rem}
+.actions{display:flex;gap:6px}
+
+/* 模态框 */
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.45);z-index:2000;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:.2s}
+.modal-overlay.show{opacity:1;visibility:visible}
+.modal{background:var(--card);border-radius:14px;width:480px;max-width:92vw;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2);transform:translateY(20px);transition:.25s}
+.modal-overlay.show .modal{transform:translateY(0)}
+.modal-header{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--border)}
+.modal-header h2{font-size:1.05rem;font-weight:700}
+.modal-close{width:32px;height:32px;border-radius:50%;border:none;background:rgba(128,128,128,.08);color:var(--sub);cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:.2s}
+.modal-close:hover{background:rgba(200,50,50,.1);color:var(--danger)}
+.modal-body{padding:20px}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:.85rem;font-weight:600;color:var(--text);margin-bottom:6px}
+.form-group input,.form-group select,.form-group textarea{
+  width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:7px;
+  font-size:.88rem;background:var(--bg);color:var(--text);outline:none;transition:border-color .2s
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group textarea{resize:vertical;min-height:60px}
+.modal-footer{display:flex;justify-content:flex-end;gap:8px;padding:16px 20px;border-top:1px solid var(--border)}
+
+/* Toast */
+.toast{position:fixed;top:60px;right:1.5rem;padding:12px 20px;border-radius:8px;font-size:.85rem;font-weight:500;z-index:3000;transform:translateX(120%);transition:.3s;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.toast.show{transform:translateX(0)}
+.toast-success{background:var(--success);color:#fff}
+.toast-error{background:var(--danger);color:#fff}
+.toast-info{background:var(--accent);color:#fff}
+
+/* 分类标签筛选 */
+.cat-filter{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.cat-chip{padding:4px 12px;border-radius:14px;font-size:.78rem;font-weight:500;border:1px solid var(--border);background:var(--card);color:var(--sub);cursor:pointer;transition:.2s}
+.cat-chip:hover,.cat-chip.active{border-color:var(--accent);color:var(--accent);background:rgba(26,115,232,.06)}
+
+/* 空状态 */
+.empty{text-align:center;padding:3rem;color:var(--sub);font-size:.95rem}
+
+@media(max-width:767px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .table-wrap{overflow-x:auto}
+  table{min-width:600px}
+  .modal{width:94vw;margin:0 10px}
+  .search-input{width:160px}
+}
+</style>
+<link rel="icon" href="favicon.ico">
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="site-nav-logo"><span class="logo-icon">⚔</span> POE2 Hub</a>
+  <a href="index.html" class="nav-back">← 返回首页</a>
+</nav>
+
+<button id="theme-toggle" aria-label="切换主题">
+  <svg class="theme-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+  <svg class="theme-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+
+<div class="wrap">
+
+<!-- 统计 -->
+<div class="stats" id="stats"></div>
+
+<!-- 工具栏 -->
+<div class="toolbar">
+  <button class="btn btn-primary" onclick="openAddModal()">+ 新增链接</button>
+  <button class="btn" onclick="exportData()">📥 导出 JSON</button>
+  <label class="btn">📤 导入 JSON<input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)"></label>
+  <button class="btn btn-danger" onclick="resetToDefault()">↺ 重置为默认</button>
+  <input type="text" class="search-input" id="filterInput" placeholder="搜索标题/URL..." oninput="renderTable()">
+</div>
+
+<!-- 分类筛选 -->
+<div class="cat-filter" id="catFilter"></div>
+
+<!-- 表格 -->
+<div class="table-wrap">
+  <table>
+    <thead><tr>
+      <th>标题</th><th>描述</th><th>URL</th><th>分类</th><th>操作</th>
+    </tr></thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+</div>
+
+</div>
+
+<!-- 编辑模态框 -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modalTitle">新增链接</h2>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editIndex">
+      <div class="form-group"><label>标题 *</label><input type="text" id="editTitle" placeholder="如：poe2 国服" required></div>
+      <div class="form-group"><label>描述</label><input type="text" id="editDesc" placeholder="简短描述"></div>
+      <div class="form-group"><label>URL *</label><input type="url" id="editUrl" placeholder="https://..."></div>
+      <div class="form-group"><label>分类 *</label>
+        <select id="editCategory"></select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal()">取消</button>
+      <button class="btn btn-primary" onclick="saveLink()">保存</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'poe2_links';
+const DATA_URL = 'data/links.json';
+let allLinks = [];
+let activeCat = '全部';
+
+// ===== 数据加载 =====
+async function loadData() {
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (stored) { try { allLinks = JSON.parse(stored); } catch(e) {} }
+  if (!allLinks || !allLinks.length) {
+    const resp = await fetch(DATA_URL);
+    if (resp.ok) allLinks = await resp.json();
+  }
+  renderStats();
+  renderCatFilter();
+  renderTable();
+}
+
+// ===== 统计 =====
+function renderStats() {
+  const cats = [...new Set(allLinks.map(l=>l.category))];
+  document.getElementById('stats').innerHTML = `
+    <div class="stat-card"><div class="stat-num">${allLinks.length}</div><div class="stat-label">总链接数</div></div>
+    <div class="stat-card"><div class="stat-num">${cats.length}</div><div class="stat-label">分类数</div></div>
+    <div class="stat-card"><div class="stat-num">${allLinks.filter(l=>l.url.startsWith('https://poe2.qq.com')||l.url.startsWith('https://poe.game.qq.com')).length}</div><div class="stat-label">国服相关</div></div>
+    <div class="stat-card"><div class="stat-num">${localStorage.getItem(STORAGE_KEY)?'已编辑':'默认'}</div><div class="stat-label">数据状态</div></div>`;
+}
+
+// ===== 分类筛选 =====
+function renderCatFilter() {
+  const cats = ['全部', ...new Set(allLinks.map(l=>l.category).sort())];
+  document.getElementById('catFilter').innerHTML = cats.map(c =>
+    `<span class="cat-chip${c===activeCat?' active':''}" onclick="setCatFilter('${escapeAttr(c)}')">${c} (${c==='全部'?allLinks.length:allLinks.filter(l=>l.category===c).length})</span>`
+  ).join('');
+}
+function setCatFilter(c){activeCat=c;renderCatFilter();renderTable()}
+
+// ===== 表格渲染 =====
+function renderTable() {
+  const q = (document.getElementById('filterInput').value||'').trim().toLowerCase();
+  let data = activeCat==='全部' ? allLinks : allLinks.filter(l=>l.category===activeCat);
+  if(q) data=data.filter(l=>
+    (l.title||'').toLowerCase().includes(q)||(l.desc||'').toLowerCase().includes(q)||(l.url||'').toLowerCase().includes(q)
+  );
+  const tbody=document.getElementById('tableBody');
+  if(!data.length){tbody.innerHTML='<tr><td colspan="5" class="empty">无匹配数据</td></tr>';return}
+  tbody.innerHTML=data.map((l,i)=>{
+    const realIdx=allLinks.indexOf(l);
+    return `<tr>
+      <td><strong>${esc(l.title)}</strong></td>
+      <td>${esc(l.desc)}</td>
+      <td class="url-cell" title="${esc(l.url)}">${esc(l.url)}</td>
+      <td><span class="cat-tag">${esc(l.category)}</span></td>
+      <td class="actions">
+        <button class="btn btn-sm" onclick="openEditModal(${realIdx})">✏️ 编辑</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteLink(${realIdx})">🗑️ 删除</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+// ===== 模态框 =====
+function openAddModal(){
+  document.getElementById('modalTitle').textContent='新增链接';
+  document.getElementById('editIndex').value='';
+  document.getElementById('editTitle').value='';
+  document.getElementById('editDesc').value='';
+  document.getElementById('editUrl').value='';
+  populateCategories();
+  document.getElementById('editCategory').value='';
+  showModal();
+}
+function openEditModal(idx){
+  const l=allLinks[idx];
+  document.getElementById('modalTitle').textContent='编辑链接';
+  document.getElementById('editIndex').value=idx;
+  document.getElementById('editTitle').value=l.title||'';
+  document.getElementById('editDesc').value=l.desc||'';
+  document.getElementById('editUrl').value=l.url||'';
+  populateCategories();
+  document.getElementById('editCategory').value=l.category||'';
+  showModal();
+}
+function populateCategories(){
+  const cats=[...new Set(allLinks.map(l=>l.category))].sort();
+  const sel=document.getElementById('editCategory');
+  sel.innerHTML=cats.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');
+  sel.innerHTML+='<option value="__new__">+ 新分类</option>';
+  // 如果选了新分类，允许输入
+  sel.onchange=function(){if(this.value==='__new__'){const n=prompt('输入新分类名称：');if(n){this.value=n;this.options[this.options.length-1]=new Option(n,n)}}};
+}
+function showModal(){document.getElementById('editModal').classList.add('show')}
+function closeModal(){document.getElementById('editModal').classList.remove('show')}
+
+// ===== CRUD =====
+function saveLink(){
+  const idx=document.getElementById('editIndex').value;
+  const title=(document.getElementById('editTitle').value||'').trim();
+  const desc=(document.getElementById('editDesc').value||'').trim();
+  const url=(document.getElementById('editUrl').value||'').trim();
+  const category=(document.getElementById('editCategory').value||'').trim();
+  if(!title||!url){toast('请填写标题和URL','error');return}
+  if(!url.startsWith('http')){toast('URL 需以 http(s) 开头','error');return}
+  const link={title,desc,url,category:category||'未分类'};
+  if(idx===''){allLinks.push(link);toast('✅ 已新增','success')}
+  else{allLinks[parseInt(idx)]=link;toast('✅ 已保存','success')}
+  persist();closeModal();renderStats();renderCatFilter();renderTable();
+}
+function deleteLink(idx){
+  if(!confirm(`确认删除「${allLinks[idx].title}」？`))return;
+  allLinks.splice(idx,1);persist();toast('🗑️ 已删除','info');
+  renderStats();renderCatFilter();renderTable();
+}
+
+// ===== 持久化 =====
+function persist(){
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(allLinks));
+}
+
+// ===== 导入导出 =====
+function exportData(){
+  const blob=new Blob([JSON.stringify(allLinks,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download=`poe2-links-${new Date().toISOString().slice(0,10)}.json`;a.click();
+  URL.revokeObjectURL(a.href);toast('📥 已导出','success');
+}
+function importData(e){
+  const f=e.target.files[0];if(!f)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      const data=JSON.parse(ev.target.result);
+      if(!Array.isArray(data)){throw new Error('格式错误')}
+      allLinks=data;persist();renderStats();renderCatFilter();renderTable();
+      toast(`📤 已导入 ${data.length} 条链接`,'success');
+    }catch(err){toast('导入失败：JSON 格式不正确','error')}
+  };
+  reader.readAsText(f);e.target.value='';
+}
+function resetToDefault(){
+  if(!confirm('确认重置为默认数据？所有自定义修改将丢失。'))return;
+  localStorage.removeItem(STORAGE_KEY);
+  fetch(DATA_URL).then(r=>r.json()).then(data=>{
+    allLinks=data;renderStats();renderCatFilter();renderTable();
+    toast('↺ 已重置为默认数据','info');
+  });
+}
+
+// ===== Toast =====
+function toast(msg,type='info'){
+  const el=document.createElement('div');
+  el.className=`toast toast-${type}`;el.textContent=msg;
+  document.body.appendChild(el);
+  requestAnimationFrame(()=>el.classList.add('show'));
+  setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),300)},2500);
+}
+
+// ===== 工具函数 =====
+function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML}
+function escapeAttr(s){return (s||'').replace(/'/g,"\\'").replace(/"/g,'&quot;')}
+
+// ===== 主题切换 =====
+document.addEventListener('DOMContentLoaded',()=>{
+  const saved=localStorage.getItem('theme');
+  if(saved)document.body.setAttribute('data-theme',saved);
+  else document.body.setAttribute('data-theme',matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
+  const btn=document.getElementById('theme-toggle'),sun=btn?.querySelector('.theme-sun'),moon=btn?.querySelector('.theme-moon');
+  function upd(t){if(sun)sun.style.display=t==='dark'?'none':'block';if(moon)moon.style.display=t==='dark'?'block':'none'}
+  upd(document.body.getAttribute('data-theme'));
+  if(btn)btn.onclick=()=>{const c=document.body.getAttribute('data-theme')==='dark'?'light':'dark';document.body.setAttribute('data-theme',c);localStorage.setItem('theme',c);upd(c)};
+  loadData();
+});
+</script>
+</body>
+</html>

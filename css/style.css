@@ -58,11 +58,11 @@ body { overflow-y: scroll; }
 
 /* ===== 紧凑搜索栏（无标题） ===== */
 .search-container.compact {
-  max-width: 1400px; margin: 60px auto 0; padding: 0 1.5rem;
+  max-width: 1400px; margin: 16px auto 0; padding: 0 1.5rem;
   position: relative; display: flex; flex-direction: column;
 }
 .search-container.compact .search-box {
-  max-width: 480px; margin: 0 auto; height: 40px;
+  max-width: 480px; margin: 0 auto;
 }
 
 /* ===== 主题切换 / 返回顶部 ===== */
@@ -74,7 +74,7 @@ body { overflow-y: scroll; }
   box-shadow: var(--btn-shadow); transition: background-color .2s, box-shadow .2s;
   font-family: "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
 }
-#theme-toggle { right: 1.5rem; top: 5px; width: 36px; height: 36px; border-radius: 18px; }
+#theme-toggle { right: 1.5rem; top: 6px; width: 34px; height: 34px; border-radius: 17px; z-index: 1100; }
 #theme-toggle svg { transition: opacity .25s, transform .25s; }
 #theme-toggle .theme-sun { display: block; }
 #theme-toggle .theme-moon { display: none; }
