@@ -20,6 +20,9 @@ async function loadLinks() {
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
     allLinks = await resp.json();
     console.log('[loadLinks] 获取到', allLinks.length, '条数据');
+    // 只保留首页导航数据
+    allLinks = allLinks.filter(l => l.page_type === '首页导航');
+    console.log('[loadLinks] 首页导航过滤后剩余', allLinks.length, '条');
     render(allLinks);
   } catch (e) {
     console.error('[loadLinks] 加载失败:', e);
@@ -35,7 +38,8 @@ function render(list) {
   const group = {};
   for (let i = 0; i < list.length; i++) {
     const item = list[i];
-    const cat = item.category || '未分类';
+    const cats = item.categories;
+    const cat = (Array.isArray(cats) && cats.length) ? cats[0] : (item.category || '未分类');
     if (!group[cat]) group[cat] = [];
     group[cat].push(item);
   }
@@ -98,7 +102,8 @@ function setupSearch() {
         (link.title||'').toLowerCase().includes(query) ||
         (link.description||'').toLowerCase().includes(query) ||
         (link.url||'').toLowerCase().includes(query) ||
-        (link.category||'').toLowerCase().includes(query)
+        (link.category||'').toLowerCase().includes(query) ||
+        ((Array.isArray(link.categories) && link.categories.length && link.categories.some(c=>c.toLowerCase().includes(query))))
       );
       render(filtered);
       searchResultsCount.textContent = `找到 ${filtered.length} 个结果`;
