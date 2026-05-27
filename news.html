@@ -1,118 +1,87 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>资讯动态 - POE2 国服攻略站</title>
-    <meta name="description" content="流放之路2最新版本更新、联赛资讯、国服活动与攻略精选。">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>资讯动态 - POE2导航</title>
+<meta name="description" content="版本更新、联赛资讯、国服活动">
+<style>
+:root{--bg-start:#f5f5f5;--bg-end:#f0f0f0;--card-bg:rgba(255,255,255,0.95);--card-border:rgba(220,220,220,0.5);--card-shadow:0 1px 2px 0 rgba(0,0,0,0.05);--card-shadow-hover:0 3px 6px -1px rgba(0,0,0,0.1);--text:#333;--subtext:#666;--accent:#555;--link:#555;--link-hover:#000;--btn-bg:rgba(255,255,255,.9);--btn-bg-hover:rgba(255,255,255,1);--btn-icon:#555;--btn-shadow:0 1px 3px rgba(0,0,0,.05);--btn-shadow-hover:0 2px 5px rgba(0,0,0,.08);--nav-bg:rgba(255,255,255,0.92);--nav-border:rgba(220,220,220,0.6);--nav-link:#555;--nav-link-hover:#000;--nav-active:#1a73e8}
+[data-theme="dark"]{--bg-start:#222;--bg-end:#1a1a1a;--card-bg:rgba(40,40,40,0.95);--card-border:rgba(60,60,60,0.5);--card-shadow:0 1px 2px 0 rgba(0,0,0,0.2);--card-shadow-hover:0 3px 6px -1px rgba(0,0,0,0.3);--text:#e0e0e0;--subtext:#aaa;--accent:#bbb;--link:#bbb;--link-hover:#fff;--btn-bg:rgba(40,40,40,0.9);--btn-bg-hover:rgba(50,50,50,1);--btn-icon:#bbb;--btn-shadow:0 1px 3px rgba(0,0,0,0.2);--btn-shadow-hover:0 2px 5px rgba(0,0,0,0.3);--nav-bg:rgba(30,30,30,0.95);--nav-border:rgba(60,60,60,0.6);--nav-link:#bbb;--nav-link-hover:#fff;--nav-active:#5ba3f5}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:linear-gradient(145deg,var(--bg-start) 0%,var(--bg-end) 100%);color:var(--text);line-height:1.6;min-height:100vh;transition:background .3s ease,color .3s ease}
+</style>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/pages.css">
+<link rel="icon" href="favicon.ico">
 </head>
 <body>
-
-<div class="top-banner">
-    <div class="container banner-inner">
-        <span class="banner-badge">🎮</span>
-        <span>流放之路2 国服限量测试中</span>
-        <a href="https://poe2.qq.com" target="_blank" class="banner-link">🏠 国服官网</a>
+<!-- 顶部站点导航栏 -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="index.html" class="site-nav-logo">🧭 POE2导航</a>
+    <div class="site-nav-links">
+      <a href="index.html" class="site-nav-link">首页</a>
+      <a href="classes.html" class="site-nav-link">职业详解</a>
+      <a href="builds.html" class="site-nav-link">BD推荐</a>
+      <a href="guides.html" class="site-nav-link">新手指南</a>
+      <a href="maps.html" class="site-nav-link">地图大全</a>
+      <a href="skills.html" class="site-nav-link">技能数据</a>
+      <a href="news.html" class="site-nav-link">资讯动态</a>
+      <a href="tools.html" class="site-nav-link">工具集</a>
     </div>
-</div>
-
-<nav class="navbar">
-    <div class="nav-container">
-        <a href="index.html" class="nav-logo"><span class="logo-icon">⚔️</span><span class="logo-text">POE2 <span class="logo-cn">国服攻略</span></span></a>
-        <button id="navToggle" class="nav-toggle" aria-label="菜单"><span></span><span></span><span></span></button>
-        <div id="navLinks" class="nav-links">
-            <a href="index.html" class="nav-link">🏠 首页</a>
-            <a href="classes.html" class="nav-link">🎭 职业</a>
-            <a href="builds.html" class="nav-link">🗡️ BD推荐</a>
-            <a href="guides.html" class="nav-link">📖 攻略</a>
-            <a href="maps.html" class="nav-link">🗺️ 地图</a>
-            <a href="skills.html" class="nav-link">💎 技能</a>
-            <a href="tools.html" class="nav-link">🔧 工具</a>
-            <a href="news.html" class="nav-link active">📰 资讯</a>
-        </div>
-        <div class="nav-search">
-            <button id="searchBtn" class="search-btn" aria-label="搜索">🔍</button>
-            <div id="searchDropdown" class="search-dropdown">
-                <input type="text" id="searchInput" placeholder="搜索资讯..." autocomplete="off">
-                <div id="searchResults" class="search-results"></div>
-            </div>
-        </div>
-    </div>
+    <button id="navToggle" class="site-nav-toggle" aria-label="菜单"><span></span><span></span><span></span></button>
+  </div>
 </nav>
-
-<section class="page-hero">
-    <div class="hero-bg"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-        <p class="hero-subtitle">PATH OF EXILE 2</p>
-        <h1 class="hero-title">📰 资讯动态</h1>
-        <p class="hero-desc">版本更新 · 联赛资讯 · 国服活动 · 攻略精选</p>
-    </div>
-</section>
-
-<section class="section page-content">
-    <div class="container">
-        <div class="news-filter">
-            <button class="filter-btn active" data-cat="all">全部</button>
-            <button class="filter-btn" data-cat="版本">版本更新</button>
-            <button class="filter-btn" data-cat="联赛">联赛</button>
-            <button class="filter-btn" data-cat="国服">国服</button>
-            <button class="filter-btn" data-cat="攻略">攻略</button>
-        </div>
-        <div id="newsGrid" class="news-list"></div>
-    </div>
-</section>
-
-<!-- 快速链接 -->
-<section class="section section-dark">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">🔗 官方资讯渠道</h2>
-        </div>
-        <div class="news-sources">
-            <a href="https://www.pathofexile.com/news" target="_blank" class="source-card">
-                <span class="source-icon">📰</span>
-                <span class="source-name">国际服官方新闻</span>
-                <span class="source-url">pathofexile.com/news</span>
-            </a>
-            <a href="https://poe2.qq.com" target="_blank" class="source-card">
-                <span class="source-icon">🏠</span>
-                <span class="source-name">国服官网</span>
-                <span class="source-url">poe2.qq.com</span>
-            </a>
-            <a href="https://www.reddit.com/r/PathOfExile2" target="_blank" class="source-card">
-                <span class="source-icon">🔴</span>
-                <span class="source-name">Reddit POE2</span>
-                <span class="source-url">r/PathOfExile2</span>
-            </a>
-            <a href="https://discord.gg/pathofexile" target="_blank" class="source-card">
-                <span class="source-icon">💬</span>
-                <span class="source-name">Discord</span>
-                <span class="source-url">GGG 官方服务器</span>
-            </a>
-        </div>
-    </div>
-</section>
-
-<footer class="footer">
-    <div class="container">
-        <div class="footer-grid">
-            <div class="footer-col"><h3 class="footer-logo">⚔️ POE2 国服攻略</h3><p class="footer-desc">专注流放之路2国服攻略导航，数据来源 POE2 Wiki。</p></div>
-            <div class="footer-col"><h4 class="footer-heading">站内导航</h4><ul class="footer-links"><li><a href="classes.html">职业详解</a></li><li><a href="builds.html">热门BD</a></li><li><a href="guides.html">新手指南</a></li></ul></div>
-            <div class="footer-col"><h4 class="footer-heading">外部资源</h4><ul class="footer-links"><li><a href="https://poe2.qq.com" target="_blank">国服官网</a></li><li><a href="https://www.poe2wiki.net" target="_blank">POE2 Wiki</a></li></ul></div>
-            <div class="footer-col"><h4 class="footer-heading">开发中</h4><ul class="footer-links"><li><a href="tree.html">天赋模拟器</a></li><li><a href="items.html">物品百科</a></li></ul></div>
-        </div>
-        <div class="footer-bottom"><p>© 2025 POE2 国服攻略站 · 仅供学习交流 · 请支持正版</p></div>
-    </div>
-</footer>
-
-<button id="backToTop" class="back-to-top" aria-label="返回顶部">↑</button>
-
+<button id="theme-toggle" aria-label="切换深浅色模式">🌗</button>
+<button id="back-to-top" aria-label="返回顶部">👆</button>
+<div class="page-wrap">
+  <h1 class="page-title">资讯动态</h1>
+  <p class="page-desc">版本更新、联赛资讯、国服活动</p>
+  
+<div class="filter-bar" id="newsFilter">
+  <button class="filter-btn active" data-cat="all">全部</button>
+  <button class="filter-btn" data-cat="版本">版本更新</button>
+  <button class="filter-btn" data-cat="联赛">联赛</button>
+  <button class="filter-btn" data-cat="国服">国服</button>
+  <button class="filter-btn" data-cat="攻略">攻略</button>
+</div>
+<div id="newsList"></div>
 <script src="js/data.js"></script>
-<script src="js/news.js"></script>
-<script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+  renderNews("all");
+  document.querySelectorAll("#newsFilter .filter-btn").forEach(b=>b.addEventListener("click",()=>{
+    document.querySelectorAll("#newsFilter .filter-btn").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");renderNews(b.dataset.cat);
+  }));
+});
+function renderNews(c){
+  const l=document.getElementById("newsList");if(!l)return;
+  const d=c==="all"?NEWS:NEWS.filter(n=>n.tag===c);
+  if(!d.length){l.innerHTML="<p style=text-align:center;color:var(--subtext);padding:2rem>暂无该分类资讯</p>";return}
+  l.innerHTML=d.map(n=>`<div class="news-card"><div class="news-meta"><span class="news-tag" style="background:rgba(26,115,232,0.1);color:var(--nav-active)">${n.tag}</span><span>${n.date}</span></div><h3>${n.title}</h3><p>${n.preview}</p></div>`).join("");
+}
+</script>
+
+</div>
+<footer style="text-align:center;padding:2rem 1.5rem;font-size:0.82rem;color:var(--subtext);opacity:0.5">© 2025 POE2 导航站 · 仅供学习交流</footer>
+
+<script>
+// 主题切换 + 导航 + 返回顶部（子页面共用）
+document.addEventListener("DOMContentLoaded",()=>{
+  const s=localStorage.getItem("theme");
+  if(s)document.body.setAttribute("data-theme",s);
+  else document.body.setAttribute("data-theme",matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");
+  const t=document.getElementById("theme-toggle");
+  if(t)t.onclick=()=>{const c=document.body.getAttribute("data-theme")==="dark"?"light":"dark";document.body.setAttribute("data-theme",c);localStorage.setItem("theme",c)};
+  const b=document.getElementById("back-to-top");
+  if(b){b.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));window.addEventListener("scroll",()=>b.classList.toggle("visible",scrollY>300))}
+  const n=document.getElementById("navToggle"),l=document.querySelector(".site-nav-links");
+  if(n&&l){n.addEventListener("click",()=>{l.classList.toggle("open");n.classList.toggle("active")});l.querySelectorAll(".site-nav-link").forEach(a=>a.addEventListener("click",()=>{l.classList.remove("open");n.classList.remove("active")}))}
+  // 高亮当前页面
+  const path=location.pathname.split("/").pop()||"index.html";
+  document.querySelectorAll(".site-nav-link").forEach(a=>{if(a.getAttribute("href")===path)a.classList.add("active")});
+});
+</script>
 </body>
 </html>

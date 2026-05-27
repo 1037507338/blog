@@ -1,245 +1,92 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新手指南 - POE2 国服攻略站</title>
-    <meta name="description" content="流放之路2完整新手指南，覆盖职业选择、天赋系统、技能宝石、装备打造与终局内容。">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>新手指南 - POE2导航</title>
+<meta name="description" content="从零开始的核心系统详解">
+<style>
+:root{--bg-start:#f5f5f5;--bg-end:#f0f0f0;--card-bg:rgba(255,255,255,0.95);--card-border:rgba(220,220,220,0.5);--card-shadow:0 1px 2px 0 rgba(0,0,0,0.05);--card-shadow-hover:0 3px 6px -1px rgba(0,0,0,0.1);--text:#333;--subtext:#666;--accent:#555;--link:#555;--link-hover:#000;--btn-bg:rgba(255,255,255,.9);--btn-bg-hover:rgba(255,255,255,1);--btn-icon:#555;--btn-shadow:0 1px 3px rgba(0,0,0,.05);--btn-shadow-hover:0 2px 5px rgba(0,0,0,.08);--nav-bg:rgba(255,255,255,0.92);--nav-border:rgba(220,220,220,0.6);--nav-link:#555;--nav-link-hover:#000;--nav-active:#1a73e8}
+[data-theme="dark"]{--bg-start:#222;--bg-end:#1a1a1a;--card-bg:rgba(40,40,40,0.95);--card-border:rgba(60,60,60,0.5);--card-shadow:0 1px 2px 0 rgba(0,0,0,0.2);--card-shadow-hover:0 3px 6px -1px rgba(0,0,0,0.3);--text:#e0e0e0;--subtext:#aaa;--accent:#bbb;--link:#bbb;--link-hover:#fff;--btn-bg:rgba(40,40,40,0.9);--btn-bg-hover:rgba(50,50,50,1);--btn-icon:#bbb;--btn-shadow:0 1px 3px rgba(0,0,0,0.2);--btn-shadow-hover:0 2px 5px rgba(0,0,0,0.3);--nav-bg:rgba(30,30,30,0.95);--nav-border:rgba(60,60,60,0.6);--nav-link:#bbb;--nav-link-hover:#fff;--nav-active:#5ba3f5}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:linear-gradient(145deg,var(--bg-start) 0%,var(--bg-end) 100%);color:var(--text);line-height:1.6;min-height:100vh;transition:background .3s ease,color .3s ease}
+</style>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/pages.css">
+<link rel="icon" href="favicon.ico">
 </head>
 <body>
-
-<div class="top-banner">
-    <div class="container banner-inner">
-        <span class="banner-badge">🎮</span>
-        <span>流放之路2 国服限量测试中</span>
-        <a href="https://poe2.qq.com" target="_blank" class="banner-link">🏠 国服官网</a>
+<!-- 顶部站点导航栏 -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="index.html" class="site-nav-logo">🧭 POE2导航</a>
+    <div class="site-nav-links">
+      <a href="index.html" class="site-nav-link">首页</a>
+      <a href="classes.html" class="site-nav-link">职业详解</a>
+      <a href="builds.html" class="site-nav-link">BD推荐</a>
+      <a href="guides.html" class="site-nav-link">新手指南</a>
+      <a href="maps.html" class="site-nav-link">地图大全</a>
+      <a href="skills.html" class="site-nav-link">技能数据</a>
+      <a href="news.html" class="site-nav-link">资讯动态</a>
+      <a href="tools.html" class="site-nav-link">工具集</a>
     </div>
-</div>
-
-<nav class="navbar">
-    <div class="nav-container">
-        <a href="index.html" class="nav-logo"><span class="logo-icon">⚔️</span><span class="logo-text">POE2 <span class="logo-cn">国服攻略</span></span></a>
-        <button id="navToggle" class="nav-toggle" aria-label="菜单"><span></span><span></span><span></span></button>
-        <div id="navLinks" class="nav-links">
-            <a href="index.html" class="nav-link">🏠 首页</a>
-            <a href="classes.html" class="nav-link">🎭 职业</a>
-            <a href="builds.html" class="nav-link">🗡️ BD推荐</a>
-            <a href="guides.html" class="nav-link active">📖 攻略</a>
-            <a href="maps.html" class="nav-link">🗺️ 地图</a>
-            <a href="skills.html" class="nav-link">💎 技能</a>
-            <a href="tools.html" class="nav-link">🔧 工具</a>
-            <a href="news.html" class="nav-link">📰 资讯</a>
-        </div>
-        <div class="nav-search">
-            <button id="searchBtn" class="search-btn" aria-label="搜索">🔍</button>
-            <div id="searchDropdown" class="search-dropdown">
-                <input type="text" id="searchInput" placeholder="搜索攻略..." autocomplete="off">
-                <div id="searchResults" class="search-results"></div>
-            </div>
-        </div>
-    </div>
+    <button id="navToggle" class="site-nav-toggle" aria-label="菜单"><span></span><span></span><span></span></button>
+  </div>
 </nav>
+<button id="theme-toggle" aria-label="切换深浅色模式">🌗</button>
+<button id="back-to-top" aria-label="返回顶部">👆</button>
+<div class="page-wrap">
+  <h1 class="page-title">新手指南</h1>
+  <p class="page-desc">从零开始的核心系统详解</p>
+  
+<div class="guides-layout">
+  <aside class="guides-sidebar">
+    <a href="#overview" class="toc-item active">🏁 游戏概述</a>
+    <a href="#classes" class="toc-item">🎭 职业选择</a>
+    <a href="#passive" class="toc-item">🌳 天赋系统</a>
+    <a href="#skills" class="toc-item">💎 技能宝石</a>
+    <a href="#equipment" class="toc-item">⚔️ 装备系统</a>
+    <a href="#endgame" class="toc-item">🗺️ 终局地图</a>
+    <a href="#currency" class="toc-item">💰 资源系统</a>
+    <a href="#cn" class="toc-item">🏠 国服指南</a>
+  </aside>
+  <main>
+    <div id="overview" class="guide-section"><h2>🏁 游戏概述</h2><p><strong>流放之路2</strong>是 Grinding Gear Games 开发的暗黑风格 ARPG。核心循环：剧情→终局→赛季→赛季目标。</p><div class="info-table"><div class="info-row"><span class="info-label">开发商</span><span class="info-value">Grinding Gear Games</span></div><div class="info-row"><span class="info-label">国服</span><span class="info-value">腾讯代理（限量测试中）</span></div><div class="info-row"><span class="info-label">平台</span><span class="info-value">PC / PS5 / Xbox</span></div></div></div>
+    <div id="classes" class="guide-section"><h2>🎭 职业选择</h2><p>12个基础职业，每个有3个进阶职业（共36个）。</p><div class="tip-box">💡 新手推荐：游侠（远程安全）、勇士（近战生存强）、女术士（法术AOE强）</div><a href="classes.html" style="font-size:0.85rem;color:var(--link)">→ 查看职业详解 →</a></div>
+    <div id="passive" class="guide-section"><h2>🌳 天赋系统</h2><p>天赋树为巨大星状网络，共123技能点。三大区域：力量/敏捷/智力。</p><div class="info-table"><div class="info-row"><span class="info-label">总点数</span><span class="info-value">123点</span></div><div class="info-row"><span class="info-label">等级上限</span><span class="info-value">99级</span></div></div><a href="tree.html" class="dev-link" style="font-size:0.85rem">→ 天赋模拟器（开发中）</a></div>
+    <div id="skills" class="guide-section"><h2>💎 技能宝石系统</h2><p>将技能宝石嵌入装备插槽使用技能，9个技能槽上限。辅助宝石可强化主动技能。</p><a href="skills.html" class="dev-link" style="font-size:0.85rem">→ 技能数据库（开发中）</a></div>
+    <div id="equipment" class="guide-section"><h2>⚔️ 装备系统</h2><p>包含武器、护甲、首饰、药剂、珠宝等，每种有独特词缀体系。</p><a href="items.html" class="dev-link" style="font-size:0.85rem">→ 物品百科（开发中）</a></div>
+    <div id="endgame" class="guide-section"><h2>🗺️ 终局地图</h2><p>完成剧情后进入终局，核心是 Waystone 地图系统，T1-T10十个难度层级。</p><a href="maps.html" style="font-size:0.85rem;color:var(--link)">→ 查看地图大全 →</a></div>
+    <div id="currency" class="guide-section"><h2>💰 资源系统</h2><p>所有货币为功能性道具，用于打造和交易。混沌石为标准货币。</p><a href="trade-calc.html" class="dev-link" style="font-size:0.85rem">→ 交易计算器（开发中）</a></div>
+    <div id="cn" class="guide-section"><h2>🏠 国服指南</h2><p>国服与国际服存在差异：腾讯代理、独立交易系统、国服专属活动。</p><div class="tip-box">💡 关注国服官网和官方社区获取最新活动信息。</div></div>
+  </main>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+  const toc=document.querySelectorAll(".toc-item");
+  toc.forEach(a=>a.addEventListener("click",e=>{e.preventDefault();const t=document.querySelector(a.getAttribute("href"));if(t)window.scrollTo({top:t.getBoundingClientRect().top+pageYOffset-68,behavior:"smooth"})}));
+  window.addEventListener("scroll",()=>{let cur="";document.querySelectorAll(".guide-section").forEach(s=>{if(pageYOffset>=s.getBoundingClientRect().top+pageYOffset-100)cur=s.id});toc.forEach(a=>{a.classList.remove("active");if(a.getAttribute("href")==="#"+cur)a.classList.add("active")})});
+});
+</script>
 
-<section class="page-hero">
-    <div class="hero-bg"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-        <p class="hero-subtitle">PATH OF EXILE 2</p>
-        <h1 class="hero-title">📖 新手指南</h1>
-        <p class="hero-desc">从零开始 · 核心系统详解 · 终局入门 · 国服专属</p>
-    </div>
-</section>
+</div>
+<footer style="text-align:center;padding:2rem 1.5rem;font-size:0.82rem;color:var(--subtext);opacity:0.5">© 2025 POE2 导航站 · 仅供学习交流</footer>
 
-<section class="section page-content">
-    <div class="container">
-        <div class="guides-layout">
-            <!-- 侧边目录 -->
-            <aside class="guides-sidebar">
-                <h3 class="sidebar-title">📑 指南目录</h3>
-                <nav class="guide-toc">
-                    <a href="#overview" class="toc-item active">🏁 游戏概述</a>
-                    <a href="#classes-guide" class="toc-item">🎭 职业选择</a>
-                    <a href="#passive-tree" class="toc-item">🌳 天赋系统</a>
-                    <a href="#skills" class="toc-item">💎 技能宝石</a>
-                    <a href="#equipment" class="toc-item">⚔️ 装备系统</a>
-                    <a href="#maps-endgame" class="toc-item">🗺️ 终局地图</a>
-                    <a href="#resources" class="toc-item">💰 资源系统</a>
-                    <a href="#cn-server" class="toc-item">🏠 国服指南</a>
-                </nav>
-                <div class="sidebar-tip">
-                    <p>💡 建议按目录顺序阅读，每篇对应一篇文章内容。</p>
-                </div>
-            </aside>
-
-            <!-- 主内容 -->
-            <main class="guides-main">
-                <!-- 游戏概述 -->
-                <div id="overview" class="guide-section">
-                    <h2 class="guide-heading">🏁 游戏概述</h2>
-                    <div class="guide-content">
-                        <p><strong>流放之路2（Path of Exile 2）</strong>是 Grinding Gear Games 开发的暗黑破坏神风格 ARPG，是经典游戏《流放之路》的正统续作。</p>
-                        <div class="guide-facts">
-                            <div class="fact-item"><span class="fact-label">发行商</span><span>Grinding Gear Games (GGG)</span></div>
-                            <div class="fact-item"><span class="fact-label">国服</span><span>腾讯代理（限量测试中）</span></div>
-                            <div class="fact-item"><span class="fact-label">平台</span><span>PC / PS5 / Xbox Series X|S</span></div>
-                            <div class="fact-item"><span class="fact-label">类型</span><span>暗黑破坏神风格 ARPG</span></div>
-                            <div class="fact-item"><span class="fact-label">特色</span><span>无商城绑定、丰富天赋树、技能宝石系统</span></div>
-                        </div>
-                        <p>游戏的核心循环为：<strong>剧情→终局→赛季→赛季目标</strong>，每个赛季（约3个月）会有新的玩法机制与挑战内容。</p>
-                    </div>
-                </div>
-
-                <!-- 职业选择 -->
-                <div id="classes-guide" class="guide-section">
-                    <h2 class="guide-heading">🎭 职业选择指南</h2>
-                    <div class="guide-content">
-                        <p>POE2 共有 <strong>12个基础职业</strong>，每个职业拥有独特的属性倾向和武器专精。更重要的是，每个基础职业都有 <strong>3个进阶职业（Ascendancy）</strong>，总计36个进阶职业。</p>
-                        <div class="guide-class-list">
-                            <div class="guide-class-item">
-                                <h4>💪 力量系</h4>
-                                <p>战士 Warrior、蛮族 Marauder — 擅长近战、护甲、生命</p>
-                            </div>
-                            <div class="guide-class-item">
-                                <h4>🏹 敏捷系</h4>
-                                <p>游侠 Ranger、猎人 Huntress — 擅长远程、闪避、投射物</p>
-                            </div>
-                            <div class="guide-class-item">
-                                <h4>🔮 智力系</h4>
-                                <p>女巫 Witch、女术士 Sorceress — 擅长法术、能量护盾、召唤</p>
-                            </div>
-                            <div class="guide-class-item">
-                                <h4>⚡ 混合系</h4>
-                                <p>决斗家、佣兵、武僧、圣堂武士、德鲁伊、暗影 — 需要多属性均衡</p>
-                            </div>
-                        </div>
-                        <p class="guide-tip">💡 <strong>新手推荐</strong>：游侠（远程安全）、勇士（近战生存强）、女术士（法术AOE强）</p>
-                        <a href="classes.html" class="guide-link">→ 查看12大职业详细数据</a>
-                    </div>
-                </div>
-
-                <!-- 天赋系统 -->
-                <div id="passive-tree" class="guide-section">
-                    <h2 class="guide-heading">🌳 天赋系统</h2>
-                    <div class="guide-content">
-                        <p>POE2 的天赋树是一张覆盖全职业的 <strong>巨大星状网络</strong>，总计 <strong>123个技能点</strong>（99级升级 + 24个任务奖励）。</p>
-                        <div class="guide-facts">
-                            <div class="fact-item"><span class="fact-label">总点数</span><span>123点</span></div>
-                            <div class="fact-item"><span class="fact-label">等级上限</span><span>99级</span></div>
-                            <div class="fact-item"><span class="fact-label">任务奖励</span><span>24点</span></div>
-                            <div class="fact-item"><span class="fact-label">三大区域</span><span>力量/敏捷/智力</span></div>
-                        </div>
-                        <p>天赋树分为三大属性区域，玩家可以跨区域加点，但需要经过特定路径。Notable（关键天赋）提供强力被动效果，Keystones（核心天赋）则带来极端能力的代价效果。</p>
-                        <p class="guide-tip">💡 天赋模拟器（开发中）将提供可视化加点与方案保存功能。</p>
-                        <a href="tree.html" class="guide-link dev-link">→ 天赋模拟器（开发中）</a>
-                    </div>
-                </div>
-
-                <!-- 技能宝石 -->
-                <div id="skills" class="guide-section">
-                    <h2 class="guide-heading">💎 技能宝石系统</h2>
-                    <div class="guide-content">
-                        <p>POE2 的技能系统基于 <strong>技能宝石</strong>，玩家将宝石嵌入装备的插槽中即可使用技能。</p>
-                        <div class="guide-facts">
-                            <div class="fact-item"><span class="fact-label">技能槽</span><span>9个（当前上限）</span></div>
-                            <div class="fact-item"><span class="fact-label">辅助宝石</span><span>强化主动技能的辅助效果</span></div>
-                            <div class="fact-item"><span class="fact-label">链接规则</span><span>同色插槽相连才能激活辅助</span></div>
-                            <div class="fact-item"><span class="fact-label">Meta宝石</span><span>提供被动效果，永久激活</span></div>
-                        </div>
-                        <p>技能宝石分为四大类型：主动技能宝石、辅助宝石、触发宝石、召唤宝石。通过不同辅助宝石的组合，可以大幅改变技能的行为和效果。</p>
-                        <a href="skills.html" class="guide-link dev-link">→ 技能数据库（开发中）</a>
-                    </div>
-                </div>
-
-                <!-- 装备系统 -->
-                <div id="equipment" class="guide-section">
-                    <h2 class="guide-heading">⚔️ 装备系统</h2>
-                    <div class="guide-content">
-                        <p>POE2 的装备系统极其丰富，包含：<strong>武器、护甲、首饰、药剂、珠宝</strong>等多种类型，每种装备都有其独特的属性词缀体系。</p>
-                        <div class="guide-equip-grid">
-                            <div class="equip-type"><h4>🗡️ 武器</h4><p>剑、斧、锤、弓、弩、法杖、匕首、空手</p></div>
-                            <div class="equip-type"><h4>🛡️ 护甲</h4><p>头盔、胸甲、手套、鞋子、盾牌</p></div>
-                            <div class="equip-type"><h4>💍 首饰</h4><p>戒指×2、项链、耳环</p></div>
-                            <div class="equip-type"><h4>💊 药剂</h4><p>生命药剂、法力药剂、功能药剂</p></div>
-                            <div class="equip-type"><h4>💎 珠宝</h4><p>中型珠宝、Jewel Socket</p></div>
-                        </div>
-                        <p class="guide-tip">💡 物品百科（开发中）将提供所有装备基底类型与词缀对比。</p>
-                        <a href="items.html" class="guide-link dev-link">→ 物品百科（开发中）</a>
-                    </div>
-                </div>
-
-                <!-- 终局地图 -->
-                <div id="maps-endgame" class="guide-section">
-                    <h2 class="guide-heading">🗺️ 终局地图系统</h2>
-                    <div class="guide-content">
-                        <p>完成剧情（Act 1-4 + Interlude）后，游戏进入<strong>终局内容</strong>，核心是 <strong>Waystone 地图系统</strong>。</p>
-                        <p>玩家通过地图装置（Map Device）进入地图，使用 Waystone 激活地图词缀和难度。地图分为 <strong>T1-T10</strong> 十个难度层级，完成地图可掉落更高级地图。</p>
-                        <a href="maps.html" class="guide-link">→ 查看地图大全 T1-T10</a>
-                    </div>
-                </div>
-
-                <!-- 资源系统 -->
-                <div id="resources" class="guide-section">
-                    <h2 class="guide-heading">💰 资源系统</h2>
-                    <div class="guide-content">
-                        <p>POE2 拥有独特的无商城货币系统，所有游戏内货币都是功能性道具，可用于装备打造和交易。</p>
-                        <div class="guide-facts">
-                            <div class="fact-item"><span class="fact-label">混沌石</span><span>标准货币，用于交易与打造</span></div>
-                            <div class="fact-item"><span class="fact-label">神圣石</span><span>高价值货币，改写装备词缀</span></div>
-                            <div class="fact-item"><span class="fact-label">崇高石</span><span>最高价值货币，大额交易</span></div>
-                            <div class="fact-item"><span class="fact-label">交易</span><span>官方交易网站 / 非官方第三方平台</span></div>
-                        </div>
-                        <a href="trade-calc.html" class="guide-link dev-link">→ 交易计算器（开发中）</a>
-                    </div>
-                </div>
-
-                <!-- 国服指南 -->
-                <div id="cn-server" class="guide-section">
-                    <h2 class="guide-heading">🏠 国服专属指南</h2>
-                    <div class="guide-content">
-                        <p>国服与国际服存在以下差异，请国服玩家注意：</p>
-                        <div class="guide-facts">
-                            <div class="fact-item"><span class="fact-label">运营</span><span>腾讯代理，内容更新可能滞后</span></div>
-                            <div class="fact-item"><span class="fact-label">交易</span><span>国服使用独立交易系统</span></div>
-                            <div class="fact-item"><span class="fact-label">活动</span><span>国服专属活动与礼包</span></div>
-                            <div class="fact-item"><span class="fact-label">充值</span><span>国服支持微信/支付宝充值</span></div>
-                        </div>
-                        <p>建议关注国服官网和官方社区获取最新活动信息。加入国服玩家群可更快获取开荒攻略与交易信息。</p>
-                        <p class="guide-tip">💡 联赛专题（开发中）将提供赛季开荒攻略。</p>
-                        <a href="league.html" class="guide-link dev-link">→ 联赛专题（开发中）</a>
-                    </div>
-                </div>
-            </main>
-        </div>
-    </div>
-</section>
-
-<section class="section cta-section">
-    <div class="container" style="text-align:center">
-        <h2>准备好了？开始你的瓦尔克拉斯之旅！</h2>
-        <p style="color:var(--text-secondary);margin:16px 0 28px">查看热门BD推荐，找到你的开荒Build</p>
-        <a href="builds.html" class="btn btn-primary" style="font-size:1rem;padding:14px 36px">🗡️ 查看热门BD →</a>
-    </div>
-</section>
-
-<footer class="footer">
-    <div class="container">
-        <div class="footer-grid">
-            <div class="footer-col"><h3 class="footer-logo">⚔️ POE2 国服攻略</h3><p class="footer-desc">专注流放之路2国服攻略导航，数据来源 POE2 Wiki。</p><p class="footer-source">资料来源：<a href="https://www.poe2wiki.net" target="_blank">POE2 Wiki</a></p></div>
-            <div class="footer-col"><h4 class="footer-heading">站内导航</h4><ul class="footer-links"><li><a href="classes.html">职业详解</a></li><li><a href="builds.html">热门BD</a></li><li><a href="maps.html">地图大全</a></li><li><a href="news.html">资讯动态</a></li></ul></div>
-            <div class="footer-col"><h4 class="footer-heading">外部资源</h4><ul class="footer-links"><li><a href="https://poe2.qq.com" target="_blank">国服官网</a></li><li><a href="https://www.poe2wiki.net" target="_blank">POE2 Wiki</a></li><li><a href="https://maxroll.gg/poe2" target="_blank">Maxroll</a></li><li><a href="https://poe2.ninja" target="_blank">POE2 Ninja</a></li></ul></div>
-            <div class="footer-col"><h4 class="footer-heading">开发中</h4><ul class="footer-links"><li><a href="tree.html">天赋模拟器</a></li><li><a href="items.html">物品百科</a></li><li><a href="trade-calc.html">交易计算器</a></li><li><a href="league.html">联赛专题</a></li></ul></div>
-        </div>
-        <div class="footer-bottom"><p>© 2025 POE2 国服攻略站 · 仅供学习交流 · 请支持正版</p></div>
-    </div>
-</footer>
-
-<button id="backToTop" class="back-to-top" aria-label="返回顶部">↑</button>
-
-<script src="js/data.js"></script>
-<script src="js/guides.js"></script>
-<script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+<script>
+// 主题切换 + 导航 + 返回顶部（子页面共用）
+document.addEventListener("DOMContentLoaded",()=>{
+  const s=localStorage.getItem("theme");
+  if(s)document.body.setAttribute("data-theme",s);
+  else document.body.setAttribute("data-theme",matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");
+  const t=document.getElementById("theme-toggle");
+  if(t)t.onclick=()=>{const c=document.body.getAttribute("data-theme")==="dark"?"light":"dark";document.body.setAttribute("data-theme",c);localStorage.setItem("theme",c)};
+  const b=document.getElementById("back-to-top");
+  if(b){b.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));window.addEventListener("scroll",()=>b.classList.toggle("visible",scrollY>300))}
+  const n=document.getElementById("navToggle"),l=document.querySelector(".site-nav-links");
+  if(n&&l){n.addEventListener("click",()=>{l.classList.toggle("open");n.classList.toggle("active")});l.querySelectorAll(".site-nav-link").forEach(a=>a.addEventListener("click",()=>{l.classList.remove("open");n.classList.remove("active")}))}
+  // 高亮当前页面
+  const path=location.pathname.split("/").pop()||"index.html";
+  document.querySelectorAll(".site-nav-link").forEach(a=>{if(a.getAttribute("href")===path)a.classList.add("active")});
+});
+</script>
 </body>
 </html>
