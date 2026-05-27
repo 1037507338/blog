@@ -58,7 +58,7 @@ body { overflow-y: scroll; }
 
 /* ===== 紧凑搜索栏（无标题） ===== */
 .search-container.compact {
-  max-width: 1400px; margin: 16px auto 0; padding: 0 1.5rem;
+  max-width: 1400px; margin: 64px auto 0; padding: 0 1.5rem;
   position: relative; display: flex; flex-direction: column;
 }
 .search-container.compact .search-box {

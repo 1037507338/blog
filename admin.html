@@ -5,40 +5,51 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>管理后台 - POE2 Hub</title>
 <style>
-:root{--bg:#f5f5f5;--card:#fff;--border:#e0e0e0;--text:#333;--sub:#666;--accent:#1a73e8;--danger:#c33;--success:#2a9040;--warn:#b8860b}
-[data-theme="dark"]{--bg:#1a1a1a;--card:#2a2a2a;--border:#444;--text:#e0e0e0;--sub:#aaa;--accent:#5ba3f5;--danger:#e55;--success:#5cb85c;--warn:#daa520}
+:root{--bg:#f5f5f5;--card:#fff;--border:#e0e0e0;--text:#333;--sub:#666;--accent:#1a73e8;--danger:#c33;--success:#2a9040}
+[data-theme="dark"]{--bg:#1a1a1a;--card:#2a2a2a;--border:#444;--text:#e0e0e0;--sub:#aaa;--accent:#5ba3f5;--danger:#e55;--success:#5cb85c}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;transition:.3s}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;transition:.3s;min-height:100vh}
+
+/* 导航栏 */
 .site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--card);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:48px;display:flex;align-items:center;padding:0 1.5rem}
 .site-nav-logo{font-size:1rem;font-weight:700;color:var(--text);text-decoration:none;margin-right:auto;display:flex;align-items:center;gap:6px}
 .logo-icon{font-size:1.15rem;background:linear-gradient(135deg,#c9a227,#8b6914);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .nav-back{font-size:.85rem;color:var(--sub);text-decoration:none;padding:6px 14px;border-radius:6px;border:1px solid var(--border);transition:.2s}
 .nav-back:hover{color:var(--accent);border-color:var(--accent)}
 #theme-toggle{position:fixed;right:1.5rem;top:6px;width:34px;height:34px;border-radius:17px;z-index:1100;display:flex;align-items:center;justify-content:center;border:none;background:var(--card);color:var(--text);cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.nav-user{font-size:.85rem;color:var(--sub);margin-right:12px}
+.nav-logout{font-size:.85rem;color:var(--danger);text-decoration:none;cursor:pointer}
+.nav-logout:hover{text-decoration:underline}
 
 .wrap{max-width:1100px;margin:64px auto 2rem;padding:0 1.5rem}
 
-/* 统计 */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
-.stat-num{font-size:1.8rem;font-weight:700;color:var(--accent)}
-.stat-label{font-size:.82rem;color:var(--sub);margin-top:2px}
+/* 登录页 */
+.login-container{max-width:380px;margin:100px auto;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:32px;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.login-title{font-size:1.25rem;font-weight:700;text-align:center;margin-bottom:24px}
+.login-title span{background:linear-gradient(135deg,#c9a227,#8b6914);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:.85rem;font-weight:600;color:var(--text);margin-bottom:6px}
+.form-group input{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:7px;font-size:.9rem;background:var(--bg);color:var(--text);outline:none;transition:border-color .2s}
+.form-group input:focus{border-color:var(--accent)}
+.btn{width:100%;padding:10px 18px;border-radius:7px;font-size:.9rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--text);transition:.2s}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-primary:hover{opacity:.9}
+.login-error{color:var(--danger);font-size:.85rem;text-align:center;margin-top:12px;min-height:20px}
 
 /* 工具栏 */
 .toolbar{display:flex;gap:10px;align-items:center;margin-bottom:20px;flex-wrap:wrap}
-.btn{padding:8px 18px;border-radius:7px;font-size:.85rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--text);transition:.2s;display:inline-flex;align-items:center;gap:6px}
-.btn:hover{border-color:var(--accent);color:var(--accent)}
-.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
-.btn-primary:hover{opacity:.9;color:#fff}
-.btn-danger{color:var(--danger);border-color:var(--danger)}
-.btn-danger:hover{background:var(--danger);color:#fff}
-.btn-sm{padding:5px 12px;font-size:.78rem}
+.btn-sm{padding:6px 14px;font-size:.82rem;width:auto}
 .search-input{padding:8px 14px;border:1px solid var(--border);border-radius:7px;font-size:.85rem;background:var(--card);color:var(--text);width:220px;outline:none;transition:border-color .2s}
 .search-input:focus{border-color:var(--accent)}
 
+/* 分类筛选 */
+.cat-filter{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.cat-chip{padding:4px 12px;border-radius:14px;font-size:.78rem;font-weight:500;border:1px solid var(--border);background:var(--card);color:var(--sub);cursor:pointer;transition:.2s}
+.cat-chip:hover,.cat-chip.active{border-color:var(--accent);color:var(--accent);background:rgba(26,115,232,.06)}
+
 /* 表格 */
 .table-wrap{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
-table{width:border-collapse:collapse;width:100%}
+table{width:100%;border-collapse:collapse}
 thead{background:rgba(128,128,128,.04)}
 th{padding:10px 14px;text-align:left;font-size:.82rem;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border)}
 td{padding:10px 14px;font-size:.87rem;border-bottom:1px solid var(--border);vertical-align:middle}
@@ -47,6 +58,8 @@ tr:hover td{background:rgba(26,115,232,.03)}
 .cat-tag{display:inline-block;padding:2px 10px;border-radius:10px;font-size:.75rem;font-weight:600;background:rgba(26,115,232,.08);color:var(--accent)}
 .url-cell{max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--sub);font-size:.8rem}
 .actions{display:flex;gap:6px}
+.btn-danger{color:var(--danger);border-color:var(--danger)}
+.btn-danger:hover{background:var(--danger);color:#fff}
 
 /* 模态框 */
 .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.45);z-index:2000;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:.2s}
@@ -58,14 +71,8 @@ tr:hover td{background:rgba(26,115,232,.03)}
 .modal-close{width:32px;height:32px;border-radius:50%;border:none;background:rgba(128,128,128,.08);color:var(--sub);cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:.2s}
 .modal-close:hover{background:rgba(200,50,50,.1);color:var(--danger)}
 .modal-body{padding:20px}
-.form-group{margin-bottom:16px}
-.form-group label{display:block;font-size:.85rem;font-weight:600;color:var(--text);margin-bottom:6px}
-.form-group input,.form-group select,.form-group textarea{
-  width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:7px;
-  font-size:.88rem;background:var(--bg);color:var(--text);outline:none;transition:border-color .2s
-}
+.form-group textarea{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:7px;font-size:.88rem;background:var(--bg);color:var(--text);outline:none;resize:vertical;min-height:60px}
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent)}
-.form-group textarea{resize:vertical;min-height:60px}
 .modal-footer{display:flex;justify-content:flex-end;gap:8px;padding:16px 20px;border-top:1px solid var(--border)}
 
 /* Toast */
@@ -75,24 +82,12 @@ tr:hover td{background:rgba(26,115,232,.03)}
 .toast-error{background:var(--danger);color:#fff}
 .toast-info{background:var(--accent);color:#fff}
 
-/* 分类标签筛选 */
-.cat-filter{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
-.cat-chip{padding:4px 12px;border-radius:14px;font-size:.78rem;font-weight:500;border:1px solid var(--border);background:var(--card);color:var(--sub);cursor:pointer;transition:.2s}
-.cat-chip:hover,.cat-chip.active{border-color:var(--accent);color:var(--accent);background:rgba(26,115,232,.06)}
-
 /* 空状态 */
 .empty{text-align:center;padding:3rem;color:var(--sub);font-size:.95rem}
 
-/* 加载状态 */
-.loading{text-align:center;padding:3rem;color:var(--sub)}
-
-@media(max-width:767px){
-  .stats{grid-template-columns:repeat(2,1fr)}
-  .table-wrap{overflow-x:auto}
-  table{min-width:600px}
-  .modal{width:94vw;margin:0 10px}
-  .search-input{width:160px}
-}
+/* 隐藏管理面板 */
+#admin-panel{display:none}
+#admin-panel.show{display:block}
 </style>
 <link rel="icon" href="favicon.ico">
 </head>
@@ -100,6 +95,8 @@ tr:hover td{background:rgba(26,115,232,.03)}
 
 <nav class="site-nav">
   <a href="index.html" class="site-nav-logo"><span class="logo-icon">⚔</span> POE2 Hub</a>
+  <span class="nav-user" id="nav-user" style="display:none">管理员</span>
+  <span class="nav-logout" id="nav-logout" style="display:none" onclick="logout()">退出</span>
   <a href="index.html" class="nav-back">← 返回首页</a>
 </nav>
 
@@ -108,30 +105,43 @@ tr:hover td{background:rgba(26,115,232,.03)}
   <svg class="theme-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
 </button>
 
-<div class="wrap">
-
-<!-- 统计 -->
-<div class="stats" id="stats"><div class="loading">加载中...</div></div>
-
-<!-- 工具栏 -->
-<div class="toolbar">
-  <button class="btn btn-primary" onclick="openAddModal()">+ 新增链接</button>
-  <input type="text" class="search-input" id="filterInput" placeholder="搜索标题/URL..." oninput="renderTable()">
+<!-- 登录页面 -->
+<div class="login-container" id="login-container">
+  <h1 class="login-title"><span>⚔</span> 管理后台登录</h1>
+  <div class="form-group">
+    <label>用户名</label>
+    <input type="text" id="login-username" placeholder="请输入用户名" autocomplete="username">
+  </div>
+  <div class="form-group">
+    <label>密码</label>
+    <input type="password" id="login-password" placeholder="请输入密码" autocomplete="current-password" onkeydown="if(event.key==='Enter')login()">
+  </div>
+  <button class="btn btn-primary" onclick="login()">登录</button>
+  <div class="login-error" id="login-error"></div>
 </div>
 
-<!-- 分类筛选 -->
-<div class="cat-filter" id="catFilter"></div>
+<!-- 管理面板 -->
+<div id="admin-panel">
+  <div class="wrap">
+    <!-- 工具栏 -->
+    <div class="toolbar">
+      <button class="btn btn-primary btn-sm" onclick="openAddModal()">+ 新增链接</button>
+      <input type="text" class="search-input" id="filterInput" placeholder="搜索标题/URL..." oninput="renderTable()">
+    </div>
 
-<!-- 表格 -->
-<div class="table-wrap">
-  <table>
-    <thead><tr>
-      <th>ID</th><th>标题</th><th>描述</th><th>URL</th><th>分类</th><th>操作</th>
-    </tr></thead>
-    <tbody id="tableBody"></tbody>
-  </table>
-</div>
+    <!-- 分类筛选 -->
+    <div class="cat-filter" id="catFilter"></div>
 
+    <!-- 表格 -->
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>ID</th><th>标题</th><th>描述</th><th>URL</th><th>分类</th><th>操作</th>
+        </tr></thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
 </div>
 
 <!-- 编辑模态框 -->
@@ -160,8 +170,49 @@ tr:hover td{background:rgba(26,115,232,.03)}
 
 <script>
 const API_URL = '/api/links';
+const ADMIN_USER = 'admin';
+const ADMIN_PASS = '54188wang';
+const AUTH_KEY = 'poe2_admin_auth';
+
 let allLinks = [];
 let activeCat = '全部';
+
+// ===== 登录验证 =====
+function checkAuth() {
+  const auth = sessionStorage.getItem(AUTH_KEY);
+  if (auth === 'true') {
+    showAdminPanel();
+    return true;
+  }
+  return false;
+}
+
+function login() {
+  const username = document.getElementById('login-username').value.trim();
+  const password = document.getElementById('login-password').value;
+  const errorEl = document.getElementById('login-error');
+  
+  if (username === ADMIN_USER && password === ADMIN_PASS) {
+    sessionStorage.setItem(AUTH_KEY, 'true');
+    showAdminPanel();
+    errorEl.textContent = '';
+  } else {
+    errorEl.textContent = '用户名或密码错误';
+  }
+}
+
+function logout() {
+  sessionStorage.removeItem(AUTH_KEY);
+  location.reload();
+}
+
+function showAdminPanel() {
+  document.getElementById('login-container').style.display = 'none';
+  document.getElementById('admin-panel').classList.add('show');
+  document.getElementById('nav-user').style.display = 'inline';
+  document.getElementById('nav-logout').style.display = 'inline';
+  loadData();
+}
 
 // ===== 数据加载 =====
 async function loadData() {
@@ -169,23 +220,12 @@ async function loadData() {
     const resp = await fetch(API_URL);
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
     allLinks = await resp.json();
-    renderStats();
     renderCatFilter();
     renderTable();
   } catch (e) {
     console.error('加载失败:', e);
-    document.getElementById('stats').innerHTML = '<div class="empty">加载失败: ' + e.message + '</div>';
+    document.getElementById('tableBody').innerHTML = '<tr><td colspan="6" class="empty">加载失败: ' + e.message + '</td></tr>';
   }
-}
-
-// ===== 统计 =====
-function renderStats() {
-  const cats = [...new Set(allLinks.map(l=>l.category))];
-  document.getElementById('stats').innerHTML = `
-    <div class="stat-card"><div class="stat-num">${allLinks.length}</div><div class="stat-label">总链接数</div></div>
-    <div class="stat-card"><div class="stat-num">${cats.length}</div><div class="stat-label">分类数</div></div>
-    <div class="stat-card"><div class="stat-num">${allLinks.filter(l=>l.url&&l.url.includes('qq.com')).length}</div><div class="stat-label">国服相关</div></div>
-    <div class="stat-card"><div class="stat-num">Supabase</div><div class="stat-label">数据源</div></div>`;
 }
 
 // ===== 分类筛选 =====
@@ -202,14 +242,14 @@ function renderTable() {
   const q = (document.getElementById('filterInput').value||'').trim().toLowerCase();
   let data = activeCat==='全部' ? allLinks : allLinks.filter(l=>l.category===activeCat);
   if(q) data=data.filter(l=>
-    (l.title||'').toLowerCase().includes(q)||(l.descriptionription||'').toLowerCase().includes(q)||(l.url||'').toLowerCase().includes(q)
+    (l.title||'').toLowerCase().includes(q)||(l.description||'').toLowerCase().includes(q)||(l.url||'').toLowerCase().includes(q)
   );
   const tbody=document.getElementById('tableBody');
   if(!data.length){tbody.innerHTML='<tr><td colspan="6" class="empty">无匹配数据</td></tr>';return}
   tbody.innerHTML=data.map(l=>`<tr>
     <td>${l.id}</td>
     <td><strong>${esc(l.title)}</strong></td>
-    <td>${esc(l.descriptionription)}</td>
+    <td>${esc(l.description)}</td>
     <td class="url-cell" title="${esc(l.url)}">${esc(l.url)}</td>
     <td><span class="cat-tag">${esc(l.category)}</span></td>
     <td class="actions">
@@ -276,10 +316,8 @@ async function saveLink(){
   try {
     let resp;
     if(id){
-      // 更新
       resp=await fetch(`${API_URL}?id=${id}`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(link)});
     }else{
-      // 新增
       resp=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(link)});
     }
     if(!resp.ok){const err=await resp.json();throw new Error(err.error||'保存失败')}
@@ -326,7 +364,11 @@ document.addEventListener('DOMContentLoaded',()=>{
   function upd(t){if(sun)sun.style.display=t==='dark'?'none':'block';if(moon)moon.style.display=t==='dark'?'block':'none'}
   upd(document.body.getAttribute('data-theme'));
   if(btn)btn.onclick=()=>{const c=document.body.getAttribute('data-theme')==='dark'?'light':'dark';document.body.setAttribute('data-theme',c);localStorage.setItem('theme',c);upd(c)};
-  loadData();
+  
+  // 检查登录状态
+  if (!checkAuth()) {
+    // 未登录，显示登录框
+  }
 });
 </script>
 </body>
