@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>热门BD推荐 - POE2 国服攻略站</title>
+    <meta name="description" content="流放之路2当前版本T0/T1热门BD推荐，含职业、造价、难度与核心机制分析。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="top-banner">
+    <div class="container banner-inner">
+        <span class="banner-badge">🎮</span>
+        <span>流放之路2 国服限量测试中</span>
+        <a href="https://poe2.qq.com" target="_blank" class="banner-link">🏠 国服官网</a>
+    </div>
+</div>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="nav-logo"><span class="logo-icon">⚔️</span><span class="logo-text">POE2 <span class="logo-cn">国服攻略</span></span></a>
+        <button id="navToggle" class="nav-toggle" aria-label="菜单"><span></span><span></span><span></span></button>
+        <div id="navLinks" class="nav-links">
+            <a href="index.html" class="nav-link">🏠 首页</a>
+            <a href="classes.html" class="nav-link">🎭 职业</a>
+            <a href="builds.html" class="nav-link active">🗡️ BD推荐</a>
+            <a href="guides.html" class="nav-link">📖 攻略</a>
+            <a href="maps.html" class="nav-link">🗺️ 地图</a>
+            <a href="skills.html" class="nav-link">💎 技能</a>
+            <a href="tools.html" class="nav-link">🔧 工具</a>
+            <a href="news.html" class="nav-link">📰 资讯</a>
+        </div>
+        <div class="nav-search">
+            <button id="searchBtn" class="search-btn" aria-label="搜索">🔍</button>
+            <div id="searchDropdown" class="search-dropdown">
+                <input type="text" id="searchInput" placeholder="搜索BD..." autocomplete="off">
+                <div id="searchResults" class="search-results"></div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="page-hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <p class="hero-subtitle">PATH OF EXILE 2</p>
+        <h1 class="hero-title">🗡️ 热门BD推荐</h1>
+        <p class="hero-desc">当前版本强度评级 · T0/T1 分级 · 刷图效率 × Boss战 × 造价</p>
+    </div>
+</section>
+
+<section class="section page-content">
+    <div class="container">
+        <!-- 筛选标签 -->
+        <div class="build-filter-bar">
+            <div class="filter-group">
+                <span class="filter-label">分级：</span>
+                <button class="filter-btn active" data-filter="all">全部</button>
+                <button class="filter-btn" data-filter="meta">T0 推荐</button>
+                <button class="filter-btn" data-filter="league">联赛强势</button>
+                <button class="filter-btn" data-filter="budget">平民之选</button>
+            </div>
+            <div class="filter-group">
+                <span class="filter-label">职业：</span>
+                <select id="classFilter" class="filter-select">
+                    <option value="all">全部职业</option>
+                    <option value="女术士">女术士</option>
+                    <option value="游侠">游侠</option>
+                    <option value="勇士">勇士</option>
+                    <option value="女巫">女巫</option>
+                    <option value="佣兵">佣兵</option>
+                    <option value="武僧">武僧</option>
+                    <option value="猎人">猎人</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="buildGrid" class="build-grid"></div>
+    </div>
+</section>
+
+<!-- BD详细说明 -->
+<section class="section section-dark">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">📋 BD评级说明</h2>
+        </div>
+        <div class="bd-explain-grid">
+            <div class="bd-explain-item">
+                <h3 class="tier-badge tier-t0">T0</h3>
+                <p>版本强势流派，刷图与Boss均优秀，适合当前版本开荒与速通。</p>
+            </div>
+            <div class="bd-explain-item">
+                <h3 class="tier-badge tier-t1">T1</h3>
+                <p>主流推荐流派，特定场景优秀，需要一定装备支持。</p>
+            </div>
+            <div class="bd-explain-item">
+                <h3 class="tier-badge tier-t2">T2</h3>
+                <p>有潜力的流派，特定Build或联赛环境中表现突出。</p>
+            </div>
+        </div>
+        <div class="bd-tips">
+            <h3>💡 BD选择建议</h3>
+            <ul>
+                <li><strong>新手推荐</strong>：勇士-旋风斩、游侠-箭雨 — 造价低、易上手、生存强</li>
+                <li><strong>联赛推荐</strong>：佣兵-手雷、猎人-毒雨 — 特定机制强势、造价适中</li>
+                <li><strong>后期推荐</strong>：女巫-地狱火、女术士-冰火 — 高伤害上限、需要一定投资</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="section cta-section">
+    <div class="container" style="text-align:center">
+        <h2>想深入了解职业机制？</h2>
+        <p style="color:var(--text-secondary);margin:16px 0 28px">查看各职业详细数据与进阶职业对比</p>
+        <a href="classes.html" class="btn btn-primary" style="font-size:1rem;padding:14px 36px">🎭 查看职业详解 →</a>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col"><h3 class="footer-logo">⚔️ POE2 国服攻略</h3><p class="footer-desc">专注流放之路2国服攻略导航，数据来源 POE2 Wiki。</p><p class="footer-source">资料来源：<a href="https://www.poe2wiki.net" target="_blank">POE2 Wiki</a></p></div>
+            <div class="footer-col"><h4 class="footer-heading">站内导航</h4><ul class="footer-links"><li><a href="classes.html">职业详解</a></li><li><a href="guides.html">新手指南</a></li><li><a href="maps.html">地图大全</a></li><li><a href="news.html">资讯动态</a></li></ul></div>
+            <div class="footer-col"><h4 class="footer-heading">外部资源</h4><ul class="footer-links"><li><a href="https://poe2.qq.com" target="_blank">国服官网</a></li><li><a href="https://www.poe2wiki.net" target="_blank">POE2 Wiki</a></li><li><a href="https://maxroll.gg/poe2" target="_blank">Maxroll</a></li><li><a href="https://poe2.ninja" target="_blank">POE2 Ninja</a></li></ul></div>
+            <div class="footer-col"><h4 class="footer-heading">开发中</h4><ul class="footer-links"><li><a href="tree.html">天赋模拟器</a></li><li><a href="items.html">物品百科</a></li><li><a href="trade-calc.html">交易计算器</a></li><li><a href="league.html">联赛专题</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p>© 2025 POE2 国服攻略站 · 仅供学习交流 · 请支持正版</p></div>
+    </div>
+</footer>
+
+<button id="backToTop" class="back-to-top" aria-label="返回顶部">↑</button>
+
+<script src="js/data.js"></script>
+<script src="js/builds.js"></script>
+</body>
+</html>

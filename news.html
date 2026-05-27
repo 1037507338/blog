@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资讯动态 - POE2 国服攻略站</title>
+    <meta name="description" content="流放之路2最新版本更新、联赛资讯、国服活动与攻略精选。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="top-banner">
+    <div class="container banner-inner">
+        <span class="banner-badge">🎮</span>
+        <span>流放之路2 国服限量测试中</span>
+        <a href="https://poe2.qq.com" target="_blank" class="banner-link">🏠 国服官网</a>
+    </div>
+</div>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="nav-logo"><span class="logo-icon">⚔️</span><span class="logo-text">POE2 <span class="logo-cn">国服攻略</span></span></a>
+        <button id="navToggle" class="nav-toggle" aria-label="菜单"><span></span><span></span><span></span></button>
+        <div id="navLinks" class="nav-links">
+            <a href="index.html" class="nav-link">🏠 首页</a>
+            <a href="classes.html" class="nav-link">🎭 职业</a>
+            <a href="builds.html" class="nav-link">🗡️ BD推荐</a>
+            <a href="guides.html" class="nav-link">📖 攻略</a>
+            <a href="maps.html" class="nav-link">🗺️ 地图</a>
+            <a href="skills.html" class="nav-link">💎 技能</a>
+            <a href="tools.html" class="nav-link">🔧 工具</a>
+            <a href="news.html" class="nav-link active">📰 资讯</a>
+        </div>
+        <div class="nav-search">
+            <button id="searchBtn" class="search-btn" aria-label="搜索">🔍</button>
+            <div id="searchDropdown" class="search-dropdown">
+                <input type="text" id="searchInput" placeholder="搜索资讯..." autocomplete="off">
+                <div id="searchResults" class="search-results"></div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="page-hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <p class="hero-subtitle">PATH OF EXILE 2</p>
+        <h1 class="hero-title">📰 资讯动态</h1>
+        <p class="hero-desc">版本更新 · 联赛资讯 · 国服活动 · 攻略精选</p>
+    </div>
+</section>
+
+<section class="section page-content">
+    <div class="container">
+        <div class="news-filter">
+            <button class="filter-btn active" data-cat="all">全部</button>
+            <button class="filter-btn" data-cat="版本">版本更新</button>
+            <button class="filter-btn" data-cat="联赛">联赛</button>
+            <button class="filter-btn" data-cat="国服">国服</button>
+            <button class="filter-btn" data-cat="攻略">攻略</button>
+        </div>
+        <div id="newsGrid" class="news-list"></div>
+    </div>
+</section>
+
+<!-- 快速链接 -->
+<section class="section section-dark">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">🔗 官方资讯渠道</h2>
+        </div>
+        <div class="news-sources">
+            <a href="https://www.pathofexile.com/news" target="_blank" class="source-card">
+                <span class="source-icon">📰</span>
+                <span class="source-name">国际服官方新闻</span>
+                <span class="source-url">pathofexile.com/news</span>
+            </a>
+            <a href="https://poe2.qq.com" target="_blank" class="source-card">
+                <span class="source-icon">🏠</span>
+                <span class="source-name">国服官网</span>
+                <span class="source-url">poe2.qq.com</span>
+            </a>
+            <a href="https://www.reddit.com/r/PathOfExile2" target="_blank" class="source-card">
+                <span class="source-icon">🔴</span>
+                <span class="source-name">Reddit POE2</span>
+                <span class="source-url">r/PathOfExile2</span>
+            </a>
+            <a href="https://discord.gg/pathofexile" target="_blank" class="source-card">
+                <span class="source-icon">💬</span>
+                <span class="source-name">Discord</span>
+                <span class="source-url">GGG 官方服务器</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col"><h3 class="footer-logo">⚔️ POE2 国服攻略</h3><p class="footer-desc">专注流放之路2国服攻略导航，数据来源 POE2 Wiki。</p></div>
+            <div class="footer-col"><h4 class="footer-heading">站内导航</h4><ul class="footer-links"><li><a href="classes.html">职业详解</a></li><li><a href="builds.html">热门BD</a></li><li><a href="guides.html">新手指南</a></li></ul></div>
+            <div class="footer-col"><h4 class="footer-heading">外部资源</h4><ul class="footer-links"><li><a href="https://poe2.qq.com" target="_blank">国服官网</a></li><li><a href="https://www.poe2wiki.net" target="_blank">POE2 Wiki</a></li></ul></div>
+            <div class="footer-col"><h4 class="footer-heading">开发中</h4><ul class="footer-links"><li><a href="tree.html">天赋模拟器</a></li><li><a href="items.html">物品百科</a></li></ul></div>
+        </div>
+        <div class="footer-bottom"><p>© 2025 POE2 国服攻略站 · 仅供学习交流 · 请支持正版</p></div>
+    </div>
+</footer>
+
+<button id="backToTop" class="back-to-top" aria-label="返回顶部">↑</button>
+
+<script src="js/data.js"></script>
+<script src="js/news.js"></script>
+</body>
+</html>

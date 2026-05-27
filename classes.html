@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>职业详解 - POE2 国服攻略站</title>
+    <meta name="description" content="流放之路2全部12大职业与36个进阶职业详细数据，含属性、武器、难度与进阶推荐。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="top-banner">
+    <div class="container banner-inner">
+        <span class="banner-badge">🎮</span>
+        <span>流放之路2 国服限量测试中</span>
+        <a href="https://poe2.qq.com" target="_blank" class="banner-link">🏠 国服官网</a>
+    </div>
+</div>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="nav-logo">
+            <span class="logo-icon">⚔️</span>
+            <span class="logo-text">POE2 <span class="logo-cn">国服攻略</span></span>
+        </a>
+        <button id="navToggle" class="nav-toggle" aria-label="菜单">
+            <span></span><span></span><span></span>
+        </button>
+        <div id="navLinks" class="nav-links">
+            <a href="index.html" class="nav-link">🏠 首页</a>
+            <a href="classes.html" class="nav-link active">🎭 职业</a>
+            <a href="builds.html" class="nav-link">🗡️ BD推荐</a>
+            <a href="guides.html" class="nav-link">📖 攻略</a>
+            <a href="maps.html" class="nav-link">🗺️ 地图</a>
+            <a href="skills.html" class="nav-link">💎 技能</a>
+            <a href="tools.html" class="nav-link">🔧 工具</a>
+            <a href="news.html" class="nav-link">📰 资讯</a>
+        </div>
+        <div class="nav-search">
+            <button id="searchBtn" class="search-btn" aria-label="搜索">🔍</button>
+            <div id="searchDropdown" class="search-dropdown">
+                <input type="text" id="searchInput" placeholder="搜索职业、BD、攻略..." autocomplete="off">
+                <div id="searchResults" class="search-results"></div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- 页面标题 -->
+<section class="page-hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <p class="hero-subtitle">PATH OF EXILE 2</p>
+        <h1 class="hero-title">🎭 职业详解</h1>
+        <p class="hero-desc">12大职业 × 36个进阶职业 · 完整数据 · 来源：POE2 Wiki</p>
+    </div>
+</section>
+
+<!-- ===== 职业筛选 ===== -->
+<section class="section page-content">
+    <div class="container">
+        <div class="filter-bar">
+            <button class="filter-btn active" data-filter="all">全部职业</button>
+            <button class="filter-btn" data-filter="strength">💪 力量系</button>
+            <button class="filter-btn" data-filter="dexterity">🏹 敏捷系</button>
+            <button class="filter-btn" data-filter="intelligence">🔮 智力系</button>
+            <button class="filter-btn" data-filter="hybrid">⚡ 混合系</button>
+        </div>
+
+        <div id="classGrid" class="class-grid"></div>
+    </div>
+</section>
+
+<!-- ===== 职业详情弹层 ===== -->
+<div id="classModal" class="modal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <div id="modalBody" class="modal-body"></div>
+    </div>
+</div>
+
+<!-- ===== 天赋树概览 ===== -->
+<section class="section section-dark">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">🌳 天赋树概览</h2>
+            <p class="section-desc">天赋树分为三大属性区域，总计 123 点天赋（99级 + 24任务点）。来源：POE2 Wiki。</p>
+        </div>
+        <div class="passive-overview">
+            <div class="passive-zone">
+                <div class="zone-icon">💪</div>
+                <h3>力量区域（西南）</h3>
+                <p>火焰伤害、护甲、近战攻击、耐力球、格挡、战吼、生命偷取</p>
+            </div>
+            <div class="passive-zone">
+                <div class="zone-icon">🏹</div>
+                <h3>敏捷区域（东南）</h3>
+                <p>闪电伤害、闪避、远程攻击、狂暴球、偏转、精准、药剂恢复</p>
+            </div>
+            <div class="passive-zone">
+                <div class="zone-icon">🔮</div>
+                <h3>智力区域（北部）</h3>
+                <p>冰霜伤害、混沌伤害、能量护盾、法术、召唤物、魔力、诅咒</p>
+            </div>
+        </div>
+        <p class="passive-note">
+            📌 <strong>重要提示</strong>：德鲁伊进阶职业「先知 Oracle」拥有专属天赋节点「The Unseen Path」，可查看其他职业无法访问的独占天赋。
+        </p>
+    </div>
+</section>
+
+<!-- ===== 武器专精 ===== -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">⚔️ 武器专精一览</h2>
+            <p class="section-desc">每个职业有专属的武器类型加成，选择适合自己职业的武器能事半功倍。</p>
+        </div>
+        <div class="weapon-grid">
+            <div class="weapon-card">
+                <h4>⚔️ 剑类</h4>
+                <p>战士、决斗家、佣兵 | 双持或剑盾组合</p>
+            </div>
+            <div class="weapon-card">
+                <h4>🪓 斧类</h4>
+                <p>野蛮人 | 高伤害单手或双手斧</p>
+            </div>
+            <div class="weapon-card">
+                <h4>🔨 锤/连枷</h4>
+                <p>勇士、圣堂武士 | 锤系重击，连枷附带诅咒</p>
+            </div>
+            <div class="weapon-card">
+                <h4>🏹 弓类</h4>
+                <p>游侠 | 远程投射，多重箭矢</p>
+            </div>
+            <div class="weapon-card">
+                <h4>🗡️ 长矛</h4>
+                <p>猎人 | 穿刺攻击，可投掷</p>
+            </div>
+            <div class="weapon-card">
+                <h4>🔫 弩</h4>
+                <p>佣兵 | 手雷 + 弩炮，范围控制</p>
+            </div>
+            <div class="weapon-card">
+                <h4>🪄 法杖</h4>
+                <p>女巫、女术士 | 召唤/元素法术</p>
+            </div>
+            <div class="weapon-card">
+                <h4>🗡️ 匕首</h4>
+                <p>暗影 | 毒素、暴击、陷阱</p>
+            </div>
+            <div class="weapon-card">
+                <h4>👊 空手/长棍</h4>
+                <p>武僧 | 连击、闪避反击</p>
+            </div>
+            <div class="weapon-card">
+                <h4>🌿 双手武器</h4>
+                <p>德鲁伊 | 变形与自然魔法</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 属性系统 ===== -->
+<section class="section section-dark">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">📊 属性系统</h2>
+            <p class="section-desc">POE2 三大主属性影响角色能力和装备穿戴需求。</p>
+        </div>
+        <div class="attr-table">
+            <div class="attr-row">
+                <span class="attr-name attr-str">💪 力量 Strength</span>
+                <span class="attr-desc">增加物理伤害、护甲、生命值、耐力球上限</span>
+            </div>
+            <div class="attr-row">
+                <span class="attr-name attr-dex">🏹 敏捷 Dexterity</span>
+                <span class="attr-desc">增加命中率、闪避值、攻击速度、狂暴球上限</span>
+            </div>
+            <div class="attr-row">
+                <span class="attr-name attr-int">🔮 智力 Intelligence</span>
+                <span class="attr-desc">增加法术伤害、能量护盾、法力上限、魔力球上限</span>
+            </div>
+            <div class="attr-row">
+                <span class="attr-name attr-all">⚡ 全属性</span>
+                <span class="attr-desc">部分职业（如德鲁伊）需要平衡发展多种属性</span>
+            </div>
+        </div>
+        <p class="attr-tip">💡 提示：力量和敏捷、敏捷和智力、力量和智力之间存在混合职业（如决斗家、佣兵、武僧等），需要均衡分配属性点。</p>
+    </div>
+</section>
+
+<!-- ===== 返回首页 ===== -->
+<section class="section cta-section">
+    <div class="container" style="text-align:center">
+        <h2>准备好选择你的职业了吗？</h2>
+        <p style="color:var(--text-secondary);margin:16px 0 28px">查看各职业的热门BD推荐，找到最适合你的流派</p>
+        <a href="builds.html" class="btn btn-primary" style="font-size:1rem;padding:14px 36px">🗡️ 查看热门BD →</a>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3 class="footer-logo">⚔️ POE2 国服攻略</h3>
+                <p class="footer-desc">专注流放之路2国服攻略导航，数据来源 POE2 Wiki。</p>
+                <p class="footer-source">资料来源：<a href="https://www.poe2wiki.net" target="_blank">POE2 Wiki</a></p>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-heading">站内导航</h4>
+                <ul class="footer-links">
+                    <li><a href="builds.html">热门BD</a></li>
+                    <li><a href="guides.html">新手指南</a></li>
+                    <li><a href="maps.html">地图大全</a></li>
+                    <li><a href="news.html">资讯动态</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-heading">外部资源</h4>
+                <ul class="footer-links">
+                    <li><a href="https://poe2.qq.com" target="_blank">国服官网</a></li>
+                    <li><a href="https://www.poe2wiki.net" target="_blank">POE2 Wiki</a></li>
+                    <li><a href="https://maxroll.gg/poe2" target="_blank">Maxroll</a></li>
+                    <li><a href="https://poe2.ninja" target="_blank">POE2 Ninja</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-heading">开发中</h4>
+                <ul class="footer-links">
+                    <li><a href="tree.html">天赋模拟器</a></li>
+                    <li><a href="items.html">物品百科</a></li>
+                    <li><a href="trade-calc.html">交易计算器</a></li>
+                    <li><a href="league.html">联赛专题</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 POE2 国服攻略站 · 仅供学习交流 · 请支持正版</p>
+        </div>
+    </div>
+</footer>
+
+<button id="backToTop" class="back-to-top" aria-label="返回顶部">↑</button>
+
+<script src="js/data.js"></script>
+<script src="js/classes.js"></script>
+</body>
+</html>
