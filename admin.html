@@ -266,6 +266,9 @@ tr:hover td{background:rgba(26,115,232,.03)}
         </div>
       </div>
 
+      <!-- 排序 -->
+      <div class="form-group"><label>排序权重</label><input type="number" id="editSortOrder" value="0" placeholder="数字越小越靠前" style="width:140px"></div>
+
       <!-- 分类多选（Tag 输入） -->
       <div class="form-group" style="margin-top:16px">
         <label class="cat-multi-label">分类 <span class="cat-multi-hint">（可多选，点击 + 新增）</span></label>
@@ -578,8 +581,8 @@ function confirmCatNew() {
 // 点击外部关闭新建分类弹窗
 document.addEventListener('click', e => {
   const m = document.getElementById('catNewModal');
-  if (m && !m.querySelector('.cat-new-modal').contains(e.target) && !e.target.closest('.cat-add-btn')) {
-    // 只有点 + 按钮才打开，点外部关闭（但已在 open 里处理）
+  if (m && m.classList.contains('show') && !m.querySelector('.cat-new-modal').contains(e.target) && !e.target.closest('.cat-add-btn')) {
+    closeCatNewModal();
   }
 });
 
@@ -607,7 +610,8 @@ function openAddModal() {
   document.getElementById('editUrl').value = '';
   document.getElementById('editLinkType').value = 'external';
   document.getElementById('editPageTypeDisplay').value = activeTab;
-  document.getElementById('editSortOrder').value = '';
+  const sortEl = document.getElementById('editSortOrder');
+  if (sortEl) sortEl.value = '';
   selectedCats = [];
   renderCatTags();
   onLinkTypeChange();
@@ -624,7 +628,8 @@ function openEditModal(id) {
   document.getElementById('editUrl').value = l.url || '';
   document.getElementById('editLinkType').value = l.link_type || 'external';
   document.getElementById('editPageTypeDisplay').value = l.page_type || activeTab;
-  document.getElementById('editSortOrder').value = l.sort_order || '';
+  const sortEl = document.getElementById('editSortOrder');
+  if (sortEl) sortEl.value = l.sort_order || 0;
   selectedCats = [...(l.categories || (l.category ? [l.category] : []))];
   renderCatTags();
   onLinkTypeChange();
