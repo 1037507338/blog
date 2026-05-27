@@ -143,9 +143,9 @@ function showNodeDetail(nodeId) {
     const stepsEl = document.getElementById('nodeSteps');
     if (node.steps && node.steps.length > 0) {
         stepsEl.innerHTML = node.steps.map(step => `
-            <li>
-                <strong>${step.title}</strong>
-                ${step.body}
+            <li style="display:block;width:100%;padding:10px;margin-bottom:6px;background:rgba(0,0,0,0.04);border-radius:6px;border-left:3px solid var(--nav-active);box-sizing:border-box;overflow:visible">
+                <strong style="display:block;font-weight:700;margin-bottom:4px;color:var(--nav-active);font-size:0.9rem">${step.title}</strong>
+                <span style="display:inline;white-space:normal;word-break:normal;line-height:1.6">${step.body}</span>
             </li>
         `).join('');
     } else {
