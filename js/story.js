@@ -183,51 +183,39 @@ function updateNavButtons(node) {
     nextBtn.disabled = currentIndex >= flowOrder.length - 1;
 }
 
-// 节点导航
+// 节点导航（点击下一步→跳转+自动标记）
 function navigateNode(direction) {
     const data = storyData[currentAct];
     const currentIndex = data.flowOrder.indexOf(currentNodeId);
     const newIndex = currentIndex + direction;
     
     if (newIndex >= 0 && newIndex < data.flowOrder.length) {
-        showNodeDetail(data.flowOrder[newIndex]);
+        const newNodeId = data.flowOrder[newIndex];
+        
+        // 自动标记：当前节点已完成，新节点设为当前
+        if (!progress[currentAct]) progress[currentAct] = {};
+        
+        // 清除所有之前的标记
+        Object.keys(progress[currentAct]).forEach(key => {
+            delete progress[currentAct][key];
+        });
+        
+        // 标记当前节点之前的都完成（包括当前）
+        for (let i = 0; i <= currentIndex; i++) {
+            progress[currentAct][data.flowOrder[i]] = 'completed';
+        }
+        
+        // 标记新节点为当前
+        progress[currentAct][newNodeId] = 'current';
+        saveProgress();
+        
+        showNodeDetail(newNodeId);
+        renderNodes(data.nodes);
+        updateProgress();
     }
 }
 
-// 设置当前节点
-function setCurrentNode() {
-    if (!currentAct || !currentNodeId) return;
-    
-    // 重置整个章节的进度状态
-    if (!progress[currentAct]) progress[currentAct] = {};
-    
-    // 清除所有已完成的标记和当前标记，为重新设置做准备
-    Object.keys(progress[currentAct]).forEach(key => {
-        delete progress[currentAct][key];
-    });
-    
-    // 标记之前的节点为已完成（包括当前选中的节点本身之前的）
-    const data = storyData[currentAct];
-    const currentIndex = data.flowOrder.indexOf(currentNodeId);
-    for (let i = 0; i < currentIndex; i++) {
-        progress[currentAct][data.flowOrder[i]] = 'completed';
-    }
-    
-    // 设置当前节点
-    progress[currentAct][currentNodeId] = 'current';
-    saveProgress();
-    
-    // 更新UI
-    renderNodes(data.nodes);
-    updateProgress();
-    
-    // 显示提示
-    const marker = document.getElementById(`node-${currentNodeId}`);
-    if (marker) {
-        marker.style.transform = 'translate(-50%, -50%) scale(1.5)';
-        setTimeout(() => { marker.style.transform = ''; }, 300);
-    }
-}
+// 设置当前节点 - 已移除，逻辑合并到 navigateNode 中
 
 // 更新进度
 function updateProgress() {
