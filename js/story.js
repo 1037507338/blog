@@ -139,14 +139,14 @@ function showNodeDetail(nodeId) {
         badgeEl.innerHTML = '';
     }
     
-    // 步骤
+    // 步骤 - 用 div 彻底避免 li 竖排问题
     const stepsEl = document.getElementById('nodeSteps');
     if (node.steps && node.steps.length > 0) {
         stepsEl.innerHTML = node.steps.map(step => `
-            <li style="display:block;width:100%;padding:10px;margin-bottom:6px;background:rgba(0,0,0,0.04);border-radius:6px;border-left:3px solid var(--nav-active);box-sizing:border-box;overflow:visible">
-                <strong style="display:block;font-weight:700;margin-bottom:4px;color:var(--nav-active);font-size:0.9rem">${step.title}</strong>
-                <span style="display:inline;white-space:normal;word-break:normal;line-height:1.6">${step.body}</span>
-            </li>
+            <div class="step-item">
+                <span class="step-title">${step.title}</span>
+                <div class="step-body">${step.body}</div>
+            </div>
         `).join('');
     } else {
         stepsEl.innerHTML = '';

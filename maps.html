@@ -60,10 +60,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica N
 .badge.skill{background:#4dabf7;color:#fff}
 .badge.loot{background:#69db7c;color:#333}
 .badge.danger{background:#ff6b6b;color:#fff}
-.steps-list{list-style:none;padding:0;margin:1rem 0}
-.steps-list li{padding:10px;margin-bottom:6px;background:rgba(0,0,0,0.04);border-radius:6px;border-left:3px solid var(--nav-active);display:block;width:100%;box-sizing:border-box}
-.steps-list li *{writing-mode:horizontal-tb !important;text-align:left !important;direction:ltr !important;unicode-bidi:plaintext !important}
-.steps-list li strong{font-weight:700;margin-bottom:4px;color:var(--nav-active);font-size:0.9rem;display:block}
+.steps-list{padding:0;margin:1rem 0;display:flex;flex-direction:column;gap:8px}
+.step-item{padding:12px;background:rgba(0,0,0,0.04);border-radius:6px;border-left:3px solid var(--nav-active);font-size:0.9rem;line-height:1.6}
+.step-item .step-title{font-weight:700;margin-bottom:4px;color:var(--nav-active);display:block}
+.step-item .step-body{color:var(--text)}
 .node-images{display:grid;gap:8px;margin-top:12px}
 .node-images img{width:100%;border-radius:6px;cursor:pointer;transition:transform 0.3s}
 .node-images img:hover{transform:scale(1.02)}
@@ -141,7 +141,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica N
   <div class="detail-content">
     <div id="nodeBadge"></div>
     <p id="nodeDescription" style="font-size:0.9rem;color:var(--subtext);white-space:pre-line"></p>
-    <ul class="steps-list" id="nodeSteps"></ul>
+    <div class="steps-list" id="nodeSteps"></div>
     <div class="node-images" id="nodeImages"></div>
     <div class="nav-buttons">
       <button class="nav-btn" id="prevBtn" onclick="navigateNode(-1)">上一步</button>
