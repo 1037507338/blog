@@ -79,7 +79,8 @@ export default async function handler(req, res) {
           description: description || '',
           url,
           category: category || '未分类',
-          sort_order: sort_order || 0
+          sort_order: sort_order || 0,
+          link_type: link_type || 'external'
         }])
         .select();
 
@@ -106,6 +107,7 @@ export default async function handler(req, res) {
       if (url !== undefined) updates.url = url;
       if (category !== undefined) updates.category = category;
       if (sort_order !== undefined) updates.sort_order = sort_order;
+      if (link_type !== undefined) updates.link_type = link_type;
       updates.updated_at = new Date().toISOString();
 
       const client = await getSupabase();

@@ -31,8 +31,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .login-title span{background:linear-gradient(135deg,#c9a227,#8b6914);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .form-group{margin-bottom:16px}
 .form-group label{display:block;font-size:.85rem;font-weight:600;color:var(--text);margin-bottom:6px}
-.form-group input{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:7px;font-size:.9rem;background:var(--bg);color:var(--text);outline:none;transition:border-color .2s}
-.form-group input:focus{border-color:var(--accent)}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:7px;font-size:.9rem;background:var(--bg);color:var(--text);outline:none;transition:border-color .2s;font-family:inherit}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent)}
 .btn{width:100%;padding:10px 18px;border-radius:7px;font-size:.9rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--text);transition:.2s}
 .btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
 .btn-primary:hover{opacity:.9}
@@ -58,7 +58,10 @@ td{padding:10px 14px;font-size:.87rem;border-bottom:1px solid var(--border);vert
 tr:last-child td{border-bottom:none}
 tr:hover td{background:rgba(26,115,232,.03)}
 .cat-tag{display:inline-block;padding:2px 10px;border-radius:10px;font-size:.75rem;font-weight:600;background:rgba(26,115,232,.08);color:var(--accent)}
-.url-cell{max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--sub);font-size:.8rem}
+.type-tag{display:inline-block;padding:2px 8px;border-radius:8px;font-size:.72rem;font-weight:500}
+.type-html{background:rgba(26,115,232,.1);color:var(--accent)}
+.type-external{background:rgba(200,50,50,.1);color:var(--danger)}
+.url-cell{max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--sub);font-size:.8rem}
 .actions{display:flex;gap:6px}
 .btn-danger{color:var(--danger);border-color:var(--danger)}
 .btn-danger:hover{background:var(--danger);color:#fff}
@@ -66,15 +69,13 @@ tr:hover td{background:rgba(26,115,232,.03)}
 /* 模态框 */
 .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.45);z-index:2000;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:.2s}
 .modal-overlay.show{opacity:1;visibility:visible}
-.modal{background:var(--card);border-radius:14px;width:480px;max-width:92vw;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2);transform:translateY(20px);transition:.25s}
+.modal{background:var(--card);border-radius:14px;width:500px;max-width:92vw;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2);transform:translateY(20px);transition:.25s}
 .modal-overlay.show .modal{transform:translateY(0)}
 .modal-header{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--border)}
 .modal-header h2{font-size:1.05rem;font-weight:700}
 .modal-close{width:32px;height:32px;border-radius:50%;border:none;background:rgba(128,128,128,.08);color:var(--sub);cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:.2s}
 .modal-close:hover{background:rgba(200,50,50,.1);color:var(--danger)}
 .modal-body{padding:20px}
-.form-group textarea{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:7px;font-size:.88rem;background:var(--bg);color:var(--text);outline:none;resize:vertical;min-height:60px}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent)}
 .modal-footer{display:flex;justify-content:flex-end;gap:8px;padding:16px 20px;border-top:1px solid var(--border)}
 
 /* Toast */
@@ -86,8 +87,6 @@ tr:hover td{background:rgba(26,115,232,.03)}
 
 /* 空状态 */
 .empty{text-align:center;padding:3rem;color:var(--sub);font-size:.95rem}
-
-/* 隐藏管理面板 */
 #admin-panel{display:none}
 #admin-panel.show{display:block}
 </style>
@@ -128,20 +127,17 @@ tr:hover td{background:rgba(26,115,232,.03)}
 <!-- 管理面板 -->
 <div id="admin-panel">
   <div class="wrap">
-    <!-- 工具栏 -->
     <div class="toolbar">
       <button class="btn btn-primary btn-sm" onclick="openAddModal()">+ 新增链接</button>
       <input type="text" class="search-input" id="filterInput" placeholder="搜索标题/URL..." oninput="renderTable()">
     </div>
 
-    <!-- 分类筛选 -->
     <div class="cat-filter" id="catFilter"></div>
 
-    <!-- 表格 -->
     <div class="table-wrap">
       <table>
         <thead><tr>
-          <th>ID</th><th>标题</th><th>描述</th><th>URL</th><th>分类</th><th>操作</th>
+          <th>ID</th><th>标题</th><th>链接类型</th><th>URL</th><th>分类</th><th>操作</th>
         </tr></thead>
         <tbody id="tableBody"></tbody>
       </table>
@@ -158,10 +154,18 @@ tr:hover td{background:rgba(26,115,232,.03)}
     </div>
     <div class="modal-body">
       <input type="hidden" id="editId">
-      <div class="form-group"><label>标题 *</label><input type="text" id="editTitle" placeholder="如：poe2 国服" required></div>
+      <div class="form-group"><label>标题 *</label><input type="text" id="editTitle" placeholder="如：POE2 冰法BD" required></div>
       <div class="form-group"><label>描述</label><input type="text" id="editDesc" placeholder="简短描述"></div>
+      <div class="form-group">
+        <label>链接类型 *</label>
+        <select id="editLinkType" onchange="onLinkTypeChange()">
+          <option value="external">🔗 外站链接（新标签页打开）</option>
+          <option value="html">📄 站内HTML文件（原页打开）</option>
+        </select>
+      </div>
       <div class="form-group"><label>URL *</label><input type="url" id="editUrl" placeholder="https://..."></div>
-      <div class="form-group"><label>分类 *</label>
+      <div class="form-group">
+        <label>分类 *</label>
         <select id="editCategory"></select>
       </div>
       <div class="form-group"><label>排序(可选)</label><input type="number" id="editSortOrder" placeholder="数字越小越靠前"></div>
@@ -182,13 +186,23 @@ const AUTH_KEY = 'poe2_admin_auth';
 let allLinks = [];
 let activeCat = '全部';
 
+// ===== 链接类型切换 =====
+function onLinkTypeChange() {
+  const t = document.getElementById('editLinkType').value;
+  const urlInput = document.getElementById('editUrl');
+  if (t === 'html') {
+    urlInput.placeholder = '如：/builds/xyz.html（站内相对路径）';
+    urlInput.removeAttribute('pattern');
+  } else {
+    urlInput.placeholder = 'https://...';
+    urlInput.setAttribute('pattern', 'https?://.*');
+  }
+}
+
 // ===== 登录验证 =====
 function checkAuth() {
   const auth = sessionStorage.getItem(AUTH_KEY);
-  if (auth === 'true') {
-    showAdminPanel();
-    return true;
-  }
+  if (auth === 'true') { showAdminPanel(); return true; }
   return false;
 }
 
@@ -196,7 +210,6 @@ function login() {
   const username = document.getElementById('login-username').value.trim();
   const password = document.getElementById('login-password').value;
   const errorEl = document.getElementById('login-error');
-  
   if (username === ADMIN_USER && password === ADMIN_PASS) {
     sessionStorage.setItem(AUTH_KEY, 'true');
     showAdminPanel();
@@ -206,10 +219,7 @@ function login() {
   }
 }
 
-function logout() {
-  sessionStorage.removeItem(AUTH_KEY);
-  location.reload();
-}
+function logout() { sessionStorage.removeItem(AUTH_KEY); location.reload(); }
 
 function showAdminPanel() {
   document.getElementById('login-container').style.display = 'none';
@@ -237,143 +247,158 @@ async function loadData() {
 function renderCatFilter() {
   const cats = ['全部', ...new Set(allLinks.map(l=>l.category).sort())];
   document.getElementById('catFilter').innerHTML = cats.map(c =>
-    `<span class="cat-chip${c===activeCat?' active':''}" onclick="setCatFilter('${escAttr(c)}')">${c} (${c==='全部'?allLinks.length:allLinks.filter(l=>l.category===c).length})</span>`
+    `<span class="cat-chip${c===activeCat?' active':''}" onclick="setCatFilter('${escAttr(c)}')">${esc(c)} (${c==='全部'?allLinks.length:allLinks.filter(l=>l.category===c).length})</span>`
   ).join('');
 }
-function setCatFilter(c){activeCat=c;renderCatFilter();renderTable()}
+function setCatFilter(c){ activeCat=c; renderCatFilter(); renderTable(); }
 
 // ===== 表格渲染 =====
 function renderTable() {
   const q = (document.getElementById('filterInput').value||'').trim().toLowerCase();
   let data = activeCat==='全部' ? allLinks : allLinks.filter(l=>l.category===activeCat);
-  if(q) data=data.filter(l=>
+  if (q) data = data.filter(l=>
     (l.title||'').toLowerCase().includes(q)||(l.description||'').toLowerCase().includes(q)||(l.url||'').toLowerCase().includes(q)
   );
-  const tbody=document.getElementById('tableBody');
-  if(!data.length){tbody.innerHTML='<tr><td colspan="6" class="empty">无匹配数据</td></tr>';return}
-  tbody.innerHTML=data.map(l=>`<tr>
-    <td>${l.id}</td>
-    <td><strong>${esc(l.title)}</strong></td>
-    <td>${esc(l.description)}</td>
-    <td class="url-cell" title="${esc(l.url)}">${esc(l.url)}</td>
-    <td><span class="cat-tag">${esc(l.category)}</span></td>
-    <td class="actions">
-      <button class="btn btn-sm" onclick="openEditModal(${l.id})">✏️</button>
-      <button class="btn btn-sm btn-danger" onclick="deleteLink(${l.id})">🗑️</button>
-    </td>
-  </tr>`).join('');
+  const tbody = document.getElementById('tableBody');
+  if (!data.length) { tbody.innerHTML='<tr><td colspan="6" class="empty">无匹配数据</td></tr>'; return; }
+  tbody.innerHTML = data.map(l => {
+    const isHtml = l.link_type === 'html';
+    const typeTag = isHtml
+      ? '<span class="type-tag type-html">📄 站内HTML</span>'
+      : '<span class="type-tag type-external">🔗 外站链接</span>';
+    return `<tr>
+      <td>${l.id}</td>
+      <td><strong>${esc(l.title)}</strong></td>
+      <td>${typeTag}</td>
+      <td class="url-cell" title="${esc(l.url)}">${esc(l.url)}</td>
+      <td><span class="cat-tag">${esc(l.category)}</span></td>
+      <td class="actions">
+        <button class="btn btn-sm" onclick="openEditModal(${l.id})">✏️</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteLink(${l.id})">🗑️</button>
+      </td>
+    </tr>`;
+  }).join('');
 }
 
 // ===== 模态框 =====
-function openAddModal(){
-  document.getElementById('modalTitle').textContent='新增链接';
-  document.getElementById('editId').value='';
-  document.getElementById('editTitle').value='';
-  document.getElementById('editDesc').value='';
-  document.getElementById('editUrl').value='';
-  document.getElementById('editSortOrder').value='';
+function openAddModal() {
+  document.getElementById('modalTitle').textContent = '新增链接';
+  document.getElementById('editId').value = '';
+  document.getElementById('editTitle').value = '';
+  document.getElementById('editDesc').value = '';
+  document.getElementById('editUrl').value = '';
+  document.getElementById('editLinkType').value = 'external';
+  onLinkTypeChange();
+  document.getElementById('editSortOrder').value = '';
   populateCategories();
-  document.getElementById('editCategory').value='';
+  document.getElementById('editCategory').value = '';
   showModal();
 }
-function openEditModal(id){
-  const l=allLinks.find(x=>x.id===id);
-  if(!l)return;
-  document.getElementById('modalTitle').textContent='编辑链接';
-  document.getElementById('editId').value=id;
-  document.getElementById('editTitle').value=l.title||'';
-  document.getElementById('editDesc').value=l.description||'';
-  document.getElementById('editUrl').value=l.url||'';
-  document.getElementById('editSortOrder').value=l.sort_order||'';
+
+function openEditModal(id) {
+  const l = allLinks.find(x=>x.id===id);
+  if (!l) return;
+  document.getElementById('modalTitle').textContent = '编辑链接';
+  document.getElementById('editId').value = id;
+  document.getElementById('editTitle').value = l.title||'';
+  document.getElementById('editDesc').value = l.description||'';
+  document.getElementById('editUrl').value = l.url||'';
+  document.getElementById('editLinkType').value = l.link_type||'external';
+  onLinkTypeChange();
+  document.getElementById('editSortOrder').value = l.sort_order||'';
   populateCategories();
-  document.getElementById('editCategory').value=l.category||'';
+  document.getElementById('editCategory').value = l.category||'';
   showModal();
 }
-function populateCategories(){
-  const cats=[...new Set(allLinks.map(l=>l.category))].sort();
-  const sel=document.getElementById('editCategory');
-  sel.innerHTML=cats.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');
-  sel.innerHTML+='<option value="__new__">+ 新分类</option>';
-  sel.onchange=function(){
-    if(this.value==='__new__'){
-      const n=prompt('输入新分类名称：');
-      if(n){this.innerHTML+='<option value="'+escAttr(n)+'">'+esc(n)+'</option>';this.value=n;}
+
+function populateCategories() {
+  const cats = [...new Set(allLinks.map(l=>l.category))].sort();
+  const sel = document.getElementById('editCategory');
+  sel.innerHTML = cats.map(c=>`<option value="${escAttr(c)}">${esc(c)}</option>`).join('');
+  sel.innerHTML += '<option value="__new__">+ 新分类</option>';
+  sel.onchange = function() {
+    if (this.value === '__new__') {
+      const n = prompt('输入新分类名称：');
+      if (n) {
+        const v = n.trim();
+        this.innerHTML += `<option value="${escAttr(v)}">${esc(v)}</option>`;
+        this.value = v;
+      }
     }
   };
 }
-function showModal(){document.getElementById('editModal').classList.add('show')}
-function closeModal(){document.getElementById('editModal').classList.remove('show')}
+
+function showModal(){ document.getElementById('editModal').classList.add('show'); }
+function closeModal(){ document.getElementById('editModal').classList.remove('show'); }
 
 // ===== CRUD =====
-async function saveLink(){
-  const id=document.getElementById('editId').value;
-  const title=(document.getElementById('editTitle').value||'').trim();
-  const description=(document.getElementById('editDesc').value||'').trim();
-  const url=(document.getElementById('editUrl').value||'').trim();
-  const category=(document.getElementById('editCategory').value||'').trim();
-  const sort_order=parseInt(document.getElementById('editSortOrder').value)||0;
+async function saveLink() {
+  const id = document.getElementById('editId').value;
+  const title = (document.getElementById('editTitle').value||'').trim();
+  const description = (document.getElementById('editDesc').value||'').trim();
+  const url = (document.getElementById('editUrl').value||'').trim();
+  const link_type = document.getElementById('editLinkType').value;
+  const category = (document.getElementById('editCategory').value||'').trim();
+  const sort_order = parseInt(document.getElementById('editSortOrder').value)||0;
 
-  if(!title||!url){toast('请填写标题和URL','error');return}
-  if(!url.startsWith('http')){toast('URL 需以 http(s) 开头','error');return}
+  if (!title || !url) { toast('请填写标题和URL','error'); return; }
+  if (link_type === 'external' && !url.startsWith('http')) { toast('外站链接需以 http(s) 开头','error'); return; }
 
-  const link={title,description,url,category:category||'未分类',sort_order};
+  const link = { title, description, url, category: category||'未分类', sort_order, link_type: link_type||'external' };
 
   try {
     let resp;
-    if(id){
-      resp=await fetch(`${API_URL}?id=${id}`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(link)});
-    }else{
-      resp=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(link)});
+    if (id) {
+      resp = await fetch(`${API_URL}?id=${id}`, { method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify(link) });
+    } else {
+      resp = await fetch(API_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(link) });
     }
-    if(!resp.ok){const err=await resp.json();throw new Error(err.error||'保存失败')}
-    toast(id?'✅ 已更新':'✅ 已新增','success');
+    if (!resp.ok) { const err = await resp.json(); throw new Error(err.error||'保存失败'); }
+    toast(id ? '✅ 已更新' : '✅ 已新增', 'success');
     closeModal();
     await loadData();
-  }catch(e){
-    toast('保存失败: '+e.message,'error');
-  }
+  } catch (e) { toast('保存失败: '+e.message, 'error'); }
 }
 
-async function deleteLink(id){
-  const link=allLinks.find(l=>l.id===id);
-  if(!confirm(`确认删除「${link?.title}」？`))return;
-  try{
-    const resp=await fetch(`${API_URL}?id=${id}`,{method:'DELETE'});
-    if(!resp.ok){const err=await resp.json();throw new Error(err.error||'删除失败')}
-    toast('🗑️ 已删除','info');
+async function deleteLink(id) {
+  const link = allLinks.find(l=>l.id===id);
+  if (!confirm(`确认删除「${link?.title}」？`)) return;
+  try {
+    const resp = await fetch(`${API_URL}?id=${id}`, { method:'DELETE' });
+    if (!resp.ok) { const err = await resp.json(); throw new Error(err.error||'删除失败'); }
+    toast('🗑️ 已删除', 'info');
     await loadData();
-  }catch(e){
-    toast('删除失败: '+e.message,'error');
-  }
+  } catch (e) { toast('删除失败: '+e.message, 'error'); }
 }
 
 // ===== Toast =====
-function toast(msg,type='info'){
-  const el=document.createElement('div');
-  el.className=`toast toast-${type}`;el.textContent=msg;
+function toast(msg, type='info') {
+  const el = document.createElement('div');
+  el.className = `toast toast-${type}`; el.textContent = msg;
   document.body.appendChild(el);
   requestAnimationFrame(()=>el.classList.add('show'));
-  setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),300)},2500);
+  setTimeout(()=>{ el.classList.remove('show'); setTimeout(()=>el.remove(), 300); }, 2500);
 }
 
 // ===== 工具函数 =====
-function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML}
-function escAttr(s){return (s||'').replace(/'/g,"\\'").replace(/"/g,'&quot;')}
+function esc(s){ const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+function escAttr(s){ return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 // ===== 主题切换 =====
-document.addEventListener('DOMContentLoaded',()=>{
-  const saved=localStorage.getItem('theme');
-  if(saved)document.body.setAttribute('data-theme',saved);
-  else document.body.setAttribute('data-theme',matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
-  const btn=document.getElementById('theme-toggle'),sun=btn?.querySelector('.theme-sun'),moon=btn?.querySelector('.theme-moon');
-  function upd(t){if(sun)sun.style.display=t==='dark'?'none':'block';if(moon)moon.style.display=t==='dark'?'block':'none'}
+document.addEventListener('DOMContentLoaded', ()=>{
+  const saved = localStorage.getItem('theme');
+  if (saved) document.body.setAttribute('data-theme', saved);
+  else document.body.setAttribute('data-theme', matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
+  const btn = document.getElementById('theme-toggle'),
+        sun = btn?.querySelector('.theme-sun'),
+        moon = btn?.querySelector('.theme-moon');
+  function upd(t){ if(sun) sun.style.display = t==='dark'?'none':'block'; if(moon) moon.style.display = t==='dark'?'block':'none'; }
   upd(document.body.getAttribute('data-theme'));
-  if(btn)btn.onclick=()=>{const c=document.body.getAttribute('data-theme')==='dark'?'light':'dark';document.body.setAttribute('data-theme',c);localStorage.setItem('theme',c);upd(c)};
-  
-  // 检查登录状态
-  if (!checkAuth()) {
-    // 未登录，显示登录框
-  }
+  if (btn) btn.onclick = ()=>{
+    const c = document.body.getAttribute('data-theme')==='dark'?'light':'dark';
+    document.body.setAttribute('data-theme', c); localStorage.setItem('theme', c); upd(c);
+  };
+  if (!checkAuth()) { /* 未登录，显示登录框 */ }
 });
 </script>
 </body>

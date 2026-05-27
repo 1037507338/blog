@@ -3,26 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>BD推荐 - POE2导航</title>
+<title>BD推荐 - POE2 Hub</title>
 <meta name="description" content="当前版本T0/T1热门BD推荐">
 <style>
 :root{--bg-start:#f5f5f5;--bg-end:#f0f0f0;--card-bg:rgba(255,255,255,0.95);--card-border:rgba(220,220,220,0.5);--card-shadow:0 1px 2px 0 rgba(0,0,0,0.05);--card-shadow-hover:0 3px 6px -1px rgba(0,0,0,0.1);--text:#333;--subtext:#666;--accent:#555;--link:#555;--link-hover:#000;--btn-bg:rgba(255,255,255,.9);--btn-bg-hover:rgba(255,255,255,1);--btn-icon:#555;--btn-shadow:0 1px 3px rgba(0,0,0,.05);--btn-shadow-hover:0 2px 5px rgba(0,0,0,.08);--nav-bg:rgba(255,255,255,0.92);--nav-border:rgba(220,220,220,0.6);--nav-link:#555;--nav-link-hover:#000;--nav-active:#1a73e8}
 [data-theme="dark"]{--bg-start:#222;--bg-end:#1a1a1a;--card-bg:rgba(40,40,40,0.95);--card-border:rgba(60,60,60,0.5);--card-shadow:0 1px 2px 0 rgba(0,0,0,0.2);--card-shadow-hover:0 3px 6px -1px rgba(0,0,0,0.3);--text:#e0e0e0;--subtext:#aaa;--accent:#bbb;--link:#bbb;--link-hover:#fff;--btn-bg:rgba(40,40,40,0.9);--btn-bg-hover:rgba(50,50,50,1);--btn-icon:#bbb;--btn-shadow:0 1px 3px rgba(0,0,0,0.2);--btn-shadow-hover:0 2px 5px rgba(0,0,0,0.3);--nav-bg:rgba(30,30,30,0.95);--nav-border:rgba(60,60,60,0.6);--nav-link:#bbb;--nav-link-hover:#fff;--nav-active:#5ba3f5}
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:linear-gradient(145deg,var(--bg-start) 0%,var(--bg-end) 100%);color:var(--text);line-height:1.6;min-height:100vh;transition:background .3s ease,color .3s ease}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:linear-gradient(145deg,var(--bg-start) 0%,var(--bg-end) 100%);color:var(--text);line-height:1.6;min-height:100vh;transition:background .3s ease,color .3s ease}
 </style>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/pages.css">
 <link rel="icon" href="favicon.ico">
 </head>
 <body>
+
 <!-- 顶部站点导航栏 -->
 <nav class="site-nav">
   <div class="site-nav-inner">
     <a href="index.html" class="site-nav-logo"><span class="logo-icon">⚔</span> POE2 Hub</a>
     <div class="site-nav-links">
       <a href="index.html" class="site-nav-link">首页</a>
-      <a href="classes.html" class="site-nav-link">职业详解</a>
-      <a href="builds.html" class="site-nav-link">BD推荐</a>
+      <a href="builds.html" class="site-nav-link active">BD推荐</a>
       <a href="guides.html" class="site-nav-link">新手攻略</a>
       <a href="maps.html" class="site-nav-link">剧情攻略</a>
       <a href="skills.html" class="site-nav-link">技能数据</a>
@@ -32,37 +33,80 @@
     <button id="navToggle" class="site-nav-toggle" aria-label="菜单"><span></span><span></span><span></span></button>
   </div>
 </nav>
-<button id="theme-toggle" aria-label="切换深浅色模式"><svg class="theme-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="theme-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+
+<button id="theme-toggle" aria-label="切换深浅色模式">
+  <svg class="theme-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+  <svg class="theme-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+</button>
 <button id="back-to-top" aria-label="返回顶部">👆</button>
+
 <div class="page-wrap">
   <h1 class="page-title">BD推荐</h1>
-  <p class="page-desc">当前版本T0/T1热门BD推荐</p>
-  
-<div class="filter-bar" id="buildFilter">
-  <button class="filter-btn active" data-filter="all">全部</button>
-  <button class="filter-btn" data-filter="meta">T0 推荐</button>
-  <button class="filter-btn" data-filter="league">联赛强势</button>
-  <button class="filter-btn" data-filter="budget">平民之选</button>
+  <p class="page-desc">当前版本T0/T1热门BD推荐，点击卡片查看详情</p>
+
+  <div class="filter-bar" id="buildFilter">
+    <button class="filter-btn active" data-filter="all">全部</button>
+    <button class="filter-btn" data-filter="BD推荐">BD推荐</button>
+  </div>
+
+  <div class="card-grid" id="buildGrid">
+    <p style="text-align:center;color:var(--subtext);padding:2rem">加载中...</p>
+  </div>
 </div>
-<div class="card-grid" id="buildGrid"></div>
-<script src="js/data.js"></script>
+
+<footer style="text-align:center;padding:2rem 1.5rem;font-size:0.82rem;color:var(--subtext);opacity:0.5">© 2025 POE2 Hub · 仅供学习交流</footer>
+
 <script>
-document.addEventListener("DOMContentLoaded",()=>{
-  renderBuilds("all");
-  document.querySelectorAll("#buildFilter .filter-btn").forEach(b=>b.addEventListener("click",()=>{
-    document.querySelectorAll("#buildFilter .filter-btn").forEach(x=>x.classList.remove("active"));
-    b.classList.add("active");renderBuilds(b.dataset.filter);
+const API_URL = '/api/links';
+
+// 加载 BD 推荐数据
+async function loadBuilds() {
+  const grid = document.getElementById('buildGrid');
+  try {
+    const resp = await fetch(API_URL);
+    if (!resp.ok) throw new Error('加载失败');
+    const links = await resp.json();
+    // 只显示 BD推荐 分类
+    const builds = links.filter(l => l.category === 'BD推荐');
+    if (!builds.length) {
+      grid.innerHTML = '<p style="text-align:center;color:var(--subtext);padding:2rem">暂无BD推荐，请先在管理后台添加</p>';
+      return;
+    }
+    renderBuilds(builds);
+  } catch (e) {
+    grid.innerHTML = '<p style="text-align:center;color:var(--subtext);padding:2rem">加载失败: ' + e.message + '</p>';
+  }
+}
+
+function renderBuilds(data) {
+  const grid = document.getElementById('buildGrid');
+  grid.innerHTML = data.map(b => {
+    // link_type: 'html' → 原页打开；'external' → 新标签页
+    const isHtml = b.link_type === 'html';
+    const target = isHtml ? '' : ' target="_blank" rel="noopener"';
+    const href = b.url || '#';
+    return `<a href="${escAttr(href)}" class="card"${target}>
+      <h3>${esc(b.title)}</h3>
+      <p style="font-size:0.85rem;color:var(--subtext);margin-top:6px">${esc(b.description || '')}</p>
+      ${b.link_type ? `<p style="font-size:0.75rem;color:var(--accent);margin-top:8px">${b.link_type === 'html' ? '📄 站内页面' : '🔗 外站链接'}</p>` : ''}
+    </a>`;
+  }).join('');
+}
+
+// 分类筛选
+document.addEventListener('DOMContentLoaded', () => {
+  loadBuilds();
+  document.querySelectorAll('#buildFilter .filter-btn').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('#buildFilter .filter-btn').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    // 目前只有"BD推荐"一类，扩展可在此加逻辑
+    loadBuilds();
   }));
 });
-function renderBuilds(f){
-  const g=document.getElementById("buildGrid");if(!g)return;
-  const d=f==="all"?BUILDS:BUILDS.filter(b=>b.tag===f);
-  g.innerHTML=d.map(b=>`<div class="card"><h3><span class="card-tag ${b.tier==="T0"?"tag-t0":"tag-t1"}">${b.tier}</span> ${b.name}</h3><p>${b.description}</p><div style="margin-top:6px">${b.tags.map(t=>`<span class="card-tag" style="background:rgba(26,115,232,0.08);color:var(--nav-active)">${t}</span>`).join("")}</div><p style="font-size:0.78rem;color:var(--subtext);margin-top:6px">💰 ${b.cost} · 📊 ${b.difficulty} · 📅 ${b.updateDate}</p></div>`).join("");
-}
-</script>
 
-</div>
-<footer style="text-align:center;padding:2rem 1.5rem;font-size:0.82rem;color:var(--subtext);opacity:0.5">© 2025 POE2 导航站 · 仅供学习交流</footer>
+function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+function escAttr(s) { return (s || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+</script>
 
 <script>
 // 主题切换 + 导航 + 返回顶部（子页面共用）
@@ -76,7 +120,6 @@ document.addEventListener("DOMContentLoaded",()=>{
   if(b){b.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));window.addEventListener("scroll",()=>b.classList.toggle("visible",scrollY>300))}
   const n=document.getElementById("navToggle"),l=document.querySelector(".site-nav-links");
   if(n&&l){n.addEventListener("click",()=>{l.classList.toggle("open");n.classList.toggle("active")});l.querySelectorAll(".site-nav-link").forEach(a=>a.addEventListener("click",()=>{l.classList.remove("open");n.classList.remove("active")}))}
-  // 高亮当前页面
   const path=location.pathname.split("/").pop()||"index.html";
   document.querySelectorAll(".site-nav-link").forEach(a=>{if(a.getAttribute("href")===path)a.classList.add("active")});
 });
