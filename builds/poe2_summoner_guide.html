@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>流放之路2 · 召唤职业开荒全攻略 · 0.5.0</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  :root {
+    --bg-deep: oklch(0.12 0.02 30);
+    --bg-surface: oklch(0.16 0.02 30);
+    --bg-raised: oklch(0.20 0.02 30);
+    --gold: oklch(0.76 0.15 80);
+    --gold-dim: oklch(0.55 0.10 78);
+    --amber: oklch(0.68 0.18 65);
+    --fire: oklch(0.62 0.22 40);
+    --ice: oklch(0.72 0.06 230);
+    --text-primary: oklch(0.88 0.02 85);
+    --text-secondary: oklch(0.68 0.02 85);
+    --text-muted: oklch(0.50 0.02 85);
+    --border-subtle: oklch(0.28 0.02 30);
+    --accent-red: oklch(0.58 0.20 25);
+    --accent-green: oklch(0.55 0.15 155);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    font-size: clamp(15px, 1.1vw, 17px);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── Decorative background texture ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 10%, oklch(0.30 0.07 30 / 0.25) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 90%, oklch(0.25 0.04 25 / 0.20) 0%, transparent 60%),
+      repeating-linear-gradient(0deg, transparent, transparent 2px, oklch(1 0 0 / 0.015) 2px, oklch(1 0 0 / 0.015) 4px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Hero Header ── */
+  .hero {
+    position: relative;
+    z-index: 1;
+    padding: clamp(3rem, 8vw, 6rem) 2rem clamp(2rem, 5vw, 4rem);
+    text-align: center;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .hero::after {
+    content: '';
+    display: block;
+    width: 120px; height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 1.5rem auto 0;
+  }
+  .hero .badge {
+    display: inline-block;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    border: 1px solid oklch(0.76 0.15 80 / 0.35);
+    padding: 0.3em 1.2em;
+    margin-bottom: 1.2rem;
+  }
+  .hero h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(1.8rem, 4.5vw, 3rem);
+    font-weight: 900;
+    color: var(--gold);
+    letter-spacing: 0.03em;
+    text-shadow: 0 0 60px oklch(0.76 0.15 80 / 0.3);
+  }
+  .hero .subtitle {
+    color: var(--text-secondary);
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    margin-top: 0.6rem;
+    font-weight: 300;
+  }
+  .hero .meta {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+  .hero .meta span {
+    background: var(--bg-raised);
+    padding: 0.3em 0.8em;
+    border-radius: 2px;
+  }
+
+  /* ── Container ── */
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* ── Section headings ── */
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin: 2.5rem 0 1.2rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid oklch(0.76 0.15 80 / 0.18);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .section-title::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 1.1em;
+    background: var(--amber);
+    border-radius: 2px;
+  }
+
+  /* ── Alert Box ── */
+  .alert {
+    background: oklch(0.22 0.03 40);
+    border-left: 3px solid var(--amber);
+    padding: 1rem 1.3rem;
+    margin: 1.3rem 0;
+    font-size: 0.9rem;
+    border-radius: 0 3px 3px 0;
+  }
+  .alert strong { color: var(--amber); }
+
+  /* ── Table ── */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 1rem 0 1.5rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    
+  }
+  thead th {
+    background: var(--bg-raised);
+    color: var(--gold-dim);
+    font-weight: 600;
+    padding: 0.6em 0.8em;
+    text-align: left;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid oklch(0.76 0.15 80 / 0.25);
+  }
+  tbody td {
+    padding: 0.5em 0.8em;
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+  }
+  tbody tr:hover td {
+    background: oklch(0.28 0.02 30 / 0.5);
+    color: var(--text-primary);
+  }
+  td:first-child { font-weight: 500; color: var(--text-primary); }
+  td strong { color: var(--gold-dim); }
+  td .key { color: var(--amber); font-weight: 600; }
+
+  /* ── Skill code block ── */
+  .skill-block {
+    background: var(--bg-raised);
+    border: 1px solid var(--border-subtle);
+    border-radius: 4px;
+    padding: 0.8rem 1rem;
+    margin: 0.6rem 0;
+    font-family: 'Noto Sans SC', monospace;
+    font-size: 0.83rem;
+    line-height: 1.65;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    color: var(--text-secondary);
+  }
+  .skill-block .skill-name { color: var(--gold); font-weight: 600; }
+  .skill-block .gem { color: oklch(0.65 0.1 200); }
+  .skill-block .support { color: oklch(0.62 0.1 140); }
+
+  /* ── Accordion ── */
+  .accordion {
+    margin: 1rem 0 1.5rem;
+  }
+  .accordion-item {
+    border: 1px solid var(--border-subtle);
+    border-radius: 3px;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+  }
+  .accordion-header {
+    background: var(--bg-surface);
+    padding: 1rem 1.2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    transition: background 0.2s;
+  }
+  .accordion-header:hover { background: var(--bg-raised); }
+  .accordion-header h3 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--gold-dim);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .accordion-header h3 .ch {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px; height: 28px;
+    border-radius: 2px;
+    background: var(--amber);
+    color: var(--bg-deep);
+    font-size: 0.8rem;
+    font-weight: 900;
+  }
+  .accordion-header .arrow {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    transition: transform 0.3s ease;
+  }
+  .accordion-item.open .accordion-header .arrow {
+    transform: rotate(180deg);
+    color: var(--gold);
+  }
+  .accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+  }
+  .accordion-item.open .accordion-body {
+    max-height: none;
+  }
+  .accordion-content {
+    padding: 0 1.2rem 1.2rem;
+  }
+
+  /* ── Route Cards ── */
+  .route-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin: 1.3rem 0;
+  }
+  @media (max-width: 640px) { .route-grid { grid-template-columns: 1fr; } }
+  .route-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 4px;
+    padding: 1.3rem;
+    position: relative;
+  }
+  .route-card.recommended {
+    border-color: oklch(0.76 0.15 80 / 0.35);
+    box-shadow: 0 0 30px oklch(0.76 0.15 80 / 0.08);
+  }
+  .route-card .rec-badge {
+    position: absolute;
+    top: -10px; right: 16px;
+    background: var(--amber);
+    color: var(--bg-deep);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.2em 0.8em;
+    border-radius: 2px;
+    letter-spacing: 0.08em;
+  }
+  .route-card h4 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+  }
+  .route-card .desc {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.8rem;
+  }
+  .route-card ul {
+    list-style: none;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+  .route-card ul li::before {
+    content: '▸ ';
+    color: var(--amber);
+  }
+
+  /* ── Tags ── */
+  .tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.15em 0.6em;
+    border-radius: 2px;
+    margin-right: 0.3rem;
+  }
+  .tag-fire { background: oklch(0.35 0.08 35); color: oklch(0.75 0.18 55); }
+  .tag-ice { background: oklch(0.25 0.04 240); color: oklch(0.7 0.08 230); }
+  .tag-lightning { background: oklch(0.30 0.06 100); color: oklch(0.75 0.15 90); }
+  .tag-gold { background: oklch(0.30 0.06 80); color: var(--gold); }
+
+  /* ── Reward list ── */
+  .reward-list {
+    list-style: none;
+    font-size: 0.83rem;
+  }
+  .reward-list li {
+    padding: 0.35em 0;
+    border-bottom: 1px solid oklch(1 0 0 / 0.04);
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .reward-list li .loc {
+    color: var(--text-secondary);
+  }
+  .reward-list li .reward {
+    color: var(--gold-dim);
+    font-weight: 600;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 3rem 1.5rem 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    border-top: 1px solid var(--border-subtle);
+    margin-top: 4rem;
+  }
+  .footer a { color: var(--gold-dim); text-decoration: none; }
+
+  /* ── TOC nav ── */
+  .toc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 1.2rem 0 1.8rem;
+  }
+  .toc a {
+    font-size: 0.78rem;
+    padding: 0.3em 0.8em;
+    border: 1px solid var(--border-subtle);
+    border-radius: 2px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .toc a:hover {
+    border-color: var(--gold-dim);
+    color: var(--gold);
+    background: oklch(0.28 0.02 30);
+  }
+
+  /* ── Chapter sub-sections inside accordion ── */
+  .ch-sub {
+    margin-top: 1.2rem;
+  }
+  .ch-sub h5 {
+    font-size: 0.9rem;
+    color: var(--amber);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .ch-sub h5::before {
+    content: '◆';
+    font-size: 0.5rem;
+    color: var(--gold);
+  }
+
+  /* ── inline code ── */
+  code {
+    background: var(--bg-raised);
+    padding: 0.1em 0.4em;
+    border-radius: 2px;
+    font-size: 0.85em;
+    color: var(--gold-dim);
+    font-family: inherit;
+  }
+
+  /* ── print / motion ── */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<header class="hero">
+  <div class="badge">POE2 · 0.5.0 版本</div>
+  <h1>召唤职业开荒全攻略</h1>
+  <p class="subtitle">从河岸到异界 — 前期不卡手，中期丝滑过渡</p>
+  <div class="meta">
+    <span>国服</span>
+    <span>2026年5月</span>
+    <span>综合小龟 · 牙医 · 赵振豪 · 雨雪攻略</span>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- ═══════════════ 版本速览 ═══════════════ -->
+<h2 class="section-title">版本速览 · 0.5.0 核心变化</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>变化项</th><th>详情</th><th>对召唤的影响</th></tr></thead>
+  <tbody>
+    <tr><td>炎军大砍</td><td>攻坚伤害 → 原来 1/4，刷图 → 原来 1/2</td><td>燃烧大象 BD 上限大幅降低，开荒仍勉强可用</td></tr>
+    <tr><td>门徒纯升华</td><td><strong>无削弱</strong></td><td>门徒开荒继续 T0，可用到异界 T15</td></tr>
+    <tr><td>指令惩罚降低</td><td>70% → 50% 减速</td><td>门徒小加强，手感改善</td></tr>
+    <tr><td>投射物数量戒指</td><td>新增装备</td><td>骷髅弓 / 纵火者 / 冰骷髅 / 投射物灵体 潜力上升</td></tr>
+    <tr><td>冰爆 + 灵体 + 护盾秒回</td><td>新赛季裂隙手感最佳召唤 BD</td><td>取代燃烧大象成为后期首选方向</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="alert">
+  <strong>一句话总结：</strong>炎军被砍，门徒完好，冰爆灵体崛起。开荒阶段门徒和传统召唤两条路都稳，<strong>推荐传统召唤路线起步</strong>——前期不卡手，中期丝滑过渡。
+</div>
+
+<!-- ═══════════════ 路线选择 ═══════════════ -->
+<h2 class="section-title">路线选择</h2>
+
+<div class="route-grid">
+  <div class="route-card recommended">
+    <div class="rec-badge">推荐 · 前期不卡手</div>
+    <h4>传统召唤 · 女巫 → 狱火师 → 巫妖</h4>
+    <p class="desc">
+      纯召唤逛街流，召唤物打伤害，自己只需要挂诅咒、放寒霜爆。<br>
+      升华<strong>地狱犬自动给怪上火</strong>，无需手动点燃，神射手毒爆箭清图飞起。
+    </p>
+    <ul>
+      <li>第一章 顽疾+开掘联动，神射手+火墙毒爆</li>
+      <li>第二章 拿地狱犬 → 自动点燃 → 横推</li>
+      <li>第三章 抓混沌狂热者灵体 → 起飞</li>
+      <li>间章 升级强能狂热者 → 异界转巫妖</li>
+    </ul>
+    <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.6rem;">
+      ⚠ 注意：职业选<strong>女巫</strong>，不是魔巫！
+    </p>
+  </div>
+
+  <div class="route-card">
+    <h4>门徒 · 魔巫</h4>
+    <p class="desc">
+      升华技能自施法流，伤害爆炸但前期冷却长、略卡手。<br>
+      靠主动放技能而非召唤物打伤害，操作要求更高。
+    </p>
+    <ul>
+      <li>升华前（第一章）略煎熬，用电球+寒霜爆硬撑</li>
+      <li>第二章拿升华后伤害 T0，平推剧情</li>
+      <li>输出手法：狼扑挂印记 → 雷暴打感电 → 升华技能乱丢</li>
+      <li>适合喜欢主动操作、追求伤害上限的玩家</li>
+    </ul>
+  </div>
+</div>
+
+<div class="alert">
+  <strong>本攻略主线：</strong>传统召唤（女巫→狱火师）路线 — 前期地狱犬自动点燃不卡手，中期灵体无缝衔接，异界转巫妖。门徒路线要点也会标注。
+</div>
+
+
+<!-- ═══════════════ 通用开荒原则 ═══════════════ -->
+<h2 class="section-title">通用开荒原则</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>原则</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td><strong>每级逛商店</strong></td><td>升级后 NPC 商店刷新，重点找 +召唤物等级的武器和头盔、+精魂的衣服/项链、移速鞋子</td></tr>
+    <tr><td><strong>判断装备好坏</strong></td><td>按 G 键打开技能面板，看换装后<strong>技能伤害数字</strong>变化</td></tr>
+    <tr><td><strong>防具优先级</strong></td><td>生命 &gt; 抗性 &gt; 护盾/闪避/护甲</td></tr>
+    <tr><td><strong>贴边探图</strong></td><td>每张地图贴边走，单出口地图出口在对角方向</td></tr>
+    <tr><td><strong>记录点互传</strong></td><td>善用传送点节省跑路时间</td></tr>
+    <tr><td><strong>别乱疾跑</strong></td><td>伤害不够时疾跑被打断 → 强制晕眩 4 秒！</td></tr>
+    <tr><td><strong>寒霜爆+诅咒跟上等级</strong></td><td>等级太低会对高级怪物<strong>不生效</strong></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3 style="font-size:0.95rem;color:var(--gold-dim);margin-top:1.5rem;">通关后自检（脱装备）</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>项目</th><th>目标值</th></tr></thead>
+  <tbody>
+    <tr><td>武器天赋点</td><td><strong>24 点</strong></td></tr>
+    <tr><td>精魂</td><td><strong>100</strong>（遗物选别的则为 95）</td></tr>
+    <tr><td>元素抗性</td><td><strong>-40%</strong>（选了抗性则为 -45%）</td></tr>
+    <tr><td>咒符栏位</td><td><strong>+1</strong></td></tr>
+  </tbody>
+</table>
+</div>
+
+
+<!-- ═══════════════ 第一章 ═══════════════ -->
+<h2 class="section-title">逐章攻略</h2>
+
+<div class="accordion">
+
+<!-- Ch1 -->
+<div class="accordion-item open">
+  <div class="accordion-header" onclick="this.parentElement.classList.toggle('open')">
+    <h3><span class="ch">1</span> 第一章 · 河岸 → 伯爵庄园 <span class="tag tag-ice">堆冰抗</span></h3>
+    <span class="arrow">▾</span>
+  </div>
+  <div class="accordion-body"><div class="accordion-content">
+
+<div class="ch-sub"><h5>天赋走向</h5>
+<p style="font-size:0.83rem;color:var(--text-secondary);">
+起手先往<strong>左上方向</strong>走，直奔<strong>召唤物伤害</strong>和<strong>指令伤害</strong>相关天赋。<br>
+第一章过路点尽量节约，不要绕远路。核心思路：伤害优先，生存次要。<br>
+优先点亮：召唤伤害小点 → 召唤物攻击速度 → 召唤物生命（保证宝宝不暴毙）。
+</p>
+</div>
+
+<div class="ch-sub"><h5>技能链接</h5></div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>技能</th><th>辅助 1</th><th>辅助 2</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td class="skill-name">顽疾</td><td>—</td><td>—</td><td>核心联动技，击杀的怪用开掘召唤自带顽疾效果</td></tr>
+    <tr><td class="skill-name">开掘</td><td class="support">野性残暴1</td><td class="support">快速攻击1</td><td>敏不够时升级加点敏捷</td></tr>
+    <tr><td class="skill-name">魔侍神射手</td><td class="support">多重射击</td><td class="support">亡命之息</td><td>主力输出，优先提升等级</td></tr>
+    <tr><td class="skill-name">烈焰之墙</td><td class="support">点燃1</td><td>—</td><td>给怪上火，触发神射手瓦斯箭毒爆</td></tr>
+    <tr><td class="skill-name">寒霜爆</td><td>—</td><td>—</td><td>降抗，打 BOSS 用</td></tr>
+    <tr><td class="skill-name">饕餮虫群</td><td>—</td><td>—</td><td>精魂光环（茂棘深林任务获取），右键激活！</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="ch-sub"><h5>输出手法</h5>
+<p style="font-size:0.83rem;color:var(--text-secondary);">
+丢火墙 → 等怪点燃 → 神射手丢瓦斯箭脚下 → 点燃爆炸 → 3箭带走。<br>
+顽疾挂怪身上，击杀后用开掘召唤骷髅 → 自带顽疾清怪。
+</p>
+</div>
+
+<div class="ch-sub"><h5>开局技巧 ⭐</h5>
+<p style="font-size:0.83rem;color:var(--text-secondary);">
+<strong>先起一个女巫号</strong>，拿到任务给的"开掘"技能石，丢进共享仓库。<br>
+再用主号取出 → 第一章开局就有开掘+顽疾联动，清怪效率翻倍。
+</p>
+</div>
+
+<div class="ch-sub"><h5>永久奖励清单</h5></div>
+<ul class="reward-list">
+  <li><span class="loc">新手村冰冻处女巫</span><span class="reward">+10 冰霜抗性</span></li>
+  <li><span class="loc">猎场 · 悬铃巨鸦</span><span class="reward">+2 天赋点</span> <span style="font-size:0.75rem;color:var(--text-muted);">沿牛尸体找狭长入口</span></li>
+  <li><span class="loc">茂棘深林 · 迷雾之王</span><span class="reward">+30 精魂 + 精魂技能宝石</span> <span style="font-size:0.75rem;color:var(--text-muted);">完成 4 个小祭祀</span></li>
+  <li><span class="loc">欧甘农地 · 乌娜的琴</span><span class="reward">+2 天赋点</span> <span style="font-size:0.75rem;color:var(--text-muted);">地图中心小房子</span></li>
+  <li><span class="loc">欧甘庄园一层雕像 BOSS</span><span class="reward">永久最大生命</span></li>
+</ul>
+
+<div class="ch-sub"><h5>BOSS · 狼王</h5>
+<p style="font-size:0.83rem;color:var(--text-secondary);">
+堆<strong>冰抗</strong>，商店淘冰抗戒指。任务符咒选<strong>蓝宝石</strong>（冰抗）。<br>
+打法：骷髅战士顶前面 → 火墙 → 神射手瓦斯箭 → 寒霜爆降抗 → 毒爆循环。
+</p>
+</div>
+
+  </div></div>
+</div>
+
+<!-- Ch2 -->
+<div class="accordion-item">
+  <div class="accordion-header" onclick="this.parentElement.classList.toggle('open')">
+    <h3><span class="ch">2</span> 第二章 · 车队 → 无畏战车 <span class="tag tag-lightning">堆电抗</span></h3>
+    <span class="arrow">▾</span>
+  </div>
+  <div class="accordion-body"><div class="accordion-content">
+
+<div class="ch-sub"><h5>天赋走向</h5>
+<p style="font-size:0.83rem;color:var(--text-secondary);">
+本章核心输出是神射手指令技能 + 开掘。开掘不消耗精魂 →<strong>点出"庞大侍从"</strong>大天赋，等于多一连。<br>
+加点顺序：先红后青，按数字顺序。方向：继续往召唤伤害区域深入，同时点出"庞大侍从"。<br>
+拿到升华后天赋继续围绕<strong>召唤物伤害 + 精魂</strong>展开。
+</p>
+</div>
+
+<div class="ch-sub"><h5>技能链接</h5></div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>技能</th><th>辅助 1</th><th>辅助 2</th><th>辅助 3</th></tr></thead>
+  <tbody>
+    <tr><td class="skill-name">召唤炽焰猎犬</td><td class="support">亡命之息</td><td class="support">点燃1</td><td>—</td></tr>
+    <tr><td class="skill-name">魔侍战士</td><td class="support">亡命之息</td><td class="support">肉盾</td><td>—</td></tr>
+    <tr><td class="skill-name">开掘</td><td class="support">野性残暴1</td><td class="support">快速攻击1</td><td>—</td></tr>
+    <tr><td class="skill-name">寒霜爆</td><td class="support">持续时间延长</td><td>—</td><td>—</td></tr>
+    <tr><td class="skill-name">顽疾</td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td class="skill-name">魔侍神射手</td><td class="support">多重射击</td><td class="support">亡命之息</td><td class="support">奉命1</td></tr>
+    <tr><td class="skill-name">元素要害</td><td class="support">聚焦诅咒</td><td class="support">强效诅咒</td><td>7级技能石学习</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="ch-sub"><h5>升华 · 狱火师</h5>
+<p style="font-size:0.83rem;color:var(--text-secondary);">
+叛徒小径击杀「叛徒贝尔巴拉」→ 拿升华道具 → 回城传送<strong>丝克玛试炼</strong>。<br>
+<strong>20 级以上</strong>去打，绕开铁人试炼。<br>
+升华选择：<strong>驱炎使（狱火师）</strong>→ 先拿<strong>忠诚的炽焰猎犬</strong>！<br>
+地狱犬自动给怪上火 → 不需要火墙手动点燃了 → <strong>前期彻底不卡手！</strong>
+</p>
+</div>
+
+<div class="ch-sub"><h5>永久奖励清单</h5></div>
+<ul class="reward-list">
+  <li><span class="loc">叛徒小径 · 贝尔巴拉</span><span class="reward">升华道具</span></li>
+  <li><span class="loc">克斯 · 剧毒深坑</span><span class="reward">+2 天赋点（剧毒女王）</span></li>
+  <li><span class="loc">巨人之谷 · 祭坛</span><span class="reward">+1 咒符栏位</span></li>
+  <li><span class="loc">德莎尔 · 遗书</span><span class="reward">+2 天赋点</span></li>
+  <li><span class="loc">高塔 · 姐妹雕像</span><span class="reward">+10 闪电抗性</span></li>
+</ul>
+
+<div class="ch-sub"><h5>BOSS · 沙皇</h5>
+<p style="font-size:0.83rem;color:var(--text-secondary);">
+堆<strong>电抗</strong>！商店淘电抗戒指。无畏战车前刷到 31 级拿 9 级技能。<br>
+一阶段：躲沙暴 → 小艾屏障出来时躲进去。二阶段：BOSS 斩断战车 → 继续输出。
+</p>
+</div>
+
+  </div></div>
+</div>
+
+<!-- Ch3 -->
+<div class="accordion-item">
+  <div class="accordion-header" onclick="this.parentElement.classList.toggle('open')">
+    <h3><span class="ch">3</span> 第三章 · 金字塔 → 阿戈拉特 <span class="tag tag-fire">堆火抗</span> <span class="tag tag-gold">抓灵体</span></h3>
+    <span class="arrow">▾</span>
+  </div>
+  <div class="accordion-body"><div class="accordion-content">
+
+<div class="ch-sub"><h5>天赋走向</h5>
+<p style="font-size:0.83rem;color:var(--text-secondary);">
+点法：<strong>先红 → 后青 → 再黄</strong>，按数字顺序逐步展开。<br>
+方向：继续深入召唤伤害、指令伤害区域。此时天赋盘上召唤物伤害相关节点应已覆盖大半。<br>
+如果有条件抓到灵体，可以开始向灵体相关天赋靠拢。<br>
+注意：<strong>如果装备无秒回，不要点"狂热者的誓言"大天赋</strong>（护盾代替生命回复那个）。
+</p>
+</div>
+
+<div class="ch-sub"><h5>技能链接</h5></div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>技能</th><th>辅助 1</th><th>辅助 2</th><th>辅助 3</th><th>辅助 4</th></tr></thead>
+  <tbody>
+    <tr><td class="skill-name">召唤炽焰猎犬</td><td class="support">亡命之息</td><td class="support">点燃1</td><td class="support">过度延伸</td><td>—</td></tr>
+    <tr><td class="skill-name">魔侍战士</td><td class="support">亡命之息</td><td class="support">肉盾</td><td>—</td><td>—</td></tr>
+    <tr><td class="skill-name">开掘</td><td class="support">野性残暴1</td><td class="support">快速攻击1</td><td class="support">狂噬1</td><td>—</td></tr>
+    <tr><td class="skill-name">寒霜爆</td><td class="support">持续时间延长</td><td class="support">强力曝露</td><td>—</td><td>—</td></tr>
+    <tr><td class="skill-name">魔侍神射手</td><td class="support">多重射击</td><td class="support">亡命之息</td><td class="support">奉命1</td><td class="support">狂噬</td></tr>
+    <tr><td>灵体（混沌狂热者）</td><td class="support">狂野碎片1</td><td class="support">亡命之息</td><td class="support">穿透2</td><td class="support">狂噬</td></tr>
+    <tr><td class="skill-name">元素要害</td><td class="support">聚焦诅咒</td><td class="support">强效诅咒</td><td>—</td><td>—</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="ch-sub"><h5>灵体抓取</h5>
+<p style="font-size:0.83rem;color:var(--text-secondary);">
+去<strong>幻缈湿地 → 混沌大殿</strong>（第二次升华试炼），寻找<strong>混沌狂热者</strong>（丢电球的怪，50 精魂）。<br>
+如果一次没遇到：ESC → 记录点复活 → 重开试炼，反复刷。抓不到也不急，继续用神射手。<br>
+<strong>飞沙沼泽贴边走</strong>，遇到 2 个稀有 BOSS，背后黄箱子必掉<strong>低阶工匠石</strong>（多一孔），优先给神射手！
+</p>
+</div>
+
+<div class="ch-sub"><h5>蛇毒地窟三药水</h5>
+<p style="font-size:0.83rem;color:var(--text-secondary);">
+推荐选<strong>魔力回复</strong>（后期最实用）。物理职业可选晕眩门槛。
+</p>
+</div>
+
+<div class="ch-sub"><h5>永久奖励清单</h5></div>
+<ul class="reward-list">
+  <li><span class="loc">丛林废墟 · 神威银拳（原神）</span><span class="reward">+2 天赋点</span> <span style="font-size:0.75rem;color:var(--text-muted);">秦王绕柱！碰一下秒杀</span></li>
+  <li><span class="loc">蛇毒地窟</span><span class="reward">永久药水效果</span></li>
+  <li><span class="loc">阿扎卡泥沼 · 女巫</span><span class="reward">+30 精魂</span></li>
+  <li><span class="loc">机械迷城 · 小灵核 BOSS</span><span class="reward">+10 火焰抗性</span></li>
+  <li><span class="loc">阿戈拉特 · 奉献匕首</span><span class="reward">+2 天赋点</span> <span style="font-size:0.75rem;color:var(--text-muted);">先在乌扎尔刷奉献之核</span></li>
+</ul>
+
+<div class="ch-sub"><h5>BOSS · 邪魔毒蛇（纳普阿兹）⚠ 新人杀手</h5>
+<p style="font-size:0.83rem;color:var(--text-secondary);">
+混沌伤害为主！准备<strong>混沌抗性戒指</strong>。全屏喷毒：靠一边躲另一边但别靠太近（士兵会戳）。毒浪朝来向闪避。
+</p>
+</div>
+
+  </div></div>
+</div>
+
+<!-- Ch4 -->
+<div class="accordion-item">
+  <div class="accordion-header" onclick="this.parentElement.classList.toggle('open')">
+    <h3><span class="ch">4</span> 第四章 · 君锋镇 → 纳卡努</h3>
+    <span class="arrow">▾</span>
+  </div>
+  <div class="accordion-body"><div class="accordion-content">
+
+<div class="ch-sub"><h5>天赋走向</h5>
+<p style="font-size:0.83rem;color:var(--text-secondary);">
+继续按数字顺序深入召唤区域。此时天赋盘主要召唤点应该已经点亮。<br>
+开始向<strong>生存方向</strong>补点：护盾、生命。如果已抓到灵体，可以补灵体相关天赋。<br>
+第四章开始生存压力增大，装备上血盾都要堆。
+</p>
+</div>
+
+<div class="ch-sub"><h5>技能链接（保持第三章配置，升级辅助等级）</h5></div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>技能</th><th>辅助 1</th><th>辅助 2</th><th>辅助 3</th><th>辅助 4</th><th>辅助 5</th></tr></thead>
+  <tbody>
+    <tr><td class="skill-name">召唤炽焰猎犬</td><td class="support">亡命之息</td><td class="support">忠诚</td><td class="support">肉盾</td><td class="support">终结2</td><td>—</td></tr>
+    <tr><td class="skill-name">魔侍战士</td><td class="support">亡命之息</td><td class="support">肉盾</td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td class="skill-name">开掘</td><td class="support">野性残暴2</td><td class="support">快速攻击2</td><td class="support">狂噬2</td><td class="support">势大力沉</td><td>—</td></tr>
+    <tr><td class="skill-name">寒霜爆</td><td class="support">持续时间延长2</td><td class="support">强力曝露</td><td class="support">高效2</td><td class="support">扩大范围2</td><td>—</td></tr>
+    <tr><td class="skill-name">顽疾</td><td class="support">剧烈痛苦</td><td class="support">持续时间延长</td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td>灵体（混沌/强能狂热者）</td><td class="support">狂野碎片2</td><td class="support">亡命之息</td><td class="support">穿透3</td><td class="support">狂噬</td><td class="support">快速施法2</td></tr>
+    <tr><td class="skill-name">元素要害</td><td class="support">聚焦诅咒</td><td class="support">强效诅咒</td><td class="support">扩大范围2</td><td class="support">高效2</td><td>—</td></tr>
+    <tr><td class="skill-name">苦痛奉献</td><td class="support">死亡之舞</td><td class="support">肉盾2</td><td>—</td><td>—</td><td>—</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="ch-sub"><h5>岛屿推进顺序</h5>
+<p style="font-size:0.83rem;color:var(--text-secondary);">
+① 百舌岛 → 杀大鸟 → ② 辛格拉之眼（拿永久属性）→ ③ 亲眷岛 → ④ 落锚湾（杀船长）<br>
+⑤ 瓦卡帕努岛（鲨鱼鳍+美人鱼BOSS→全抗项链）→ ⑥ 纳卡努 → ⑦ 阿拉斯塔
+</p>
+</div>
+
+<div class="ch-sub"><h5>阿拉斯塔 BOSS 机制</h5>
+<p style="font-size:0.83rem;color:var(--text-secondary);">
+左右柱子有小怪吟唱给 BOSS 上 BUFF。虎哥砸石头时<strong>故意走到柱子边躲开</strong>，让石头砸断柱子。<br>
+地图上三个大钟记得点 → <strong>三个崇高石</strong>！开服前两天够吃一顿好的。
+</p>
+</div>
+
+<div class="ch-sub"><h5>永久奖励清单</h5></div>
+<ul class="reward-list">
+  <li><span class="loc">辛格拉之眼 · 沉默神殿</span><span class="reward">+魔力上限</span></li>
+  <li><span class="loc">亡者之境 · 三紫柱</span><span class="reward">+5% 三元素抗</span> <span style="font-size:0.75rem;color:var(--text-muted);">三个柱子分别对应！别漏</span></li>
+  <li><span class="loc">亡者之境 · 白猿</span><span class="reward">+2 天赋点</span></li>
+  <li><span class="loc">废弃监牢 · 教堂</span><span class="reward">永久药剂加成</span></li>
+  <li><span class="loc">瓦卡帕努岛 · 冥曲洞窟</span><span class="reward">全抗项链</span></li>
+</ul>
+
+  </div></div>
+</div>
+
+<!-- Ch5 Interlude -->
+<div class="accordion-item">
+  <div class="accordion-header" onclick="this.parentElement.classList.toggle('open')">
+    <h3><span class="ch">5</span> 间章 · 三间章 <span class="tag tag-gold">40精魂</span> <span class="tag tag-gold">灵体升级</span></h3>
+    <span class="arrow">▾</span>
+  </div>
+  <div class="accordion-body"><div class="accordion-content">
+
+<div class="ch-sub"><h5>推进顺序：从右往左</h5>
+<p style="font-size:0.83rem;color:var(--text-secondary);">
+<strong>① 间章一（最右）</strong>：黑木林 → 霍尔顿 → 狼堡 → 霍尔顿庄园<br>
+<strong>② 间章二（中间）</strong>：卡莉渡口 → 加莱之门 → 奇玛尔 → 水库<br>
+<strong>③ 间章三（最左）</strong>：克里亚村 → 冰川池塘 → 克里亚峰 → 刻蚀峡谷
+</p>
+</div>
+
+<div class="ch-sub"><h5>天赋走向</h5>
+<p style="font-size:0.83rem;color:var(--text-secondary);">
+本章起召唤物伤害天赋基本成型。开始向<strong>护盾天赋</strong>区域过渡——为异界巫妖转职做准备。<br>
+如果精魂吃紧，优先补精魂天赋。如果有灵体，补灵体相关天赋。<br>
+<strong>记住：无秒回装备不点"狂热者的誓言"！</strong>
+</p>
+</div>
+
+<div class="ch-sub"><h5>技能链接（升级版）</h5></div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>技能</th><th>辅助 1</th><th>辅助 2</th><th>辅助 3</th><th>辅助 4</th><th>辅助 5</th></tr></thead>
+  <tbody>
+    <tr><td class="skill-name">召唤炽焰猎犬</td><td class="support">亡命之息</td><td class="support">忠诚</td><td class="support">肉盾</td><td class="support">终结2</td><td>—</td></tr>
+    <tr><td class="skill-name">魔侍战士</td><td class="support">亡命之息</td><td class="support">肉盾</td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td class="skill-name">开掘</td><td class="support">野性残暴1</td><td class="support">快速攻击1</td><td class="support">狂噬1</td><td class="support">势大力沉</td><td>—</td></tr>
+    <tr><td class="skill-name">寒霜爆</td><td class="support">持续时间延长2</td><td class="support">强力曝露</td><td class="support">高效2</td><td class="support">扩大范围2</td><td>—</td></tr>
+    <tr><td>灵体（强能狂热者）</td><td class="support">狂野碎片2</td><td class="support">亡命之息</td><td class="support">穿透3</td><td class="support">狂噬2</td><td class="support">快速施法2</td></tr>
+    <tr><td class="skill-name">元素要害</td><td class="support">聚焦诅咒</td><td class="support">强效诅咒</td><td class="support">扩大范围2</td><td class="support">高效2</td><td>—</td></tr>
+    <tr><td class="skill-name">苦痛奉献</td><td class="support">死亡之舞</td><td class="support">肉盾2</td><td>—</td><td>—</td><td>—</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="ch-sub"><h5>灵体升级 ⭐</h5>
+<p style="font-size:0.83rem;color:var(--text-secondary);">
+在<strong>刻蚀峡谷</strong>抓取<strong>强能狂热者</strong>（55 精魂，丢电球），替代混沌狂热者（50 精魂）。<br>
+辅助：狂野碎片2 + 亡命之息 + 穿透3 + 狂噬2 + 快速施法2<br>
+在<strong>卡莉渡口</strong>可抓<strong>蚊子灵体</strong>（带冰霜之路 + 所有伤害感电），辅助感电冰冻。
+</p>
+</div>
+
+<div class="ch-sub"><h5>间章一注意</h5>
+<p style="font-size:0.83rem;color:var(--text-secondary);">
+黑木林多看点预兆（第一桶金）。霍尔顿地图中间有<strong>卖高级符文的 NPC</strong>，进异界前抗性不够就去买！<br>
+霍尔顿庄园：先上楼再下楼，非常绕。
+</p>
+</div>
+
+<div class="ch-sub"><h5>永久奖励清单</h5></div>
+<ul class="reward-list">
+  <li><span class="loc">间章一 · 霍尔顿狼堡</span><span class="reward">+2 天赋点</span></li>
+  <li><span class="loc">间章二 · 卡莉渡口蝎虫</span><span class="reward">+2 天赋点</span></li>
+  <li><span class="loc">间章二 · 阶梯入口任务道具</span><span class="reward">+5% 最大生命</span></li>
+  <li><span class="loc">间章二 · 奇玛尔七神柱</span><span class="reward">+5% 全元素抗</span>（推荐，可随时回来改）</li>
+  <li><span class="loc">间章三 · 克里亚村尽头 BOSS</span><span class="reward">+40 精魂 ⭐</span></li>
+  <li><span class="loc">间章三 · 嚎叫洞穴</span><span class="reward">+2 天赋点</span></li>
+  <li><span class="loc">间章三 · 克里亚峰老头</span><span class="reward">暗金装备一件</span></li>
+  <li><span class="loc">全部间章完成找兜帽男</span><span class="reward">+2 天赋点</span></li>
+</ul>
+
+  </div></div>
+</div>
+
+</div><!-- /accordion -->
+
+
+<!-- ═══════════════ 异界过渡 ═══════════════ -->
+<h2 class="section-title">异界 T1~T15 过渡</h2>
+
+<div class="ch-sub"><h5>天赋走向（异界阶段）</h5>
+<p style="font-size:0.83rem;color:var(--text-secondary);">
+打完异界引导任务第一张地图后，去藏身处→拿 4 个贪婪战书换升华→<strong>转为巫妖</strong>。<br>
+天赋方向：围绕<strong>护盾</strong>展开 → 降低充能间隔 → 自动触发回盾。<br>
+护盾越高生存越好。后续点出<strong>珠宝孔</strong>和<strong>诅咒爆炸</strong>。
+</p>
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>技能</th><th>辅助 1</th><th>辅助 2</th><th>辅助 3</th><th>辅助 4</th></tr></thead>
+  <tbody>
+    <tr><td class="skill-name">灵体（强能狂热者）</td><td class="support">穿透3</td><td class="support">狂噬2</td><td class="support">狂野碎片2</td><td class="support">快速施法1</td></tr>
+    <tr><td class="skill-name">寒霜爆</td><td class="support">范围扩大2</td><td class="support">加长引线2</td><td>—</td><td>—</td></tr>
+    <tr><td class="skill-name">魔侍祭司</td><td class="support">快速施法2</td><td class="support">亡者之息</td><td>—</td><td>—</td></tr>
+    <tr><td class="skill-name">元素要害</td><td class="support">范围扩大2</td><td class="support">诅咒之地</td><td class="support">聚焦诅咒</td><td>—</td></tr>
+    <tr><td class="skill-name">苦痛奉献</td><td class="support">牺牲贡献</td><td class="support">持续时间延长2</td><td>—</td><td>—</td></tr>
+    <tr><td class="skill-name">烈焰之墙</td><td>—</td><td>—</td><td>—</td><td>白嫖额外点伤</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="alert">
+  <strong>异界核心策略：</strong>多捡黄装鉴定 → 优先高抗高盾装 → 巧匠石打孔镶抗性符文 → 三元素抗尽量 75%。<br>
+  咒符携带：<strong>免疫中毒 + 免疫流血 + 免疫冰冻</strong>。
+</div>
+
+<!-- ═══════════════ 灵体速查 ═══════════════ -->
+<h2 class="section-title">灵体捕捉速查</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>灵体</th><th>精魂</th><th>抓取地点</th><th>用途</th><th>关键辅助</th></tr></thead>
+  <tbody>
+    <tr><td>混沌狂热者</td><td>50</td><td>第三章 · 混沌试炼</td><td>前期清图</td><td>狂野碎片 + 穿透2 + 亡命之息 + 狂噬</td></tr>
+    <tr><td><strong>强能狂热者</strong></td><td>55</td><td>间章 · 刻蚀峡谷</td><td>进阶清图主力</td><td>狂野碎片2 + 穿透3 + 狂噬2 + 快速施法2</td></tr>
+    <tr><td>冰封鄂骨（冰蚂蚁）</td><td>99</td><td>间章 · 灰烬森林</td><td>生存 + 清图</td><td>野性残暴3 + 快速攻击2 + 狂噬 + 海纳百川</td></tr>
+    <tr><td>刺针巨蟹</td><td>38</td><td>第四章 · 瓦卡帕努岛</td><td>投射物清图</td><td>多重射击2 + 新星投射物1 + 快速攻击2</td></tr>
+    <tr><td>蚊子（冰痕）</td><td>—</td><td>间章 · 卡莉渡口</td><td>感电 + 冰缓</td><td>特克罗的复仇 + 罗米拉的报复 + 闪电曝露</td></tr>
+    <tr><td>掌旗狂热者</td><td>50</td><td>第三章 · 阿戈拉特</td><td>回血光环</td><td>布鲁特斯之脑</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ═══════════════ 装备 ═══════════════ -->
+<h2 class="section-title">装备词条优先级</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>部位</th><th>核心词条</th><th>优先级</th></tr></thead>
+  <tbody>
+    <tr><td>武器（权杖）</td><td>+召唤物等级、+精魂、召唤物伤害</td><td class="key">最高</td></tr>
+    <tr><td>头盔</td><td>+召唤物等级、护盾、抗性</td><td class="key">最高</td></tr>
+    <tr><td>项链</td><td>+召唤物等级、+精魂、护盾</td><td class="key">最高</td></tr>
+    <tr><td>衣服</td><td>+精魂、护盾、抗性</td><td>高</td></tr>
+    <tr><td>戒指 ×2</td><td>抗性、生命、属性补缺</td><td>中</td></tr>
+    <tr><td>鞋子</td><td><strong>移动速度</strong>（必须）、生命、抗性</td><td>中</td></tr>
+    <tr><td>腰带</td><td>生命、抗性</td><td>中</td></tr>
+    <tr><td>手套</td><td>护盾、抗性、属性</td><td>低</td></tr>
+  </tbody>
+</table>
+</div>
+
+
+<!-- ═══════════════ 永久奖励速查 ═══════════════ -->
+<h2 class="section-title">全章节永久奖励速查</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>章节</th><th>奖励</th><th>地点</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td class="key">+10 冰抗</td><td>新手村冰冻处女巫</td></tr>
+    <tr><td>1</td><td class="key">+2 天赋</td><td>猎场黑鸦</td></tr>
+    <tr><td>1</td><td class="key">+30 精魂</td><td>茂棘深林迷雾之王</td></tr>
+    <tr><td>1</td><td class="key">+2 天赋</td><td>欧甘农地乌娜琴</td></tr>
+    <tr><td>1</td><td>+最大生命</td><td>欧甘庄园一层雕像</td></tr>
+    <tr><td>2</td><td class="key">+2 天赋</td><td>克斯剧毒深坑</td></tr>
+    <tr><td>2</td><td class="key">+1 咒符栏位</td><td>巨人之谷祭坛</td></tr>
+    <tr><td>2</td><td class="key">+2 天赋</td><td>德莎尔遗书</td></tr>
+    <tr><td>2</td><td class="key">+10 电抗</td><td>高塔姐妹雕像</td></tr>
+    <tr><td>3</td><td class="key">+2 天赋</td><td>丛林废墟神威银拳</td></tr>
+    <tr><td>3</td><td>永久药水</td><td>蛇毒地窟</td></tr>
+    <tr><td>3</td><td class="key">+30 精魂</td><td>阿扎卡泥沼女巫</td></tr>
+    <tr><td>3</td><td class="key">+10 火抗</td><td>机械迷城小灵核 BOSS</td></tr>
+    <tr><td>3</td><td class="key">+2 天赋</td><td>阿戈拉特奉献匕首</td></tr>
+    <tr><td>4</td><td>+魔力上限</td><td>辛格拉之眼沉默神殿</td></tr>
+    <tr><td>4</td><td class="key">+5% 三抗</td><td>亡者之境三紫柱</td></tr>
+    <tr><td>4</td><td class="key">+2 天赋</td><td>亡者之境白猿</td></tr>
+    <tr><td>4</td><td>永久药剂加成</td><td>废弃监牢教堂</td></tr>
+    <tr><td>间1</td><td class="key">+2 天赋</td><td>霍尔顿狼堡</td></tr>
+    <tr><td>间2</td><td class="key">+2 天赋</td><td>卡莉渡口蝎虫</td></tr>
+    <tr><td>间2</td><td>+5% 生命</td><td>阶梯入口任务道具</td></tr>
+    <tr><td>间2</td><td class="key">+5% 全抗</td><td>奇玛尔七神柱</td></tr>
+    <tr><td>间3</td><td class="key">+40 精魂</td><td>克里亚村尽头 BOSS</td></tr>
+    <tr><td>间3</td><td class="key">+2 天赋</td><td>嚎叫洞穴</td></tr>
+    <tr><td>全部</td><td class="key">+2 天赋</td><td>找兜帽男对话</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="alert">
+  <strong>合计：24 点天赋 + 100 精魂 + 各元素抗性 + 血量/魔力上限</strong>
+</div>
+
+
+<!-- ═══════════════ FAQ ═══════════════ -->
+<h2 class="section-title">常见问题</h2>
+
+<div class="accordion">
+
+<div class="accordion-item">
+  <div class="accordion-header" onclick="this.parentElement.classList.toggle('open')">
+    <h3>Q1：传统召唤和门徒哪个更适合新手？</h3>
+    <span class="arrow">▾</span>
+  </div>
+  <div class="accordion-body"><div class="accordion-content" style="padding-top:0.6rem;">
+    <p style="font-size:0.83rem;color:var(--text-secondary);">
+      <strong>传统召唤（本攻略主线）。</strong>地狱犬自动点火 → 不卡手，从头稳到尾，召完挂机逛街。<br>
+      门徒虽然伤害更高，但前期冷却长而且需要手动操作连招，对新手不够友好。<br>
+      想最安逸 → 传统召唤。想最高伤害 → 门徒。
+    </p>
+  </div></div>
+</div>
+
+<div class="accordion-item">
+  <div class="accordion-header" onclick="this.parentElement.classList.toggle('open')">
+    <h3>Q2：第一章伤害不够 / 宝宝一直死？</h3>
+    <span class="arrow">▾</span>
+  </div>
+  <div class="accordion-body"><div class="accordion-content" style="padding-top:0.6rem;">
+    <p style="font-size:0.83rem;color:var(--text-secondary);">
+      ① 去商店淘 +1 召唤等级武器和头盔<br>
+      ② 神射手连亡命之息减少暴毙<br>
+      ③ 顽疾+开掘联动——顽疾击杀后用开掘召的骷髅自带顽疾清怪<br>
+      ④ 别疾跑！多翻滚
+    </p>
+  </div></div>
+</div>
+
+<div class="accordion-item">
+  <div class="accordion-header" onclick="this.parentElement.classList.toggle('open')">
+    <h3>Q3：精魂不够带不了灵体？</h3>
+    <span class="arrow">▾</span>
+  </div>
+  <div class="accordion-body"><div class="accordion-content" style="padding-top:0.6rem;">
+    <p style="font-size:0.83rem;color:var(--text-secondary);">
+      检查是否漏了第一章(+30)和第三章(+30)和间章(+40)精魂奖励。<br>
+      衣服/项链找精魂词条，武器自带精魂。<br>
+      优先级：灵体 &gt; 光环 &gt; 骷髅。
+    </p>
+  </div></div>
+</div>
+
+<div class="accordion-item">
+  <div class="accordion-header" onclick="this.parentElement.classList.toggle('open')">
+    <h3>Q4：装备好坏怎么判断？</h3>
+    <span class="arrow">▾</span>
+  </div>
+  <div class="accordion-body"><div class="accordion-content" style="padding-top:0.6rem;">
+    <p style="font-size:0.83rem;color:var(--text-secondary);">
+      按 G 打开技能面板 → 换上装备 → 看<strong>技能伤害数字</strong>变化。数字涨了就是好装备。
+    </p>
+  </div></div>
+</div>
+
+<div class="accordion-item">
+  <div class="accordion-header" onclick="this.parentElement.classList.toggle('open')">
+    <h3>Q5：寒霜爆和诅咒为什么不生效？</h3>
+    <span class="arrow">▾</span>
+  </div>
+  <div class="accordion-body"><div class="accordion-content" style="padding-top:0.6rem;">
+    <p style="font-size:0.83rem;color:var(--text-secondary);">
+      技能等级太低 → 对高级怪物不生效。保持技能等级跟上！去 NPC 升级技能石。
+    </p>
+  </div></div>
+</div>
+
+<div class="accordion-item">
+  <div class="accordion-header" onclick="this.parentElement.classList.toggle('open')">
+    <h3>Q6：升华试炼打不过怎么办？</h3>
+    <span class="arrow">▾</span>
+  </div>
+  <div class="accordion-body"><div class="accordion-content" style="padding-top:0.6rem;">
+    <p style="font-size:0.83rem;color:var(--text-secondary);">
+      第一次 20 级以上去，绕开铁人试炼。第二次不急，等第三次一起做。<br>
+      第四次（终极）后期找人带或攒通货再打，前期不着急。
+    </p>
+  </div></div>
+</div>
+
+</div>
+
+</div><!-- /container -->
+
+<footer class="footer">
+  <p>参考来源：
+    <a href="https://www.yuque.com/wudixiaoguigui/gvtzt7/dzfvs0vuvq7k8rq8" target="_blank">小龟门徒开荒指南</a> ·
+    <a href="https://www.caimogu.cc/post/2364129.html" target="_blank">牙医召唤 0.5 攻略</a> ·
+    <a href="https://my.feishu.cn/wiki/ANLxw1dT8iQliKkbXFLcHnAZnyd" target="_blank">赵振豪飞书攻略</a> ·
+    雨雪BOY · 芙莉莲开荒录像
+  </p>
+  <p style="margin-top:0.5rem;">攻略内容随版本更新可能调整，请以游戏内实际情况为准 · 2026.05</p>
+</footer>
+
+</body>
+</html>
