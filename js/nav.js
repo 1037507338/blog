@@ -1,29 +1,18 @@
-// ===== POE2 导航站 JS v4 =====
-// 数据从 data/links.json 加载，支持 localStorage 覆盖
-// 管理后台: admin.html
+// ===== POE2 导航站 JS v5 - Supabase 版本 =====
+// 数据通过 Vercel Serverless API: /api/links
 
 let allLinks = [];
-const DATA_URL = 'data/links.json';
-const STORAGE_KEY = 'poe2_links';
+const API_URL = '/api/links';
 
-// ===== 从 JSON 或 localStorage 加载数据 =====
+// ===== 从 API 加载数据 =====
 async function loadLinks() {
   const navContainer = document.getElementById('nav-container');
   if (!navContainer) return;
 
   try {
-    // 优先使用 localStorage 中的数据（管理员编辑后保存的）
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      try { allLinks = JSON.parse(stored); } catch(e) {}
-    }
-
-    if (!allLinks || !allLinks.length) {
-      const resp = await fetch(DATA_URL);
-      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-      allLinks = await resp.json();
-    }
-    
+    const resp = await fetch(API_URL);
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    allLinks = await resp.json();
     render(allLinks);
   } catch (e) {
     console.error('加载链接失败:', e);
@@ -51,12 +40,12 @@ function render(list) {
     for (let i = 0; i < links.length; i++) {
       const link = links[i];
       sections.push(
-        '<li data-url="', link.url, '" data-index="', list.indexOf(link), '">',
+        '<li data-url="', link.url, '" data-id="', link.id, '">',
         '<a href="', link.url, '" target="_blank" rel="noopener" class="card-title">',
         '<div class="favicon-container"><img class="favicon" src="" alt=""></div>',
         '<span class="link-text">', escapeHtml(link.title), '</span>',
         '</a>',
-        '<div class="url">', escapeHtml(link.desc), '</div>',
+        '<div class="url">', escapeHtml(link.desc || ''), '</div>',
         '</li>'
       );
     }
