@@ -4,15 +4,177 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>BD推荐 - POE2 Hub</title>
-<meta name="description" content="当前版本T0/T1热门BD推荐">
+<meta name="description" content="流放之路2当前版本T0/T1热门BD推荐">
 <style>
-:root{--bg-start:#f5f5f5;--bg-end:#f0f0f0;--card-bg:rgba(255,255,255,0.95);--card-border:rgba(220,220,220,0.5);--card-shadow:0 1px 2px 0 rgba(0,0,0,0.05);--card-shadow-hover:0 3px 6px -1px rgba(0,0,0,0.1);--text:#333;--subtext:#666;--accent:#555;--link:#555;--link-hover:#000;--btn-bg:rgba(255,255,255,.9);--btn-bg-hover:rgba(255,255,255,1);--btn-icon:#555;--btn-shadow:0 1px 3px rgba(0,0,0,.05);--btn-shadow-hover:0 2px 5px rgba(0,0,0,.08);--nav-bg:rgba(255,255,255,0.92);--nav-border:rgba(220,220,220,0.6);--nav-link:#555;--nav-link-hover:#000;--nav-active:#1a73e8;--bd-badge-bg:rgba(201,162,39,.12);--bd-badge-border:rgba(201,162,39,.35);--bd-badge-text:#9a7614}
-[data-theme="dark"]{--bg-start:#222;--bg-end:#1a1a1a;--card-bg:rgba(40,40,40,0.95);--card-border:rgba(60,60,60,0.5);--card-shadow:0 1px 2px 0 rgba(0,0,0,0.2);--card-shadow-hover:0 3px 6px -1px rgba(0,0,0,0.3);--text:#e0e0e0;--subtext:#aaa;--accent:#bbb;--link:#bbb;--link-hover:#fff;--btn-bg:rgba(40,40,40,0.9);--btn-bg-hover:rgba(50,50,50,1);--btn-icon:#bbb;--btn-shadow:0 1px 3px rgba(0,0,0,0.2);--btn-shadow-hover:0 2px 5px rgba(0,0,0,0.3);--nav-bg:rgba(30,30,30,0.95);--nav-border:rgba(60,60,60,0.6);--nav-link:#bbb;--nav-link-hover:#fff;--nav-active:#5ba3f5;--bd-badge-bg:rgba(201,162,39,.15);--bd-badge-border:rgba(201,162,39,.4);--bd-badge-text:#c9a227}
+:root{
+  --bg:#f5f5f5;--card:#fff;--card2:#fafafa;--border:#e8e8e8;--border2:#ddd;
+  --text:#1a1a1a;--text2:#555;--text3:#888;--accent:#1a73e8;
+  --gold:#c9a227;--gold2:#f0d060;--gold-bg:rgba(201,162,39,.07);
+  --shadow:0 2px 8px rgba(0,0,0,.06);--shadow2:0 6px 24px rgba(0,0,0,.12);
+  --radius:14px;--radius2:10px;
+}
+[data-theme="dark"]{
+  --bg:#1a1a1a;--card:#252525;--card2:#2d2d2d;--border:#383838;--border2:#444;
+  --text:#e8e8e8;--text2:#aaa;--text3:#777;--accent:#5ba3f5;
+  --gold:#c9a227;--gold2:#f0d060;--gold-bg:rgba(201,162,39,.1);
+  --shadow:0 2px 8px rgba(0,0,0,.3);--shadow2:0 6px 24px rgba(0,0,0,.5);
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:linear-gradient(145deg,var(--bg-start) 0%,var(--bg-end) 100%);color:var(--text);line-height:1.6;min-height:100vh;transition:background .3s ease,color .3s ease}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;
+  transition:background .3s,color .3s;
+}
+a{text-decoration:none;color:inherit}
+
+/* ===== 导航 ===== */
+.site-nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  background:var(--card);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);height:52px;
+  display:flex;align-items:center;
+}
+.site-nav-inner{
+  max-width:1200px;width:100%;margin:0 auto;padding:0 1.5rem;
+  display:flex;align-items:center;gap:1.5rem;
+}
+.site-nav-logo{font-size:1rem;font-weight:800;color:var(--text);white-space:nowrap;flex-shrink:0}
+.logo-icon{background:linear-gradient(135deg,var(--gold),#8b6914);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.site-nav-links{display:flex;gap:2px;align-items:center;flex:1}
+.site-nav-link{
+  padding:5px 10px;border-radius:6px;font-size:.87rem;color:var(--text2);
+  transition:.2s;white-space:nowrap;
+}
+.site-nav-link:hover{background:rgba(128,128,128,.06);color:var(--text)}
+.site-nav-link.active{color:var(--accent);font-weight:600;background:rgba(26,115,232,.07)}
+.site-nav-toggle{
+  display:none;flex-direction:column;gap:4px;padding:6px;border:none;
+  background:transparent;cursor:pointer;border-radius:6px;margin-left:auto;
+}
+.site-nav-toggle span{width:20px;height:2px;background:var(--text2);border-radius:2px;transition:.2s}
+
+/* ===== 主题切换 ===== */
+#theme-toggle{
+  position:fixed;top:12px;right:1.5rem;z-index:600;
+  width:36px;height:36px;border-radius:50%;
+  border:1px solid var(--border);background:var(--card);
+  color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:.2s;box-shadow:var(--shadow);
+}
+#theme-toggle:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ===== 页面主体 ===== */
+.page-wrap{max-width:1100px;margin:0 auto;padding:72px 1.5rem 3rem}
+.page-header{margin-bottom:2rem}
+.page-title{
+  font-size:1.6rem;font-weight:800;margin-bottom:.4rem;
+  background:linear-gradient(135deg,var(--text) 50%,var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.page-desc{font-size:.9rem;color:var(--text3)}
+
+/* ===== 分类筛选 ===== */
+.bd-filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.5rem;align-items:center}
+.filter-btn{
+  padding:5px 14px;border-radius:20px;font-size:.8rem;font-weight:500;
+  border:1px solid var(--border);background:var(--card);color:var(--text2);
+  cursor:pointer;transition:.2s;
+}
+.filter-btn:hover{border-color:var(--accent);color:var(--accent)}
+.filter-btn.active{border-color:var(--accent);background:var(--accent);color:#fff}
+
+/* ===== BD 卡片网格 ===== */
+.bd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+
+.bd-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--shadow);transition:box-shadow .25s,border-color .25s,transform .25s;
+  display:flex;flex-direction:column;
+  cursor:pointer;
+}
+.bd-card:hover{
+  box-shadow:var(--shadow2);border-color:var(--accent);
+  transform:translateY(-2px);
+}
+
+/* 卡片顶部渐变条 */
+.bd-card-accent{
+  height:5px;
+  background:linear-gradient(90deg,var(--gold) 0%,var(--gold2) 100%);
+}
+
+/* 卡片内容 */
+.bd-card-inner{
+  padding:18px 18px 16px;display:flex;flex-direction:column;gap:12px;flex:1;
+}
+
+/* 头部：图标 + 标题 */
+.bd-card-header{display:flex;align-items:flex-start;gap:12px}
+.bd-card-icon{
+  width:44px;height:44px;border-radius:10px;flex-shrink:0;
+  background:var(--gold-bg);border:1px solid rgba(201,162,39,.2);
+  display:flex;align-items:center;justify-content:center;font-size:1.3rem;
+}
+.bd-card-title{
+  font-size:1rem;font-weight:700;line-height:1.35;color:var(--text);
+}
+.bd-card-sub{
+  font-size:.78rem;color:var(--text3);margin-top:2px;
+}
+
+/* 描述 */
+.bd-card-desc{
+  font-size:.85rem;color:var(--text2);line-height:1.6;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+
+/* 分类标签 */
+.bd-card-cats{display:flex;flex-wrap:wrap;gap:5px;margin-top:auto}
+.bd-cat-chip{
+  display:inline-flex;align-items:center;gap:3px;
+  padding:3px 9px;border-radius:6px;font-size:.72rem;font-weight:600;
+  background:linear-gradient(135deg,rgba(201,162,39,.12),rgba(201,162,39,.06));
+  border:1px solid rgba(201,162,39,.25);color:var(--gold);
+}
+
+/* 底部操作条 */
+.bd-card-footer{
+  padding:10px 18px;border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--card2);
+}
+.bd-card-type{
+  display:flex;align-items:center;gap:5px;font-size:.75rem;color:var(--text3);
+}
+.bd-card-cta{
+  font-size:.8rem;font-weight:600;color:var(--accent);
+  display:flex;align-items:center;gap:4px;
+}
+.bd-card:hover .bd-card-cta{text-decoration:underline}
+
+/* 加载/空状态 */
+.bd-state{text-align:center;padding:3rem 0;color:var(--text3);font-size:.9rem}
+
+/* ===== 返回顶部 ===== */
+#back-to-top{
+  position:fixed;bottom:2rem;right:2rem;z-index:400;
+  width:40px;height:40px;border-radius:50%;
+  background:var(--card);border:1px solid var(--border);
+  color:var(--text2);cursor:pointer;font-size:1rem;
+  display:none;align-items:center;justify-content:center;
+  box-shadow:var(--shadow);transition:.2s;
+}
+#back-to-top.visible{display:flex}
+
+/* ===== 响应式 ===== */
+@media(max-width:768px){
+  .site-nav-links{position:fixed;top:52px;left:0;right:0;bottom:0;background:var(--card);flex-direction:column;align-items:flex-start;padding:1rem;gap:4px;display:none;z-index:499}
+  .site-nav-links.open{display:flex}
+  .site-nav-toggle{display:flex}
+  .page-wrap{padding-top:64px}
+}
 </style>
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/pages.css">
 <link rel="icon" href="favicon.ico">
 </head>
 <body>
@@ -29,140 +191,142 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica N
       <a href="news.html" class="site-nav-link">资讯动态</a>
       <a href="tools.html" class="site-nav-link">工具集</a>
     </div>
-    <button id="navToggle" class="site-nav-toggle" aria-label="菜单"><span></span><span></span><span></span></button>
+    <button class="site-nav-toggle" id="navToggle" aria-label="菜单"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
-<button id="theme-toggle" aria-label="切换深浅色模式">
-  <svg class="theme-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-  <svg class="theme-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+<button id="theme-toggle" aria-label="切换主题">
+  <svg class="theme-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+  <svg class="theme-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
 </button>
-<button id="back-to-top" aria-label="返回顶部">👆</button>
+<button id="back-to-top" aria-label="返回顶部">↑</button>
 
 <div class="page-wrap">
-  <h1 class="page-title">⚔️ BD推荐</h1>
-  <p class="page-desc">当前版本 T0 / T1 热门 BD 推荐，点击卡片查看详情</p>
+  <div class="page-header">
+    <h1 class="page-title">⚔️ BD推荐</h1>
+    <p class="page-desc">流放之路2 当前版本 T0 / T1 热门 BD，持续更新</p>
+  </div>
 
-  <!-- 分类筛选标签 -->
-  <div class="bd-filter-tags" id="bdFilterTags" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px"></div>
+  <!-- 分类筛选 -->
+  <div class="bd-filter-bar" id="bdFilterBar"></div>
 
-  <div class="card-grid" id="buildGrid">
-    <p style="text-align:center;color:var(--subtext);padding:2rem 0">加载中...</p>
+  <!-- 卡片网格 -->
+  <div class="bd-grid" id="bdGrid">
+    <p class="bd-state">加载中...</p>
   </div>
 </div>
 
-<footer style="text-align:center;padding:2rem 1.5rem;font-size:0.82rem;color:var(--subtext);opacity:0.5">© 2025 POE2 Hub · 仅供学习交流</footer>
-
 <script>
-const API_URL = '/api/links?page_type=BD推荐';
+const API = '/api/links?page_type=BD推荐';
 let allBuilds = [];
-let activeBdcCat = '全部';
+let activeCat = '全部';
+
+async function init() {
+  const s = localStorage.getItem('theme');
+  document.body.setAttribute('data-theme', s || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'));
+
+  const t = document.getElementById('theme-toggle');
+  if (t) t.onclick = () => {
+    const c = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.body.setAttribute('data-theme', c);
+    localStorage.setItem('theme', c);
+  };
+
+  const b = document.getElementById('back-to-top');
+  if (b) {
+    b.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    window.addEventListener('scroll', () => b.classList.toggle('visible', scrollY > 300));
+  }
+
+  const n = document.getElementById('navToggle');
+  const l = document.querySelector('.site-nav-links');
+  if (n && l) n.addEventListener('click', () => l.classList.toggle('open'));
+
+  await loadBuilds();
+}
 
 async function loadBuilds() {
-  const grid = document.getElementById('buildGrid');
   try {
-    const resp = await fetch(API_URL);
-    if (!resp.ok) throw new Error('加载失败');
-    const links = await resp.json();
-    allBuilds = links;
-    renderBdcFilterTags();
-    renderBuilds();
+    const resp = await fetch(API);
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    allBuilds = await resp.json();
+    renderFilterBar();
+    renderCards();
   } catch (e) {
-    grid.innerHTML = `<p style="text-align:center;color:var(--subtext);padding:2rem 0">加载失败: ${e.message}</p>`;
+    document.getElementById('bdGrid').innerHTML = `<p class="bd-state">加载失败：${e.message}</p>`;
   }
 }
 
-function renderBdcFilterTags() {
-  const cats = new Set();
+function getAllCats() {
+  const cats = {};
   allBuilds.forEach(l => {
-    (l.categories || []).forEach(c => cats.add(c));
-    if (l.category) cats.add(l.category);
+    (l.categories || []).forEach(c => { cats[c] = (cats[c] || 0) + 1; });
   });
-  const el = document.getElementById('bdFilterTags');
+  return Object.entries(cats).sort((a, b) => b[1] - a[1]);
+}
+
+function renderFilterBar() {
+  const cats = getAllCats();
   const all = allBuilds.length;
+  const el = document.getElementById('bdFilterBar');
   el.innerHTML = [
-    `<button class="filter-btn${activeBdcCat==='全部'?' active':''}" data-cat="全部" onclick="setBdcCat('全部')">全部 (${all})</button>`,
-    [...cats].sort().map(c => {
-      const cnt = allBuilds.filter(l => (l.categories||[]).includes(c) || l.category === c).length;
-      return `<button class="filter-btn${activeBdcCat===c?' active':''}" data-cat="${escAttr(c)}" onclick="setBdcCat('${escAttr(c)}')">${esc(c)} (${cnt})</button>`;
-    }).join('')
+    `<button class="filter-btn${activeCat === '全部' ? ' active' : ''}" onclick="setCat('全部')">全部 (${all})</button>`,
+    ...cats.map(([c, n]) =>
+      `<button class="filter-btn${activeCat === c ? ' active' : ''}" onclick="setCat('${escAttr(c)}')">${esc(c)} (${n})</button>`
+    )
   ].join('');
 }
 
-function setBdcCat(cat) {
-  activeBdcCat = cat;
-  renderBdcFilterTags();
-  renderBuilds();
+function setCat(cat) {
+  activeCat = cat;
+  renderFilterBar();
+  renderCards();
 }
 
-function renderBuilds() {
-  const grid = document.getElementById('buildGrid');
-  const cats = allBuilds.map(l => l.categories || (l.category ? [l.category] : []));
+function renderCards() {
+  const grid = document.getElementById('bdGrid');
   let data = allBuilds;
-  if (activeBdcCat !== '全部') {
-    data = data.filter(l => (l.categories||[]).includes(activeBdcCat) || l.category === activeBdcCat);
-  }
-  if (!data.length) {
-    grid.innerHTML = '<p style="text-align:center;color:var(--subtext);padding:2rem 0">暂无该分类的BD推荐</p>';
-    return;
-  }
+  if (activeCat !== '全部') data = data.filter(l => (l.categories || []).includes(activeCat));
+  if (!data.length) { grid.innerHTML = '<p class="bd-state">暂无该分类的 BD 推荐</p>'; return; }
+
   grid.innerHTML = data.map(b => {
     const isHtml = b.link_type === 'html';
+    const href = escAttr(b.url || '#');
     const target = isHtml ? '' : ' target="_blank" rel="noopener"';
-    const href = b.url || '#';
-    const bCats = b.categories || (b.category ? [b.category] : []);
-    const catTags = bCats.map(c => `<span class="bd-cat-tag">${esc(c)}</span>`).join('');
+    const bCats = b.categories || [];
+    const catChips = bCats.map(c => `<span class="bd-cat-chip">${esc(c)}</span>`).join('');
     const desc = b.description ? `<p class="bd-card-desc">${esc(b.description)}</p>` : '';
     const icon = isHtml ? '📄' : '🔗';
-    return `<a href="${escAttr(href)}" class="bd-card"${target}>
+    const typeLabel = isHtml ? '站内页面' : '外部链接';
+    const ctaLabel = isHtml ? '查看详情 →' : '前往查看 →';
+
+    return `<a href="${href}" class="bd-card"${target} onclick="${isHtml ? '' : "event.preventDefault();window.open('" + href + "','_blank')"}">
+  <div class="bd-card-accent"></div>
+  <div class="bd-card-inner">
+    <div class="bd-card-header">
       <div class="bd-card-icon">${icon}</div>
-      <div class="bd-card-body">
-        <h3 class="bd-card-title">${esc(b.title)}</h3>
-        ${desc}
-        ${catTags ? `<div class="bd-card-cats">${catTags}</div>` : ''}
+      <div>
+        <div class="bd-card-title">${esc(b.title)}</div>
+        <div class="bd-card-sub">BD攻略</div>
       </div>
-    </a>`;
+    </div>
+    ${desc}
+    ${catChips ? `<div class="bd-card-cats">${catChips}</div>` : ''}
+  </div>
+  <div class="bd-card-footer">
+    <div class="bd-card-type">
+      <span>${isHtml ? '📄' : '🔗'}</span> ${typeLabel}
+    </div>
+    <div class="bd-card-cta">${ctaLabel}</div>
+  </div>
+</a>`;
   }).join('');
 }
 
-document.addEventListener('DOMContentLoaded', () => { loadBuilds(); });
-
-function esc(s) { const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
 function escAttr(s) { return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-</script>
 
-<!-- BD 卡片样式（补充到 pages.css） -->
-<style>
-.bd-filter-tags{margin-bottom:20px}
-.filter-btn{padding:5px 14px;border-radius:16px;font-size:.82rem;font-weight:500;border:1px solid var(--card-border);background:var(--card-bg);color:var(--subtext);cursor:pointer;transition:.2s}
-.filter-btn:hover{border-color:var(--nav-active);color:var(--nav-active)}
-.filter-btn.active{border-color:var(--nav-active);background:var(--nav-active);color:#fff}
-.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;padding:4px 0}
-.bd-card{display:flex;align-items:flex-start;gap:14px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:16px;box-shadow:var(--card-shadow);transition:box-shadow .2s,border-color .2s;text-decoration:none;color:var(--text);cursor:pointer}
-.bd-card:hover{box-shadow:var(--card-shadow-hover);border-color:var(--nav-active);text-decoration:none;color:var(--text)}
-.bd-card-icon{width:40px;height:40px;border-radius:10px;background:var(--bd-badge-bg);border:1px solid var(--bd-badge-border);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
-.bd-card-body{flex:1;min-width:0}
-.bd-card-title{font-size:.95rem;font-weight:700;margin-bottom:5px;line-height:1.4}
-.bd-card-desc{font-size:.82rem;color:var(--subtext);margin-bottom:8px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.bd-card-cats{display:flex;flex-wrap:wrap;gap:5px}
-.bd-cat-tag{display:inline-block;padding:2px 8px;border-radius:8px;font-size:.72rem;font-weight:600;background:var(--bd-badge-bg);color:var(--bd-badge-text);border:1px solid var(--bd-badge-border)}
-</style>
-
-<script>
-// 主题切换 + 导航 + 返回顶部
-document.addEventListener("DOMContentLoaded",()=>{
-  const s=localStorage.getItem("theme");
-  if(s)document.body.setAttribute("data-theme",s);
-  else document.body.setAttribute("data-theme",matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");
-  const t=document.getElementById("theme-toggle");
-  if(t)t.onclick=()=>{const c=document.body.getAttribute("data-theme")==="dark"?"light":"dark";document.body.setAttribute("data-theme",c);localStorage.setItem("theme",c)};
-  const b=document.getElementById("back-to-top");
-  if(b){b.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));window.addEventListener("scroll",()=>b.classList.toggle("visible",scrollY>300))}
-  const n=document.getElementById("navToggle"),l=document.querySelector(".site-nav-links");
-  if(n&&l){n.addEventListener("click",()=>{l.classList.toggle("open");n.classList.toggle("active")});l.querySelectorAll(".site-nav-link").forEach(a=>a.addEventListener("click",()=>{l.classList.remove("open");n.classList.remove("active")}))}
-  const path=location.pathname.split("/").pop()||"index.html";
-  document.querySelectorAll(".site-nav-link").forEach(a=>{if(a.getAttribute("href")===path)a.classList.add("active")});
-});
+document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>

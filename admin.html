@@ -486,8 +486,8 @@ function renderTable() {
       <td><div class="cat-tags">${catTags || '<span style="color:var(--sub);font-size:.75rem">无</span>'}</div></td>
       <td>${l.sort_order ?? 0}</td>
       <td class="actions">
-        <button class="btn btn-sm" onclick="openEditModal(${l.id})">✏️</button>
-        <button class="btn btn-sm btn-danger" onclick="deleteLink(${l.id})">🗑️</button>
+        <button class="btn btn-sm btn-edit" data-id="${l.id}">✏️</button>
+        <button class="btn btn-sm btn-danger btn-delete" data-id="${l.id}">🗑️</button>
       </td>
     </tr>`;
   }).join('');
@@ -674,7 +674,14 @@ async function deleteLink(id) {
   } catch (e) { toast('删除失败: ' + e.message, 'error'); }
 }
 
-// ===== Toast =====
+// ===== 表格事件委托（避免 inline onclick 失效） =====
+document.getElementById('tableBody').addEventListener('click', e => {
+  const btn = e.target.closest('.btn-edit, .btn-delete');
+  if (!btn) return;
+  const id = parseInt(btn.dataset.id);
+  if (btn.classList.contains('btn-edit')) openEditModal(id);
+  else if (btn.classList.contains('btn-delete')) deleteLink(id);
+});
 function toast(msg, type='info') {
   const el = document.createElement('div');
   el.className = `toast toast-${type}`; el.textContent = msg;
