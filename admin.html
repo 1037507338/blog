@@ -10,7 +10,6 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;transition:.3s;min-height:100vh}
 
-/* 顶部导航 */
 .site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--card);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem}
 .site-nav-logo{font-size:1rem;font-weight:700;color:var(--text);text-decoration:none}
 .logo-icon{background:linear-gradient(135deg,#c9a227,#8b6914);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
@@ -39,43 +38,59 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .btn-sm{padding:6px 14px;font-size:.82rem;width:auto}
 .login-error{color:var(--danger);font-size:.85rem;text-align:center;margin-top:12px;min-height:20px}
 
-/* ===== 一级 Tab 导航 ===== */
+/* ===== 一级 Tab ===== */
 .page-tabs{display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:24px;overflow-x:auto;scrollbar-width:none}
 .page-tabs::-webkit-scrollbar{display:none}
 .page-tab{padding:10px 20px;font-size:.9rem;font-weight:600;color:var(--sub);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:color .2s,border-color .2s;background:none;border-top:none;border-left:none;border-right:none}
 .page-tab:hover{color:var(--accent)}
 .page-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
-.page-tab .tab-count{display:inline-block;background:var(--border);color:var(--sub);border-radius:10px;padding:0 6px;font-size:.72rem;margin-left:6px;font-weight:400}
+.tab-count{display:inline-block;background:var(--border);color:var(--sub);border-radius:10px;padding:0 6px;font-size:.72rem;margin-left:6px;font-weight:400}
 
 /* 工具栏 */
 .toolbar{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+
+/* ===== 自定义分类筛选下拉 ===== */
+.cat-filter-wrap{position:relative;display:inline-block}
+.cat-filter-btn{display:flex;align-items:center;gap:6px;padding:6px 12px;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--text);font-size:.85rem;cursor:pointer;transition:.2s;min-width:130px}
+.cat-filter-btn:hover{border-color:var(--accent);color:var(--accent)}
+.cat-filter-btn .arrow{font-size:.7rem;transition:transform .2s}
+.cat-filter-btn.open .arrow{transform:rotate(180deg)}
+.cat-filter-dropdown{position:absolute;top:calc(100% + 4px);left:0;min-width:180px;background:var(--card);border:1px solid var(--border);border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,.12);z-index:500;overflow:hidden;display:none}
+.cat-filter-dropdown.open{display:block}
+.cat-filter-search{padding:8px 12px;border-bottom:1px solid var(--border)}
+.cat-filter-search input{width:100%;padding:7px 10px;border:1px solid var(--border);border-radius:6px;font-size:.82rem;background:var(--bg);color:var(--text);outline:none}
+.cat-filter-search input:focus{border-color:var(--accent)}
+.cat-filter-list{max-height:220px;overflow-y:auto;padding:6px 0}
+.cat-filter-item{padding:7px 14px;font-size:.85rem;cursor:pointer;display:flex;align-items:center;gap:8px;transition:.15s}
+.cat-filter-item:hover{background:rgba(26,115,232,.06)}
+.cat-filter-item.active{color:var(--accent);font-weight:600}
+.cat-filter-item .check{width:16px;font-size:.75rem}
+.cat-filter-item .count{font-size:.72rem;color:var(--sub);margin-left:auto}
+
+/* 搜索框 */
 .search-input{padding:8px 14px;border:1px solid var(--border);border-radius:7px;font-size:.85rem;background:var(--card);color:var(--text);width:240px;outline:none;transition:border-color .2s}
 .search-input:focus{border-color:var(--accent)}
-
-/* 分类筛选 */
-.cat-filter{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
-.cat-chip{padding:4px 12px;border-radius:14px;font-size:.78rem;font-weight:500;border:1px solid var(--border);background:var(--card);color:var(--sub);cursor:pointer;transition:.2s}
-.cat-chip:hover,.cat-chip.active{border-color:var(--accent);color:var(--accent);background:rgba(26,115,232,.06)}
 
 /* 表格 */
 .table-wrap{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
 table{width:100%;border-collapse:collapse}
 thead{background:rgba(128,128,128,.04)}
 th{padding:10px 14px;text-align:left;font-size:.82rem;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border)}
-td{padding:10px 14px;font-size:.87rem;border-bottom:1px solid var(--border);vertical-align:middle}
+td{padding:10px 14px;font-size:.87rem;border-bottom:1px solid var(--border);vertical-align:top}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:rgba(26,115,232,.03)}
-.cat-tag{display:inline-block;padding:2px 10px;border-radius:10px;font-size:.75rem;font-weight:600;background:rgba(26,115,232,.08);color:var(--accent)}
+.cat-tags{display:flex;gap:4px;flex-wrap:wrap}
+.cat-tag{display:inline-block;padding:2px 8px;border-radius:8px;font-size:.72rem;font-weight:600;background:rgba(26,115,232,.08);color:var(--accent);white-space:nowrap}
 .type-badge{display:inline-block;padding:2px 8px;border-radius:8px;font-size:.72rem;font-weight:500}
 .type-html{background:rgba(26,115,232,.1);color:var(--accent)}
 .type-external{background:rgba(200,50,50,.1);color:#c33}
-.url-cell{max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--sub);font-size:.8rem}
+.url-cell{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--sub);font-size:.8rem}
 .actions{display:flex;gap:6px}
 .btn-danger{color:var(--danger);border-color:var(--danger)}
 .btn-danger:hover{background:var(--danger);color:#fff}
 .empty{text-align:center;padding:3rem;color:var(--sub);font-size:.95rem}
 
-/* 模态框 */
+/* ===== 模态框 ===== */
 .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.45);z-index:2000;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:.2s}
 .modal-overlay.show{opacity:1;visibility:visible}
 .modal{background:var(--card);border-radius:14px;width:520px;max-width:94vw;max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2);transform:translateY(20px);transition:.25s}
@@ -87,19 +102,44 @@ tr:hover td{background:rgba(26,115,232,.03)}
 .modal-body{padding:20px}
 .modal-footer{display:flex;justify-content:flex-end;gap:8px;padding:16px 20px;border-top:1px solid var(--border)}
 
-/* link-type 切换提示 */
+/* link-type 提示 */
 .link-type-hint{font-size:.78rem;padding:8px 12px;border-radius:6px;margin-top:6px;display:none}
 .link-type-hint.external{border:1px solid rgba(200,50,50,.2);background:rgba(200,50,50,.05);color:var(--sub);display:block}
 .link-type-hint.html{border:1px solid rgba(26,115,232,.2);background:rgba(26,115,232,.05);color:var(--sub);display:block}
-
-/* HTML 文件下拉 */
 .html-file-wrap{display:none;margin-top:8px}
 .html-file-wrap.show{display:block}
-.html-file-info{font-size:.78rem;color:var(--sub);margin-bottom:6px}
-.html-file-info strong{color:var(--accent)}
+
+/* ===== 分类多选 Tag 输入 ===== */
+.cat-multi-label{display:block;font-size:.85rem;font-weight:600;color:var(--text);margin-bottom:6px}
+.cat-multi-hint{font-size:.75rem;color:var(--sub);font-weight:400;margin-left:6px}
+.cat-multi-wrap{border:1px solid var(--border);border-radius:7px;background:var(--bg);min-height:80px;max-height:160px;overflow-y:auto;padding:8px;display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start;transition:border-color .2s;cursor:text}
+.cat-multi-wrap:focus-within{border-color:var(--accent)}
+.cat-multi-tag{display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:6px;font-size:.8rem;font-weight:500;background:rgba(26,115,232,.1);color:var(--accent);border:1px solid rgba(26,115,232,.2);white-space:nowrap}
+.cat-multi-tag .remove{width:14px;height:14px;border-radius:50%;background:rgba(26,115,232,.15);color:var(--accent);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.65rem;line-height:1;flex-shrink:0}
+.cat-multi-tag .remove:hover{background:var(--accent);color:#fff}
+.cat-multi-tag.readonly{opacity:.6;cursor:default}
+.cat-multi-tag.readonly .remove{display:none}
+.cat-multi-input{flex:1;min-width:80px;border:none;outline:none;background:transparent;font-size:.85rem;color:var(--text);padding:4px 2px}
+.cat-add-btn{width:28px;height:28px;border-radius:6px;border:1px dashed var(--border);background:transparent;color:var(--sub);cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0;align-self:flex-start;margin-top:4px}
+.cat-add-btn:hover{border-color:var(--accent);color:var(--accent);background:rgba(26,115,232,.05)}
+
+/* 新分类自定义弹窗 */
+.cat-new-modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.4);z-index:3000;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:.2s}
+.cat-new-modal-overlay.show{opacity:1;visibility:visible}
+.cat-new-modal{background:var(--card);border-radius:12px;width:360px;max-width:90vw;padding:24px;box-shadow:0 16px 48px rgba(0,0,0,.2);transform:scale(.95);transition:.2s}
+.cat-new-modal-overlay.show .cat-new-modal{transform:scale(1)}
+.cat-new-modal h3{font-size:1rem;font-weight:700;margin-bottom:14px}
+.cat-new-modal input{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:7px;font-size:.9rem;background:var(--bg);color:var(--text);outline:none;margin-bottom:14px;font-family:inherit}
+.cat-new-modal input:focus{border-color:var(--accent)}
+.cat-new-modal .btns{display:flex;gap:8px;justify-content:flex-end}
+.cat-new-modal .btn-cancel{padding:8px 16px;border-radius:7px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;font-size:.85rem;transition:.2s}
+.cat-new-modal .btn-cancel:hover{background:var(--border)}
+.cat-new-modal .btn-confirm{padding:8px 16px;border-radius:7px;border:none;background:var(--accent);color:#fff;cursor:pointer;font-size:.85rem;transition:.2s}
+.cat-new-modal .btn-confirm:hover{opacity:.9}
+.cat-new-error{color:var(--danger);font-size:.8rem;margin-bottom:10px;min-height:18px}
 
 /* Toast */
-.toast{position:fixed;top:60px;right:1.5rem;padding:12px 20px;border-radius:8px;font-size:.85rem;font-weight:500;z-index:3000;transform:translateX(120%);transition:.3s;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.toast{position:fixed;top:60px;right:1.5rem;padding:12px 20px;border-radius:8px;font-size:.85rem;font-weight:500;z-index:4000;transform:translateX(120%);transition:.3s;box-shadow:0 4px 16px rgba(0,0,0,.15)}
 .toast.show{transform:translateX(0)}
 .toast-success{background:var(--success);color:#fff}
 .toast-error{background:var(--danger);color:#fff}
@@ -139,21 +179,39 @@ tr:hover td{background:rgba(26,115,232,.03)}
 <!-- 管理面板 -->
 <div id="admin-panel">
   <div class="wrap">
-
-    <!-- 一级 Tab（按 page_type 分） -->
+    <!-- 一级 Tab -->
     <div class="page-tabs" id="pageTabs"></div>
 
     <!-- 当前 Tab 内容 -->
     <div class="tab-content" id="tabContent">
       <div class="toolbar">
-        <button class="btn btn-primary btn-sm" id="addBtn" onclick="openAddModal()">+ 新增链接</button>
+        <button class="btn btn-primary btn-sm" onclick="openAddModal()">+ 新增链接</button>
+        <!-- 自定义分类筛选下拉 -->
+        <div class="cat-filter-wrap" id="catFilterWrap">
+          <button class="cat-filter-btn" id="catFilterBtn" onclick="toggleCatDropdown()">
+            <span id="catFilterLabel">全部</span>
+            <span class="arrow">▼</span>
+          </button>
+          <div class="cat-filter-dropdown" id="catFilterDropdown">
+            <div class="cat-filter-search">
+              <input type="text" id="catFilterSearch" placeholder="搜索分类..." oninput="renderCatFilterList()">
+            </div>
+            <div class="cat-filter-list" id="catFilterList"></div>
+          </div>
+        </div>
         <input type="text" class="search-input" id="filterInput" placeholder="搜索标题/描述/URL..." oninput="renderTable()">
       </div>
-      <div class="cat-filter" id="catFilter"></div>
+
       <div class="table-wrap">
         <table>
           <thead><tr>
-            <th>ID</th><th>标题</th><th>链接类型</th><th>URL</th><th>分类</th><th>排序</th><th>操作</th>
+            <th style="width:40px">ID</th>
+            <th>标题 / 描述</th>
+            <th>链接类型</th>
+            <th>URL</th>
+            <th>分类</th>
+            <th style="width:50px">排序</th>
+            <th style="width:80px">操作</th>
           </tr></thead>
           <tbody id="tableBody"></tbody>
         </table>
@@ -172,10 +230,10 @@ tr:hover td{background:rgba(26,115,232,.03)}
     <div class="modal-body">
       <input type="hidden" id="editId">
 
-      <!-- 页面类型（当前 Tab） -->
+      <!-- 页面类型（只读） -->
       <div class="form-group">
         <label>页面类型</label>
-        <select id="editPageType"></select>
+        <input type="text" id="editPageTypeDisplay" readonly style="background:var(--border);color:var(--sub);cursor:not-allowed">
       </div>
 
       <!-- 标题 -->
@@ -195,32 +253,44 @@ tr:hover td{background:rgba(26,115,232,.03)}
         <div class="link-type-hint html" id="hint-html">从下方下拉列表选择 HTML 文件，或手动输入 builds/ 目录下的文件路径</div>
       </div>
 
-      <!-- URL / HTML 文件选择 -->
-      <div class="form-group" id="urlInputWrap">
-        <label>URL *</label>
-        <input type="url" id="editUrl" placeholder="https://...">
-      </div>
+      <!-- URL -->
+      <div class="form-group" id="urlInputWrap"><label>URL *</label><input type="url" id="editUrl" placeholder="https://..."></div>
 
-      <!-- HTML 文件下拉（动态加载） -->
+      <!-- HTML 文件下拉 -->
       <div class="html-file-wrap" id="htmlFileWrap">
-        <p class="html-file-info" id="htmlFileInfo">从 <strong>builds/</strong> 目录中选择文件：</p>
-        <select id="htmlFileSelect" class="form-group" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:7px;font-size:.9rem;background:var(--bg);color:var(--text)" onchange="onHtmlFileSelect()">
-          <option value="">— 请选择 HTML 文件 —</option>
-        </select>
+        <div class="form-group" style="margin-bottom:0">
+          <label style="font-size:.78rem;color:var(--sub);margin-bottom:4px;display:block">从 builds/ 目录选择：</label>
+          <select id="htmlFileSelect" style="width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:7px;font-size:.88rem;background:var(--bg);color:var(--text);outline:none" onchange="onHtmlFileSelect()">
+            <option value="">— 请选择 HTML 文件 —</option>
+          </select>
+        </div>
       </div>
 
-      <!-- 分类（动态） -->
-      <div class="form-group">
-        <label>分类</label>
-        <select id="editCategory"></select>
+      <!-- 分类多选（Tag 输入） -->
+      <div class="form-group" style="margin-top:16px">
+        <label class="cat-multi-label">分类 <span class="cat-multi-hint">（可多选，点击 + 新增）</span></label>
+        <div class="cat-multi-wrap" id="catMultiWrap" onclick="document.getElementById('catMultiInput').focus()">
+          <input type="text" class="cat-multi-input" id="catMultiInput" placeholder="输入分类名后回车添加..." onkeydown="onCatInputKey(event)">
+          <button class="cat-add-btn" id="catAddBtn" onclick="openCatNewModal()" title="新建分类">+</button>
+        </div>
       </div>
-
-      <!-- 排序 -->
-      <div class="form-group"><label>排序（数字越小越靠前）</label><input type="number" id="editSortOrder" placeholder="0"></div>
     </div>
     <div class="modal-footer">
       <button class="btn" onclick="closeModal()">取消</button>
       <button class="btn btn-primary" onclick="saveLink()">保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- 新建分类弹窗 -->
+<div class="cat-new-modal-overlay" id="catNewModal">
+  <div class="cat-new-modal">
+    <h3>新建分类</h3>
+    <div class="cat-new-error" id="catNewError"></div>
+    <input type="text" id="catNewInput" placeholder="输入分类名称" maxlength="20" onkeydown="if(event.key==='Enter')confirmCatNew();if(event.key==='Escape')closeCatNewModal()">
+    <div class="btns">
+      <button class="btn-cancel" onclick="closeCatNewModal()">取消</button>
+      <button class="btn-confirm" onclick="confirmCatNew()">确定</button>
     </div>
   </div>
 </div>
@@ -231,14 +301,13 @@ const API_FILES = '/api/builds-files';
 const ADMIN_USER = 'admin';
 const ADMIN_PASS = '54188wang';
 const AUTH_KEY = 'poe2_admin_auth';
-
-// 所有支持的页面类型
 const PAGE_TYPES = ['首页导航', 'BD推荐', '新手攻略', '资讯动态', '工具集'];
 
 let allLinks = [];
-let htmlFiles = [];  // builds/ 目录下的 HTML 文件列表
-let activeTab = '首页导航';  // 当前 Tab
+let htmlFiles = [];
+let activeTab = '首页导航';
 let activeCat = '全部';
+let selectedCats = []; // 当前编辑的分类 tag
 
 // ===== 初始化 =====
 document.addEventListener('DOMContentLoaded', () => {
@@ -248,12 +317,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const btn = document.getElementById('theme-toggle');
   if (btn) btn.onclick = () => {
     const c = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    document.body.setAttribute('data-theme', c);
-    localStorage.setItem('theme', c);
+    document.body.setAttribute('data-theme', c); localStorage.setItem('theme', c);
+    updateThemeIcons(c);
   };
   if (!checkAuth()) return;
   showAdminPanel();
 });
+
+function updateThemeIcons(theme) {
+  const sun = document.querySelector('#theme-toggle .theme-sun');
+  const moon = document.querySelector('#theme-toggle .theme-moon');
+  if (sun) sun.style.display = theme === 'dark' ? 'none' : 'block';
+  if (moon) moon.style.display = theme === 'dark' ? 'block' : 'none';
+}
 
 // ===== 认证 =====
 function checkAuth() { return sessionStorage.getItem(AUTH_KEY) === 'true'; }
@@ -261,12 +337,9 @@ function login() {
   const u = document.getElementById('login-username').value.trim();
   const p = document.getElementById('login-password').value;
   if (u === ADMIN_USER && p === ADMIN_PASS) {
-    sessionStorage.setItem(AUTH_KEY, 'true');
-    showAdminPanel();
+    sessionStorage.setItem(AUTH_KEY, 'true'); showAdminPanel();
     document.getElementById('login-error').textContent = '';
-  } else {
-    document.getElementById('login-error').textContent = '用户名或密码错误';
-  }
+  } else { document.getElementById('login-error').textContent = '用户名或密码错误'; }
 }
 function logout() { sessionStorage.removeItem(AUTH_KEY); location.reload(); }
 function showAdminPanel() {
@@ -277,97 +350,141 @@ function showAdminPanel() {
   loadAllData();
 }
 
-// ===== 加载数据 =====
+// ===== 加载 =====
 async function loadAllData() {
   await Promise.all([loadLinks(), loadHtmlFiles()]);
   renderPageTabs();
   switchTab(activeTab);
+  renderHtmlFileSelect();
 }
 
 async function loadLinks() {
   try {
     const resp = await fetch(API_LINKS);
-    if (!resp.ok) throw new Error('HTTP ' + resp.status);
-    allLinks = await resp.json();
-  } catch (e) {
-    toast('加载链接数据失败: ' + e.message, 'error');
-    allLinks = [];
-  }
+    allLinks = resp.ok ? await resp.json() : [];
+  } catch (e) { allLinks = []; }
 }
 
 async function loadHtmlFiles() {
   try {
     const resp = await fetch(API_FILES);
-    if (!resp.ok) throw new Error('HTTP ' + resp.status);
-    const data = await resp.json();
-    htmlFiles = data.files || [];
-    renderHtmlFileSelect();
-  } catch (e) {
-    htmlFiles = [];
+    if (resp.ok) { const d = await resp.json(); htmlFiles = d.files || []; }
+  } catch (e) { htmlFiles = []; }
+}
+
+// ===== Tab =====
+function renderPageTabs() {
+  document.getElementById('pageTabs').innerHTML = PAGE_TYPES.map(pt => {
+    const count = allLinks.filter(l => l.page_type === pt).length;
+    return `<button class="page-tab${pt === activeTab ? ' active' : ''}" onclick="switchTab('${escAttr(pt)}')">${esc(pt)} <span class="tab-count">${count}</span></button>`;
+  }).join('');
+}
+
+function switchTab(pt) {
+  activeTab = pt;
+  activeCat = '全部';
+  document.getElementById('catFilterLabel').textContent = '全部';
+  closeCatDropdown();
+  renderPageTabs();
+  renderTable();
+}
+
+// ===== 分类筛选下拉（自定义） =====
+function getAllCats() {
+  // 收集当前页面类型下所有行里出现过的所有分类
+  const cats = {};
+  allLinks.filter(l => l.page_type === activeTab).forEach(l => {
+    const catsArr = l.categories;
+    if (Array.isArray(catsArr) && catsArr.length) {
+      catsArr.forEach(c => { cats[c] = (cats[c] || 0) + 1; });
+    } else if (l.category) {
+      cats[l.category] = (cats[l.category] || 0) + 1;
+    }
+  });
+  return Object.entries(cats).sort((a, b) => b[1] - a[1]); // 按使用频率排序
+}
+
+function renderCatFilterList() {
+  const q = (document.getElementById('catFilterSearch').value || '').toLowerCase();
+  const cats = getAllCats().filter(([c]) => c.toLowerCase().includes(q));
+  const list = document.getElementById('catFilterList');
+  if (!cats.length) {
+    list.innerHTML = '<div style="padding:12px 14px;color:var(--sub);font-size:.82rem;text-align:center">无匹配分类</div>';
+    return;
+  }
+  list.innerHTML = [
+    `<div class="cat-filter-item${activeCat === '全部' ? ' active' : ''}" onclick="setCatFilter('全部')">
+      <span class="check">${activeCat === '全部' ? '✓' : ''}</span> 全部
+      <span class="count">${allLinks.filter(l=>l.page_type===activeTab).length}</span>
+    </div>`,
+    ...cats.map(([c, cnt]) => `
+      <div class="cat-filter-item${activeCat === c ? ' active' : ''}" onclick="setCatFilter('${escAttr(c)}')">
+        <span class="check">${activeCat === c ? '✓' : ''}</span> ${esc(c)}
+        <span class="count">${cnt}</span>
+      </div>`)
+  ].join('');
+}
+
+function toggleCatDropdown() {
+  const btn = document.getElementById('catFilterBtn');
+  const dd = document.getElementById('catFilterDropdown');
+  const isOpen = dd.classList.contains('open');
+  if (isOpen) { dd.classList.remove('open'); btn.classList.remove('open'); }
+  else {
+    closeCatDropdown.__closeOthers && closeCatDropdown.__closeOthers();
+    renderCatFilterList();
+    dd.classList.add('open');
+    btn.classList.add('open');
+    document.getElementById('catFilterSearch').value = '';
+    document.getElementById('catFilterSearch').focus();
   }
 }
 
-// ===== Tab 渲染 =====
-function renderPageTabs() {
-  const el = document.getElementById('pageTabs');
-  // 动态：tab 有数据的才显示
-  const tabs = PAGE_TYPES.map(pt => {
-    const count = allLinks.filter(l => l.page_type === pt).length;
-    return `<button class="page-tab${pt === activeTab ? ' active' : ''}" data-page-type="${escAttr(pt)}" onclick="switchTab('${escAttr(pt)}')">
-      ${esc(pt)} <span class="tab-count">${count}</span>
-    </button>`;
-  }).join('');
-  el.innerHTML = tabs;
+function closeCatDropdown() {
+  document.getElementById('catFilterDropdown').classList.remove('open');
+  document.getElementById('catFilterBtn').classList.remove('open');
 }
 
-function switchTab(pageType) {
-  activeTab = pageType;
-  activeCat = '全部';
-  renderPageTabs();
-  renderCatFilter();
+function setCatFilter(c) {
+  activeCat = c;
+  document.getElementById('catFilterLabel').textContent = c;
+  closeCatDropdown();
   renderTable();
-  document.getElementById('addBtn').onclick = () => openAddModal();
 }
 
-// ===== 分类筛选 =====
-function renderCatFilter() {
-  const cats = ['全部', ...new Set(
-    allLinks.filter(l => l.page_type === activeTab).map(l => l.category || '未分类')
-  )];
-  document.getElementById('catFilter').innerHTML = cats.map(c => {
-    const count = allLinks.filter(l => l.page_type === activeTab && (l.category || '未分类') === c).length;
-    return `<span class="cat-chip${c === activeCat ? ' active' : ''}" onclick="setCatFilter('${escAttr(c)}')">${esc(c)} (${count})</span>`;
-  }).join('');
-}
-function setCatFilter(c) { activeCat = c; renderCatFilter(); renderTable(); }
+// 点击外部关闭下拉
+document.addEventListener('click', e => {
+  const wrap = document.getElementById('catFilterWrap');
+  if (wrap && !wrap.contains(e.target)) closeCatDropdown();
+});
 
-// ===== 表格渲染 =====
+// ===== 表格 =====
 function renderTable() {
   const q = (document.getElementById('filterInput').value || '').toLowerCase();
   let data = allLinks.filter(l => l.page_type === activeTab);
-  if (activeCat !== '全部') data = data.filter(l => (l.category || '未分类') === activeCat);
+  if (activeCat !== '全部') data = data.filter(l => {
+    const cats = l.categories || (l.category ? [l.category] : []);
+    return cats.includes(activeCat);
+  });
   if (q) data = data.filter(l =>
-    (l.title || '').toLowerCase().includes(q) ||
-    (l.description || '').toLowerCase().includes(q) ||
-    (l.url || '').toLowerCase().includes(q)
+    (l.title||'').toLowerCase().includes(q) ||
+    (l.description||'').toLowerCase().includes(q) ||
+    (l.url||'').toLowerCase().includes(q)
   );
-
   const tbody = document.getElementById('tableBody');
-  if (!data.length) {
-    tbody.innerHTML = '<tr><td colspan="7" class="empty">无数据，点击上方「+ 新增链接」添加</td></tr>';
-    return;
-  }
-
+  if (!data.length) { tbody.innerHTML='<tr><td colspan="7" class="empty">无数据，点击上方「+ 新增链接」添加</td></tr>'; return; }
   tbody.innerHTML = data.map(l => {
+    const cats = l.categories || (l.category ? [l.category] : []);
+    const catTags = cats.map(c => `<span class="cat-tag">${esc(c)}</span>`).join('');
     const typeClass = l.link_type === 'html' ? 'type-html' : 'type-external';
-    const typeLabel = l.link_type === 'html' ? '📄 站内HTML' : '🔗 外站链接';
+    const typeLabel = l.link_type === 'html' ? '📄 HTML' : '🔗 外站';
     return `<tr>
       <td>${l.id}</td>
-      <td><strong>${esc(l.title)}</strong>${l.description ? `<br><span style="font-size:.78rem;color:var(--sub)">${esc(l.description)}</span>` : ''}</td>
+      <td><strong>${esc(l.title)}</strong>${l.description ? `<div style="font-size:.78rem;color:var(--sub);margin-top:3px">${esc(l.description)}</div>` : ''}</td>
       <td><span class="type-badge ${typeClass}">${typeLabel}</span></td>
       <td class="url-cell" title="${esc(l.url)}">${esc(l.url)}</td>
-      <td><span class="cat-tag">${esc(l.category || '未分类')}</span></td>
-      <td>${l.sort_order || 0}</td>
+      <td><div class="cat-tags">${catTags || '<span style="color:var(--sub);font-size:.75rem">无</span>'}</div></td>
+      <td>${l.sort_order ?? 0}</td>
       <td class="actions">
         <button class="btn btn-sm" onclick="openEditModal(${l.id})">✏️</button>
         <button class="btn btn-sm btn-danger" onclick="deleteLink(${l.id})">🗑️</button>
@@ -380,7 +497,7 @@ function renderTable() {
 function renderHtmlFileSelect() {
   const sel = document.getElementById('htmlFileSelect');
   sel.innerHTML = '<option value="">— 请选择 HTML 文件 —</option>' +
-    htmlFiles.map(f => `<option value="${escAttr(f.value)}">${esc(f.label)} ${f.description ? '— ' + esc(f.description) : ''}</option>`).join('');
+    htmlFiles.map(f => `<option value="${escAttr(f.value)}">${esc(f.label)}${f.description ? ' — ' + esc(f.description) : ''}</option>`).join('');
 }
 
 function onHtmlFileSelect() {
@@ -388,28 +505,95 @@ function onHtmlFileSelect() {
   if (val) document.getElementById('editUrl').value = val;
 }
 
+// ===== 分类多选 Tag =====
+function getCurrentCats() {
+  // 从 allLinks 中收集当前页面类型已有的所有分类
+  const cats = new Set();
+  allLinks.filter(l => l.page_type === activeTab).forEach(l => {
+    (l.categories || []).forEach(c => cats.add(c));
+    if (l.category) cats.add(l.category);
+  });
+  return [...cats].sort();
+}
+
+function renderCatTags() {
+  const wrap = document.getElementById('catMultiWrap');
+  // 保留输入框和+按钮，只移除 tag
+  const input = document.getElementById('catMultiInput');
+  const addBtn = document.getElementById('catAddBtn');
+  // 移除已有的 tag
+  wrap.querySelectorAll('.cat-multi-tag').forEach(t => t.remove());
+  // 插入 tag（在 + 按钮之前）
+  selectedCats.forEach(cat => {
+    const tag = document.createElement('span');
+    tag.className = 'cat-multi-tag';
+    tag.innerHTML = `${esc(cat)}<span class="remove" onclick="removeCat('${escAttr(cat)}');event.stopPropagation()">×</span>`;
+    wrap.insertBefore(tag, addBtn);
+  });
+  // 更新 + 按钮提示
+  addBtn.title = '添加新分类';
+}
+
+function addCat(cat) {
+  cat = cat.trim();
+  if (!cat || selectedCats.includes(cat)) return;
+  selectedCats.push(cat);
+  renderCatTags();
+  document.getElementById('catMultiInput').value = '';
+}
+
+function removeCat(cat) {
+  selectedCats = selectedCats.filter(c => c !== cat);
+  renderCatTags();
+}
+
+function onCatInputKey(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    const v = document.getElementById('catMultiInput').value.trim();
+    if (v) addCat(v);
+  }
+}
+
+// ===== 新建分类弹窗 =====
+function openCatNewModal() {
+  document.getElementById('catNewModal').classList.add('show');
+  document.getElementById('catNewInput').value = '';
+  document.getElementById('catNewError').textContent = '';
+  setTimeout(() => document.getElementById('catNewInput').focus(), 50);
+}
+
+function closeCatNewModal() {
+  document.getElementById('catNewModal').classList.remove('show');
+}
+
+function confirmCatNew() {
+  const v = document.getElementById('catNewInput').value.trim();
+  if (!v) { document.getElementById('catNewError').textContent = '分类名称不能为空'; return; }
+  if (selectedCats.includes(v)) { document.getElementById('catNewError').textContent = '该分类已存在'; return; }
+  addCat(v);
+  closeCatNewModal();
+}
+
+// 点击外部关闭新建分类弹窗
+document.addEventListener('click', e => {
+  const m = document.getElementById('catNewModal');
+  if (m && !m.querySelector('.cat-new-modal').contains(e.target) && !e.target.closest('.cat-add-btn')) {
+    // 只有点 + 按钮才打开，点外部关闭（但已在 open 里处理）
+  }
+});
+
 // ===== link_type 切换 =====
 function onLinkTypeChange() {
   const t = document.getElementById('editLinkType').value;
   const urlWrap = document.getElementById('urlInputWrap');
   const htmlWrap = document.getElementById('htmlFileWrap');
-  const hintExt = document.getElementById('hint-external');
-  const hintHtml = document.getElementById('hint-html');
-
   if (t === 'html') {
     urlWrap.style.display = 'none';
     htmlWrap.classList.add('show');
-    hintExt.classList.remove('external');
-    hintHtml.classList.add('html');
-    document.getElementById('editUrl').value = '';
-    // 预填第一个文件（如果有）
-    const sel = document.getElementById('htmlFileSelect');
-    if (sel.value) document.getElementById('editUrl').value = sel.value;
   } else {
     urlWrap.style.display = 'block';
     htmlWrap.classList.remove('show');
-    hintExt.classList.add('external');
-    hintHtml.classList.remove('html');
     document.getElementById('editUrl').placeholder = 'https://...';
   }
 }
@@ -422,11 +606,11 @@ function openAddModal() {
   document.getElementById('editDesc').value = '';
   document.getElementById('editUrl').value = '';
   document.getElementById('editLinkType').value = 'external';
+  document.getElementById('editPageTypeDisplay').value = activeTab;
   document.getElementById('editSortOrder').value = '';
-  document.getElementById('htmlFileSelect').value = '';
+  selectedCats = [];
+  renderCatTags();
   onLinkTypeChange();
-  populatePageTypeSelect();
-  populateCategorySelect();
   showModal();
 }
 
@@ -439,36 +623,12 @@ function openEditModal(id) {
   document.getElementById('editDesc').value = l.description || '';
   document.getElementById('editUrl').value = l.url || '';
   document.getElementById('editLinkType').value = l.link_type || 'external';
+  document.getElementById('editPageTypeDisplay').value = l.page_type || activeTab;
   document.getElementById('editSortOrder').value = l.sort_order || '';
-  document.getElementById('htmlFileSelect').value = '';
+  selectedCats = [...(l.categories || (l.category ? [l.category] : []))];
+  renderCatTags();
   onLinkTypeChange();
-  populatePageTypeSelect(l.page_type);
-  populateCategorySelect(l.category);
   showModal();
-}
-
-function populatePageTypeSelect(selected) {
-  const sel = document.getElementById('editPageType');
-  sel.innerHTML = PAGE_TYPES.map(pt =>
-    `<option value="${escAttr(pt)}"${pt === (selected || activeTab) ? ' selected' : ''}>${esc(pt)}</option>`
-  ).join('');
-}
-
-function populateCategorySelect(selected) {
-  const cats = [...new Set(allLinks.filter(l => l.page_type === activeTab).map(l => l.category || '未分类'))].sort();
-  const sel = document.getElementById('editCategory');
-  sel.innerHTML = cats.map(c => `<option value="${escAttr(c)}"${c === (selected || '') ? ' selected' : ''}>${esc(c)}</option>`).join('');
-  sel.innerHTML += '<option value="__new__">+ 新分类</option>';
-  sel.onchange = function () {
-    if (this.value === '__new__') {
-      const n = prompt('输入新分类名称：');
-      if (n && n.trim()) {
-        const v = n.trim();
-        sel.innerHTML += `<option value="${escAttr(v)}">${esc(v)}</option>`;
-        sel.value = v;
-      }
-    }
-  };
 }
 
 function showModal() { document.getElementById('editModal').classList.add('show'); }
@@ -481,19 +641,19 @@ async function saveLink() {
   const description = (document.getElementById('editDesc').value || '').trim();
   const url = (document.getElementById('editUrl').value || '').trim();
   const link_type = document.getElementById('editLinkType').value;
-  const page_type = document.getElementById('editPageType').value;
-  const category = (document.getElementById('editCategory').value || '').trim();
+  const page_type = document.getElementById('editPageTypeDisplay').value;
   const sort_order = parseInt(document.getElementById('editSortOrder').value) || 0;
+  const categories = selectedCats.length ? selectedCats : [];
 
   if (!title || !url) { toast('请填写标题和URL', 'error'); return; }
   if (link_type === 'external' && !url.startsWith('http')) { toast('外站链接需以 http(s) 开头', 'error'); return; }
 
-  const payload = { title, description, url, page_type, category: category || '未分类', sort_order, link_type };
+  const payload = { title, description, url, page_type, sort_order, link_type, categories };
 
   try {
     const method = id ? 'PUT' : 'POST';
-    const url2 = id ? `${API_LINKS}?id=${id}` : API_LINKS;
-    const resp = await fetch(url2, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    const u = id ? `${API_LINKS}?id=${id}` : API_LINKS;
+    const resp = await fetch(u, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
     const result = await resp.json();
     if (!resp.ok) throw new Error(result.error || '保存失败');
     toast(id ? '✅ 已更新' : '✅ 已新增', 'success');
@@ -515,10 +675,9 @@ async function deleteLink(id) {
 }
 
 // ===== Toast =====
-function toast(msg, type = 'info') {
+function toast(msg, type='info') {
   const el = document.createElement('div');
-  el.className = `toast toast-${type}`;
-  el.textContent = msg;
+  el.className = `toast toast-${type}`; el.textContent = msg;
   document.body.appendChild(el);
   requestAnimationFrame(() => el.classList.add('show'));
   setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 300); }, 2500);
@@ -526,7 +685,7 @@ function toast(msg, type = 'info') {
 
 // ===== 工具函数 =====
 function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
-function escAttr(s) { return (s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+function escAttr(s) { return (s || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 </script>
 </body>
 </html>
