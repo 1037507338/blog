@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 导航栏移动端
   const nt=document.getElementById('navToggle'),nl=document.querySelector('.site-nav-links');
   if(nt&&nl){nt.onclick=()=>{nl.classList.toggle('open');nt.classList.toggle('active')};
-  nl.querySelectorAll('.site-nav-link').forEach(a=>a.onclick=()=>{nl.classList.remove('open');nt.classList.remove('active')}))
+  nl.querySelectorAll('.site-nav-link').forEach(a=>a.onclick=()=>{nl.classList.remove('open');nt.classList.remove('active')});}
 
   // 高亮当前页
   const path=location.pathname.split('/').pop()||'index.html';
