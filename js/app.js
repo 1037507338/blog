@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initHero();
     renderBuilds();
     renderGuides();
+    renderClasses();
+    renderSkillCategories();
     renderMaps();
     renderTools();
     renderNews();
@@ -21,25 +23,24 @@ function initNavbar() {
         links.classList.toggle('open');
         toggle.classList.toggle('active');
     });
-    // 点击链接关闭菜单
     links.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', () => {
             links.classList.remove('open');
             toggle.classList.remove('active');
         });
     });
-    // 滚动高亮
     const sections = document.querySelectorAll('.section, .hero');
     const navLinks = document.querySelectorAll('.nav-link');
     window.addEventListener('scroll', () => {
         let current = '';
         sections.forEach(sec => {
-            const top = sec.offsetTop - 100;
-            if (pageYOffset >= top) current = sec.getAttribute('id');
+            const top = sec.offsetTop - 120;
+            if (pageYOffset >= top) current = sec.getAttribute('id') || '';
         });
         navLinks.forEach(link => {
             link.classList.remove('active');
-            if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+            const href = link.getAttribute('href')?.replace('#', '');
+            if (href === current) link.classList.add('active');
         });
     });
 }
@@ -54,6 +55,7 @@ function initHero() {
 
 function animateCounter(id, target) {
     const el = document.getElementById(id);
+    if (!el) return;
     const duration = 2000;
     const start = performance.now();
     function update(now) {
@@ -69,12 +71,13 @@ function animateCounter(id, target) {
 // ===== BD渲染 =====
 function renderBuilds(filter = 'all') {
     const grid = document.getElementById('buildGrid');
+    if (!grid) return;
     const filtered = filter === 'all' ? BUILDS : BUILDS.filter(b => b.tag === filter);
     grid.innerHTML = filtered.map(b => `
-        <div class="build-card" data-tag="${b.tag}">
+        <div class="build-card">
             <div class="build-card-header">
                 <span class="build-tier ${b.tier.replace('T', 'tier')}">${b.tier}</span>
-                <span class="build-class">${b.class}</span>
+                <span class="build-class">${b.class} <span class="en">${b.classEn}</span></span>
             </div>
             <h3 class="build-name">${b.name}</h3>
             <p class="build-desc">${b.description}</p>
@@ -90,7 +93,6 @@ function renderBuilds(filter = 'all') {
     `).join('');
 }
 
-// BD Tab切换
 document.getElementById('buildTabs')?.addEventListener('click', e => {
     if (!e.target.classList.contains('tab')) return;
     document.querySelectorAll('#buildTabs .tab').forEach(t => t.classList.remove('active'));
@@ -101,6 +103,7 @@ document.getElementById('buildTabs')?.addEventListener('click', e => {
 // ===== 新手指南渲染 =====
 function renderGuides() {
     const grid = document.getElementById('guideGrid');
+    if (!grid) return;
     grid.innerHTML = GUIDES.map(g => `
         <a href="#" class="guide-card">
             <div class="guide-icon">${g.icon}</div>
@@ -109,22 +112,88 @@ function renderGuides() {
                 <h3 class="guide-title">${g.title}</h3>
                 <p class="guide-desc">${g.description}</p>
                 <div class="guide-meta">
-                    <span>${g.date}</span>
-                    <span>${g.views.toLocaleString()} 阅读</span>
+                    <span>📅 ${g.date}</span>
+                    <span>👁️ ${g.views.toLocaleString()} 阅读</span>
                 </div>
             </div>
         </a>
     `).join('');
 }
 
+// ===== 职业渲染 =====
+function renderClasses() {
+    const grid = document.getElementById('classGrid');
+    if (!grid) return;
+    grid.innerHTML = CLASSES.map(c => `
+        <div class="class-card">
+            <div class="class-header">
+                <div class="class-attr-icon">${c.attrIcon}</div>
+                <div class="class-meta">
+                    <span class="class-attrs">${c.attrs}</span>
+                    <span class="class-weapon">${c.weapon}</span>
+                </div>
+            </div>
+            <h3 class="class-name">${c.name} <span class="class-en">${c.enName}</span></h3>
+            <p class="class-desc">${c.desc}</p>
+            <div class="class-ascendancies">
+                ${c.ascendancies.map(a => `
+                    <div class="ascendancy-item ${a.tier === 'T0' ? 'asc-t0' : a.tier === 'T1' ? 'asc-t1' : 'asc-t2'}">
+                        <span class="asc-name">${a.name}</span>
+                        <span class="asc-desc">${a.desc}</span>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `).join('');
+}
+
+// ===== 技能分类渲染 =====
+function renderSkillCategories() {
+    const container = document.getElementById('skillCategories');
+    if (!container) return;
+    container.innerHTML = SKILL_CATEGORIES.map(cat => `
+        <div class="skill-cat-card">
+            <div class="skill-cat-header">
+                <span class="skill-cat-icon">${cat.icon}</span>
+                <h3 class="skill-cat-name">${cat.name}</h3>
+            </div>
+            <ul class="skill-list">
+                ${cat.skills.slice(0, 5).map(s => `<li class="skill-item">${s}</li>`).join('')}
+            </ul>
+            ${cat.skills.length > 5 ? `<span class="skill-more">+${cat.skills.length - 5} 更多</span>` : ''}
+        </div>
+    `).join('');
+}
+
+// ===== 章节渲染 =====
+function renderActs() {
+    const container = document.getElementById('actTimeline');
+    if (!container) return;
+    container.innerHTML = ACTS.map((a, i) => `
+        <div class="act-item ${a.name.includes('幕间') ? 'act-interlude' : ''}">
+            <div class="act-number">${i + 1}</div>
+            <div class="act-content">
+                <h4 class="act-name">${a.name}</h4>
+                <span class="act-area">${a.area}</span>
+                <p class="act-desc">${a.desc}</p>
+                <div class="act-info">
+                    <span>📍 ${a.level}级</span>
+                    <span>⚔️ Boss: ${a.boss}</span>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
 // ===== 地图渲染 =====
 function renderMaps() {
     const list = document.getElementById('mapList');
+    if (!list) return;
     list.innerHTML = MAPS.map(m => `
         <a href="#" class="map-item">
             <div class="map-info">
                 <span class="map-tier">T${m.tier}</span>
-                <span class="map-name">${m.name}</span>
+                <span class="map-name">${m.cnName || m.name}</span>
             </div>
             <span class="map-boss">${m.boss}</span>
             <span class="map-diff">${m.difficulty}</span>
@@ -135,6 +204,7 @@ function renderMaps() {
 // ===== 工具渲染 =====
 function renderTools() {
     const grid = document.getElementById('toolsGrid');
+    if (!grid) return;
     grid.innerHTML = TOOLS.map(t => `
         <a href="${t.url}" class="tool-card ${t.status === '开发中' ? 'tool-coming' : ''}">
             <div class="tool-icon">${t.icon}</div>
@@ -148,6 +218,7 @@ function renderTools() {
 // ===== 资讯渲染 =====
 function renderNews() {
     const grid = document.getElementById('newsGrid');
+    if (!grid) return;
     grid.innerHTML = NEWS.map(n => `
         <a href="#" class="news-card">
             <div class="news-header">
@@ -167,11 +238,12 @@ function initSearch() {
     const dropdown = document.getElementById('searchDropdown');
     const input = document.getElementById('searchInput');
     const results = document.getElementById('searchResults');
+    if (!btn || !dropdown) return;
 
     btn.addEventListener('click', e => {
         e.stopPropagation();
         dropdown.classList.toggle('open');
-        if (dropdown.classList.contains('open')) input.focus();
+        if (dropdown.classList.contains('open')) input?.focus();
     });
 
     document.addEventListener('click', e => {
@@ -180,22 +252,26 @@ function initSearch() {
         }
     });
 
-    input.addEventListener('input', () => {
-        const q = input.value.trim().toLowerCase();
-        if (!q) { results.innerHTML = ''; return; }
-        const matched = SEARCH_INDEX.filter(item =>
-            item.title.toLowerCase().includes(q) || item.desc.toLowerCase().includes(q)
-        ).slice(0, 6);
-        results.innerHTML = matched.length ? matched.map(item => `
-            <a href="${item.url}" class="search-result-item">
-                <span class="search-result-type">${item.type}</span>
-                <div>
-                    <div class="search-result-title">${highlight(item.title, q)}</div>
-                    <div class="search-result-desc">${highlight(item.desc, q)}</div>
-                </div>
-            </a>
-        `).join('') : '<div class="search-empty">未找到相关结果</div>';
-    });
+    if (input) {
+        input.addEventListener('input', () => {
+            const q = input.value.trim().toLowerCase();
+            if (!q) { if (results) results.innerHTML = ''; return; }
+            const matched = SEARCH_INDEX.filter(item =>
+                item.title.toLowerCase().includes(q) || item.desc.toLowerCase().includes(q)
+            ).slice(0, 8);
+            if (results) {
+                results.innerHTML = matched.length ? matched.map(item => `
+                    <a href="${item.url}" class="search-result-item">
+                        <span class="search-result-type">${item.type}</span>
+                        <div>
+                            <div class="search-result-title">${highlight(item.title, q)}</div>
+                            <div class="search-result-desc">${highlight(item.desc, q)}</div>
+                        </div>
+                    </a>
+                `).join('') : '<div class="search-empty">未找到相关结果</div>';
+            }
+        });
+    }
 }
 
 function highlight(text, q) {
@@ -207,6 +283,7 @@ function highlight(text, q) {
 // ===== 返回顶部 =====
 function initBackToTop() {
     const btn = document.getElementById('backToTop');
+    if (!btn) return;
     window.addEventListener('scroll', () => {
         btn.classList.toggle('visible', pageYOffset > 400);
     });

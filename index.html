@@ -1,302 +1,227 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="utf-8">
-    <title>流放之路2 国服攻略站 - POE2 Guide CN</title>
-    <meta name="description" content="流放之路2国服最全攻略站，涵盖BD推荐、装备指南、天赋模拟、地图攻略、商人价格等核心内容。">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="keywords" content="流放之路2,POE2,国服攻略,BD推荐,装备指南,天赋,地图">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔️</text></svg>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POE2 国服攻略站 - 流放之路2专业攻略</title>
+    <meta name="description" content="流放之路2（Path of Exile 2）国服专业攻略站，提供职业指南、天赋模拟器、地图攻略、热门BD推荐与国服专属内容。">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<!-- 顶部导航 -->
+<!-- ===== 导航栏 ===== -->
 <nav class="navbar">
     <div class="nav-container">
-        <a href="./index.html" class="nav-logo">
+        <a href="#" class="nav-logo">
             <span class="logo-icon">⚔️</span>
-            <span class="logo-text">POE2<span class="logo-sub">国服攻略</span></span>
+            <span class="logo-text">POE2 <span class="logo-cn">国服攻略</span></span>
         </a>
-        <button class="nav-toggle" id="navToggle" aria-label="菜单">
+        <button id="navToggle" class="nav-toggle" aria-label="菜单">
             <span></span><span></span><span></span>
         </button>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#builds" class="nav-link active">BD推荐</a></li>
-            <li><a href="#guides" class="nav-link">新手指南</a></li>
-            <li><a href="#items" class="nav-link">装备百科</a></li>
-            <li><a href="#maps" class="nav-link">地图攻略</a></li>
-            <li><a href="#tools" class="nav-link">实用工具</a></li>
-            <li><a href="#news" class="nav-link">资讯动态</a></li>
-        </ul>
+        <div id="navLinks" class="nav-links">
+            <a href="#home" class="nav-link active">首页</a>
+            <a href="#classes" class="nav-link">职业</a>
+            <a href="#builds" class="nav-link">热门BD</a>
+            <a href="#guides" class="nav-link">攻略</a>
+            <a href="#skills" class="nav-link">技能</a>
+            <a href="#maps" class="nav-link">地图</a>
+            <a href="#tools" class="nav-link">工具</a>
+            <a href="#news" class="nav-link">资讯</a>
+        </div>
         <div class="nav-search">
-            <button class="search-btn" id="searchBtn" aria-label="搜索">🔍</button>
-            <div class="search-dropdown" id="searchDropdown">
-                <input type="text" placeholder="搜索BD、装备、技能..." id="searchInput" autocomplete="off">
-                <div class="search-results" id="searchResults"></div>
+            <button id="searchBtn" class="search-btn" aria-label="搜索">🔍</button>
+            <div id="searchDropdown" class="search-dropdown">
+                <input type="text" id="searchInput" placeholder="搜索职业、BD、攻略..." autocomplete="off">
+                <div id="searchResults" class="search-results"></div>
             </div>
         </div>
     </div>
 </nav>
 
-<!-- 英雄区 Banner -->
-<header class="hero">
+<!-- ===== Hero区 ===== -->
+<section id="home" class="hero">
     <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-        <h1 class="hero-title">
-            <span class="hero-title-main">流放之路2</span>
-            <span class="hero-title-sub">国服攻略百科</span>
-        </h1>
-        <p class="hero-desc">涵盖BD构建、装备搭配、天赋解析、地图攻略与实用工具，助你在瓦尔克拉斯大陆所向披靡</p>
-        <div class="hero-stats">
-            <div class="stat-item">
-                <span class="stat-num" id="statBuilds">0</span>
-                <span class="stat-label">BD攻略</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-num" id="statItems">0</span>
-                <span class="stat-label">装备数据</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-num" id="statGuides">0</span>
-                <span class="stat-label">攻略文章</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-num" id="statUpdates">0</span>
-                <span class="stat-label">版本更新</span>
-            </div>
+        <p class="hero-subtitle">PATH OF EXILE 2 · 国服攻略站</p>
+        <h1 class="hero-title">流放之路2<br><span class="gold">全面攻略指南</span></h1>
+        <p class="hero-desc">12大职业详解 · 150+热门BD推荐 · 实时更新国服内容<br>从入门到精通，陪你走完瓦尔克拉斯的每一步</p>
+        <div class="hero-cta">
+            <a href="#classes" class="btn btn-primary">探索职业</a>
+            <a href="#builds" class="btn btn-outline">查看BD</a>
         </div>
     </div>
-    <div class="hero-scroll-hint">
-        <span>向下滚动探索</span>
-        <div class="scroll-arrow">↓</div>
-    </div>
-</header>
-
-<!-- 快捷入口 -->
-<section class="quick-nav">
-    <div class="container">
-        <div class="quick-nav-grid">
-            <a href="#builds" class="quick-card">
-                <div class="quick-icon">🗡️</div>
-                <h3>BD推荐</h3>
-                <p>热门Build一览</p>
-            </a>
-            <a href="#guides" class="quick-card">
-                <div class="quick-icon">📖</div>
-                <h3>新手指南</h3>
-                <p>从零开始入门</p>
-            </a>
-            <a href="#items" class="quick-card">
-                <div class="quick-icon">💎</div>
-                <h3>装备百科</h3>
-                <p>物品数据查询</p>
-            </a>
-            <a href="#maps" class="quick-card">
-                <div class="quick-icon">🗺️</div>
-                <h3>地图攻略</h3>
-                <p>全地图Boss打法</p>
-            </a>
-            <a href="#tools" class="quick-card">
-                <div class="quick-icon">🔧</div>
-                <h3>实用工具</h3>
-                <p>天赋/交易/计算</p>
-            </a>
-            <a href="#news" class="quick-card">
-                <div class="quick-icon">📰</div>
-                <h3>资讯动态</h3>
-                <p>版本更新/活动</p>
-            </a>
+    <div class="hero-stats">
+        <div class="stat-item">
+            <span id="statBuilds" class="stat-number">0</span>
+            <span class="stat-label">热门BD</span>
         </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span id="statGuides" class="stat-number">0</span>
+            <span class="stat-label">攻略文章</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span id="statItems" class="stat-number">0</span>
+            <span class="stat-label">物品数据</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <span id="statUpdates" class="stat-number">0</span>
+            <span class="stat-label">本周更新</span>
+        </div>
+    </div>
+    <div class="hero-wave">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0,60 C360,120 720,0 1080,60 C1260,90 1380,80 1440,60 L1440,120 L0,120 Z" fill="#0a0a0f"/></svg>
     </div>
 </section>
 
-<!-- 热门BD推荐 -->
-<section class="section" id="builds">
+<!-- ===== 职业展示 ===== -->
+<section id="classes" class="section">
     <div class="container">
         <div class="section-header">
-            <div class="section-title-group">
-                <span class="section-icon">🗡️</span>
-                <h2 class="section-title">热门BD推荐</h2>
-            </div>
-            <div class="section-tabs" id="buildTabs">
-                <button class="tab active" data-tab="all">全部</button>
-                <button class="tab" data-tab="meta">赛季热门</button>
-                <button class="tab" data-tab="league">联赛推荐</button>
-                <button class="tab" data-tab="budget">低配入门</button>
-            </div>
+            <h2 class="section-title">🎭 <span class="gold">12</span> 大职业</h2>
+            <p class="section-desc">每个职业拥有独特的属性组合、武器专精与3个进阶职业。点开任意职业查看详细数据与进阶推荐。</p>
         </div>
-        <div class="build-grid" id="buildGrid">
-            <!-- JS动态渲染 -->
-        </div>
-        <div class="section-more">
-            <a href="#" class="btn-outline">查看全部BD →</a>
-        </div>
+        <div id="classGrid" class="class-grid"></div>
     </div>
 </section>
 
-<!-- 新手指南 -->
-<section class="section section-alt" id="guides">
+<!-- ===== 章节剧情 ===== -->
+<section id="acts" class="section section-dark">
     <div class="container">
         <div class="section-header">
-            <div class="section-title-group">
-                <span class="section-icon">📖</span>
-                <h2 class="section-title">新手指南</h2>
-            </div>
+            <h2 class="section-title">🗺️ 章节剧情</h2>
+            <p class="section-desc">瓦尔克拉斯的史诗旅程，从 Ogham 到终焉之地。每个章节都有独特的剧情、NPC 与终极Boss。</p>
         </div>
-        <div class="guide-grid" id="guideGrid">
-            <!-- JS动态渲染 -->
-        </div>
+        <div id="actTimeline" class="act-timeline"></div>
     </div>
 </section>
 
-<!-- 装备百科 & 地图攻略 双栏 -->
-<section class="section" id="items">
-    <div class="container">
-        <div class="dual-section">
-            <!-- 装备百科 -->
-            <div class="dual-col">
-                <div class="section-header">
-                    <div class="section-title-group">
-                        <span class="section-icon">💎</span>
-                        <h2 class="section-title">装备百科</h2>
-                    </div>
-                    <a href="#" class="btn-sm">查看全部</a>
-                </div>
-                <div class="item-categories" id="itemCategories">
-                    <a href="#" class="item-cat">
-                        <span class="item-cat-icon">⚔️</span>
-                        <span class="item-cat-name">武器</span>
-                        <span class="item-cat-count">128</span>
-                    </a>
-                    <a href="#" class="item-cat">
-                        <span class="item-cat-icon">🛡️</span>
-                        <span class="item-cat-name">护甲</span>
-                        <span class="item-cat-count">96</span>
-                    </a>
-                    <a href="#" class="item-cat">
-                        <span class="item-cat-icon">💍</span>
-                        <span class="item-cat-name">首饰</span>
-                        <span class="item-cat-count">64</span>
-                    </a>
-                    <a href="#" class="item-cat">
-                        <span class="item-cat-icon">🧪</span>
-                        <span class="item-cat-name">药剂</span>
-                        <span class="item-cat-count">45</span>
-                    </a>
-                    <a href="#" class="item-cat">
-                        <span class="item-cat-icon">✨</span>
-                        <span class="item-cat-name">珠宝</span>
-                        <span class="item-cat-count">87</span>
-                    </a>
-                    <a href="#" class="item-cat">
-                        <span class="item-cat-icon">📜</span>
-                        <span class="item-cat-name">暗金装备</span>
-                        <span class="item-cat-count">200+</span>
-                    </a>
-                </div>
-            </div>
-            <!-- 地图攻略 -->
-            <div class="dual-col" id="maps">
-                <div class="section-header">
-                    <div class="section-title-group">
-                        <span class="section-icon">🗺️</span>
-                        <h2 class="section-title">地图攻略</h2>
-                    </div>
-                    <a href="#" class="btn-sm">查看全部</a>
-                </div>
-                <div class="map-list" id="mapList">
-                    <!-- JS动态渲染 -->
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- 实用工具 -->
-<section class="section section-alt" id="tools">
+<!-- ===== 热门BD ===== -->
+<section id="builds" class="section">
     <div class="container">
         <div class="section-header">
-            <div class="section-title-group">
-                <span class="section-icon">🔧</span>
-                <h2 class="section-title">实用工具</h2>
-            </div>
+            <h2 class="section-title">🗡️ 热门BD推荐</h2>
+            <p class="section-desc">当前版本强度评级，综合考虑刷图效率、Boss战能力与造价成本。实时更新基于版本 0.4.0+ 数据。</p>
         </div>
-        <div class="tools-grid" id="toolsGrid">
-            <!-- JS动态渲染 -->
+        <div id="buildTabs" class="build-tabs">
+            <button class="tab active" data-tab="all">全部</button>
+            <button class="tab" data-tab="meta">T0推荐</button>
+            <button class="tab" data-tab="league">联赛强势</button>
+            <button class="tab" data-tab="budget">平民之选</button>
         </div>
+        <div id="buildGrid" class="build-grid"></div>
     </div>
 </section>
 
-<!-- 最新资讯 -->
-<section class="section" id="news">
+<!-- ===== 新手指南 ===== -->
+<section id="guides" class="section section-dark">
     <div class="container">
         <div class="section-header">
-            <div class="section-title-group">
-                <span class="section-icon">📰</span>
-                <h2 class="section-title">资讯动态</h2>
-            </div>
-            <a href="#" class="btn-sm">全部资讯</a>
+            <h2 class="section-title">📖 新手指南</h2>
+            <p class="section-desc">从零开始的完整入门指南，覆盖游戏核心系统、职业选择与终局内容。持续更新最新版本改动。</p>
         </div>
-        <div class="news-grid" id="newsGrid">
-            <!-- JS动态渲染 -->
-        </div>
+        <div id="guideGrid" class="guide-grid"></div>
     </div>
 </section>
 
-<!-- 页脚 -->
+<!-- ===== 技能分类 ===== -->
+<section id="skills" class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">💎 技能分类</h2>
+            <p class="section-desc">POE2 技能宝石体系全览。主动技能、辅助宝石与链接机制，让你快速了解各技能类型的核心玩法。</p>
+        </div>
+        <div id="skillCategories" class="skill-grid"></div>
+    </div>
+</section>
+
+<!-- ===== 地图大全 ===== -->
+<section id="maps" class="section section-dark">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">🗺️ 地图大全</h2>
+            <p class="section-desc">终局 Waystone 地图数据库，涵盖从 T1 到终焉之地的所有地图及其Boss信息。来源：POE2 Wiki。</p>
+        </div>
+        <div id="mapList" class="map-list"></div>
+    </div>
+</section>
+
+<!-- ===== 实用工具 ===== -->
+<section id="tools" class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">🔧 实用工具</h2>
+            <p class="section-desc">在线工具帮助你规划BD、查询数据。无需下载，打开即用，持续开发中。</p>
+        </div>
+        <div id="toolsGrid" class="tools-grid"></div>
+    </div>
+</section>
+
+<!-- ===== 资讯动态 ===== -->
+<section id="news" class="section section-dark">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">📰 资讯动态</h2>
+            <p class="section-desc">版本更新、联赛资讯与攻略精选，第一时间获取流放之路2国服与全球服的最新消息。</p>
+        </div>
+        <div id="newsGrid" class="news-grid"></div>
+    </div>
+</section>
+
+<!-- ===== 页脚 ===== -->
 <footer class="footer">
     <div class="container">
         <div class="footer-grid">
-            <div class="footer-brand">
-                <a href="./index.html" class="footer-logo">
-                    <span>⚔️</span> POE2<span>国服攻略</span>
-                </a>
-                <p class="footer-desc">流放之路2国服最全攻略百科，由玩家社区驱动维护。</p>
+            <div class="footer-col">
+                <h3 class="footer-logo">⚔️ POE2 国服攻略</h3>
+                <p class="footer-desc">专注流放之路2国服攻略，提供职业指南、BD推荐与游戏数据。资料来源：POE2 Wiki (poe2wiki.net)。</p>
             </div>
-            <div class="footer-links">
-                <h4>导航</h4>
-                <ul>
-                    <li><a href="#builds">BD推荐</a></li>
+            <div class="footer-col">
+                <h4 class="footer-heading">攻略分类</h4>
+                <ul class="footer-links">
+                    <li><a href="#classes">职业详解</a></li>
+                    <li><a href="#builds">热门BD</a></li>
                     <li><a href="#guides">新手指南</a></li>
-                    <li><a href="#items">装备百科</a></li>
-                    <li><a href="#maps">地图攻略</a></li>
+                    <li><a href="#skills">技能系统</a></li>
+                    <li><a href="#maps">地图大全</a></li>
                 </ul>
             </div>
-            <div class="footer-links">
-                <h4>工具</h4>
-                <ul>
-                    <li><a href="#tools">天赋模拟器</a></li>
-                    <li><a href="#tools">交易助手</a></li>
-                    <li><a href="#tools">伤害计算器</a></li>
-                    <li><a href="#tools">造价计算</a></li>
+            <div class="footer-col">
+                <h4 class="footer-heading">资源链接</h4>
+                <ul class="footer-links">
+                    <li><a href="https://poe2.qq.com" target="_blank">国服官网</a></li>
+                    <li><a href="https://www.poe2wiki.net" target="_blank">POE2 Wiki</a></li>
+                    <li><a href="https://www.pathofexile.com" target="_blank">国际服官网</a></li>
+                    <li><a href="https://maxroll.gg/poe2" target="_blank">Maxroll</a></li>
                 </ul>
             </div>
-            <div class="footer-links">
-                <h4>社区</h4>
-                <ul>
-                    <li><a href="#">加入Discord</a></li>
-                    <li><a href="#">QQ群</a></li>
-                    <li><a href="#">投稿攻略</a></li>
-                    <li><a href="#">反馈建议</a></li>
+            <div class="footer-col">
+                <h4 class="footer-heading">关于我们</h4>
+                <ul class="footer-links">
+                    <li><a href="#">关于本站</a></li>
+                    <li><a href="#">免责说明</a></li>
+                    <li><a href="#">联系作者</a></li>
+                    <li><a href="#">GitHub</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>POE2国服攻略站为玩家自制非官方攻略站，与腾讯/ Grinding Gear Games 无关。</p>
-            <p>流放之路2 & 相关内容版权归 Grinding Gear Games 所有。</p>
+            <p>© 2025 POE2 国服攻略站 · 内容资料来源 <a href="https://www.poe2wiki.net" target="_blank">POE2 Wiki</a></p>
+            <p class="footer-note">本项目仅供学习交流，请支持正版游戏</p>
         </div>
     </div>
 </footer>
 
 <!-- 返回顶部 -->
-<button class="back-to-top" id="backToTop" aria-label="返回顶部">↑</button>
+<button id="backToTop" class="back-to-top" aria-label="返回顶部">↑</button>
 
-<script src="./js/data.js"></script>
-<script src="./js/app.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
