@@ -1,307 +1,302 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <title>My Blog - 主页</title>
-    <meta name="description" content="一个专注于 Java 后端开发与前沿技术的个人博客">
+    <title>流放之路2 国服攻略站 - POE2 Guide CN</title>
+    <meta name="description" content="流放之路2国服最全攻略站，涵盖BD推荐、装备指南、天赋模拟、地图攻略、商人价格等核心内容。">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta http-equiv="Window-target" content="_top">
-    <link rel="shortcut icon" href="./blog/amaze/images/compass.png">
-    <link rel="stylesheet" href="./X-admin/css/font.css">
-    <link rel="stylesheet" href="./blog/amaze/css/base.css">
+    <meta name="keywords" content="流放之路2,POE2,国服攻略,BD推荐,装备指南,天赋,地图">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚔️</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
-<body id="blog">
+<body>
 
-<!-- 导航栏 -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" id="navbar-toggle">
-                <span class="sr-only"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="./index.html" id="brandName">My Blog</a>
-        </div>
-        <div class="navbar-collapse" style="display: none" id="toggle-items">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="./index.html">主页</a></li>
-                <li><a href="./link.html">友链</a></li>
-                <li><a href="./detail.html?id=1">关于</a></li>
-                <li><a href="https://github.com/1037507338">GitHub</a></li>
-            </ul>
-        </div>
-        <div id="huxblog_navbar">
-            <div class="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="./index.html">主页</a></li>
-                    <li><a href="./link.html">友链</a></li>
-                    <li><a href="./detail.html?id=1">关于</a></li>
-                    <li><a href="https://github.com/1037507338">GitHub</a></li>
-                </ul>
+<!-- 顶部导航 -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="./index.html" class="nav-logo">
+            <span class="logo-icon">⚔️</span>
+            <span class="logo-text">POE2<span class="logo-sub">国服攻略</span></span>
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="菜单">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#builds" class="nav-link active">BD推荐</a></li>
+            <li><a href="#guides" class="nav-link">新手指南</a></li>
+            <li><a href="#items" class="nav-link">装备百科</a></li>
+            <li><a href="#maps" class="nav-link">地图攻略</a></li>
+            <li><a href="#tools" class="nav-link">实用工具</a></li>
+            <li><a href="#news" class="nav-link">资讯动态</a></li>
+        </ul>
+        <div class="nav-search">
+            <button class="search-btn" id="searchBtn" aria-label="搜索">🔍</button>
+            <div class="search-dropdown" id="searchDropdown">
+                <input type="text" placeholder="搜索BD、装备、技能..." id="searchInput" autocomplete="off">
+                <div class="search-results" id="searchResults"></div>
             </div>
         </div>
     </div>
 </nav>
 
-<!-- 头部 Banner -->
-<header class="intro-header" style="background-image:url('./blog/amaze/images/header.jpg');">
+<!-- 英雄区 Banner -->
+<header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1 class="hero-title">
+            <span class="hero-title-main">流放之路2</span>
+            <span class="hero-title-sub">国服攻略百科</span>
+        </h1>
+        <p class="hero-desc">涵盖BD构建、装备搭配、天赋解析、地图攻略与实用工具，助你在瓦尔克拉斯大陆所向披靡</p>
+        <div class="hero-stats">
+            <div class="stat-item">
+                <span class="stat-num" id="statBuilds">0</span>
+                <span class="stat-label">BD攻略</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-num" id="statItems">0</span>
+                <span class="stat-label">装备数据</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-num" id="statGuides">0</span>
+                <span class="stat-label">攻略文章</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-num" id="statUpdates">0</span>
+                <span class="stat-label">版本更新</span>
+            </div>
+        </div>
+    </div>
+    <div class="hero-scroll-hint">
+        <span>向下滚动探索</span>
+        <div class="scroll-arrow">↓</div>
+    </div>
+</header>
+
+<!-- 快捷入口 -->
+<section class="quick-nav">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <span class="subheading">一晃两三年，匆匆又夏天</span>
+        <div class="quick-nav-grid">
+            <a href="#builds" class="quick-card">
+                <div class="quick-icon">🗡️</div>
+                <h3>BD推荐</h3>
+                <p>热门Build一览</p>
+            </a>
+            <a href="#guides" class="quick-card">
+                <div class="quick-icon">📖</div>
+                <h3>新手指南</h3>
+                <p>从零开始入门</p>
+            </a>
+            <a href="#items" class="quick-card">
+                <div class="quick-icon">💎</div>
+                <h3>装备百科</h3>
+                <p>物品数据查询</p>
+            </a>
+            <a href="#maps" class="quick-card">
+                <div class="quick-icon">🗺️</div>
+                <h3>地图攻略</h3>
+                <p>全地图Boss打法</p>
+            </a>
+            <a href="#tools" class="quick-card">
+                <div class="quick-icon">🔧</div>
+                <h3>实用工具</h3>
+                <p>天赋/交易/计算</p>
+            </a>
+            <a href="#news" class="quick-card">
+                <div class="quick-icon">📰</div>
+                <h3>资讯动态</h3>
+                <p>版本更新/活动</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- 热门BD推荐 -->
+<section class="section" id="builds">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-title-group">
+                <span class="section-icon">🗡️</span>
+                <h2 class="section-title">热门BD推荐</h2>
+            </div>
+            <div class="section-tabs" id="buildTabs">
+                <button class="tab active" data-tab="all">全部</button>
+                <button class="tab" data-tab="meta">赛季热门</button>
+                <button class="tab" data-tab="league">联赛推荐</button>
+                <button class="tab" data-tab="budget">低配入门</button>
+            </div>
+        </div>
+        <div class="build-grid" id="buildGrid">
+            <!-- JS动态渲染 -->
+        </div>
+        <div class="section-more">
+            <a href="#" class="btn-outline">查看全部BD →</a>
+        </div>
+    </div>
+</section>
+
+<!-- 新手指南 -->
+<section class="section section-alt" id="guides">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-title-group">
+                <span class="section-icon">📖</span>
+                <h2 class="section-title">新手指南</h2>
+            </div>
+        </div>
+        <div class="guide-grid" id="guideGrid">
+            <!-- JS动态渲染 -->
+        </div>
+    </div>
+</section>
+
+<!-- 装备百科 & 地图攻略 双栏 -->
+<section class="section" id="items">
+    <div class="container">
+        <div class="dual-section">
+            <!-- 装备百科 -->
+            <div class="dual-col">
+                <div class="section-header">
+                    <div class="section-title-group">
+                        <span class="section-icon">💎</span>
+                        <h2 class="section-title">装备百科</h2>
+                    </div>
+                    <a href="#" class="btn-sm">查看全部</a>
+                </div>
+                <div class="item-categories" id="itemCategories">
+                    <a href="#" class="item-cat">
+                        <span class="item-cat-icon">⚔️</span>
+                        <span class="item-cat-name">武器</span>
+                        <span class="item-cat-count">128</span>
+                    </a>
+                    <a href="#" class="item-cat">
+                        <span class="item-cat-icon">🛡️</span>
+                        <span class="item-cat-name">护甲</span>
+                        <span class="item-cat-count">96</span>
+                    </a>
+                    <a href="#" class="item-cat">
+                        <span class="item-cat-icon">💍</span>
+                        <span class="item-cat-name">首饰</span>
+                        <span class="item-cat-count">64</span>
+                    </a>
+                    <a href="#" class="item-cat">
+                        <span class="item-cat-icon">🧪</span>
+                        <span class="item-cat-name">药剂</span>
+                        <span class="item-cat-count">45</span>
+                    </a>
+                    <a href="#" class="item-cat">
+                        <span class="item-cat-icon">✨</span>
+                        <span class="item-cat-name">珠宝</span>
+                        <span class="item-cat-count">87</span>
+                    </a>
+                    <a href="#" class="item-cat">
+                        <span class="item-cat-icon">📜</span>
+                        <span class="item-cat-name">暗金装备</span>
+                        <span class="item-cat-count">200+</span>
+                    </a>
+                </div>
+            </div>
+            <!-- 地图攻略 -->
+            <div class="dual-col" id="maps">
+                <div class="section-header">
+                    <div class="section-title-group">
+                        <span class="section-icon">🗺️</span>
+                        <h2 class="section-title">地图攻略</h2>
+                    </div>
+                    <a href="#" class="btn-sm">查看全部</a>
+                </div>
+                <div class="map-list" id="mapList">
+                    <!-- JS动态渲染 -->
                 </div>
             </div>
         </div>
     </div>
-</header>
+</section>
 
-<div class="am-g am-g-fixed blog-fixed">
-    <!-- 文章列表 -->
-    <div class="am-u-lg-8 am-u-sm-12">
-        <main class="articles-list">
-            <div id="articleContainer"></div>
-            <div id="page" style="text-align:center;margin:30px 0;"></div>
-        </main>
+<!-- 实用工具 -->
+<section class="section section-alt" id="tools">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-title-group">
+                <span class="section-icon">🔧</span>
+                <h2 class="section-title">实用工具</h2>
+            </div>
+        </div>
+        <div class="tools-grid" id="toolsGrid">
+            <!-- JS动态渲染 -->
+        </div>
     </div>
+</section>
 
-    <!-- 侧边栏 -->
-    <div class="am-u-lg-4 am-u-sm-12 am-u-lg-offset-0 am-u-sm-offset-0 sidebar-container">
-        <section>
-            <section>
-                <div class="sidebar-header">
-                    <span class="sidebar-header-title">搜索文章</span>
-                </div>
-                <div class="sidebar-search">
-                    <form method="get" onsubmit="return false;" accept-charset="utf-8">
-                        <div class="search-input">
-                            <input type="text" name="keyword" id="searchbox" autocomplete="off" placeholder="输入关键字搜索">
-                            <button type="submit" class="search-submit" onclick="doSearch()"></button>
-                        </div>
-                    </form>
-                </div>
-            </section>
-            <section>
-                <div class="sidebar-header">
-                    <span class="sidebar-header-title">热门标签</span>
-                </div>
-                <div class="tags" id="hotTags"></div>
-            </section>
-            <section>
-                <div class="sidebar-header">
-                    <span class="sidebar-header-title">最新发布</span>
-                </div>
-                <div class="sidebar-list">
-                    <ul class="sidebar-list-body sidebar-list-items" id="newBlogs"></ul>
-                </div>
-            </section>
-            <section>
-                <div class="sidebar-header">
-                    <span class="sidebar-header-title">点击最多</span>
-                </div>
-                <main class="sidebar-lists">
-                    <ul id="hotBlogs"></ul>
-                </main>
-            </section>
-        </section>
+<!-- 最新资讯 -->
+<section class="section" id="news">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-title-group">
+                <span class="section-icon">📰</span>
+                <h2 class="section-title">资讯动态</h2>
+            </div>
+            <a href="#" class="btn-sm">全部资讯</a>
+        </div>
+        <div class="news-grid" id="newsGrid">
+            <!-- JS动态渲染 -->
+        </div>
     </div>
-</div>
+</section>
 
 <!-- 页脚 -->
-<footer class="footer blog-footer">
-    <div class="blog-text-center">
-        &copy; <span id="footerAuthor">博主</span>
-        <span class="ft-warn">&heartsuit;</span>&nbsp;site blog
-        <a>京ICP备2021003785号</a><br>
-        Powered by <a href="#" target="_blank" id="footerCopyright">2024 My Blog</a>
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="./index.html" class="footer-logo">
+                    <span>⚔️</span> POE2<span>国服攻略</span>
+                </a>
+                <p class="footer-desc">流放之路2国服最全攻略百科，由玩家社区驱动维护。</p>
+            </div>
+            <div class="footer-links">
+                <h4>导航</h4>
+                <ul>
+                    <li><a href="#builds">BD推荐</a></li>
+                    <li><a href="#guides">新手指南</a></li>
+                    <li><a href="#items">装备百科</a></li>
+                    <li><a href="#maps">地图攻略</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>工具</h4>
+                <ul>
+                    <li><a href="#tools">天赋模拟器</a></li>
+                    <li><a href="#tools">交易助手</a></li>
+                    <li><a href="#tools">伤害计算器</a></li>
+                    <li><a href="#tools">造价计算</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>社区</h4>
+                <ul>
+                    <li><a href="#">加入Discord</a></li>
+                    <li><a href="#">QQ群</a></li>
+                    <li><a href="#">投稿攻略</a></li>
+                    <li><a href="#">反馈建议</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>POE2国服攻略站为玩家自制非官方攻略站，与腾讯/ Grinding Gear Games 无关。</p>
+            <p>流放之路2 & 相关内容版权归 Grinding Gear Games 所有。</p>
+        </div>
     </div>
 </footer>
 
-<script src="./blog/plugins/jquery/jquery.min.js"></script>
-<script src="./blog/plugins/search/search.js"></script>
-<script>
-(function() {
-    var allData = null;
-    var currentPage = 1;
-    var pageSize = 5;
-    var keyword = '';
+<!-- 返回顶部 -->
+<button class="back-to-top" id="backToTop" aria-label="返回顶部">↑</button>
 
-    // URL参数解析
-    function getQueryParam(name) {
-        var params = new URLSearchParams(window.location.search);
-        return params.get(name);
-    }
-
-    // 加载数据
-    $.getJSON('./data.json', function(data) {
-        allData = data;
-        initPage();
-        initSidebar();
-    }).fail(function() {
-        $('#articleContainer').html('<p style="text-align:center;padding:50px;">数据加载失败，请刷新页面重试</p>');
-    });
-
-    function initPage() {
-        keyword = getQueryParam('keyword') || '';
-        if (keyword) {
-            $('#searchbox').val(keyword);
-        }
-        renderPage(1);
-    }
-
-    function initSidebar() {
-        // 热门标签
-        var tagsHtml = '';
-        var hotTags = allData.hotTags || [];
-        for (var i = 0; i < hotTags.length; i++) {
-            var t = hotTags[i];
-            tagsHtml += '<a rel="tag" href="./list.html?tagId=' + t.tagId + '">' + t.tagName + '(' + t.tagCount + ')</a>';
-        }
-        $('#hotTags').html(tagsHtml);
-
-        // 最新发布（按时间倒序前5）
-        var sorted = allData.blogs.slice().sort(function(a, b) {
-            return b.createTime.localeCompare(a.createTime);
-        });
-        var newHtml = '';
-        for (var i = 0; i < Math.min(5, sorted.length); i++) {
-            var b = sorted[i];
-            newHtml += '<li class="sidebar-list-item"><a href="./detail.html?id=' + b.blogId + '" class="tag tooltipped tooltipped-n">' + b.blogTitle + '</a></li>';
-        }
-        $('#newBlogs').html(newHtml);
-
-        // 点击最多（按浏览数倒序前5）
-        var hotSorted = allData.blogs.slice().sort(function(a, b) { return b.blogViews - a.blogViews; });
-        var hotHtml = '';
-        for (var i = 0; i < Math.min(5, hotSorted.length); i++) {
-            var b = hotSorted[i];
-            hotHtml += '<li class="sidebar-list-item"><a href="./detail.html?id=' + b.blogId + '" class="tag tooltipped tooltipped-n">' + b.blogTitle + '</a></li>';
-        }
-        $('#hotBlogs').html(hotHtml);
-
-        // 页脚
-        $('#footerAuthor').text(allData.config.sysAuthor);
-        $('#footerCopyright').text(allData.config.sysCopyRight);
-        $('#brandName').text(allData.config.websiteName);
-        document.title = allData.config.websiteName + ' - 主页';
-    }
-
-    function getFilteredBlogs() {
-        var blogs = allData.blogs;
-        if (keyword) {
-            var kw = keyword.toLowerCase();
-            blogs = blogs.filter(function(b) {
-                return b.blogTitle.toLowerCase().indexOf(kw) > -1 ||
-                       b.blogPreface.toLowerCase().indexOf(kw) > -1 ||
-                       (b.blogCategoryName && b.blogCategoryName.toLowerCase().indexOf(kw) > -1);
-            });
-        }
-        return blogs;
-    }
-
-    function renderPage(page) {
-        currentPage = page;
-        var filtered = getFilteredBlogs();
-        var total = filtered.length;
-        var totalPages = Math.ceil(total / pageSize);
-        var start = (page - 1) * pageSize;
-        var end = Math.min(start + pageSize, total);
-        var pageBlogs = filtered.slice(start, end);
-
-        var html = '';
-        for (var i = 0; i < pageBlogs.length; i++) {
-            var blog = pageBlogs[i];
-            html += '<article class="am-g blog-entry-article">' +
-                '<div class="am-u-lg-6 am-u-lg-12 am-u-sm-12 blog-entry-text post-preview">' +
-                '<div class="topic-header">' +
-                '<div class="pull-left">' +
-                '<div class="blog-flex-center">' +
-                '<div class="blog-flex0">' +
-                '<img src="' + allData.config.sysAuthorImg + '" alt="" class="link avatar avatar-image">' +
-                '</div>' +
-                '<div class="author-lockup blog-flex1">' +
-                '<a class="link" href="javascript:;">' + allData.config.sysAuthor + '</a>' +
-                '<span class="in">in</span>' +
-                '<span class="category-name">' +
-                '<a class="category-name" rel="tag" href="./list.html?categoryName=' + encodeURIComponent(blog.blogCategoryName || '') + '">' + (blog.blogCategoryName || '') + '</a>' +
-                '</span>' +
-                '</div>' +
-                '</div>' +
-                '</div>' +
-                '<span class="pull-right time pc_time">' + blog.createTime + '</span>' +
-                '</div>' +
-                '<h1 class="post-index-title"><a itemtype="url" href="./detail.html?id=' + blog.blogId + '">' + blog.blogTitle + '</a></h1>' +
-                '<div class="abstract vditor-reset"><p>' + blog.blogPreface + '</p></div>' +
-                '</div>' +
-                '</article>';
-        }
-
-        if (html === '') {
-            html = '<p style="text-align:center;padding:50px;color:#999;">暂无文章</p>';
-        }
-        $('#articleContainer').html(html);
-
-        // 分页按钮
-        var pageHtml = '';
-        if (totalPages > 1) {
-            pageHtml += '<div class="layui-box layui-laypage layui-laypage-default">';
-            if (page > 1) {
-                pageHtml += '<a href="javascript:;" class="layui-laypage-prev" data-page="' + (page - 1) + '">上一页</a>';
-            }
-            for (var p = 1; p <= totalPages; p++) {
-                if (p === page) {
-                    pageHtml += '<span class="layui-laypage-curr"><em class="layui-laypage-em"></em><em>' + p + '</em></span>';
-                } else {
-                    pageHtml += '<a href="javascript:;" data-page="' + p + '">' + p + '</a>';
-                }
-            }
-            if (page < totalPages) {
-                pageHtml += '<a href="javascript:;" class="layui-laypage-next" data-page="' + (page + 1) + '">下一页</a>';
-            }
-            pageHtml += '</div>';
-        }
-        $('#page').html(pageHtml);
-
-        // 分页点击事件
-        $('#page a').click(function() {
-            var p = parseInt($(this).data('page'));
-            if (p) {
-                renderPage(p);
-                $('html, body').animate({scrollTop: 0}, 300);
-            }
-        });
-    }
-
-    // 搜索
-    window.doSearch = function() {
-        keyword = $('#searchbox').val().trim();
-        currentPage = 1;
-        renderPage(1);
-    };
-
-    // 回车搜索
-    $('#searchbox').on('keydown', function(e) {
-        if (e.key === 'Enter') {
-            doSearch();
-        }
-    });
-
-    // 导航切换
-    $('#navbar-toggle').click(function() {
-        $('#toggle-items').fadeToggle('fast');
-    });
-
-    // 返回顶部
-    $(window).scroll(function() {
-        if ($(this).scrollTop() > 300) {
-            $('#back-top').fadeIn();
-        } else {
-            $('#back-top').fadeOut();
-        }
-    });
-})();
-</script>
+<script src="./js/data.js"></script>
+<script src="./js/app.js"></script>
 </body>
 </html>
