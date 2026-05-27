@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>地图大全 - POE2导航</title>
-<meta name="description" content="Waystone 终局地图 T1-T10 数据库">
+<title>地图大全 - POE2 Hub</title>
+<meta name="description" content="流放之路2 Waystone 终局地图 T1-T10 完整数据库，包含地图词缀、Boss信息、掉落奖励">
 <style>
 :root{--bg-start:#f5f5f5;--bg-end:#f0f0f0;--card-bg:rgba(255,255,255,0.95);--card-border:rgba(220,220,220,0.5);--card-shadow:0 1px 2px 0 rgba(0,0,0,0.05);--card-shadow-hover:0 3px 6px -1px rgba(0,0,0,0.1);--text:#333;--subtext:#666;--accent:#555;--link:#555;--link-hover:#000;--btn-bg:rgba(255,255,255,.9);--btn-bg-hover:rgba(255,255,255,1);--btn-icon:#555;--btn-shadow:0 1px 3px rgba(0,0,0,.05);--btn-shadow-hover:0 2px 5px rgba(0,0,0,.08);--nav-bg:rgba(255,255,255,0.92);--nav-border:rgba(220,220,220,0.6);--nav-link:#555;--nav-link-hover:#000;--nav-active:#1a73e8}
 [data-theme="dark"]{--bg-start:#222;--bg-end:#1a1a1a;--card-bg:rgba(40,40,40,0.95);--card-border:rgba(60,60,60,0.5);--card-shadow:0 1px 2px 0 rgba(0,0,0,0.2);--card-shadow-hover:0 3px 6px -1px rgba(0,0,0,0.3);--text:#e0e0e0;--subtext:#aaa;--accent:#bbb;--link:#bbb;--link-hover:#fff;--btn-bg:rgba(40,40,40,0.9);--btn-bg-hover:rgba(50,50,50,1);--btn-icon:#bbb;--btn-shadow:0 1px 3px rgba(0,0,0,0.2);--btn-shadow-hover:0 2px 5px rgba(0,0,0,0.3);--nav-bg:rgba(30,30,30,0.95);--nav-border:rgba(60,60,60,0.6);--nav-link:#bbb;--nav-link-hover:#fff;--nav-active:#5ba3f5}
@@ -23,8 +23,8 @@
       <a href="index.html" class="site-nav-link">首页</a>
       <a href="classes.html" class="site-nav-link">职业详解</a>
       <a href="builds.html" class="site-nav-link">BD推荐</a>
-      <a href="guides.html" class="site-nav-link">新手指南</a>
-      <a href="maps.html" class="site-nav-link">地图大全</a>
+      <a href="guides.html" class="site-nav-link">新手攻略</a>
+      <a href="maps.html" class="site-nav-link active">地图大全</a>
       <a href="skills.html" class="site-nav-link">技能数据</a>
       <a href="news.html" class="site-nav-link">资讯动态</a>
       <a href="tools.html" class="site-nav-link">工具集</a>
@@ -36,13 +36,31 @@
 <button id="back-to-top" aria-label="返回顶部">👆</button>
 <div class="page-wrap">
   <h1 class="page-title">地图大全</h1>
-  <p class="page-desc">Waystone 终局地图 T1-T10 数据库</p>
+  <p class="page-desc">Waystone 终局地图 T1-T10 完整数据库</p>
+
+<!-- 地图系统说明 -->
+<div class="guide-section" style="margin-bottom:2rem">
+  <h2 style="font-size:1.1rem;margin-bottom:0.8rem">🗺️ 地图系统说明</h2>
+  <p style="font-size:0.9rem;color:var(--subtext);margin-bottom:0.8rem">完成剧情后，使用<strong>地图石（Waystone）</strong>开启终局地图。地图难度从T1到T10递增，高难度地图有更好的掉落奖励。</p>
   
+  <div class="info-table" style="margin:1rem 0">
+    <div class="info-row"><span class="info-label">难度层级</span><span class="info-value">T1-T10 共10个等级</span></div>
+    <div class="info-row"><span class="info-label">地图词缀</span><span class="info-value">随机生成，词缀越危险奖励越好</span></div>
+    <div class="info-row"><span class="info-label">掉落规则</span><span class="info-value">T1-T3 掉落同级+1级地图石</span></div>
+    <div class="info-row"><span class="info-label">推荐策略</span><span class="info-value">逐步提升，稳扎稳打</span></div>
+  </div>
+
+  <div class="tip-box">💡 地图有<strong>使用次数限制</strong>，谨慎选择词缀组合，量力而行！</div>
+</div>
+
+<!-- 难度筛选 -->
 <div class="filter-bar" id="mapFilter">
   <button class="filter-btn active" data-tier="all">全部</button>
   <button class="filter-btn" data-tier="1">T1</button><button class="filter-btn" data-tier="2">T2</button><button class="filter-btn" data-tier="3">T3</button><button class="filter-btn" data-tier="4">T4</button><button class="filter-btn" data-tier="5">T5</button><button class="filter-btn" data-tier="6">T6</button><button class="filter-btn" data-tier="7">T7</button><button class="filter-btn" data-tier="8">T8</button><button class="filter-btn" data-tier="9">T9</button><button class="filter-btn" data-tier="10">T10</button>
 </div>
+
 <div id="mapList"></div>
+
 <script src="js/data.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded",()=>{
@@ -56,12 +74,62 @@ function renderMaps(t){
   const l=document.getElementById("mapList");if(!l)return;
   const d=t==="all"?MAPS:MAPS.filter(m=>String(m.tier)===String(t));
   if(!d.length){l.innerHTML="<p style=text-align:center;color:var(--subtext);padding:2rem>该难度暂无数据</p>";return}
-  l.innerHTML=d.map(m=>`<div class="list-item"><span class="tier ${m.tier<=3?"tag-t2":m.tier<=6?"tag-t1":"tag-t0"}">T${m.tier}</span><span class="name">${m.cnName||m.name}</span><span class="info">⚔️ ${m.boss} · ${m.difficulty}</span></div>`).join("");
+  l.innerHTML=d.map(m=>`
+    <div class="map-card" style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:1rem 1.2rem;margin-bottom:0.8rem;display:flex;align-items:center;gap:1rem;transition:.2s;cursor:pointer" onmouseover="this.style.borderColor='var(--nav-active)'" onmouseout="this.style.borderColor='var(--card-border)'">
+      <span class="tier ${m.tier<=3?"tag-t2":m.tier<=6?"tag-t1":"tag-t0"}" style="min-width:40px;text-align:center">T${m.tier}</span>
+      <div style="flex:1">
+        <div style="font-weight:600;font-size:0.95rem;margin-bottom:0.2rem">${m.cnName||m.name}</div>
+        <div style="font-size:0.82rem;color:var(--subtext)">⚔️ ${m.boss}</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:0.8rem;color:var(--subtext)">${m.biome}</div>
+        <div style="font-size:0.85rem;margin-top:0.2rem">${m.difficulty}</div>
+      </div>
+    </div>
+  `).join("");
 }
 </script>
 
+<!-- 地图词缀说明 -->
+<div class="guide-section" style="margin-top:2rem">
+  <h2 style="font-size:1.1rem;margin-bottom:0.8rem">⚠️ 危险词缀提示</h2>
+  <p style="font-size:0.9rem;color:var(--subtext);margin-bottom:0.8rem">以下词缀会显著增加地图难度，请根据自身build特点谨慎选择：</p>
+  
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.6rem;margin-top:1rem">
+    <div style="padding:0.7rem;background:rgba(220,53,69,0.08);border-radius:6px;border-left:3px solid #dc3545">
+      <strong style="font-size:0.9rem;color:#dc3545">元素伤害词缀</strong>
+      <p style="font-size:0.8rem;color:var(--subtext);margin-top:0.2rem">怪物造成额外元素伤害，需要对应抗性</p>
+    </div>
+    <div style="padding:0.7rem;background:rgba(220,53,69,0.08);border-radius:6px;border-left:3px solid #dc3545">
+      <strong style="font-size:0.9rem;color:#dc3545">怪物速度词缀</strong>
+      <p style="font-size:0.8rem;color:var(--subtext);margin-top:0.2rem">怪物攻速/移速提升，生存压力大</p>
+    </div>
+    <div style="padding:0.7rem;background:rgba(220,53,69,0.08);border-radius:6px;border-left:3px solid #dc3545">
+      <strong style="font-size:0.9rem;color:#dc3545">怪物生命词缀</strong>
+      <p style="font-size:0.8rem;color:var(--subtext);margin-top:0.2rem">怪物血量增加，清图效率降低</p>
+    </div>
+    <div style="padding:0.7rem;background:rgba(255,193,7,0.08);border-radius:6px;border-left:3px solid #ffc107">
+      <strong style="font-size:0.9rem;color:#b8860b">区域词缀</strong>
+      <p style="font-size:0.8rem;color:var(--subtext);margin-top:0.2rem">地面效果、无法回复等环境机制</p>
+    </div>
+  </div>
+
+  <div class="tip-box" style="margin-top:1rem">💡 <strong>新手建议</strong>：从低危险词缀开始，逐步挑战高难度。T1-T3可以熟悉机制，T4+需要合理装备基础。</div>
 </div>
-<footer style="text-align:center;padding:2rem 1.5rem;font-size:0.82rem;color:var(--subtext);opacity:0.5">© 2025 POE2 导航站 · 仅供学习交流</footer>
+
+<!-- 地图石获取 -->
+<div class="guide-section" style="margin-top:1.5rem">
+  <h2 style="font-size:1.1rem;margin-bottom:0.8rem">💎 地图石获取</h2>
+  <ul style="font-size:0.9rem;color:var(--subtext);padding-left:1.2rem">
+    <li style="margin-bottom:0.4rem"><strong>剧情奖励</strong>：首次通关剧情获得初始地图石</li>
+    <li style="margin-bottom:0.4rem"><strong>地图掉落</strong>：在地图中击杀Boss有几率掉落</li>
+    <li style="margin-bottom:0.4rem"><strong>交易获得</strong>：与其他玩家交易购买</li>
+    <li style="margin-bottom:0.4rem"><strong>联盟奖励</strong>：赛季联盟可能有特殊获取途径</li>
+  </ul>
+</div>
+
+</div>
+<footer style="text-align:center;padding:2rem 1.5rem;font-size:0.82rem;color:var(--subtext);opacity:0.5">© 2025 POE2 Hub · 仅供学习交流</footer>
 
 <script>
 // 主题切换 + 导航 + 返回顶部（子页面共用）
