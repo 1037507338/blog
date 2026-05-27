@@ -198,15 +198,15 @@ function navigateNode(direction) {
 function setCurrentNode() {
     if (!currentAct || !currentNodeId) return;
     
-    // 清除旧的当前标记
+    // 重置整个章节的进度状态
     if (!progress[currentAct]) progress[currentAct] = {};
+    
+    // 清除所有已完成的标记和当前标记，为重新设置做准备
     Object.keys(progress[currentAct]).forEach(key => {
-        if (progress[currentAct][key] === 'current') {
-            progress[currentAct][key] = 'pending';
-        }
+        delete progress[currentAct][key];
     });
     
-    // 标记之前的节点为已完成
+    // 标记之前的节点为已完成（包括当前选中的节点本身之前的）
     const data = storyData[currentAct];
     const currentIndex = data.flowOrder.indexOf(currentNodeId);
     for (let i = 0; i < currentIndex; i++) {
@@ -223,10 +223,10 @@ function setCurrentNode() {
     
     // 显示提示
     const marker = document.getElementById(`node-${currentNodeId}`);
-    marker.style.transform = 'translate(-50%, -50%) scale(1.5)';
-    setTimeout(() => {
-        marker.style.transform = '';
-    }, 300);
+    if (marker) {
+        marker.style.transform = 'translate(-50%, -50%) scale(1.5)';
+        setTimeout(() => { marker.style.transform = ''; }, 300);
+    }
 }
 
 // 更新进度
@@ -259,22 +259,4 @@ function closeModal() {
     document.getElementById('imageModal').classList.remove('open');
 }
 
-// 主题切换
-function toggleTheme() {
-    document.body.classList.toggle('dark-mode');
-    const isDark = document.body.classList.contains('dark-mode');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    
-    document.querySelector('.icon-sun').style.display = isDark ? 'none' : 'block';
-    document.querySelector('.icon-moon').style.display = isDark ? 'block' : 'none';
-}
-
-// 初始化主题
-(function() {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        document.body.classList.add('dark-mode');
-        document.querySelector('.icon-sun').style.display = 'none';
-        document.querySelector('.icon-moon').style.display = 'block';
-    }
-})();
+// 主题切换已在 maps.html 内联脚本中处理
