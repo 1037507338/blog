@@ -6,17 +6,24 @@ const API_URL = '/api/links';
 
 // ===== 从 API 加载数据 =====
 async function loadLinks() {
+  console.log('[loadLinks] 开始加载...');
   const navContainer = document.getElementById('nav-container');
-  if (!navContainer) return;
+  if (!navContainer) {
+    console.error('[loadLinks] 找不到 nav-container!');
+    return;
+  }
 
   try {
+    console.log('[loadLinks] fetch:', API_URL);
     const resp = await fetch(API_URL);
+    console.log('[loadLinks] response status:', resp.status);
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
     allLinks = await resp.json();
+    console.log('[loadLinks] 获取到', allLinks.length, '条数据');
     render(allLinks);
   } catch (e) {
-    console.error('加载链接失败:', e);
-    navContainer.innerHTML = '<div class="error-message"><p>😢 加载链接失败</p><button onclick="loadLinks()">重试</button></div>';
+    console.error('[loadLinks] 加载失败:', e);
+    navContainer.innerHTML = '<div class="error-message"><p>😢 加载链接失败: ' + e.message + '</p><button onclick="loadLinks()">重试</button></div>';
   }
 }
 
@@ -143,6 +150,8 @@ function extractDomain(url) {
 
 // ===== 初始化 =====
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('[nav.js] DOMContentLoaded, 开始初始化...');
+
   // 主题
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme) document.body.setAttribute('data-theme', savedTheme);
@@ -184,6 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // 加载数据 + 搜索
+  console.log('[nav.js] 调用 loadLinks()...');
   loadLinks();
   setupSearch();
 });
