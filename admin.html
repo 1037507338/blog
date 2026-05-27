@@ -202,14 +202,14 @@ function renderTable() {
   const q = (document.getElementById('filterInput').value||'').trim().toLowerCase();
   let data = activeCat==='全部' ? allLinks : allLinks.filter(l=>l.category===activeCat);
   if(q) data=data.filter(l=>
-    (l.title||'').toLowerCase().includes(q)||(l.desc||'').toLowerCase().includes(q)||(l.url||'').toLowerCase().includes(q)
+    (l.title||'').toLowerCase().includes(q)||(l.descriptionription||'').toLowerCase().includes(q)||(l.url||'').toLowerCase().includes(q)
   );
   const tbody=document.getElementById('tableBody');
   if(!data.length){tbody.innerHTML='<tr><td colspan="6" class="empty">无匹配数据</td></tr>';return}
   tbody.innerHTML=data.map(l=>`<tr>
     <td>${l.id}</td>
     <td><strong>${esc(l.title)}</strong></td>
-    <td>${esc(l.desc)}</td>
+    <td>${esc(l.descriptionription)}</td>
     <td class="url-cell" title="${esc(l.url)}">${esc(l.url)}</td>
     <td><span class="cat-tag">${esc(l.category)}</span></td>
     <td class="actions">
@@ -237,7 +237,7 @@ function openEditModal(id){
   document.getElementById('modalTitle').textContent='编辑链接';
   document.getElementById('editId').value=id;
   document.getElementById('editTitle').value=l.title||'';
-  document.getElementById('editDesc').value=l.desc||'';
+  document.getElementById('editDesc').value=l.description||'';
   document.getElementById('editUrl').value=l.url||'';
   document.getElementById('editSortOrder').value=l.sort_order||'';
   populateCategories();
@@ -263,7 +263,7 @@ function closeModal(){document.getElementById('editModal').classList.remove('sho
 async function saveLink(){
   const id=document.getElementById('editId').value;
   const title=(document.getElementById('editTitle').value||'').trim();
-  const desc=(document.getElementById('editDesc').value||'').trim();
+  const description=(document.getElementById('editDesc').value||'').trim();
   const url=(document.getElementById('editUrl').value||'').trim();
   const category=(document.getElementById('editCategory').value||'').trim();
   const sort_order=parseInt(document.getElementById('editSortOrder').value)||0;
@@ -271,7 +271,7 @@ async function saveLink(){
   if(!title||!url){toast('请填写标题和URL','error');return}
   if(!url.startsWith('http')){toast('URL 需以 http(s) 开头','error');return}
 
-  const link={title,desc,url,category:category||'未分类',sort_order};
+  const link={title,description,url,category:category||'未分类',sort_order};
 
   try {
     let resp;

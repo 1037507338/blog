@@ -36,7 +36,7 @@ export default async function handler(req, res) {
 
     // POST - 新增链接
     if (req.method === 'POST') {
-      const { title, desc, url, category, sort_order } = req.body;
+      const { title, description, url, category, sort_order } = req.body;
 
       if (!title || !url) {
         return res.status(400).json({ error: '标题和URL为必填项' });
@@ -44,7 +44,7 @@ export default async function handler(req, res) {
 
       const { data, error } = await supabase
         .from('links')
-        .insert([{ title, desc, url, category: category || '未分类', sort_order: sort_order || 0 }])
+        .insert([{ title, description, url, category: category || '未分类', sort_order: sort_order || 0 }])
         .select();
 
       if (error) throw error;
@@ -54,7 +54,7 @@ export default async function handler(req, res) {
     // PUT - 更新链接
     if (req.method === 'PUT') {
       const { id } = req.query;
-      const { title, desc, url, category, sort_order } = req.body;
+      const { title, description, url, category, sort_order } = req.body;
 
       if (!id) {
         return res.status(400).json({ error: '缺少链接ID' });
@@ -62,7 +62,7 @@ export default async function handler(req, res) {
 
       const updates = {};
       if (title !== undefined) updates.title = title;
-      if (desc !== undefined) updates.desc = desc;
+      if (description !== undefined) updates.description = description;
       if (url !== undefined) updates.url = url;
       if (category !== undefined) updates.category = category;
       if (sort_order !== undefined) updates.sort_order = sort_order;

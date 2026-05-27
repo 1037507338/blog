@@ -45,7 +45,7 @@ function render(list) {
         '<div class="favicon-container"><img class="favicon" src="" alt=""></div>',
         '<span class="link-text">', escapeHtml(link.title), '</span>',
         '</a>',
-        '<div class="url">', escapeHtml(link.desc || ''), '</div>',
+        '<div class="url">', escapeHtml(link.description || ''), '</div>',
         '</li>'
       );
     }
@@ -89,7 +89,7 @@ function setupSearch() {
       if (query === '') { render(allLinks); searchResultsCount.classList.remove('visible'); return; }
       const filtered = allLinks.filter(link =>
         (link.title||'').toLowerCase().includes(query) ||
-        (link.desc||'').toLowerCase().includes(query) ||
+        (link.description||'').toLowerCase().includes(query) ||
         (link.url||'').toLowerCase().includes(query) ||
         (link.category||'').toLowerCase().includes(query)
       );
