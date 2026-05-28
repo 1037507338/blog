@@ -425,14 +425,15 @@ async function loadAllData() {
 
 async function loadLinks() {
   try {
-    const resp = await fetch(API_LINKS);
+    // admin 带 fresh=1 + cache:'no-store'，绕过 CDN/浏览器缓存，始终拿数据库最新
+    const resp = await fetch(API_LINKS + '?fresh=1', { cache: 'no-store' });
     allLinks = resp.ok ? await resp.json() : [];
   } catch (e) { allLinks = []; }
 }
 
 async function loadNews() {
   try {
-    const resp = await fetch(API_NEWS);
+    const resp = await fetch(API_NEWS + '?fresh=1', { cache: 'no-store' });
     allNews = resp.ok ? await resp.json() : [];
   } catch (e) { allNews = []; }
 }

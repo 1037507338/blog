@@ -57,11 +57,17 @@ export default async function handler(req, res) {
   try {
     // GET - 读取链接（支持 page_type 筛选）
     if (req.method === 'GET') {
-      const { page_type } = req.query;
+      const { page_type, fresh } = req.query;
+      // admin/写入页面带 fresh 参数 → 绕过缓存层取最新；强制重建内存缓存
+      if (fresh) await rebuildCache();
       const data = await getCache();
 
-      // 浏览器 60s + CDN 5 分钟 + 后台刷新窗口 10 分钟
-      res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=300, stale-while-revalidate=600');
+      if (fresh) {
+        res.setHeader('Cache-Control', 'no-store');
+      } else {
+        // 浏览器 60s + CDN 5 分钟 + 后台刷新窗口 10 分钟
+        res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=300, stale-while-revalidate=600');
+      }
 
       // 无 page_type → 返回全部
       if (!page_type) {

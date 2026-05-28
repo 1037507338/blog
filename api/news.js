@@ -58,10 +58,15 @@ export default async function handler(req, res) {
 
   try {
     if (req.method === 'GET') {
-      const { id, tag } = req.query;
+      const { id, tag, fresh } = req.query;
+      if (fresh) await rebuildCache();
       const data = await getCache();
-      // 浏览器 60s + CDN 5 分钟 + 后台刷新窗口 10 分钟
-      res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=300, stale-while-revalidate=600');
+      if (fresh) {
+        res.setHeader('Cache-Control', 'no-store');
+      } else {
+        // 浏览器 60s + CDN 5 分钟 + 后台刷新窗口 10 分钟
+        res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=300, stale-while-revalidate=600');
+      }
       if (id) {
         const item = data.find(n => String(n.id) === String(id));
         if (!item) return res.status(404).json({ error: '资讯不存在' });
