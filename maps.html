@@ -156,47 +156,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica N
   <small>© 2025 POE2 国服攻略站 · 数据来源 <a href="https://www.poe2wiki.net" target="_blank">POE2 Wiki</a> · 攻略参考 <a href="https://liazr.github.io/Poe2Storyguide/" target="_blank">Poe2Storyguide</a></small>
 </footer>
 
-<script src="js/story.js"></script>
-<script>
-// 主题切换
-(function(){
-  const btn=document.getElementById('theme-toggle');
-  const saved=localStorage.getItem('theme');
-  if(saved==='dark'){
-    document.documentElement.setAttribute('data-theme','dark');
-    btn.querySelector('.theme-sun').style.display='none';
-    btn.querySelector('.theme-moon').style.display='block';
-  }
-  btn.addEventListener('click',()=>{
-    const isDark=document.documentElement.getAttribute('data-theme')==='dark';
-    if(isDark){
-      document.documentElement.removeAttribute('data-theme');
-      localStorage.setItem('theme','light');
-      btn.querySelector('.theme-sun').style.display='block';
-      btn.querySelector('.theme-moon').style.display='none';
-    }else{
-      document.documentElement.setAttribute('data-theme','dark');
-      localStorage.setItem('theme','dark');
-      btn.querySelector('.theme-sun').style.display='none';
-      btn.querySelector('.theme-moon').style.display='block';
-    }
-  });
-})();
-
-// 返回顶部
-(function(){
-  const btn=document.getElementById('back-to-top');
-  window.addEventListener('scroll',()=>{btn.style.display=window.scrollY>300?'flex':'none'});
-  btn.addEventListener('click',()=>{window.scrollTo({top:0,behavior:'smooth'})});
-})();
-
-// 移动端菜单
-(function(){
-  const toggle=document.getElementById('navToggle');
-  const links=document.querySelector('.site-nav-links');
-  toggle.addEventListener('click',()=>{links.classList.toggle('show')});
-})();
-</script>
-<script src="js/speed-insights.js"></script>
+<script src="js/story.js" defer></script>
+<script src="js/common.js" defer></script>
+<script src="js/speed-insights.js" defer></script>
 </body>
 </html>

@@ -46,23 +46,7 @@
 </div>
 <footer style="text-align:center;padding:2rem 1.5rem;font-size:0.82rem;color:var(--subtext);opacity:0.5">© 2025 POE2 导航站 · 仅供学习交流</footer>
 
-<script>
-// 主题切换 + 导航 + 返回顶部（子页面共用）
-document.addEventListener("DOMContentLoaded",()=>{
-  const s=localStorage.getItem("theme");
-  if(s)document.body.setAttribute("data-theme",s);
-  else document.body.setAttribute("data-theme",matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");
-  const t=document.getElementById("theme-toggle");
-  if(t)t.onclick=()=>{const c=document.body.getAttribute("data-theme")==="dark"?"light":"dark";document.body.setAttribute("data-theme",c);localStorage.setItem("theme",c)};
-  const b=document.getElementById("back-to-top");
-  if(b){b.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));window.addEventListener("scroll",()=>b.classList.toggle("visible",scrollY>300))}
-  const n=document.getElementById("navToggle"),l=document.querySelector(".site-nav-links");
-  if(n&&l){n.addEventListener("click",()=>{l.classList.toggle("open");n.classList.toggle("active")});l.querySelectorAll(".site-nav-link").forEach(a=>a.addEventListener("click",()=>{l.classList.remove("open");n.classList.remove("active")}))}
-  // 高亮当前页面
-  const path=location.pathname.split("/").pop()||"index.html";
-  document.querySelectorAll(".site-nav-link").forEach(a=>{if(a.getAttribute("href")===path)a.classList.add("active")});
-});
-</script>
-<script src="js/speed-insights.js"></script>
+<script src="js/common.js" defer></script>
+<script src="js/speed-insights.js" defer></script>
 </body>
 </html>

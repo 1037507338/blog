@@ -221,30 +221,6 @@ const API = '/api/links?page_type=BD推荐';
 let allBuilds = [];
 let activeCat = '全部';
 
-async function init() {
-  const s = localStorage.getItem('theme');
-  document.body.setAttribute('data-theme', s || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'));
-
-  const t = document.getElementById('theme-toggle');
-  if (t) t.onclick = () => {
-    const c = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    document.body.setAttribute('data-theme', c);
-    localStorage.setItem('theme', c);
-  };
-
-  const b = document.getElementById('back-to-top');
-  if (b) {
-    b.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-    window.addEventListener('scroll', () => b.classList.toggle('visible', scrollY > 300));
-  }
-
-  const n = document.getElementById('navToggle');
-  const l = document.querySelector('.site-nav-links');
-  if (n && l) n.addEventListener('click', () => l.classList.toggle('open'));
-
-  await loadBuilds();
-}
-
 async function loadBuilds() {
   try {
     const resp = await fetch(API);
@@ -318,8 +294,9 @@ function renderCards() {
 function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
 function escAttr(s) { return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', loadBuilds);
 </script>
-<script src="js/speed-insights.js"></script>
+<script src="js/common.js" defer></script>
+<script src="js/speed-insights.js" defer></script>
 </body>
 </html>
