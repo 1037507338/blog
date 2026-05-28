@@ -141,7 +141,7 @@ a{text-decoration:none;color:inherit}
 /* 底部操作条 */
 .bd-card-footer{
   padding:10px 18px;border-top:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
+  display:flex;align-items:center;justify-content:flex-end;
   background:var(--card2);
 }
 .bd-card-type{
@@ -295,15 +295,12 @@ function renderCards() {
     const bCats = b.categories || [];
     const catChips = bCats.map(c => `<span class="bd-cat-chip">${esc(c)}</span>`).join('');
     const desc = b.description ? `<p class="bd-card-desc">${esc(b.description)}</p>` : '';
-    const icon = isHtml ? '📄' : '🔗';
-    const typeLabel = isHtml ? '站内页面' : '外部链接';
-    const ctaLabel = isHtml ? '查看详情 →' : '前往查看 →';
 
     return `<a href="${href}" class="bd-card"${target} onclick="${isHtml ? '' : "event.preventDefault();window.open('" + href + "','_blank')"}">
   <div class="bd-card-accent"></div>
   <div class="bd-card-inner">
     <div class="bd-card-header">
-      <div class="bd-card-icon">${icon}</div>
+      <div class="bd-card-icon">⚔</div>
       <div>
         <div class="bd-card-title">${esc(b.title)}</div>
         <div class="bd-card-sub">BD攻略</div>
@@ -313,10 +310,7 @@ function renderCards() {
     ${catChips ? `<div class="bd-card-cats">${catChips}</div>` : ''}
   </div>
   <div class="bd-card-footer">
-    <div class="bd-card-type">
-      <span>${isHtml ? '📄' : '🔗'}</span> ${typeLabel}
-    </div>
-    <div class="bd-card-cta">${ctaLabel}</div>
+    <div class="bd-card-cta">查看详情 →</div>
   </div>
 </a>`;
   }).join('');
