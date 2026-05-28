@@ -106,7 +106,7 @@
       
       <div style="margin:1rem 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.8rem">
         <div class="card" style="padding:0.8rem">
-          <h4 style="font-size:0.95rem;margin-bottom:0.3rem">🗡️ 勇士 Warrior</h4>
+          <h4 style="font-size:0.95rem;margin-bottom:0.3rem">🗡�� 勇士 Warrior</h4>
           <p style="font-size:0.82rem;color:var(--subtext)">力量系近战，生存能力强</p>
           <span style="font-size:0.75rem;color:var(--nav-active)">新手推荐</span>
         </div>
@@ -319,5 +319,6 @@ document.addEventListener("DOMContentLoaded",()=>{
   window.addEventListener("scroll",()=>{let cur="";document.querySelectorAll(".guide-section").forEach(s=>{if(pageYOffset>=s.getBoundingClientRect().top+pageYOffset-100)cur=s.id});toc.forEach(a=>{a.classList.remove("active");if(a.getAttribute("href")==="#"+cur)a.classList.add("active")})});
 });
 </script>
+<script src="js/speed-insights.js"></script>
 </body>
 </html>
