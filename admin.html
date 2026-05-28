@@ -133,6 +133,24 @@ tr:hover td{background:rgba(26,115,232,.03)}
 .cat-new-modal .btn-confirm:hover{opacity:.9}
 .cat-new-error{color:var(--danger);font-size:.8rem;margin-bottom:10px;min-height:18px}
 
+/* ===== 图标选择器（BD推荐专用） ===== */
+.icon-picker-wrap{border:1px solid var(--border);border-radius:7px;background:var(--bg);padding:10px}
+.icon-picker-current{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.icon-picker-preview{width:42px;height:42px;border-radius:8px;background:rgba(201,162,39,.08);border:1px solid rgba(201,162,39,.25);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;overflow:hidden}
+.icon-picker-preview img{width:30px;height:30px;object-fit:contain}
+.icon-picker-input{flex:1;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:.82rem;background:var(--card);color:var(--text);outline:none;font-family:inherit}
+.icon-picker-input:focus{border-color:var(--accent)}
+.icon-picker-clear{padding:6px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--sub);cursor:pointer;font-size:.78rem;transition:.2s}
+.icon-picker-clear:hover{border-color:var(--danger);color:var(--danger)}
+.icon-picker-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.icon-preset{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 4px;border:1px solid transparent;border-radius:7px;background:var(--card);cursor:pointer;transition:.18s}
+.icon-preset:hover{border-color:var(--accent);background:rgba(26,115,232,.05)}
+.icon-preset.active{border-color:#c9a227;background:rgba(201,162,39,.12)}
+.icon-preset img{width:26px;height:26px;object-fit:contain}
+.icon-preset-label{font-size:.66rem;color:var(--sub);line-height:1.1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.icon-picker-hint{font-size:.72rem;color:var(--sub);margin-top:8px;line-height:1.5}
+@media(max-width:520px){.icon-picker-grid{grid-template-columns:repeat(4,1fr)}}
+
 /* Toast */
 .toast{position:fixed;top:60px;right:1.5rem;padding:12px 20px;border-radius:8px;font-size:.85rem;font-weight:500;z-index:4000;transform:translateX(120%);transition:.3s;box-shadow:0 4px 16px rgba(0,0,0,.15)}
 .toast.show{transform:translateX(0)}
@@ -283,6 +301,20 @@ tr:hover td{background:rgba(26,115,232,.03)}
 
       <!-- 排序 -->
       <div class="form-group"><label>排序权重</label><input type="number" id="editSortOrder" value="0" placeholder="数字越小越靠前" style="width:140px"></div>
+
+      <!-- 图标选择（仅 BD 推荐） -->
+      <div class="form-group" id="iconPickerGroup" style="display:none">
+        <label class="cat-multi-label">图标 <span class="cat-multi-hint">（点击预设或自定义 emoji / 图片 URL / iconify 名）</span></label>
+        <div class="icon-picker-wrap">
+          <div class="icon-picker-current">
+            <div class="icon-picker-preview" id="iconPreview">⚔</div>
+            <input type="text" class="icon-picker-input" id="editIcon" placeholder="留空使用默认 ⚔  /  emoji  /  https://...  /  game-icons:fire-bow" oninput="onIconInput()">
+            <button type="button" class="icon-picker-clear" onclick="setIcon('')">清空</button>
+          </div>
+          <div class="icon-picker-grid" id="iconPresetGrid"></div>
+          <p class="icon-picker-hint">💡 预设来自 <a href="https://icon-sets.iconify.design/game-icons/" target="_blank" rel="noopener">Iconify · game-icons</a>（POE2 风格奇幻图标）。也可贴图片 URL（如英雄联盟头像）或 emoji。</p>
+        </div>
+      </div>
 
       <!-- 分类多选（Tag 输入） -->
       <div class="form-group" style="margin-top:16px">
@@ -555,9 +587,10 @@ function renderTable() {
     const catTags = cats.map(c => `<span class="cat-tag">${esc(c)}</span>`).join('');
     const typeClass = l.link_type === 'html' ? 'type-html' : 'type-external';
     const typeLabel = l.link_type === 'html' ? '📄 HTML' : '🔗 外站';
+    const iconHtml = (activeTab === 'BD推荐') ? `<span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:5px;background:rgba(201,162,39,.08);border:1px solid rgba(201,162,39,.2);margin-right:6px;vertical-align:middle;font-size:.85rem;overflow:hidden">${renderAdminIcon(l.icon)}</span>` : '';
     return `<tr>
       <td>${l.id}</td>
-      <td><strong>${esc(l.title)}</strong>${l.description ? `<div style="font-size:.78rem;color:var(--sub);margin-top:3px">${esc(l.description)}</div>` : ''}</td>
+      <td>${iconHtml}<strong>${esc(l.title)}</strong>${l.description ? `<div style="font-size:.78rem;color:var(--sub);margin-top:3px">${esc(l.description)}</div>` : ''}</td>
       <td><span class="type-badge ${typeClass}">${typeLabel}</span></td>
       <td class="url-cell" title="${esc(l.url)}">${esc(l.url)}</td>
       <td><div class="cat-tags">${catTags || '<span style="color:var(--sub);font-size:.75rem">无</span>'}</div></td>
@@ -675,6 +708,79 @@ function onLinkTypeChange() {
   }
 }
 
+// 列表内的图标渲染（迷你版）
+function renderAdminIcon(icon) {
+  const v = (icon || '').trim();
+  if (!v) return '⚔';
+  const escA = s => (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+  if (/^https?:\/\//i.test(v)) return `<img src="${escA(v)}" alt="" style="width:18px;height:18px;object-fit:contain">`;
+  if (/^[a-z0-9-]+:[a-z0-9-]+$/i.test(v)) return `<img src="https://api.iconify.design/${escA(v)}.svg?color=%23c9a227" alt="" style="width:18px;height:18px;object-fit:contain">`;
+  return esc(v);
+}
+
+// ===== 图标选择器 =====
+// POE2 6 大主职业 + 12 个升华职业概念图标（来自 game-icons 集，免费可商用）
+const ICON_PRESETS = [
+  { v: 'game-icons:warhammer',          label: '战士' },
+  { v: 'game-icons:fire-bow',           label: '游侠' },
+  { v: 'game-icons:bone-mace',          label: '巫师' },
+  { v: 'game-icons:cowled',             label: '影卫' },
+  { v: 'game-icons:embrassed-energy',   label: '武僧' },
+  { v: 'game-icons:thunder-blade',      label: '游侠2' },
+  { v: 'game-icons:ice-spell-cast',     label: '冰法' },
+  { v: 'game-icons:flame',              label: '火法' },
+  { v: 'game-icons:lightning-trio',     label: '雷电' },
+  { v: 'game-icons:poison-cloud',       label: '毒系' },
+  { v: 'game-icons:crossed-swords',     label: '近战' },
+  { v: 'game-icons:bow-arrow',          label: '弓箭' },
+  { v: 'game-icons:wizard-staff',       label: '法杖' },
+  { v: 'game-icons:totem-mask',         label: '图腾' },
+  { v: 'game-icons:summon-skull',       label: '召唤' },
+  { v: 'game-icons:shield-bash',        label: '盾击' },
+  { v: 'game-icons:two-handed-sword',   label: '巨剑' },
+  { v: 'game-icons:explosion-rays',     label: '爆破' }
+];
+
+function renderIconPreview(v) {
+  const p = document.getElementById('iconPreview');
+  if (!p) return;
+  const val = (v || '').trim();
+  if (!val) { p.innerHTML = '⚔'; return; }
+  if (/^https?:\/\//i.test(val)) p.innerHTML = `<img src="${val.replace(/"/g,'&quot;')}" alt="">`;
+  else if (/^[a-z0-9-]+:[a-z0-9-]+$/i.test(val)) p.innerHTML = `<img src="https://api.iconify.design/${val}.svg?color=%23c9a227" alt="">`;
+  else { const d=document.createElement('div'); d.textContent=val; p.innerHTML=d.innerHTML; }
+}
+
+function renderIconPresetGrid() {
+  const g = document.getElementById('iconPresetGrid');
+  if (!g) return;
+  const cur = (document.getElementById('editIcon').value || '').trim();
+  g.innerHTML = ICON_PRESETS.map(p => `
+    <div class="icon-preset${p.v === cur ? ' active' : ''}" onclick="setIcon('${p.v}')" title="${p.v}">
+      <img src="https://api.iconify.design/${p.v}.svg?color=%23c9a227" alt="" loading="lazy">
+      <span class="icon-preset-label">${p.label}</span>
+    </div>
+  `).join('');
+}
+
+function setIcon(v) {
+  const inp = document.getElementById('editIcon');
+  if (!inp) return;
+  inp.value = v;
+  renderIconPreview(v);
+  renderIconPresetGrid();
+}
+
+function onIconInput() {
+  renderIconPreview(document.getElementById('editIcon').value);
+  renderIconPresetGrid();
+}
+
+function toggleIconPicker(show) {
+  const g = document.getElementById('iconPickerGroup');
+  if (g) g.style.display = show ? 'block' : 'none';
+}
+
 // ===== 模态框 =====
 function openAddModal() {
   document.getElementById('modalTitle').textContent = '新增链接';
@@ -688,6 +794,8 @@ function openAddModal() {
   if (sortEl) sortEl.value = '';
   selectedCats = [];
   renderCatTags();
+  setIcon('');
+  toggleIconPicker(activeTab === 'BD推荐');
   onLinkTypeChange();
   showModal();
 }
@@ -706,6 +814,8 @@ function openEditModal(id) {
   if (sortEl) sortEl.value = l.sort_order || 0;
   selectedCats = [...(l.categories || (l.category ? [l.category] : []))];
   renderCatTags();
+  setIcon(l.icon || '');
+  toggleIconPicker((l.page_type || activeTab) === 'BD推荐');
   onLinkTypeChange();
   showModal();
 }
@@ -723,11 +833,12 @@ async function saveLink() {
   const page_type = document.getElementById('editPageTypeDisplay').value;
   const sort_order = parseInt(document.getElementById('editSortOrder').value) || 0;
   const categories = selectedCats.length ? selectedCats : [];
+  const icon = (document.getElementById('editIcon').value || '').trim();
 
   if (!title || !url) { toast('请填写标题和URL', 'error'); return; }
   if (link_type === 'external' && !url.startsWith('http')) { toast('外站链接需以 http(s) 开头', 'error'); return; }
 
-  const payload = { title, description, url, page_type, sort_order, link_type, categories };
+  const payload = { title, description, url, page_type, sort_order, link_type, categories, icon };
 
   try {
     const method = id ? 'PUT' : 'POST';

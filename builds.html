@@ -131,7 +131,10 @@ a{text-decoration:none;color:inherit}
   width:44px;height:44px;border-radius:10px;flex-shrink:0;
   background:var(--gold-bg);border:1px solid rgba(201,162,39,.2);
   display:flex;align-items:center;justify-content:center;font-size:1.3rem;
+  overflow:hidden;
 }
+.bd-card-icon img{width:30px;height:30px;object-fit:contain;display:block}
+[data-theme="dark"] .bd-card-icon img{filter:brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(5deg) brightness(.9)}
 .bd-card-title{
   font-size:1rem;font-weight:700;line-height:1.35;color:var(--text);
 }
@@ -272,13 +275,14 @@ function renderCards() {
     const bCats = b.categories || [];
     const catChips = bCats.map(c => `<span class="bd-cat-chip">${esc(c)}</span>`).join('');
     const desc = b.description ? `<p class="bd-card-desc">${esc(b.description)}</p>` : '';
+    const iconHtml = renderIcon(b.icon);
 
     return `<a href="${href}" class="bd-card"${target} onclick="${isHtml ? '' : "event.preventDefault();window.open('" + href + "','_blank')"}">
   <div class="bd-card-accent"></div>
   <div class="bd-card-inner">
     <div class="bd-card-arrow">→</div>
     <div class="bd-card-header">
-      <div class="bd-card-icon">⚔</div>
+      <div class="bd-card-icon">${iconHtml}</div>
       <div>
         <div class="bd-card-title">${esc(b.title)}</div>
         <div class="bd-card-sub">BD攻略</div>
@@ -289,6 +293,17 @@ function renderCards() {
   </div>
 </a>`;
   }).join('');
+}
+
+// 智能渲染图标：URL → <img>；iconify(集:名) → Iconify CDN；其他/空 → emoji 或 ⚔
+function renderIcon(icon) {
+  const v = (icon || '').trim();
+  if (!v) return '⚔';
+  if (/^https?:\/\//i.test(v)) return `<img src="${escAttr(v)}" alt="" loading="lazy">`;
+  if (/^[a-z0-9-]+:[a-z0-9-]+$/i.test(v)) {
+    return `<img src="https://api.iconify.design/${escAttr(v)}.svg?color=%23c9a227" alt="" loading="lazy">`;
+  }
+  return esc(v);
 }
 
 function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
