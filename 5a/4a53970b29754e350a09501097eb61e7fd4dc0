@@ -1,0 +1,35 @@
+vercel.json
+  s_9acbdd38e6b917::t_773784d7baf812 4
+js/data.js
+  s_9acbdd38e6b917::t_b8455c197bdc05 397
+api/news.js
+  s_9acbdd38e6b917::t_133a6aebdd744c 1-118
+news-detail.html
+  s_9acbdd38e6b917::t_530cb1b6bfdb3b 1-134
+news.html
+  s_9acbdd38e6b917::t_89980f39b72fd7 39-44,46-74,76-78,80-97,99-100
+admin.html
+  s_9acbdd38e6b917::t_b58db57022db23 420,433-437
+  s_9acbdd38e6b917::t_e5b061e77d857d 450,460-462,464-465
+  s_9acbdd38e6b917::t_067e72fd993091 303-347
+  s_9acbdd38e6b917::t_983de2d2176f69 363,371
+  s_9acbdd38e6b917::t_c9ca4e402965c6 215-236
+  s_9acbdd38e6b917::t_cf84d3368558c0 763-891
+  s_9acbdd38e6b917::t_2b8e507be34578 180
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "5a4a53970b29754e350a09501097eb61e7fd4dc0",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
