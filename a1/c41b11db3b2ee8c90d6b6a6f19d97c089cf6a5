@@ -1,0 +1,31 @@
+news.html
+  s_9acbdd38e6b917::t_3e650b1c59c3b2 106-107
+news-detail.html
+  s_9acbdd38e6b917::t_95baf85917710c 120,122-123
+builds.html
+  s_9acbdd38e6b917::t_17b0b89ed2d8a1 297,299-300
+maps.html
+  s_9acbdd38e6b917::t_6169ab98d07148 159-161
+js/common.js
+  s_9acbdd38e6b917::t_59a7249e1b02f4 1-54
+guides.html
+  s_9acbdd38e6b917::t_62208dc9ea5a07 101,103,106,111
+tools.html
+  s_9acbdd38e6b917::t_5fd6833acaeab9 49-50
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "a1c41b11db3b2ee8c90d6b6a6f19d97c089cf6a5",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
