@@ -107,10 +107,26 @@ a{text-decoration:none;color:inherit}
 /* 卡片内容 */
 .bd-card-inner{
   padding:18px 18px 16px;display:flex;flex-direction:column;gap:12px;flex:1;
+  position:relative;
+}
+
+/* 右上角箭头（hover 显示） */
+.bd-card-arrow{
+  position:absolute;top:14px;right:14px;
+  width:26px;height:26px;border-radius:50%;
+  background:var(--card2);color:var(--text3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.85rem;line-height:1;
+  opacity:0;transform:translateX(-4px);
+  transition:opacity .25s,transform .25s,background .25s,color .25s;
+}
+.bd-card:hover .bd-card-arrow{
+  opacity:1;transform:translateX(0);
+  background:var(--accent);color:#fff;
 }
 
 /* 头部：图标 + 标题 */
-.bd-card-header{display:flex;align-items:flex-start;gap:12px}
+.bd-card-header{display:flex;align-items:flex-start;gap:12px;padding-right:32px}
 .bd-card-icon{
   width:44px;height:44px;border-radius:10px;flex-shrink:0;
   background:var(--gold-bg);border:1px solid rgba(201,162,39,.2);
@@ -137,21 +153,6 @@ a{text-decoration:none;color:inherit}
   background:linear-gradient(135deg,rgba(201,162,39,.12),rgba(201,162,39,.06));
   border:1px solid rgba(201,162,39,.25);color:var(--gold);
 }
-
-/* 底部操作条 */
-.bd-card-footer{
-  padding:10px 18px;border-top:1px solid var(--border);
-  display:flex;align-items:center;justify-content:flex-end;
-  background:var(--card2);
-}
-.bd-card-type{
-  display:flex;align-items:center;gap:5px;font-size:.75rem;color:var(--text3);
-}
-.bd-card-cta{
-  font-size:.8rem;font-weight:600;color:var(--accent);
-  display:flex;align-items:center;gap:4px;
-}
-.bd-card:hover .bd-card-cta{text-decoration:underline}
 
 /* 加载/空状态 */
 .bd-state{text-align:center;padding:3rem 0;color:var(--text3);font-size:.9rem}
@@ -299,6 +300,7 @@ function renderCards() {
     return `<a href="${href}" class="bd-card"${target} onclick="${isHtml ? '' : "event.preventDefault();window.open('" + href + "','_blank')"}">
   <div class="bd-card-accent"></div>
   <div class="bd-card-inner">
+    <div class="bd-card-arrow">→</div>
     <div class="bd-card-header">
       <div class="bd-card-icon">⚔</div>
       <div>
@@ -308,9 +310,6 @@ function renderCards() {
     </div>
     ${desc}
     ${catChips ? `<div class="bd-card-cats">${catChips}</div>` : ''}
-  </div>
-  <div class="bd-card-footer">
-    <div class="bd-card-cta">查看详情 →</div>
   </div>
 </a>`;
   }).join('');
