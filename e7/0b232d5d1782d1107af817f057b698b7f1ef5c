@@ -1,0 +1,23 @@
+api/links.js
+  ai_agent 60-62,65-70
+api/news.js
+  s_9acbdd38e6b917::t_b4c726d7f9b215 61-62,64-69
+admin.html
+  s_9acbdd38e6b917::t_7a5869c3e95555 428-429,436
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "e70b232d5d1782d1107af817f057b698b7f1ef5c",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
