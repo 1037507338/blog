@@ -1,0 +1,19 @@
+api/builds-files.js
+  s_9acbdd38e6b917::t_3ff801053375a1 1,3,5,8-11,13-37,39,48-49,52-55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "46e97e6b3dea91c56b89807f1758905e72e4ae14",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
