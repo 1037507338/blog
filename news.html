@@ -36,29 +36,68 @@
   <h1 class="page-title">资讯动态</h1>
   <p class="page-desc">版本更新、联赛资讯、国服活动</p>
   
-<div class="filter-bar" id="newsFilter">
-  <button class="filter-btn active" data-cat="all">全部</button>
-  <button class="filter-btn" data-cat="版本">版本更新</button>
-  <button class="filter-btn" data-cat="联赛">联赛</button>
-  <button class="filter-btn" data-cat="国服">国服</button>
-  <button class="filter-btn" data-cat="攻略">攻略</button>
-</div>
-<div id="newsList"></div>
-<script src="js/data.js"></script>
+<div class="filter-bar" id="newsFilter"></div>
+<div id="newsList"><p style="text-align:center;color:var(--subtext);padding:2rem">加载中...</p></div>
+<style>
+.news-card{cursor:pointer;transition:transform .2s,box-shadow .2s}
+.news-card:hover{transform:translateY(-2px);box-shadow:var(--card-shadow-hover)}
+</style>
 <script>
-document.addEventListener("DOMContentLoaded",()=>{
-  renderNews("all");
-  document.querySelectorAll("#newsFilter .filter-btn").forEach(b=>b.addEventListener("click",()=>{
-    document.querySelectorAll("#newsFilter .filter-btn").forEach(x=>x.classList.remove("active"));
-    b.classList.add("active");renderNews(b.dataset.cat);
-  }));
-});
-function renderNews(c){
-  const l=document.getElementById("newsList");if(!l)return;
-  const d=c==="all"?NEWS:NEWS.filter(n=>n.tag===c);
-  if(!d.length){l.innerHTML="<p style=text-align:center;color:var(--subtext);padding:2rem>暂无该分类资讯</p>";return}
-  l.innerHTML=d.map(n=>`<div class="news-card"><div class="news-meta"><span class="news-tag" style="background:rgba(26,115,232,0.1);color:var(--nav-active)">${n.tag}</span><span>${n.date}</span></div><h3>${n.title}</h3><p>${n.preview}</p></div>`).join("");
+let ALL_NEWS=[];
+let activeTag="all";
+
+function escHtml(s){const d=document.createElement("div");d.textContent=s||"";return d.innerHTML}
+function fmtDate(s){if(!s)return "";return s.length>10?s.slice(0,10):s}
+
+async function loadNews(){
+  try{
+    const resp=await fetch("/api/news");
+    if(!resp.ok)throw new Error("加载失败");
+    ALL_NEWS=await resp.json();
+  }catch(e){
+    ALL_NEWS=[];
+    document.getElementById("newsList").innerHTML='<p style="text-align:center;color:var(--subtext);padding:2rem">加载失败，请稍后重试</p>';
+    return;
+  }
+  renderFilter();
+  renderNews();
 }
+
+function renderFilter(){
+  const tags=new Set();
+  ALL_NEWS.forEach(n=>{if(n.tag)tags.add(n.tag)});
+  const tagList=[...tags];
+  const bar=document.getElementById("newsFilter");
+  bar.innerHTML=`<button class="filter-btn${activeTag==="all"?" active":""}" data-tag="all">全部</button>`+
+    tagList.map(t=>`<button class="filter-btn${activeTag===t?" active":""}" data-tag="${escHtml(t)}">${escHtml(t)}</button>`).join("");
+  bar.querySelectorAll(".filter-btn").forEach(b=>b.addEventListener("click",()=>{
+    activeTag=b.dataset.tag;renderFilter();renderNews();
+  }));
+}
+
+function renderNews(){
+  const l=document.getElementById("newsList");if(!l)return;
+  const d=activeTag==="all"?ALL_NEWS:ALL_NEWS.filter(n=>n.tag===activeTag);
+  if(!d.length){l.innerHTML='<p style="text-align:center;color:var(--subtext);padding:2rem">暂无该分类资讯</p>';return}
+  l.innerHTML=d.map(n=>{
+    const tagStyle=n.tag_color?`background:${n.tag_color}22;color:${n.tag_color}`:`background:rgba(26,115,232,0.1);color:var(--nav-active)`;
+    return `<div class="news-card" data-id="${n.id}" data-type="${escHtml(n.content_type||"link")}" data-url="${escHtml(n.url||"")}">
+      <div class="news-meta">
+        ${n.tag?`<span class="news-tag" style="${tagStyle}">${escHtml(n.tag)}</span>`:""}
+        <span>${escHtml(fmtDate(n.published_at))}</span>
+      </div>
+      <h3>${escHtml(n.title)}</h3>
+      ${n.summary?`<p>${escHtml(n.summary)}</p>`:""}
+    </div>`;
+  }).join("");
+  l.querySelectorAll(".news-card").forEach(c=>c.addEventListener("click",()=>{
+    const id=c.dataset.id,type=c.dataset.type,url=c.dataset.url;
+    if(type==="link"&&url){window.open(url,"_blank","noopener")}
+    else{location.href=`news-detail.html?id=${encodeURIComponent(id)}`}
+  }));
+}
+
+document.addEventListener("DOMContentLoaded",loadNews);
 </script>
 
 </div>
