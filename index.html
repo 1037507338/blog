@@ -15,6 +15,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica N
 </style>
 <link rel="stylesheet" href="css/style.css">
 <link rel="icon" href="favicon.ico">
+<!-- 性能优化：预连接关键域名（API 同源不需要，Google favicon 提前 TLS 握手） -->
+<link rel="preconnect" href="https://www.google.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.google.com">
 </head>
 <body>
 
@@ -65,7 +68,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica N
   <small>© 2025 POE2 国服攻略站 · 数据来源 <a href="https://www.poe2wiki.net" target="_blank">POE2 Wiki</a> · 仅供学习交流</small>
 </footer>
 
-<script src="js/nav.js"></script>
-<script src="js/speed-insights.js"></script>
+<script src="js/nav.js" defer></script>
+<script src="js/speed-insights.js" defer></script>
 </body>
 </html>

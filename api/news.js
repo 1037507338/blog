@@ -60,6 +60,8 @@ export default async function handler(req, res) {
     if (req.method === 'GET') {
       const { id, tag } = req.query;
       const data = await getCache();
+      // CDN 边缘缓存 5 分钟，过期后 10 分钟内返回旧数据并后台刷新
+      res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600');
       if (id) {
         const item = data.find(n => String(n.id) === String(id));
         if (!item) return res.status(404).json({ error: '资讯不存在' });

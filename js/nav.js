@@ -65,7 +65,7 @@ function render(list) {
   wrap.innerHTML = sections.join('');
 
   wrap.addEventListener('click', handleCardClick);
-  loadFavicons(list);
+  loadFavicons();
 }
 
 function handleCardClick(e) {
@@ -120,27 +120,54 @@ function setupSearch() {
   });
 }
 
-// ===== Favicon =====
-function loadFavicons(links) {
-  setTimeout(() => {
-    document.querySelectorAll('.card-title[href]').forEach(el => {
-      const url = el.getAttribute('href');
-      const img = el.querySelector('.favicon');
-      if (url && img) {
-        const domain = extractDomain(url);
-        if (domain) tryLoadFavicon(img, domain);
-      }
+// ===== Favicon（IntersectionObserver 懒加载 + timeout fallback） =====
+function loadFavicons() {
+  const els = document.querySelectorAll('.card-title[href] .favicon');
+  if (!('IntersectionObserver' in window)) {
+    // 老浏览器降级：直接全部加载
+    els.forEach(img => {
+      const a = img.closest('.card-title');
+      const domain = a ? extractDomain(a.getAttribute('href')) : null;
+      if (domain) tryLoadFavicon(img, domain);
     });
-  }, 100);
+    return;
+  }
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const img = entry.target;
+      obs.unobserve(img);
+      const a = img.closest('.card-title');
+      const domain = a ? extractDomain(a.getAttribute('href')) : null;
+      if (domain) tryLoadFavicon(img, domain);
+    });
+  }, { rootMargin: '200px' }); // 视口外 200px 提前加载
+  els.forEach(img => io.observe(img));
 }
+
 function tryLoadFavicon(faviconImg, domain) {
-  const url = `https://favicon.yandex.net/favicon/${domain}`;
+  // Google 服务：国内勉强可用，超时 fallback
+  const url = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=32`;
   const img = new Image();
+  let done = false;
+  const timer = setTimeout(() => {
+    if (done) return;
+    done = true;
+    showEmojiIcon(faviconImg);
+  }, 3000);
   img.onload = function() {
-    if (img.naturalWidth === 1 && img.naturalHeight === 1) showEmojiIcon(faviconImg);
+    if (done) return;
+    done = true;
+    clearTimeout(timer);
+    if (img.naturalWidth <= 1 && img.naturalHeight <= 1) showEmojiIcon(faviconImg);
     else { faviconImg.src = url; faviconImg.classList.add('loaded'); }
   };
-  img.onerror = function() { showEmojiIcon(faviconImg); };
+  img.onerror = function() {
+    if (done) return;
+    done = true;
+    clearTimeout(timer);
+    showEmojiIcon(faviconImg);
+  };
   img.src = url;
 }
 function showEmojiIcon(faviconImg) {

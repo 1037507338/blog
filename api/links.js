@@ -60,6 +60,9 @@ export default async function handler(req, res) {
       const { page_type } = req.query;
       const data = await getCache();
 
+      // CDN 边缘缓存 5 分钟，过期后 10 分钟内返回旧数据并后台刷新
+      res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600');
+
       // 无 page_type → 返回全部
       if (!page_type) {
         return res.status(200).json(data);
