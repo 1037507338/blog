@@ -28,7 +28,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .login-container{max-width:380px;margin:100px auto;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:32px;box-shadow:0 4px 16px rgba(0,0,0,.08)}
 .login-title{font-size:1.25rem;font-weight:700;text-align:center;margin-bottom:24px}
 .login-title span{background:linear-gradient(135deg,#c9a227,#8b6914);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.form-group{margin-bottom:16px}
+.form-group{margin-bottom:18px}
 .form-group label{display:block;font-size:.85rem;font-weight:600;color:var(--text);margin-bottom:6px}
 .form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:7px;font-size:.9rem;background:var(--bg);color:var(--text);outline:none;transition:border-color .2s;font-family:inherit}
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent)}
@@ -99,15 +99,10 @@ tr:hover td{background:rgba(26,115,232,.03)}
 .modal-header h2{font-size:1.05rem;font-weight:700}
 .modal-close{width:32px;height:32px;border-radius:50%;border:none;background:rgba(128,128,128,.08);color:var(--sub);cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:.2s}
 .modal-close:hover{background:rgba(200,50,50,.1);color:var(--danger)}
-.modal-body{padding:20px}
+.modal-body{padding:24px}
 .modal-footer{display:flex;justify-content:flex-end;gap:8px;padding:16px 20px;border-top:1px solid var(--border)}
 
-/* link-type 提示 */
-.link-type-hint{font-size:.78rem;padding:8px 12px;border-radius:6px;margin-top:6px;display:none}
-.link-type-hint.external{border:1px solid rgba(200,50,50,.2);background:rgba(200,50,50,.05);color:var(--sub);display:block}
-.link-type-hint.html{border:1px solid rgba(26,115,232,.2);background:rgba(26,115,232,.05);color:var(--sub);display:block}
-.html-file-wrap{display:none;margin-top:8px}
-.html-file-wrap.show{display:block}
+.hint{cursor:help;color:var(--sub);font-size:.85rem;margin-left:4px}
 
 /* ===== 分类多选 Tag 输入 ===== */
 .cat-multi-label{display:block;font-size:.85rem;font-weight:600;color:var(--text);margin-bottom:6px}
@@ -244,13 +239,11 @@ tr:hover td{background:rgba(26,115,232,.03)}
 
       <!-- 链接类型 -->
       <div class="form-group">
-        <label>链接类型 *</label>
+        <label>链接类型 * <span class="hint" title="外站链接：在新标签页打开\n站内HTML：在当前页打开">ⓘ</span></label>
         <select id="editLinkType" onchange="onLinkTypeChange()">
           <option value="external">🔗 外站链接（新标签页打开）</option>
           <option value="html">📄 站内HTML文件（原页打开）</option>
         </select>
-        <div class="link-type-hint external" id="hint-external">请填入完整 URL，如 https://poe2.gameforge.com</div>
-        <div class="link-type-hint html" id="hint-html">从下方下拉列表选择 HTML 文件，或手动输入 builds/ 目录下的文件路径</div>
       </div>
 
       <!-- URL -->
@@ -304,7 +297,7 @@ const API_FILES = '/api/builds-files';
 const ADMIN_USER = 'admin';
 const ADMIN_PASS = '54188wang';
 const AUTH_KEY = 'poe2_admin_auth';
-const PAGE_TYPES = ['首页导航', 'BD推荐', '新手攻略', '资讯动态', '工具集'];
+const PAGE_TYPES = ['首页导航', 'BD推荐', '资讯动态'];
 
 let allLinks = [];
 let htmlFiles = [];
