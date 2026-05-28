@@ -1,0 +1,30 @@
+api/links.js
+  s_9acbdd38e6b917::t_4b2c49b6c57b42 84,100-101
+  s_9acbdd38e6b917::t_a074341f6ebd08 115,125
+admin.html
+  s_9acbdd38e6b917::t_e8c295f50a96c4 136-153
+  s_9acbdd38e6b917::t_bea0f4d205ac52 590,593
+  s_9acbdd38e6b917::t_5ce9aaabc2528c 711-720
+  s_9acbdd38e6b917::t_add188372701eb 721-783,797-798,817-818
+  s_9acbdd38e6b917::t_d70c8128d632d4 836,841
+  s_9acbdd38e6b917::t_5b8c3cb3368b22 305-318
+builds.html
+  s_9acbdd38e6b917::t_e419219855e461 134,136-137
+  s_9acbdd38e6b917::t_0ce2738db3101c 278,285,298-306
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "27ca0de7384baa066a917d36fd0aa46c7a983126",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
