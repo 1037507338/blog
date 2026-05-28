@@ -72,7 +72,7 @@ export default async function handler(req, res) {
 
     // POST - 新增链接
     if (req.method === 'POST') {
-      const { title, description, url, category, sort_order, page_type, link_type, categories } = req.body;
+      const { title, description, url, sort_order, page_type, link_type, categories } = req.body;
 
       if (!title || !url) {
         return res.status(400).json({ error: '标题和URL为必填项' });
@@ -85,7 +85,6 @@ export default async function handler(req, res) {
           title,
           description: description || '',
           url,
-          category: category || '未分类',
           sort_order: sort_order || 0,
           page_type: page_type || '首页导航',
           link_type: link_type || 'external',
@@ -103,13 +102,12 @@ export default async function handler(req, res) {
       const { id } = req.query;
       if (!id) return res.status(400).json({ error: '缺少链接ID' });
 
-      const { title, description, url, category, sort_order, page_type, link_type, categories } = req.body;
+      const { title, description, url, sort_order, page_type, link_type, categories } = req.body;
 
       const updates = {};
       if (title !== undefined) updates.title = title;
       if (description !== undefined) updates.description = description;
       if (url !== undefined) updates.url = url;
-      if (category !== undefined) updates.category = category;
       if (sort_order !== undefined) updates.sort_order = sort_order;
       if (page_type !== undefined) updates.page_type = page_type;
       if (link_type !== undefined) updates.link_type = link_type;
