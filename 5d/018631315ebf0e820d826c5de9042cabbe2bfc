@@ -1,0 +1,38 @@
+admin.html
+  s_9acbdd38e6b917::t_dc8a9373d3e781 557-559,561,564
+  s_9acbdd38e6b917::t_4c4ee90c791747 255-276,278-283
+  s_9acbdd38e6b917::t_5a9f17aa39633d 542-547
+  s_9acbdd38e6b917::t_b9fd57b9114715 428-430
+  s_9acbdd38e6b917::t_2a90382557f639 482,488-514
+api/poe2-time.js
+  s_9acbdd38e6b917::t_52eb539e15f1b0 1-78
+db/site_config.sql
+  s_9acbdd38e6b917::t_4d68e9fa02bd41 1-13
+index.html
+  s_9acbdd38e6b917::t_8f7ac67a5d565f 424
+  s_9acbdd38e6b917::t_9758a5ab761744 393,395-423,425-456
+  s_9acbdd38e6b917::t_1f6bf18b80b356 14-15
+  s_9acbdd38e6b917::t_38dfa9ea747bb3 128-129,131-148
+  s_9acbdd38e6b917::t_e17d130da11c19 130
+  s_9acbdd38e6b917::t_523dec70417c63 187-202
+api/site-config.js
+  s_9acbdd38e6b917::t_f7438a45f996ec 1-73
+vercel.json
+  s_9acbdd38e6b917::t_e5e8d92f2e8b0d 5-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "5d018631315ebf0e820d826c5de9042cabbe2bfc",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
