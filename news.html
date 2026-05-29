@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/pages.css">
-<link rel="stylesheet" href="css/parchment.css?v=3">
+<link rel="stylesheet" href="css/parchment.css?v=4">
 <link rel="icon" href="favicon.ico">
 </head>
 <body>
@@ -41,7 +41,7 @@
   <p class="page-desc">版本更新、联赛资讯、国服活动</p>
   
 <div class="filter-bar" id="newsFilter"></div>
-<div id="newsList"><p style="text-align:center;color:var(--subtext);padding:2rem">加载中...</p></div>
+<div id="newsList"><p style="text-align:center;color:#d6c08a;padding:2rem">加载中...</p></div>
 <style>
 .news-card{cursor:pointer;transition:transform .2s,box-shadow .2s}
 .news-card:hover{transform:translateY(-2px);box-shadow:var(--card-shadow-hover)}
@@ -60,7 +60,7 @@ async function loadNews(){
     ALL_NEWS=await resp.json();
   }catch(e){
     ALL_NEWS=[];
-    document.getElementById("newsList").innerHTML='<p style="text-align:center;color:var(--subtext);padding:2rem">加载失败，请稍后重试</p>';
+    document.getElementById("newsList").innerHTML='<p style="text-align:center;color:#d6c08a;padding:2rem">加载失败，请稍后重试</p>';
     return;
   }
   renderFilter();
@@ -82,7 +82,7 @@ function renderFilter(){
 function renderNews(){
   const l=document.getElementById("newsList");if(!l)return;
   const d=activeTag==="all"?ALL_NEWS:ALL_NEWS.filter(n=>n.tag===activeTag);
-  if(!d.length){l.innerHTML='<p style="text-align:center;color:var(--subtext);padding:2rem">暂无该分类资讯</p>';return}
+  if(!d.length){l.innerHTML='<p style="text-align:center;color:#d6c08a;padding:2rem">暂无该分类资讯</p>';return}
   l.innerHTML=d.map(n=>{
     const tagStyle=n.tag_color?`background:${n.tag_color}22;color:${n.tag_color}`:`background:rgba(26,115,232,0.1);color:var(--nav-active)`;
     return `<div class="news-card" data-id="${n.id}" data-type="${escHtml(n.content_type||"link")}" data-url="${escHtml(n.url||"")}">
@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded",loadNews);
 </script>
 
 </div>
-<footer style="text-align:center;padding:2rem 1.5rem;font-size:0.82rem;color:var(--subtext);opacity:0.5">© 2025 POE2 导航站 · 仅供学习交流</footer>
+<footer style="text-align:center;padding:2rem 1.5rem;font-size:0.82rem;color:#b8a47a;opacity:0.85">© 2025 POE2 导航站 · 仅供学习交流</footer>
 
 <script src="js/common.js" defer></script>
 <script src="js/speed-insights.js" defer></script>

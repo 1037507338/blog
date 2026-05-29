@@ -47,7 +47,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica N
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/pages.css">
-<link rel="stylesheet" href="css/parchment.css?v=3">
+<link rel="stylesheet" href="css/parchment.css?v=4">
 <link rel="icon" href="favicon.ico">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 </head>
@@ -74,7 +74,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica N
   <div id="detailContent"><div class="detail-loading">加载中...</div></div>
 </div>
 
-<footer style="text-align:center;padding:2rem 1.5rem;font-size:0.82rem;color:var(--subtext);opacity:0.5">© 2025 POE2 导航站 · 仅供学习交流</footer>
+<footer style="text-align:center;padding:2rem 1.5rem;font-size:0.82rem;color:#b8a47a;opacity:0.85">© 2025 POE2 导航站 · 仅供学习交流</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.9/dist/purify.min.js"></script>
@@ -102,7 +102,7 @@ async function loadDetail(){
     }else if(n.content_type==='link' && n.url){
       bodyHtml=`<p>该资讯指向外部链接：</p><p><a href="${esc(n.url)}" target="_blank" rel="noopener">${esc(n.url)} →</a></p>`;
     }else{
-      bodyHtml='<p style="color:var(--subtext)">暂无正文内容</p>';
+      bodyHtml='<p style="color:#d6c08a">暂无正文内容</p>';
     }
     wrap.innerHTML=`
       <div class="detail-meta">
@@ -110,7 +110,7 @@ async function loadDetail(){
         <span>${esc(fmtDate(n.published_at))}</span>
       </div>
       <h1 class="detail-title">${esc(n.title)}</h1>
-      ${n.summary?`<p style="color:var(--subtext);margin-bottom:1.2rem;font-size:.95rem">${esc(n.summary)}</p>`:''}
+      ${n.summary?`<p style="color:#d6c08a;margin-bottom:1.2rem;font-size:.95rem">${esc(n.summary)}</p>`:''}
       <article class="detail-body">${bodyHtml}</article>`;
     // 详情页内的链接默认新标签打开
     wrap.querySelectorAll('.detail-body a').forEach(a=>{
