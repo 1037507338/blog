@@ -2,6 +2,8 @@
   "rewrites": [
     { "source": "/api/links", "destination": "/api/links.js" },
     { "source": "/api/news", "destination": "/api/news.js" },
+    { "source": "/api/poe2-time", "destination": "/api/poe2-time.js" },
+    { "source": "/api/site-config", "destination": "/api/site-config.js" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [

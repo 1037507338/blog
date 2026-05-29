@@ -11,6 +11,8 @@ window.__linksReq = (function(){
   try { return fetch('/api/links').then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status))); }
   catch(e){ return Promise.reject(e); }
 })();
+window.__configReq = fetch('/api/site-config').then(r => r.ok ? r.json() : {}).catch(() => ({}));
+window.__poe2TimeReq = null; // 按需触发，仅在配置开启时发起
 </script>
 <link rel="icon" href="favicon.ico">
 <link rel="dns-prefetch" href="https://icon.horse">
@@ -123,6 +125,27 @@ html{scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.2) rgba(0,0,0,.05)}
   main{padding:0 1rem 1.5rem}
 }
 @media(max-width:280px){ul{grid-template-columns:1fr;gap:.36rem}}
+/* ===== 国服倒计时横幅 ===== */
+.poe2-countdown{max-width:1400px;margin:64px auto 0;padding:0 1.5rem}
+body.has-poe2-countdown .search-container.compact{margin-top:14px}
+.poe2-countdown-inner{display:flex;align-items:center;gap:14px;padding:12px 18px;border-radius:12px;background:linear-gradient(135deg,rgba(201,162,39,.12),rgba(139,105,20,.08));border:1px solid rgba(201,162,39,.32);box-shadow:0 1px 3px rgba(0,0,0,.04)}
+[data-theme="dark"] .poe2-countdown-inner{background:linear-gradient(135deg,rgba(201,162,39,.15),rgba(139,105,20,.1));border-color:rgba(201,162,39,.4)}
+.poe2-countdown-icon{font-size:1.5rem;line-height:1;flex-shrink:0;filter:drop-shadow(0 0 4px rgba(201,162,39,.5))}
+.poe2-countdown-body{flex:1;min-width:0}
+.poe2-countdown-title{font-size:.95rem;font-weight:700;color:var(--text);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.poe2-countdown-title .badge{display:inline-block;padding:1px 7px;font-size:.7rem;font-weight:700;background:linear-gradient(135deg,#c9a227,#8b6914);color:#fff;border-radius:4px;margin-right:7px;vertical-align:1px;letter-spacing:.3px}
+.poe2-countdown-meta{font-size:.78rem;color:var(--subtext);margin-top:3px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.poe2-countdown-sep{opacity:.5}
+.poe2-countdown-timer{flex-shrink:0;font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:1.05rem;font-weight:700;color:#c9a227;background:rgba(201,162,39,.1);padding:6px 12px;border-radius:8px;border:1px solid rgba(201,162,39,.25);letter-spacing:.5px;line-height:1.2;text-align:center;min-width:0}
+[data-theme="dark"] .poe2-countdown-timer{background:rgba(201,162,39,.15)}
+@media(max-width:768px){
+  .poe2-countdown{padding:0 1rem;margin-top:60px}
+  .poe2-countdown-inner{padding:10px 12px;gap:10px;flex-wrap:wrap}
+  .poe2-countdown-icon{font-size:1.2rem}
+  .poe2-countdown-title{font-size:.85rem;white-space:normal}
+  .poe2-countdown-meta{font-size:.72rem}
+  .poe2-countdown-timer{font-size:.95rem;padding:5px 10px}
+}
 </style>
 </head>
 <body>
@@ -159,6 +182,22 @@ html{scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.2) rgba(0,0,0,.05)}
     </div>
   </div>
   <div class="search-results-count" id="search-results-count"></div>
+</div>
+
+<!-- 国服开服倒计时（管理端可关闭，默认隐藏） -->
+<div id="poe2-countdown" class="poe2-countdown" style="display:none">
+  <div class="poe2-countdown-inner">
+    <div class="poe2-countdown-icon">⚔️</div>
+    <div class="poe2-countdown-body">
+      <div class="poe2-countdown-title" id="poe2cd-title">加载中…</div>
+      <div class="poe2-countdown-meta">
+        <span id="poe2cd-date"></span>
+        <span class="poe2-countdown-sep">·</span>
+        <span id="poe2cd-source">数据来自 poe2db.tw</span>
+      </div>
+    </div>
+    <div class="poe2-countdown-timer" id="poe2cd-timer">--</div>
+  </div>
 </div>
 
 <main id="nav-container">
@@ -351,7 +390,70 @@ function extractDomain(url) {
 
   loadLinks();
   setupSearch();
+  setupPoe2Countdown();
 })();
+
+// ===== 国服倒计时 =====
+async function setupPoe2Countdown() {
+  let cfg = {};
+  try { cfg = await window.__configReq; } catch(e) { cfg = {}; }
+  if (!cfg || !cfg.poe2_cn_countdown) return;
+
+  // 配置开启 → 立刻发起 poe2-time 请求（与下面 DOM 操作并行）
+  if (!window.__poe2TimeReq) window.__poe2TimeReq = fetch('/api/poe2-time').then(r => r.ok ? r.json() : null).catch(() => null);
+
+  const data = await window.__poe2TimeReq;
+  if (!data || !data.cn) return;
+  renderPoe2Countdown(data.cn);
+}
+
+function renderPoe2Countdown(target) {
+  const box = document.getElementById('poe2-countdown');
+  if (!box) return;
+  const ts = target.timestamp * 1000;
+  const date = new Date(ts);
+  const dateStr = date.toLocaleString('zh-CN', { year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', hour12:false });
+
+  const titleEl = document.getElementById('poe2cd-title');
+  const dateEl = document.getElementById('poe2cd-date');
+  const timerEl = document.getElementById('poe2cd-timer');
+  const isUpcoming = target.status === 'upcoming';
+  titleEl.innerHTML = `<span class="badge">国服</span>${escHtml(target.name)}`;
+  dateEl.textContent = (isUpcoming ? '开服时间：' : '已开服：') + dateStr;
+  box.style.display = 'block';
+  document.body.classList.add('has-poe2-countdown');
+
+  function tick() {
+    const now = Date.now();
+    const diff = ts - now;
+    if (isUpcoming && diff > 0) {
+      timerEl.textContent = formatDiff(diff);
+    } else if (!isUpcoming) {
+      const past = now - ts;
+      timerEl.textContent = '已运行 ' + formatDiff(past);
+    } else {
+      // 即将开服，但已过期 → 显示已开服
+      timerEl.textContent = '已开服';
+    }
+  }
+  tick();
+  // 每秒刷新；秒级精度足够
+  setInterval(tick, 1000);
+}
+
+function formatDiff(ms) {
+  if (ms < 0) ms = 0;
+  const total = Math.floor(ms / 1000);
+  const d = Math.floor(total / 86400);
+  const h = Math.floor((total % 86400) / 3600);
+  const m = Math.floor((total % 3600) / 60);
+  const s = total % 60;
+  const pad = n => String(n).padStart(2, '0');
+  if (d > 0) return `${d}天 ${pad(h)}:${pad(m)}:${pad(s)}`;
+  return `${pad(h)}:${pad(m)}:${pad(s)}`;
+}
+
+function escHtml(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
 </script>
 <script src="js/speed-insights.js" defer></script>
 </body>

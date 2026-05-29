@@ -252,7 +252,35 @@ tr:hover td{background:rgba(26,115,232,.03)}
         </table>
       </div>
     </div>
+
+    <!-- 网站设置 Tab 内容 -->
+    <div class="tab-content" id="settingsTabContent" style="display:none">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px 20px;max-width:760px">
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--text)">首页功能开关</h3>
+
+        <div class="setting-row" style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--border)">
+          <div style="flex:1;min-width:0">
+            <div style="font-weight:600;font-size:.95rem;color:var(--text);margin-bottom:4px">国服开服倒计时</div>
+            <div style="font-size:.8rem;color:var(--sub);line-height:1.5">在首页顶部显示腾讯国服 POE2 下个赛季的开服倒计时（数据来自 poe2db.tw）</div>
+          </div>
+          <label class="toggle-switch" style="position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0">
+            <input type="checkbox" id="cfgPoe2Countdown" onchange="toggleSiteConfig('poe2_cn_countdown', this.checked)" style="opacity:0;width:0;height:0">
+            <span class="toggle-slider" style="position:absolute;cursor:pointer;inset:0;background:var(--border2,#ccc);border-radius:24px;transition:.2s"></span>
+          </label>
+        </div>
+
+        <div style="margin-top:14px;font-size:.78rem;color:var(--sub);line-height:1.6">
+          💡 提示：设置保存后，首页 CDN 缓存会在 5 分钟内自动更新；用户刷新页面即可看到最新效果。
+        </div>
+      </div>
+    </div>
   </div>
+
+  <style>
+    .toggle-switch input:checked + .toggle-slider { background: var(--brand, #1a73e8); }
+    .toggle-slider:before { content:""; position:absolute; height:18px; width:18px; left:3px; bottom:3px; background:#fff; border-radius:50%; transition:.2s; }
+    .toggle-switch input:checked + .toggle-slider:before { transform:translateX(20px); }
+  </style>
 </div>
 
 <!-- 编辑模态框 -->
@@ -397,7 +425,9 @@ const API_FILES = '/api/builds-files';
 const ADMIN_USER = 'admin';
 const ADMIN_PASS = '54188wang';
 const AUTH_KEY = 'poe2_admin_auth';
-const PAGE_TYPES = ['首页导航', 'BD推荐', '资讯动态'];
+const PAGE_TYPES = ['首页导航', 'BD推荐', '资讯动态', '网站设置'];
+const API_CONFIG = '/api/site-config';
+let siteConfig = {};
 
 let allLinks = [];
 let allNews = [];
@@ -449,10 +479,39 @@ function showAdminPanel() {
 
 // ===== 加载 =====
 async function loadAllData() {
-  await Promise.all([loadLinks(), loadNews(), loadHtmlFiles()]);
+  await Promise.all([loadLinks(), loadNews(), loadHtmlFiles(), loadSiteConfig()]);
   renderPageTabs();
   switchTab(activeTab);
   renderHtmlFileSelect();
+}
+
+async function loadSiteConfig() {
+  try {
+    const resp = await fetch(API_CONFIG + '?fresh=1', { cache: 'no-store' });
+    siteConfig = resp.ok ? await resp.json() : {};
+  } catch (e) { siteConfig = {}; }
+}
+
+async function toggleSiteConfig(key, val) {
+  try {
+    const resp = await fetch(API_CONFIG, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ key, value: val })
+    });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    siteConfig[key] = val;
+  } catch (e) {
+    alert('保存失败：' + e.message);
+    // 回滚 UI
+    const cb = document.getElementById('cfgPoe2Countdown');
+    if (cb) cb.checked = !val;
+  }
+}
+
+function applySiteConfigToUI() {
+  const cb = document.getElementById('cfgPoe2Countdown');
+  if (cb) cb.checked = !!siteConfig.poe2_cn_countdown;
 }
 
 async function loadLinks() {
@@ -480,8 +539,12 @@ async function loadHtmlFiles() {
 // ===== Tab =====
 function renderPageTabs() {
   document.getElementById('pageTabs').innerHTML = PAGE_TYPES.map(pt => {
-    const count = pt === '资讯动态' ? allNews.length : allLinks.filter(l => l.page_type === pt).length;
-    return `<button class="page-tab${pt === activeTab ? ' active' : ''}" onclick="switchTab('${escAttr(pt)}')">${esc(pt)} <span class="tab-count">${count}</span></button>`;
+    let count;
+    if (pt === '资讯动态') count = allNews.length;
+    else if (pt === '网站设置') count = '';
+    else count = allLinks.filter(l => l.page_type === pt).length;
+    const countHtml = count !== '' ? `<span class="tab-count">${count}</span>` : '';
+    return `<button class="page-tab${pt === activeTab ? ' active' : ''}" onclick="switchTab('${escAttr(pt)}')">${esc(pt)} ${countHtml}</button>`;
   }).join('');
 }
 
@@ -491,10 +554,14 @@ function switchTab(pt) {
   document.getElementById('catFilterLabel').textContent = '全部';
   closeCatDropdown();
   const isNews = pt === '资讯动态';
-  document.getElementById('tabContent').style.display = isNews ? 'none' : 'block';
+  const isSettings = pt === '网站设置';
+  const isLinks = !isNews && !isSettings;
+  document.getElementById('tabContent').style.display = isLinks ? 'block' : 'none';
   document.getElementById('newsTabContent').style.display = isNews ? 'block' : 'none';
+  document.getElementById('settingsTabContent').style.display = isSettings ? 'block' : 'none';
   renderPageTabs();
   if (isNews) renderNewsTable();
+  else if (isSettings) applySiteConfigToUI();
   else renderTable();
 }
 
