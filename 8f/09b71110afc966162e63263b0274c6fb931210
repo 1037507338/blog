@@ -1,0 +1,23 @@
+js/nav.js
+  s_9acbdd38e6b917::t_100545f330b495 149-155,161-162,164-176
+vercel.json
+  s_9acbdd38e6b917::t_fb4f657a134fd6 33-44
+index.html
+  s_9acbdd38e6b917::t_b8e341f27cf7de 8-17,19,23-125,142,172-355,358
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "8f09b71110afc966162e63263b0274c6fb931210",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
