@@ -1,0 +1,41 @@
+tools.html
+  s_9acbdd38e6b917::t_469fe85f161f8d 18
+  s_9acbdd38e6b917::t_d19c3841e778b7 51
+maps.html
+  s_9acbdd38e6b917::t_469fe85f161f8d 20
+  s_9acbdd38e6b917::t_dbe20484b199c6 145
+guides.html
+  s_9acbdd38e6b917::t_578873de72b8ac 103
+  s_9acbdd38e6b917::t_469fe85f161f8d 18
+news.html
+  s_9acbdd38e6b917::t_469fe85f161f8d 18
+  s_9acbdd38e6b917::t_ad662eefdb0035 63
+  s_9acbdd38e6b917::t_69cb74036a3cde 85
+  s_9acbdd38e6b917::t_0806187f8a2f23 44
+  s_9acbdd38e6b917::t_4fbcd79d0dcad3 108
+builds.html
+  s_9acbdd38e6b917::t_469fe85f161f8d 185
+index.html
+  s_9acbdd38e6b917::t_8b7ea8e184a6a9 94
+news-detail.html
+  s_9acbdd38e6b917::t_8bf94cf17b936b 105
+  s_9acbdd38e6b917::t_469fe85f161f8d 50
+  s_9acbdd38e6b917::t_d0fd6da43fc221 77
+  s_9acbdd38e6b917::t_11191c0e9e1c2c 113
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "9e85c2d7b85c9f2cd84488bca21cccccb43e615e",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
