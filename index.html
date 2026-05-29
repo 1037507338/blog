@@ -17,6 +17,10 @@ window.__poe2TimeReq = null; // 按需触发，仅在配置开启时发起
 <link rel="icon" href="favicon.ico">
 <link rel="dns-prefetch" href="https://icon.horse">
 <link rel="preconnect" href="https://icon.horse" crossorigin>
+<!-- 字体：Cinzel 罗马石刻 + Cormorant 衬线 + Noto Serif SC 中文宋 + IBM Plex Mono 等宽 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 /* ===== 全部样式内联（原 css/style.css，省一次 RTT） ===== */
 :root{--bg-start:#f5f5f5;--bg-end:#f0f0f0;--card-bg:rgba(255,255,255,0.95);--card-border:rgba(220,220,220,0.5);--card-shadow:0 1px 2px 0 rgba(0,0,0,0.05);--card-shadow-hover:0 3px 6px -1px rgba(0,0,0,0.1);--text:#333;--subtext:#666;--accent:#555;--link:#555;--link-hover:#000;--btn-bg:rgba(255,255,255,.9);--btn-bg-hover:rgba(255,255,255,1);--btn-icon:#555;--btn-shadow:0 1px 3px rgba(0,0,0,.05);--btn-shadow-hover:0 2px 5px rgba(0,0,0,.08);--nav-bg:rgba(255,255,255,0.92);--nav-border:rgba(220,220,220,0.6);--nav-link:#555;--nav-link-hover:#000;--nav-active:#1a73e8}
@@ -150,6 +154,318 @@ body.has-poe2-countdown .search-container.compact{margin-top:12px !important}
 @media(max-width:480px){
   body.has-poe2-countdown .search-container.compact{margin:10px 1rem 1.2rem !important;padding:0}
 }
+
+/* ============================================================ */
+/* ===== 重设计：流放者编年史（Exile's Compendium）羊皮卷主题 ===== */
+/* ============================================================ */
+:root{
+  --ink-900:#0d0a07;--ink-800:#14100c;--ink-700:#1d1812;--ink-600:#2a221a;--ink-500:#3a2f23;
+  --gold-100:#f6e6b0;--gold-200:#e8c970;--gold-400:#c9a227;--gold-600:#8b6914;
+  --parchment:#ede1c8;--parchment-muted:#a89c80;--parchment-faint:#6e6557;
+  --crimson:#8b2e2e;
+  --font-display:'Cinzel','Noto Serif SC',serif;
+  --font-body:'Cormorant Garamond','Noto Serif SC',Georgia,serif;
+  --font-zh:'Noto Serif SC','Cormorant Garamond',serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',monospace;
+}
+body[data-theme="light"]{
+  --ink-900:#fffaef;--ink-800:#faf2dd;--ink-700:#f3e9cf;--ink-600:#ebdfb9;--ink-500:#d6c79c;
+  --parchment:#2a1d0e;--parchment-muted:#5c4a2e;--parchment-faint:#8a7755;
+}
+body{
+  font-family:var(--font-body);
+  font-size:17px;font-weight:400;line-height:1.55;
+  background:var(--ink-800)!important;color:var(--parchment);
+  -webkit-font-smoothing:antialiased;position:relative;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%,rgba(201,162,39,0.06),transparent 70%),
+    radial-gradient(ellipse 100% 60% at 50% 100%,rgba(0,0,0,0.6),transparent 70%);
+}
+body[data-theme="light"]::before{
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%,rgba(201,162,39,0.10),transparent 70%),
+    radial-gradient(ellipse 100% 60% at 50% 100%,rgba(139,105,20,0.08),transparent 70%);
+}
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/></svg>");
+  opacity:0.05;mix-blend-mode:overlay;
+}
+body>*{position:relative;z-index:1;}
+
+/* ====== NAV 重设计 ====== */
+.site-nav{
+  background:rgba(13,10,7,0.85)!important;
+  backdrop-filter:blur(16px) saturate(150%);
+  border-bottom:1px solid var(--ink-500)!important;
+  height:56px;
+}
+body[data-theme="light"] .site-nav{background:rgba(250,242,221,0.88)!important;}
+.site-nav-logo{
+  font-family:var(--font-display)!important;font-size:1.05rem;font-weight:600;
+  letter-spacing:0.18em;color:var(--gold-200)!important;text-transform:uppercase;
+}
+.logo-icon{font-size:1.15rem;background:linear-gradient(135deg,var(--gold-200),var(--gold-600))!important;-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.site-nav-link{
+  font-family:var(--font-display)!important;font-size:0.74rem;font-weight:500;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--parchment-muted)!important;padding:7px 14px!important;border-radius:0!important;
+  position:relative;transition:color 0.3s;
+}
+.site-nav-link:hover{color:var(--gold-200)!important;background:transparent!important;}
+.site-nav-link.active{color:var(--gold-200)!important;background:transparent!important;font-weight:600;}
+.site-nav-link.active::after{
+  content:'';position:absolute;left:50%;bottom:-1px;width:28px;height:2px;
+  transform:translateX(-50%);
+  background:linear-gradient(90deg,transparent,var(--gold-400),transparent);
+}
+
+/* ====== HERO ====== */
+.hero{
+  padding:120px 1.5rem 60px;text-align:center;
+  max-width:760px;margin:0 auto;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:16px;margin-bottom:32px;
+  font-family:var(--font-display);font-size:0.7rem;font-weight:500;
+  letter-spacing:0.42em;text-transform:uppercase;color:var(--gold-400);
+}
+.hero-eyebrow::before,.hero-eyebrow::after{
+  content:'';width:56px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold-400));
+}
+.hero-eyebrow::after{background:linear-gradient(270deg,transparent,var(--gold-400));}
+.hero-title{
+  font-family:var(--font-display);font-weight:700;line-height:1;
+  letter-spacing:0.04em;margin:0;
+  display:flex;flex-direction:column;gap:18px;
+}
+.hero-title-en{
+  font-size:clamp(2.4rem,6.5vw,4.6rem);
+  background:linear-gradient(180deg,var(--gold-100) 0%,var(--gold-200) 40%,var(--gold-400) 70%,var(--gold-600) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  text-shadow:0 0 50px rgba(201,162,39,0.18);
+}
+.hero-title-zh{
+  font-family:var(--font-zh);font-size:clamp(0.9rem,1.4vw,1.05rem);font-weight:400;
+  letter-spacing:0.5em;color:var(--parchment-muted);padding-left:0.5em;
+}
+.hero-divider{margin:44px auto 50px;color:var(--gold-400);opacity:0.85;display:flex;justify-content:center;}
+
+/* ====== RITUAL · 倒计时祭坛 ====== */
+.ritual{
+  position:relative;max-width:580px;margin:0 auto 50px;
+  padding:38px 36px 28px;
+  background:
+    linear-gradient(135deg,rgba(201,162,39,0.04) 0%,rgba(139,105,20,0.08) 100%),
+    var(--ink-700);
+  border:1px solid rgba(201,162,39,0.22);
+  box-shadow:inset 0 0 80px rgba(201,162,39,0.05),0 30px 60px -25px rgba(0,0,0,0.6);
+}
+body[data-theme="light"] .ritual{
+  background:linear-gradient(135deg,rgba(201,162,39,0.05),rgba(139,105,20,0.03)),var(--ink-700);
+}
+.ritual-corner{position:absolute;width:22px;height:22px;pointer-events:none;}
+.ritual-corner-tl{top:-1px;left:-1px;border-top:1.5px solid var(--gold-400);border-left:1.5px solid var(--gold-400);}
+.ritual-corner-tr{top:-1px;right:-1px;border-top:1.5px solid var(--gold-400);border-right:1.5px solid var(--gold-400);}
+.ritual-corner-bl{bottom:-1px;left:-1px;border-bottom:1.5px solid var(--gold-400);border-left:1.5px solid var(--gold-400);}
+.ritual-corner-br{bottom:-1px;right:-1px;border-bottom:1.5px solid var(--gold-400);border-right:1.5px solid var(--gold-400);}
+.ritual-label{
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  font-family:var(--font-display);font-size:0.72rem;font-weight:500;
+  letter-spacing:0.42em;color:var(--gold-400);text-transform:uppercase;margin-bottom:18px;
+}
+.ritual-label-mark{font-size:0.6rem;color:var(--gold-600);}
+.ritual-name{
+  font-family:var(--font-zh);font-size:1.5rem;font-weight:500;
+  color:var(--parchment);letter-spacing:0.06em;margin-bottom:26px;
+}
+.ritual-timer{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:22px;}
+.ritual-block{
+  padding:14px 6px;background:rgba(0,0,0,0.32);
+  border:1px solid rgba(201,162,39,0.14);
+  position:relative;transition:border-color 0.4s,background 0.4s;
+}
+body[data-theme="light"] .ritual-block{background:rgba(201,162,39,0.06);}
+.ritual-block:hover{border-color:rgba(201,162,39,0.45);}
+.ritual-num{
+  display:block;font-family:var(--font-mono);font-size:2rem;font-weight:500;
+  color:var(--gold-200);line-height:1;margin-bottom:6px;
+  font-feature-settings:'tnum' 1;text-shadow:0 0 14px rgba(232,201,112,0.35);
+}
+.ritual-unit{
+  display:block;font-family:var(--font-display);font-size:0.6rem;font-weight:500;
+  letter-spacing:0.35em;color:var(--parchment-faint);text-transform:uppercase;
+}
+.ritual-meta{
+  font-family:var(--font-body);font-style:italic;font-size:0.86rem;
+  color:var(--parchment-faint);letter-spacing:0.04em;
+}
+.ritual-meta-sep{margin:0 8px;opacity:0.5;}
+
+/* ====== SEARCH ====== */
+.search-vessel{position:relative;max-width:480px;margin:0 auto;}
+.search-rune{
+  position:absolute;left:18px;top:27px;transform:translateY(-50%);
+  font-family:var(--font-display);font-size:1.25rem;color:var(--gold-400);
+  pointer-events:none;z-index:2;
+}
+.search-vessel .search-input{
+  width:100%;height:54px;padding:0 50px;
+  background:rgba(0,0,0,0.32);
+  border:1px solid var(--ink-500);color:var(--parchment);
+  font-family:var(--font-body);font-size:1.1rem;font-style:italic;
+  letter-spacing:0.04em;outline:none;
+  transition:border-color 0.3s,box-shadow 0.3s;
+}
+body[data-theme="light"] .search-vessel .search-input{background:rgba(255,255,255,0.5);}
+.search-vessel .search-input::placeholder{color:var(--parchment-faint);font-style:italic;}
+.search-vessel .search-input:focus{
+  border-color:var(--gold-400);
+  box-shadow:0 0 0 1px rgba(201,162,39,0.3),0 0 32px rgba(201,162,39,0.18);
+}
+.search-vessel .search-clear{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  width:24px;height:24px;border:none;background:transparent;
+  color:var(--parchment-faint);display:none;align-items:center;justify-content:center;cursor:pointer;
+}
+.search-vessel .search-clear.visible{display:flex;}
+.search-vessel .search-clear:hover{color:var(--gold-200);}
+.search-vessel .search-results-count{
+  margin-top:10px;font-family:var(--font-body);font-style:italic;
+  font-size:0.85rem;color:var(--parchment-faint);text-align:right;display:none;
+}
+.search-vessel .search-results-count.visible{display:block;}
+
+/* ====== COMPENDIUM · 章节式导航（覆盖 main 默认） ====== */
+main#nav-container{
+  max-width:1200px!important;margin:0 auto!important;
+  padding:30px 1.5rem 80px!important;background:transparent!important;
+  counter-reset:chapter;
+}
+main#nav-container>section{
+  counter-increment:chapter;margin-bottom:64px;position:relative;
+}
+main#nav-container>section h2{
+  display:flex;align-items:center;gap:18px;margin-bottom:28px;padding-bottom:14px;
+  border-bottom:1px solid var(--ink-500);
+  font-family:var(--font-zh)!important;font-size:1.35rem;font-weight:500;
+  letter-spacing:0.08em;color:var(--parchment);position:relative;
+  background:none!important;-webkit-text-fill-color:initial!important;
+}
+main#nav-container>section h2::before{
+  content:'⌜ ' counter(chapter,upper-roman) ' ⌝';
+  font-family:var(--font-display);font-size:0.78rem;font-weight:500;
+  letter-spacing:0.18em;color:var(--gold-400);
+  padding:4px 10px;border:1px solid var(--gold-600);
+  background:rgba(201,162,39,0.05);flex-shrink:0;
+}
+main#nav-container>section h2::after{
+  content:'';position:absolute;left:0;bottom:-1px;width:100px;height:1px;
+  background:linear-gradient(90deg,var(--gold-400),transparent);
+}
+main#nav-container>section ul{
+  list-style:none;margin:0;padding:0;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;
+}
+main#nav-container>section li{
+  position:relative;padding:16px 18px;
+  background:var(--ink-700)!important;border:1px solid var(--ink-500)!important;
+  cursor:pointer;overflow:hidden;border-radius:0!important;
+  transition:transform 0.25s ease,border-color 0.25s ease,box-shadow 0.25s ease;
+}
+main#nav-container>section li::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,transparent 60%,rgba(201,162,39,0.08));
+  opacity:0;transition:opacity 0.3s;pointer-events:none;
+}
+main#nav-container>section li::after{
+  content:'';position:absolute;top:7px;right:7px;width:9px;height:9px;
+  border-top:1px solid var(--gold-400);border-right:1px solid var(--gold-400);
+  opacity:0;transition:opacity 0.3s;
+}
+main#nav-container>section li:hover{
+  border-color:var(--gold-400)!important;transform:translateY(-2px);
+  box-shadow:0 16px 32px -12px rgba(0,0,0,0.5);
+}
+main#nav-container>section li:hover::before,
+main#nav-container>section li:hover::after{opacity:1;}
+main#nav-container>section li .card-title{
+  display:flex;align-items:center;gap:12px;text-decoration:none;
+  font-family:var(--font-zh)!important;font-size:1rem!important;font-weight:500;
+  color:var(--parchment)!important;margin-bottom:4px;
+}
+main#nav-container>section li .favicon-container{
+  width:26px;height:26px;flex-shrink:0;
+  background:rgba(0,0,0,0.3);border:1px solid var(--ink-500);
+  display:flex;align-items:center;justify-content:center;border-radius:0;
+}
+main#nav-container>section li .favicon{width:16px;height:16px;}
+main#nav-container>section li .url{
+  margin:0 0 0 38px!important;
+  font-family:var(--font-mono);font-size:0.74rem!important;font-weight:400;
+  color:var(--parchment-faint)!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  letter-spacing:0;opacity:1;
+}
+main#nav-container>section li .link-text{font-family:var(--font-zh);}
+
+/* ====== FOOTER ====== */
+footer{
+  border-top:1px solid var(--ink-500);
+  padding:36px 1.5rem 48px;text-align:center;
+  font-family:var(--font-body);font-style:italic;font-size:0.88rem;
+  color:var(--parchment-faint);letter-spacing:0.05em;position:relative;
+  background:transparent!important;
+}
+footer::before{
+  content:'◆';display:block;margin:0 auto 16px;
+  color:var(--gold-600);font-size:0.7rem;
+}
+footer a{color:var(--gold-400);text-decoration:none;border-bottom:1px solid rgba(201,162,39,0.3);}
+
+/* ====== 入场动画 ====== */
+.hero>*{opacity:0;transform:translateY(8px);animation:rise 0.85s cubic-bezier(.2,.6,.2,1) forwards;}
+.hero-eyebrow{animation-delay:0.05s;}
+.hero-title{animation-delay:0.18s;}
+.hero-divider{animation-delay:0.32s;}
+.ritual{animation-delay:0.42s;}
+.search-vessel{animation-delay:0.55s;}
+@keyframes rise{to{opacity:1;transform:translateY(0);}}
+
+/* ====== 按钮（主题切换、返回顶部） ====== */
+#theme-toggle,#back-to-top{
+  background:rgba(13,10,7,0.7)!important;border:1px solid var(--ink-500)!important;
+  color:var(--gold-400)!important;
+}
+body[data-theme="light"] #theme-toggle,
+body[data-theme="light"] #back-to-top{
+  background:rgba(250,242,221,0.85)!important;
+}
+#theme-toggle:hover,#back-to-top:hover{
+  border-color:var(--gold-400)!important;color:var(--gold-200)!important;
+}
+
+/* ====== 响应式 ====== */
+@media(max-width:768px){
+  .hero{padding:80px 1rem 40px;}
+  .hero-eyebrow{font-size:0.62rem;letter-spacing:0.32em;}
+  .hero-eyebrow::before,.hero-eyebrow::after{width:32px;}
+  .hero-title-en{letter-spacing:0.02em;}
+  .hero-title-zh{letter-spacing:0.3em;}
+  .ritual{padding:28px 18px 22px;margin-bottom:40px;}
+  .ritual-name{font-size:1.2rem;}
+  .ritual-num{font-size:1.55rem;}
+  .ritual-unit{font-size:0.55rem;letter-spacing:0.22em;}
+  .search-vessel .search-input{font-size:1rem;height:48px;}
+  .search-rune{top:24px;font-size:1.1rem;}
+  main#nav-container{padding:24px 1rem 60px!important;}
+  main#nav-container>section ul{grid-template-columns:1fr;gap:8px;}
+  main#nav-container>section h2{font-size:1.15rem;gap:12px;}
+  .site-nav-link{font-size:0.68rem;letter-spacing:0.18em;padding:6px 10px!important;}
+}
 </style>
 </head>
 <body>
@@ -173,36 +489,61 @@ body.has-poe2-countdown .search-container.compact{margin-top:12px !important}
 <button id="theme-toggle" aria-label="切换深浅色模式"><svg class="theme-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="theme-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
 <button id="back-to-top" aria-label="返回顶部">👆</button>
 
-<!-- 国服开服倒计时（管理端可关闭，默认隐藏；放在 search 之前以正确占据 nav 下方位置） -->
-<div id="poe2-countdown" class="poe2-countdown" style="display:none">
-  <div class="poe2-countdown-inner">
-    <div class="poe2-countdown-icon">⚔️</div>
-    <div class="poe2-countdown-body">
-      <div class="poe2-countdown-title" id="poe2cd-title">加载中…</div>
-      <div class="poe2-countdown-meta">
-        <span id="poe2cd-date"></span>
-        <span class="poe2-countdown-sep">·</span>
-        <span id="poe2cd-source">数据来自 poe2db.tw</span>
-      </div>
-    </div>
-    <div class="poe2-countdown-timer" id="poe2cd-timer">--</div>
-  </div>
-</div>
+<header class="hero">
+  <div class="hero-eyebrow"><span>Path of Exile 2 · 流放之路 II</span></div>
 
-<div class="search-container compact">
-  <div class="search-box">
-    <div class="search-icon">
-      <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-    </div>
-    <div class="search-input-area">
-      <input type="text" class="search-input" id="search-input" placeholder="搜索导航链接..." autocomplete="off">
-      <button class="search-clear" id="search-clear" aria-label="清空搜索">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-      </button>
-    </div>
+  <h1 class="hero-title">
+    <span class="hero-title-en">Exile's Compendium</span>
+    <span class="hero-title-zh">流 放 者 编 年 史</span>
+  </h1>
+
+  <div class="hero-divider" aria-hidden="true">
+    <svg width="140" height="14" viewBox="0 0 140 14" fill="none">
+      <line x1="0" y1="7" x2="56" y2="7" stroke="currentColor" stroke-width="0.6"/>
+      <line x1="84" y1="7" x2="140" y2="7" stroke="currentColor" stroke-width="0.6"/>
+      <path d="M64 7 L70 2 L76 7 L70 12 Z" stroke="currentColor" stroke-width="0.8" fill="none"/>
+      <circle cx="70" cy="7" r="1.2" fill="currentColor"/>
+    </svg>
   </div>
-  <div class="search-results-count" id="search-results-count"></div>
-</div>
+
+  <!-- 倒计时祭坛（管理端可关闭，默认隐藏） -->
+  <section id="poe2-countdown" class="ritual" style="display:none">
+    <span class="ritual-corner ritual-corner-tl"></span>
+    <span class="ritual-corner ritual-corner-tr"></span>
+    <span class="ritual-corner ritual-corner-bl"></span>
+    <span class="ritual-corner ritual-corner-br"></span>
+
+    <div class="ritual-label">
+      <span class="ritual-label-mark">◆</span>
+      <span id="poe2cd-status">国服赛季倒计时</span>
+      <span class="ritual-label-mark">◆</span>
+    </div>
+
+    <div class="ritual-name" id="poe2cd-title">加载中…</div>
+
+    <div class="ritual-timer" id="poe2cd-timer">
+      <div class="ritual-block"><span class="ritual-num" data-seg="d">--</span><span class="ritual-unit">DIES</span></div>
+      <div class="ritual-block"><span class="ritual-num" data-seg="h">--</span><span class="ritual-unit">HORA</span></div>
+      <div class="ritual-block"><span class="ritual-num" data-seg="m">--</span><span class="ritual-unit">MIN</span></div>
+      <div class="ritual-block"><span class="ritual-num" data-seg="s">--</span><span class="ritual-unit">SEC</span></div>
+    </div>
+
+    <div class="ritual-meta">
+      <span id="poe2cd-date"></span>
+      <span class="ritual-meta-sep">·</span>
+      <span id="poe2cd-source">poe2db.tw</span>
+    </div>
+  </section>
+
+  <div class="search-vessel">
+    <span class="search-rune" aria-hidden="true">⌕</span>
+    <input type="text" id="search-input" class="search-input" placeholder="Search the compendium · 检索卷宗" autocomplete="off">
+    <button class="search-clear" id="search-clear" aria-label="清空">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="search-results-count" id="search-results-count"></div>
+  </div>
+</header>
 
 <main id="nav-container">
   <div class="loading">⚡ 加载中...</div>
@@ -416,45 +757,39 @@ function renderPoe2Countdown(target) {
   if (!box) return;
   const ts = target.timestamp * 1000;
   const date = new Date(ts);
-  const dateStr = date.toLocaleString('zh-CN', { year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', hour12:false });
-
-  const titleEl = document.getElementById('poe2cd-title');
-  const dateEl = document.getElementById('poe2cd-date');
-  const timerEl = document.getElementById('poe2cd-timer');
   const isUpcoming = target.status === 'upcoming';
-  titleEl.innerHTML = `<span class="badge">国服</span>${escHtml(target.name)}`;
-  dateEl.textContent = (isUpcoming ? '开服时间：' : '已开服：') + dateStr;
+
+  document.getElementById('poe2cd-status').textContent = isUpcoming ? '国服赛季倒计时' : '当前赛季已运行';
+  document.getElementById('poe2cd-title').textContent = target.name;
+  document.getElementById('poe2cd-date').textContent = date.toLocaleString('zh-CN', {
+    year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', hour12:false
+  });
+
   box.style.display = 'block';
   document.body.classList.add('has-poe2-countdown');
 
+  const segs = {
+    d: box.querySelector('[data-seg="d"]'),
+    h: box.querySelector('[data-seg="h"]'),
+    m: box.querySelector('[data-seg="m"]'),
+    s: box.querySelector('[data-seg="s"]'),
+  };
+  const pad = n => String(Math.max(0, n)).padStart(2, '0');
+
   function tick() {
-    const now = Date.now();
-    const diff = ts - now;
-    if (isUpcoming && diff > 0) {
-      timerEl.textContent = formatDiff(diff);
-    } else if (!isUpcoming) {
-      const past = now - ts;
-      timerEl.textContent = '已运行 ' + formatDiff(past);
-    } else {
-      // 即将开服，但已过期 → 显示已开服
-      timerEl.textContent = '已开服';
-    }
+    const diff = isUpcoming ? (ts - Date.now()) : (Date.now() - ts);
+    const total = Math.max(0, Math.floor(diff / 1000));
+    const d = Math.floor(total / 86400);
+    const h = Math.floor((total % 86400) / 3600);
+    const m = Math.floor((total % 3600) / 60);
+    const s = total % 60;
+    segs.d.textContent = String(d).padStart(2, '0');
+    segs.h.textContent = pad(h);
+    segs.m.textContent = pad(m);
+    segs.s.textContent = pad(s);
   }
   tick();
-  // 每秒刷新；秒级精度足够
   setInterval(tick, 1000);
-}
-
-function formatDiff(ms) {
-  if (ms < 0) ms = 0;
-  const total = Math.floor(ms / 1000);
-  const d = Math.floor(total / 86400);
-  const h = Math.floor((total % 86400) / 3600);
-  const m = Math.floor((total % 3600) / 60);
-  const s = total % 60;
-  const pad = n => String(n).padStart(2, '0');
-  if (d > 0) return `${d}天 ${pad(h)}:${pad(m)}:${pad(s)}`;
-  return `${pad(h)}:${pad(m)}:${pad(s)}`;
 }
 
 function escHtml(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
