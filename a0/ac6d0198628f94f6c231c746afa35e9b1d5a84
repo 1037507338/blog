@@ -1,0 +1,36 @@
+tools.html
+  ai_agent 18
+guides.html
+  s_9acbdd38e6b917::t_cf8e508959ed02 68
+  s_9acbdd38e6b917::t_b9dddd0a8a66d3 67,75,81,87,93,103
+  s_9acbdd38e6b917::t_7a72ad87be2cbf 65
+  s_9acbdd38e6b917::t_5c74137540886c 71
+  s_9acbdd38e6b917::t_1247815af079fd 66,76,82,88,94
+builds.html
+  ai_agent 185
+news.html
+  ai_agent 18
+index.html
+  s_9acbdd38e6b917::t_58a1781357326a 262-263,266-267,269-271,273
+  s_9acbdd38e6b917::t_d5105dd9533a1b 435
+maps.html
+  ai_agent 20
+news-detail.html
+  ai_agent 50
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "a0ac6d0198628f94f6c231c746afa35e9b1d5a84",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
