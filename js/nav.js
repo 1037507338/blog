@@ -146,29 +146,34 @@ function loadFavicons() {
 }
 
 function tryLoadFavicon(faviconImg, domain) {
-  // Google 服务：国内勉强可用，超时 fallback
-  const url = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=32`;
-  const img = new Image();
+  // 国内可用的 favicon 服务，按顺序失败重试
+  const sources = [
+    `https://icon.horse/icon/${domain}`,                 // 主：国内通畅、命中率高
+    `https://favicon.im/${domain}?larger=true`,          // 备 1
+    `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=32` // 备 2
+  ];
+  let idx = 0;
   let done = false;
   const timer = setTimeout(() => {
     if (done) return;
     done = true;
     showEmojiIcon(faviconImg);
-  }, 3000);
-  img.onload = function() {
+  }, 4000);
+  function attempt() {
     if (done) return;
-    done = true;
-    clearTimeout(timer);
-    if (img.naturalWidth <= 1 && img.naturalHeight <= 1) showEmojiIcon(faviconImg);
-    else { faviconImg.src = url; faviconImg.classList.add('loaded'); }
-  };
-  img.onerror = function() {
-    if (done) return;
-    done = true;
-    clearTimeout(timer);
-    showEmojiIcon(faviconImg);
-  };
-  img.src = url;
+    if (idx >= sources.length) { done = true; clearTimeout(timer); showEmojiIcon(faviconImg); return; }
+    const url = sources[idx++];
+    const img = new Image();
+    img.onload = () => {
+      if (done) return;
+      if (img.naturalWidth <= 1 && img.naturalHeight <= 1) { attempt(); return; }
+      done = true; clearTimeout(timer);
+      faviconImg.src = url; faviconImg.classList.add('loaded');
+    };
+    img.onerror = () => attempt();
+    img.src = url;
+  }
+  attempt();
 }
 function showEmojiIcon(faviconImg) {
   const c = document.createElement('canvas'); c.width=16; c.height=16;

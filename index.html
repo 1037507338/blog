@@ -4,24 +4,129 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="description" content="流放之路2导航">
-<meta name="keywords" content="流放之路2导航,poe2导航,poe2攻略站,poe2社区">
 <title>POE2 Hub - 流放之路2导航站</title>
+<!-- 关键：HTML 解析阶段就把 API 请求发出去，与下方 CSS/JS 解析并行；render 阶段直接 await -->
+<script>
+window.__linksReq = (function(){
+  try { return fetch('/api/links').then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP '+r.status))); }
+  catch(e){ return Promise.reject(e); }
+})();
+</script>
+<link rel="icon" href="favicon.ico">
+<link rel="dns-prefetch" href="https://icon.horse">
+<link rel="preconnect" href="https://icon.horse" crossorigin>
 <style>
-/* ===== 内联关键CSS ===== */
+/* ===== 全部样式内联（原 css/style.css，省一次 RTT） ===== */
 :root{--bg-start:#f5f5f5;--bg-end:#f0f0f0;--card-bg:rgba(255,255,255,0.95);--card-border:rgba(220,220,220,0.5);--card-shadow:0 1px 2px 0 rgba(0,0,0,0.05);--card-shadow-hover:0 3px 6px -1px rgba(0,0,0,0.1);--text:#333;--subtext:#666;--accent:#555;--link:#555;--link-hover:#000;--btn-bg:rgba(255,255,255,.9);--btn-bg-hover:rgba(255,255,255,1);--btn-icon:#555;--btn-shadow:0 1px 3px rgba(0,0,0,.05);--btn-shadow-hover:0 2px 5px rgba(0,0,0,.08);--nav-bg:rgba(255,255,255,0.92);--nav-border:rgba(220,220,220,0.6);--nav-link:#555;--nav-link-hover:#000;--nav-active:#1a73e8}
 [data-theme="dark"]{--bg-start:#222;--bg-end:#1a1a1a;--card-bg:rgba(40,40,40,0.95);--card-border:rgba(60,60,60,0.5);--card-shadow:0 1px 2px 0 rgba(0,0,0,0.2);--card-shadow-hover:0 3px 6px -1px rgba(0,0,0,0.3);--text:#e0e0e0;--subtext:#aaa;--accent:#bbb;--link:#bbb;--link-hover:#fff;--btn-bg:rgba(40,40,40,0.9);--btn-bg-hover:rgba(50,50,50,1);--btn-icon:#bbb;--btn-shadow:0 1px 3px rgba(0,0,0,0.2);--btn-shadow-hover:0 2px 5px rgba(0,0,0,0.3);--nav-bg:rgba(30,30,30,0.95);--nav-border:rgba(60,60,60,0.6);--nav-link:#bbb;--nav-link-hover:#fff;--nav-active:#5ba3f5}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:linear-gradient(145deg,var(--bg-start) 0%,var(--bg-end) 100%);color:var(--text);line-height:1.6;min-height:100vh;transition:background .3s ease,color .3s ease}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:linear-gradient(145deg,var(--bg-start) 0%,var(--bg-end) 100%);color:var(--text);line-height:1.6;min-height:100vh;transition:background .3s ease,color .3s ease;overflow-y:scroll}
+html{scroll-behavior:smooth}
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--nav-border);height:48px;transition:background .3s ease,border-color .3s ease}
+.site-nav-inner{max-width:1400px;margin:0 auto;padding:0 1.5rem;height:100%;display:flex;align-items:center;gap:0}
+.site-nav-logo{font-size:.95rem;font-weight:700;color:var(--text);text-decoration:none;margin-right:24px;flex-shrink:0;display:flex;align-items:center;gap:6px;transition:color .2s;letter-spacing:-.3px}
+.site-nav-logo:hover{color:var(--link-hover)}
+.logo-icon{font-size:1.15rem;line-height:1;background:linear-gradient(135deg,#c9a227,#8b6914);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 2px rgba(201,162,39,.3))}
+.site-nav-links{display:flex;align-items:center;gap:0;flex:1}
+.site-nav-link{padding:0 14px;height:48px;line-height:48px;font-size:.88rem;font-weight:500;color:var(--nav-link);text-decoration:none;transition:color .2s,background .2s;white-space:nowrap}
+.site-nav-link:hover{color:var(--nav-link-hover);background:rgba(128,128,128,.06)}
+.site-nav-link.active{color:var(--nav-active);font-weight:600}
+.site-nav-toggle{display:none;flex-direction:column;gap:5px;padding:8px;background:none;border:none;cursor:pointer}
+.site-nav-toggle span{display:block;width:20px;height:2px;background:var(--text);border-radius:2px;transition:.3s}
+.site-nav-toggle.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.site-nav-toggle.active span:nth-child(2){opacity:0}
+.site-nav-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.search-container.compact{max-width:1400px;margin:64px auto 0;padding:0 1.5rem;position:relative;display:flex;flex-direction:column}
+.search-container.compact .search-box{max-width:480px;margin:0 auto}
+#theme-toggle,#back-to-top{position:fixed;z-index:100;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;line-height:1;border:none;border-radius:50%;color:var(--btn-icon);background:var(--btn-bg);cursor:pointer;box-shadow:var(--btn-shadow);transition:background-color .2s,box-shadow .2s;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+#theme-toggle{right:1.5rem;top:6px;width:34px;height:34px;border-radius:17px;z-index:1100}
+#theme-toggle svg{transition:opacity .25s,transform .25s}
+#theme-toggle .theme-sun{display:block}
+#theme-toggle .theme-moon{display:none}
+[data-theme="dark"] #theme-toggle .theme-sun{display:none}
+[data-theme="dark"] #theme-toggle .theme-moon{display:block}
+#back-to-top{right:1.5rem;bottom:1.5rem;opacity:0;visibility:hidden}
+#back-to-top.visible{opacity:1;visibility:visible}
+#theme-toggle:hover,#back-to-top:hover{background:var(--btn-bg-hover);box-shadow:var(--btn-shadow-hover)}
+.search-container{max-width:600px;margin:0 auto 1rem;position:relative;display:flex;flex-direction:column}
+.search-box{display:grid;grid-template-columns:40px 1fr;max-width:480px;margin:0 auto 1rem;box-shadow:0 1px 2px rgba(0,0,0,.05);border-radius:8px;overflow:hidden;background:#fff;border:1px solid var(--card-border);height:44px;align-items:center}
+[data-theme="dark"] .search-box{background:var(--card-bg);border:1px solid var(--card-border);box-shadow:var(--card-shadow)}
+.search-box:hover{border-color:var(--subtext)}
+.search-box:focus-within{border-color:var(--text)}
+.search-icon{display:flex;align-items:center;justify-content:center;color:var(--subtext);padding-left:10px}
+.search-input-area{position:relative;display:flex;align-items:center;height:44px;min-width:0;width:100%}
+.search-input{width:100%;padding:0 16px;padding-right:36px;border:none;background:transparent;color:var(--text);font-size:15px;font-weight:400;outline:none;height:44px;line-height:44px}
+.search-input::placeholder{color:rgba(154,160,166,.7);font-weight:400;font-size:13px}
+[data-theme="dark"] .search-input{color:var(--text)}
+[data-theme="dark"] .search-input::placeholder{color:rgba(148,163,184,.6)}
+.search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:transparent;border:none;color:var(--subtext);cursor:pointer;padding:0;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:color .2s,opacity .2s,visibility .2s;width:24px;height:24px;z-index:10;outline:none;opacity:0;visibility:hidden}
+.search-clear.visible{opacity:1;visibility:visible}
+.search-clear:hover{color:var(--text)}
+.search-results-count{margin-top:.5rem;font-size:.85rem;color:var(--subtext);text-align:right;padding:0 .5rem;display:none}
+.search-results-count.visible{display:block}
+main{max-width:1400px;margin:0 auto;padding:0 1.5rem 2rem;min-height:300px}
+section{margin:2rem 0}
+section h2{font-size:1.15rem;font-weight:700;padding:.6rem 1rem;margin-bottom:1rem;border-radius:8px;background:linear-gradient(135deg,rgba(26,115,232,.08),rgba(26,115,232,.02));color:var(--text);display:flex;align-items:center;border-left:3px solid var(--accent)}
+[data-theme="dark"] section h2{background:linear-gradient(135deg,rgba(91,163,245,.12),rgba(91,163,245,.04))}
+ul{list-style:none;display:grid;grid-template-columns:repeat(6,1fr);gap:.85rem;padding:0;margin:0;width:100%}
+li{background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:.85rem 1rem;box-shadow:var(--card-shadow);transition:box-shadow .25s,border-color .25s,transform .2s;position:relative;overflow:hidden;cursor:pointer}
+li:hover{box-shadow:var(--card-shadow-hover);border-color:var(--accent);transform:translateY(-2px)}
+li a{color:var(--link);text-decoration:none;font-weight:600;font-size:1rem;display:flex;align-items:center;transition:color .2s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+li a:hover{color:var(--link-hover)}
+.favicon-container{width:24px;height:16px;flex-shrink:0;display:flex;align-items:center;justify-content:flex-start}
+body.hide-favicon .favicon-container{display:none}
+.favicon{width:16px;height:16px;border-radius:2px;opacity:0;transition:opacity .3s;display:block}
+.favicon.loaded{opacity:1}
+.link-text{flex:1;min-width:0;word-break:break-word}
+li .url{margin-top:.5rem;font-size:.75rem;color:var(--subtext);word-break:break-all;line-height:1.4;position:relative;z-index:2;opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.loading,.error-message{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 0}
+.spinner{width:30px;height:30px;border:2px solid rgba(0,0,0,.1);border-radius:50%;border-top-color:var(--text);animation:spin .8s linear infinite;margin-bottom:1rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.error-message p{color:var(--subtext);font-size:.95rem;margin-bottom:1rem}
+.error-message button{background:var(--link);color:#fff;border:none;padding:.5rem 1.2rem;border-radius:6px;font-size:.9rem;cursor:pointer}
+.error-message button:hover{background:var(--link-hover)}
+footer{text-align:center;padding:2.5rem 1.5rem;font-size:.85rem;color:var(--subtext);opacity:.5}
+footer a{color:inherit;text-decoration:none;transition:color .2s}
+footer a:hover{color:var(--link);text-decoration:underline}
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:rgba(0,0,0,.05)}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.2);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.3)}
+[data-theme="dark"] ::-webkit-scrollbar-track{background:rgba(255,255,255,.05)}
+[data-theme="dark"] ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.25);border-radius:4px}
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.4)}
+html{scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.2) rgba(0,0,0,.05)}
+[data-theme="dark"] html{scrollbar-color:rgba(255,255,255,.25) rgba(255,255,255,.05)}
+@media(max-width:1199px){ul{grid-template-columns:repeat(5,1fr);gap:.65rem}}
+@media(max-width:899px){ul{grid-template-columns:repeat(4,1fr);gap:.6rem}}
+@media(max-width:767px){
+  ul{grid-template-columns:repeat(3,1fr);gap:.6rem}
+  .site-nav-links{display:none;position:absolute;top:48px;left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--nav-border);flex-direction:column;padding:8px;gap:0}
+  .site-nav-links.open{display:flex}
+  .site-nav-link{padding:10px 14px;height:auto;line-height:1.5;border-radius:6px}
+  .site-nav-toggle{display:flex}
+  .search-container{max-width:100%;margin-bottom:1.5rem}
+  .search-box{max-width:calc(100% - 32px);margin:0 16px 1.5rem}
+  li{padding:1rem}
+  #theme-toggle{width:44px;height:44px;right:1.2rem;top:4.2rem}
+}
+@media(max-width:480px){
+  ul{grid-template-columns:repeat(2,1fr);gap:.48rem}
+  .search-container{margin:0 1rem 1.5rem;padding:0;max-width:none}
+  .search-box{max-width:calc(100% - 16px);margin:0 8px 1rem;height:40px}
+  .search-icon{padding-left:8px}
+  .search-input{font-size:13px;padding:0 10px;padding-right:32px;height:40px;line-height:40px}
+  .search-input::placeholder{font-size:12px}
+  li{padding:.6rem .7rem}
+  li a{font-size:.9rem}
+  li .url{font-size:.7rem}
+  main{padding:0 1rem 1.5rem}
+}
+@media(max-width:280px){ul{grid-template-columns:1fr;gap:.36rem}}
 </style>
-<link rel="stylesheet" href="css/style.css">
-<link rel="icon" href="favicon.ico">
-<!-- 性能优化：预连接关键域名（API 同源不需要，Google favicon 提前 TLS 握手） -->
-<link rel="preconnect" href="https://www.google.com" crossorigin>
-<link rel="dns-prefetch" href="https://www.google.com">
 </head>
 <body>
 
-<!-- 顶部站点导航栏 -->
 <nav class="site-nav">
   <div class="site-nav-inner">
     <a href="index.html" class="site-nav-logo"><span class="logo-icon">⚔</span> POE2 Hub</a>
@@ -34,16 +139,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica N
       <a href="tools.html" class="site-nav-link">工具集</a>
       <a href="admin.html" class="site-nav-link" style="opacity:0.45;font-size:.82rem">管理</a>
     </div>
-    <button id="navToggle" class="site-nav-toggle" aria-label="菜单">
-      <span></span><span></span><span></span>
-    </button>
+    <button id="navToggle" class="site-nav-toggle" aria-label="菜单"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
 <button id="theme-toggle" aria-label="切换深浅色模式"><svg class="theme-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="theme-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
 <button id="back-to-top" aria-label="返回顶部">👆</button>
 
-<!-- 搜索栏 -->
 <div class="search-container compact">
   <div class="search-box">
     <div class="search-icon">
@@ -59,7 +161,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica N
   <div class="search-results-count" id="search-results-count"></div>
 </div>
 
-<!-- 导航链接主体 -->
 <main id="nav-container">
   <div class="loading">⚡ 加载中...</div>
 </main>
@@ -68,7 +169,190 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica N
   <small>© 2025 POE2 国服攻略站 · 数据来源 <a href="https://www.poe2wiki.net" target="_blank">POE2 Wiki</a> · 仅供学习交流</small>
 </footer>
 
-<script src="js/nav.js" defer></script>
+<script>
+// ===== 全部脚本内联（原 js/nav.js，省一次 RTT） =====
+let allLinks = [];
+
+async function loadLinks() {
+  const navContainer = document.getElementById('nav-container');
+  if (!navContainer) return;
+  try {
+    // 复用 head 里提前发起的请求，几乎 0 等待
+    const data = window.__linksReq ? await window.__linksReq : await fetch('/api/links').then(r=>r.json());
+    allLinks = (data || []).filter(l => l.page_type === '首页导航');
+    render(allLinks);
+  } catch (e) {
+    navContainer.innerHTML = '<div class="error-message"><p>😢 加载链接失败: ' + e.message + '</p><button onclick="location.reload()">重试</button></div>';
+  }
+}
+
+function render(list) {
+  const wrap = document.getElementById('nav-container');
+  if (!wrap) return;
+  const group = {};
+  for (let i = 0; i < list.length; i++) {
+    const item = list[i];
+    const cats = item.categories;
+    const cat = (Array.isArray(cats) && cats.length) ? cats[0] : (item.category || '未分类');
+    if (!group[cat]) group[cat] = [];
+    group[cat].push(item);
+  }
+  const sections = [];
+  for (const category in group) {
+    const links = group[category];
+    sections.push('<section><h2>', escapeHtml(category), '</h2><ul>');
+    for (let i = 0; i < links.length; i++) {
+      const link = links[i];
+      sections.push(
+        '<li data-url="', link.url, '" data-id="', link.id, '">',
+        '<a href="', link.url, '" target="_blank" rel="noopener" class="card-title">',
+        '<div class="favicon-container"><img class="favicon" src="" alt=""></div>',
+        '<span class="link-text">', escapeHtml(link.title), '</span>',
+        '</a>',
+        '<div class="url">', escapeHtml(link.description || ''), '</div>',
+        '</li>'
+      );
+    }
+    sections.push('</ul></section>');
+  }
+  wrap.innerHTML = sections.join('');
+  wrap.addEventListener('click', handleCardClick);
+  loadFavicons();
+}
+
+function handleCardClick(e) {
+  const card = e.target.closest('li[data-url]');
+  if (!card) return;
+  if (e.target.closest('a')) { e.preventDefault(); e.stopPropagation(); }
+  window.open(card.dataset.url, '_blank');
+}
+
+function escapeHtml(str) { const div = document.createElement('div'); div.textContent = str; return div.innerHTML; }
+
+function setupSearch() {
+  const searchInput = document.getElementById('search-input');
+  const searchClear = document.getElementById('search-clear');
+  const searchResultsCount = document.getElementById('search-results-count');
+  if (!searchInput) return;
+  let searchTimeout;
+  searchInput.addEventListener('input', () => {
+    clearTimeout(searchTimeout);
+    const v = searchInput.value;
+    if (v.length > 0) searchClear.classList.add('visible'); else searchClear.classList.remove('visible');
+    searchTimeout = setTimeout(() => {
+      const q = v.trim().toLowerCase();
+      if (q === '') { render(allLinks); searchResultsCount.classList.remove('visible'); return; }
+      const filtered = allLinks.filter(link =>
+        (link.title||'').toLowerCase().includes(q) ||
+        (link.description||'').toLowerCase().includes(q) ||
+        (link.url||'').toLowerCase().includes(q) ||
+        (link.category||'').toLowerCase().includes(q) ||
+        ((Array.isArray(link.categories) && link.categories.length && link.categories.some(c=>c.toLowerCase().includes(q))))
+      );
+      render(filtered);
+      searchResultsCount.textContent = `找到 ${filtered.length} 个结果`;
+      searchResultsCount.classList.add('visible');
+    }, 50);
+  });
+  searchClear.addEventListener('click', () => {
+    searchInput.value = ''; searchInput.focus();
+    render(allLinks);
+    searchResultsCount.classList.remove('visible');
+    searchClear.classList.remove('visible');
+  });
+}
+
+// ===== Favicon 懒加载（国内可用源 → 备用 → emoji 兜底） =====
+function loadFavicons() {
+  const els = document.querySelectorAll('.card-title[href] .favicon');
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(img => { const a=img.closest('.card-title'); const d=a?extractDomain(a.getAttribute('href')):null; if(d)tryLoadFavicon(img,d); });
+    return;
+  }
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const img = entry.target; obs.unobserve(img);
+      const a = img.closest('.card-title');
+      const domain = a ? extractDomain(a.getAttribute('href')) : null;
+      if (domain) tryLoadFavicon(img, domain);
+    });
+  }, { rootMargin: '200px' });
+  els.forEach(img => io.observe(img));
+}
+
+function tryLoadFavicon(faviconImg, domain) {
+  const sources = [
+    `https://icon.horse/icon/${domain}`,
+    `https://favicon.im/${domain}?larger=true`,
+    `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=32`
+  ];
+  let idx = 0, done = false;
+  const timer = setTimeout(() => { if (done) return; done = true; showEmojiIcon(faviconImg); }, 4000);
+  function attempt() {
+    if (done) return;
+    if (idx >= sources.length) { done = true; clearTimeout(timer); showEmojiIcon(faviconImg); return; }
+    const url = sources[idx++];
+    const img = new Image();
+    img.onload = () => {
+      if (done) return;
+      if (img.naturalWidth <= 1 && img.naturalHeight <= 1) { attempt(); return; }
+      done = true; clearTimeout(timer);
+      faviconImg.src = url; faviconImg.classList.add('loaded');
+    };
+    img.onerror = () => attempt();
+    img.src = url;
+  }
+  attempt();
+}
+function showEmojiIcon(faviconImg) {
+  const c = document.createElement('canvas'); c.width=16; c.height=16;
+  const ctx = c.getContext('2d'); ctx.font='12px Arial'; ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText('🌐',8,8); faviconImg.src=c.toDataURL(); faviconImg.classList.add('loaded');
+}
+function extractDomain(url) {
+  try { return new URL(url.startsWith('http')?url:'https://'+url).hostname; }
+  catch(e) { const m=url.match(/^(?:https?:\/\/)?(?:www\.)?([^\/?#]+)/); return m?m[1]:null; }
+}
+
+// ===== 初始化（HTML 已 parsed，可直接执行）=====
+(function init(){
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) document.body.setAttribute('data-theme', savedTheme);
+  else document.body.setAttribute('data-theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  const sun = themeToggleBtn?.querySelector('.theme-sun');
+  const moon = themeToggleBtn?.querySelector('.theme-moon');
+  function updateThemeIcon(t){ if(sun)sun.style.display=t==='dark'?'none':'block'; if(moon)moon.style.display=t==='dark'?'block':'none'; }
+  updateThemeIcon(document.body.getAttribute('data-theme'));
+  if (themeToggleBtn) themeToggleBtn.onclick = () => {
+    const cur = document.body.getAttribute('data-theme')==='dark'?'light':'dark';
+    document.body.setAttribute('data-theme', cur);
+    localStorage.setItem('theme', cur);
+    updateThemeIcon(cur);
+  };
+
+  const btt = document.getElementById('back-to-top');
+  if (btt) {
+    btt.onclick = () => window.scrollTo({top:0,behavior:'smooth'});
+    window.addEventListener('scroll', () => btt.classList.toggle('visible', scrollY > 300));
+  }
+
+  const nt = document.getElementById('navToggle');
+  const nl = document.querySelector('.site-nav-links');
+  if (nt && nl) {
+    nt.onclick = () => { nl.classList.toggle('open'); nt.classList.toggle('active'); };
+    nl.querySelectorAll('.site-nav-link').forEach(a => a.onclick = () => { nl.classList.remove('open'); nt.classList.remove('active'); });
+  }
+
+  const path = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.site-nav-link').forEach(a => { if (a.getAttribute('href')===path) a.classList.add('active'); });
+
+  loadLinks();
+  setupSearch();
+})();
+</script>
 <script src="js/speed-insights.js" defer></script>
 </body>
 </html>
