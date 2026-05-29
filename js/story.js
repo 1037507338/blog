@@ -166,8 +166,9 @@ function showNodeDetail(nodeId) {
     // 导航按钮
     updateNavButtons(node);
     
-    // 打开面板
+    // 打开面板（同时给 body 加标记，让主内容向左偏移）
     document.getElementById('detailPanel').classList.add('open');
+    document.body.classList.add('detail-open');
 }
 
 // 更新导航按钮
@@ -233,6 +234,7 @@ function updateProgress() {
 // 关闭详情面板
 function closeDetail() {
     document.getElementById('detailPanel').classList.remove('open');
+    document.body.classList.remove('detail-open');
     document.querySelectorAll('.node-marker').forEach(m => m.classList.remove('active'));
 }
 

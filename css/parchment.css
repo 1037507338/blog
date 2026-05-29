@@ -444,10 +444,41 @@ footer a:hover{color:var(--gold-200)!important;border-bottom-color:var(--gold-40
 }
 .detail-panel{
   background:var(--ink-700)!important;
-  border-left:1px solid var(--ink-500)!important;
+  border-left:1px solid var(--gold-600)!important;
+  box-shadow:-8px 0 28px rgba(0,0,0,0.55)!important;
+  width:420px!important;right:-440px!important;
 }
+.detail-panel.open{right:0!important;}
 .detail-header{
   background:var(--gold-400)!important;color:var(--ink-900)!important;
+}
+
+/* 详情面板打开时，把主内容向左推（不再被遮挡） */
+@media (min-width:1024px){
+  body.detail-open .story-container{
+    margin-right:440px!important;
+    transition:margin-right 0.3s ease;
+  }
+  body:not(.detail-open) .story-container{
+    margin-right:0;transition:margin-right 0.3s ease;
+  }
+}
+/* 中等屏：地图缩小适应 */
+@media (min-width:768px) and (max-width:1023px){
+  body.detail-open .story-container{
+    transform:translateX(-90px);transition:transform 0.3s ease;
+  }
+  body.detail-open .map-container{
+    max-width:calc(100% - 80px);transition:max-width 0.3s ease;
+  }
+}
+/* 小屏：detail-panel 全屏覆盖（保持原有行为，加点遮罩） */
+@media (max-width:767px){
+  .detail-panel{width:100%!important;right:-100%!important;}
+  .detail-panel.open{right:0!important;}
+  body.detail-open::after{
+    content:'';position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:999;pointer-events:none;
+  }
 }
 
 /* 兜底：所有内联 :root 定义的语义颜色都重定向 */
@@ -457,6 +488,174 @@ section h2{
   color:var(--parchment)!important;
   border-left:3px solid var(--gold-400)!important;
 }
+
+/* ====================================================================
+   对比度修复：把所有"金字 on 金底"或"暗字 on 暗底"的低对比度配色
+   全部提亮。优先级 999 + !important 强制盖住 inline style。
+   ==================================================================== */
+
+/* BD 分类 chip — 改为深底金字，去渐变 */
+.bd-cat-chip{
+  background:rgba(20,15,8,0.6)!important;
+  border:1px solid var(--gold-400)!important;
+  color:var(--gold-200)!important;
+  text-shadow:0 1px 2px rgba(0,0,0,0.6);
+  font-weight:600!important;
+}
+
+/* maps.html — badges 在暗底下需要更高对比 */
+.badge.skill{background:#3b8fd8!important;color:#fff!important;border:1px solid #65b3f5;}
+.badge.loot{background:#52a86a!important;color:#fff!important;border:1px solid #7ad690;}
+.badge.danger{background:#d05050!important;color:#fff!important;border:1px solid #ff7a7a;}
+
+/* maps.html — detail-header 现在是金底，文字必须深色 */
+.detail-header,
+.detail-header h2{color:var(--ink-900)!important;}
+.detail-header .hint{color:var(--ink-700)!important;opacity:0.85;}
+.detail-header .close-btn{color:var(--ink-900)!important;}
+.detail-header .close-btn:hover{color:#000!important;}
+
+/* maps.html — step-item 在暗底上不能用 rgba(0,0,0,0.04) */
+.step-item{
+  background:var(--ink-600)!important;
+  border-left:3px solid var(--gold-400)!important;
+  color:var(--parchment)!important;
+  border-radius:0!important;
+}
+.step-item .step-title{color:var(--gold-200)!important;}
+.step-item .step-body{color:var(--parchment)!important;}
+.steps-list li,.steps-list p{color:var(--parchment)!important;}
+
+/* maps.html — node description (inline style "color:var(--subtext)") */
+#nodeDescription{color:var(--parchment-muted)!important;}
+
+/* maps.html — nav-btn */
+.nav-btn{
+  background:var(--gold-400)!important;color:var(--ink-900)!important;
+  border:1px solid var(--gold-400)!important;border-radius:0!important;
+  font-family:var(--font-zh)!important;font-weight:600!important;
+}
+.nav-btn:hover{background:var(--gold-200)!important;}
+.nav-btn:disabled{
+  background:var(--ink-600)!important;color:var(--parchment-faint)!important;
+  border-color:var(--ink-500)!important;cursor:not-allowed;
+}
+
+/* maps.html — legend dot 边框 */
+.legend-dot{border-color:var(--ink-500)!important;}
+.legend-dot.pending{background:var(--gold-400)!important;}
+.legend-dot.current{background:#ffd43b!important;border-color:var(--ink-900)!important;}
+.legend-dot.completed{background:#69db7c!important;}
+.legend-item span{color:var(--parchment-muted)!important;}
+
+/* maps.html — node-marker 在暗底要白边/金边 */
+.node-marker{
+  border:3px solid var(--parchment)!important;
+  background:var(--gold-400)!important;color:var(--ink-900)!important;
+  font-weight:700!important;
+}
+.node-marker.active{
+  background:#e85a5a!important;border-color:var(--gold-200)!important;color:#fff!important;
+}
+.node-marker.completed{background:#52a86a!important;color:#fff!important;}
+.node-marker.current{background:#ffd43b!important;border-color:var(--ink-900)!important;color:var(--ink-900)!important;}
+
+/* maps.html — progress bar */
+.progress-text{color:var(--parchment-muted)!important;}
+.progress-fill{
+  background:linear-gradient(90deg,var(--gold-400),var(--gold-200))!important;
+}
+
+/* news.html / news-detail.html — 覆盖 inline style 的 news-tag/detail-tag
+   inline style 优先级高于 class，所以用 [style] 属性选择器 + !important 强制 */
+.news-tag,
+.detail-tag,
+.news-tag[style],
+.detail-tag[style]{
+  background:rgba(201,162,39,0.18)!important;
+  color:var(--gold-200)!important;
+  border:1px solid var(--gold-400)!important;
+  border-radius:0!important;
+  font-family:var(--font-mono)!important;
+  font-weight:600!important;
+  padding:3px 10px!important;
+  text-shadow:0 1px 2px rgba(0,0,0,0.5);
+}
+
+/* guides.html — toc-item 默认态需要更亮 */
+.toc-item{
+  color:var(--parchment)!important;
+  font-weight:500!important;
+  border-left:2px solid transparent;padding-left:10px;
+}
+.toc-item:hover{
+  color:var(--gold-200)!important;
+  background:rgba(201,162,39,0.08)!important;
+  border-left-color:var(--gold-600)!important;
+}
+.toc-item.active{
+  color:var(--gold-200)!important;
+  background:rgba(201,162,39,0.12)!important;
+  border-left-color:var(--gold-400)!important;
+  font-weight:600!important;
+}
+
+/* guides.html — tip-box 文字提亮 */
+.tip-box{
+  color:var(--parchment)!important;
+  background:rgba(201,162,39,0.08)!important;
+  border-left:3px solid var(--gold-400)!important;
+}
+
+/* guides.html — info-row label/value 对比 */
+.info-label{color:var(--gold-200)!important;font-weight:600!important;}
+.info-value{color:var(--parchment)!important;}
+
+/* tools.html — status 徽章对比度 */
+.status-ready{
+  background:rgba(82,168,106,0.18)!important;
+  color:#9ae5b5!important;
+  border:1px solid rgba(82,168,106,0.5)!important;
+}
+.status-dev{
+  background:rgba(140,120,90,0.18)!important;
+  color:var(--parchment)!important;
+  border:1px solid rgba(140,120,90,0.5)!important;
+}
+
+/* card-tag 系列 */
+.tag-t0{background:rgba(220,80,60,0.22)!important;color:#ffb59f!important;border-color:rgba(220,80,60,0.6)!important;}
+.tag-t1{background:rgba(201,162,39,0.22)!important;color:var(--gold-200)!important;border-color:var(--gold-400)!important;}
+.tag-t2{background:rgba(82,168,106,0.22)!important;color:#9ae5b5!important;border-color:rgba(82,168,106,0.6)!important;}
+.tag-dev{background:rgba(140,120,90,0.18)!important;color:var(--parchment)!important;border-color:rgba(140,120,90,0.5)!important;}
+
+/* news.html — news-meta 时间/分类灰字提亮 */
+.news-meta{color:var(--parchment)!important;opacity:0.85;}
+.news-card h3{color:var(--gold-200)!important;}
+
+/* news-detail.html — back 链接 */
+.detail-back{color:var(--gold-200)!important;font-weight:500;}
+.detail-back:hover{color:var(--gold-400)!important;}
+
+/* dev-notice 占位页 */
+.dev-link{color:var(--parchment-muted)!important;}
+
+/* 浅色主题下的对比度补丁（白底要切深字） */
+body[data-theme="light"] .bd-cat-chip{
+  background:rgba(255,250,239,0.9)!important;color:var(--gold-600)!important;
+  text-shadow:none;
+}
+body[data-theme="light"] .news-tag,
+body[data-theme="light"] .detail-tag,
+body[data-theme="light"] .news-tag[style],
+body[data-theme="light"] .detail-tag[style]{
+  background:rgba(201,162,39,0.18)!important;color:#6b4f0e!important;
+  text-shadow:none;
+}
+body[data-theme="light"] .news-card h3{color:var(--ink-800)!important;}
+body[data-theme="light"] .toc-item{color:var(--parchment)!important;}
+body[data-theme="light"] .toc-item.active{color:#6b4f0e!important;}
+body[data-theme="light"] .info-label{color:#6b4f0e!important;}
 
 /* 响应式 */
 @media (max-width:767px){
