@@ -1,0 +1,23 @@
+js/story.js
+  s_9acbdd38e6b917::t_11fb7a5614a4a4 169,171
+  s_9acbdd38e6b917::t_73f2f483a75eb2 237
+css/parchment.css
+  s_9acbdd38e6b917::t_b7d8448affff58 492-659
+  s_9acbdd38e6b917::t_472815ff593883 447-449,451,456-481
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "ed01c3c425a69d35cb44f7855cb9f478a9462f80",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
