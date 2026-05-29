@@ -173,8 +173,8 @@ body[data-theme="light"]{
   --parchment:#2a1d0e;--parchment-muted:#5c4a2e;--parchment-faint:#8a7755;
 }
 body{
-  font-family:var(--font-body);
-  font-size:17px;font-weight:400;line-height:1.55;
+  font-family:var(--font-zh);
+  font-size:16px;font-weight:400;line-height:1.6;
   background:var(--ink-800)!important;color:var(--parchment);
   -webkit-font-smoothing:antialiased;position:relative;
 }
@@ -205,13 +205,13 @@ body>*{position:relative;z-index:1;}
 }
 body[data-theme="light"] .site-nav{background:rgba(250,242,221,0.88)!important;}
 .site-nav-logo{
-  font-family:var(--font-display)!important;font-size:1.05rem;font-weight:600;
-  letter-spacing:0.18em;color:var(--gold-200)!important;text-transform:uppercase;
+  font-family:var(--font-zh)!important;font-size:1rem;font-weight:600;
+  letter-spacing:0.06em;color:var(--gold-200)!important;
 }
 .logo-icon{font-size:1.15rem;background:linear-gradient(135deg,var(--gold-200),var(--gold-600))!important;-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .site-nav-link{
-  font-family:var(--font-display)!important;font-size:0.74rem;font-weight:500;
-  letter-spacing:0.22em;text-transform:uppercase;
+  font-family:var(--font-zh)!important;font-size:0.92rem;font-weight:500;
+  letter-spacing:0.08em;
   color:var(--parchment-muted)!important;padding:7px 14px!important;border-radius:0!important;
   position:relative;transition:color 0.3s;
 }
@@ -223,47 +223,21 @@ body[data-theme="light"] .site-nav{background:rgba(250,242,221,0.88)!important;}
   background:linear-gradient(90deg,transparent,var(--gold-400),transparent);
 }
 
-/* ====== HERO ====== */
+/* ====== HERO（精简版：直接放倒计时和搜索，无大标题） ====== */
 .hero{
-  padding:120px 1.5rem 60px;text-align:center;
+  padding:84px 1.5rem 30px;text-align:center;
   max-width:760px;margin:0 auto;
 }
-.hero-eyebrow{
-  display:inline-flex;align-items:center;gap:16px;margin-bottom:32px;
-  font-family:var(--font-display);font-size:0.7rem;font-weight:500;
-  letter-spacing:0.42em;text-transform:uppercase;color:var(--gold-400);
-}
-.hero-eyebrow::before,.hero-eyebrow::after{
-  content:'';width:56px;height:1px;
-  background:linear-gradient(90deg,transparent,var(--gold-400));
-}
-.hero-eyebrow::after{background:linear-gradient(270deg,transparent,var(--gold-400));}
-.hero-title{
-  font-family:var(--font-display);font-weight:700;line-height:1;
-  letter-spacing:0.04em;margin:0;
-  display:flex;flex-direction:column;gap:18px;
-}
-.hero-title-en{
-  font-size:clamp(2.4rem,6.5vw,4.6rem);
-  background:linear-gradient(180deg,var(--gold-100) 0%,var(--gold-200) 40%,var(--gold-400) 70%,var(--gold-600) 100%);
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-  text-shadow:0 0 50px rgba(201,162,39,0.18);
-}
-.hero-title-zh{
-  font-family:var(--font-zh);font-size:clamp(0.9rem,1.4vw,1.05rem);font-weight:400;
-  letter-spacing:0.5em;color:var(--parchment-muted);padding-left:0.5em;
-}
-.hero-divider{margin:44px auto 50px;color:var(--gold-400);opacity:0.85;display:flex;justify-content:center;}
 
-/* ====== RITUAL · 倒计时祭坛 ====== */
+/* ====== RITUAL · 倒计时祭坛（缩小） ====== */
 .ritual{
-  position:relative;max-width:580px;margin:0 auto 50px;
-  padding:38px 36px 28px;
+  position:relative;max-width:520px;margin:0 auto 28px;
+  padding:24px 28px 18px;
   background:
     linear-gradient(135deg,rgba(201,162,39,0.04) 0%,rgba(139,105,20,0.08) 100%),
     var(--ink-700);
   border:1px solid rgba(201,162,39,0.22);
-  box-shadow:inset 0 0 80px rgba(201,162,39,0.05),0 30px 60px -25px rgba(0,0,0,0.6);
+  box-shadow:inset 0 0 60px rgba(201,162,39,0.04),0 20px 40px -20px rgba(0,0,0,0.5);
 }
 body[data-theme="light"] .ritual{
   background:linear-gradient(135deg,rgba(201,162,39,0.05),rgba(139,105,20,0.03)),var(--ink-700);
@@ -274,34 +248,34 @@ body[data-theme="light"] .ritual{
 .ritual-corner-bl{bottom:-1px;left:-1px;border-bottom:1.5px solid var(--gold-400);border-left:1.5px solid var(--gold-400);}
 .ritual-corner-br{bottom:-1px;right:-1px;border-bottom:1.5px solid var(--gold-400);border-right:1.5px solid var(--gold-400);}
 .ritual-label{
-  display:flex;align-items:center;justify-content:center;gap:14px;
-  font-family:var(--font-display);font-size:0.72rem;font-weight:500;
-  letter-spacing:0.42em;color:var(--gold-400);text-transform:uppercase;margin-bottom:18px;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  font-family:var(--font-zh);font-size:0.78rem;font-weight:500;
+  letter-spacing:0.32em;color:var(--gold-400);margin-bottom:12px;
 }
-.ritual-label-mark{font-size:0.6rem;color:var(--gold-600);}
+.ritual-label-mark{font-size:0.55rem;color:var(--gold-600);}
 .ritual-name{
-  font-family:var(--font-zh);font-size:1.5rem;font-weight:500;
-  color:var(--parchment);letter-spacing:0.06em;margin-bottom:26px;
+  font-family:var(--font-zh);font-size:1.2rem;font-weight:500;
+  color:var(--parchment);letter-spacing:0.06em;margin-bottom:18px;
 }
-.ritual-timer{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:22px;}
+.ritual-timer{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:14px;}
 .ritual-block{
-  padding:14px 6px;background:rgba(0,0,0,0.32);
+  padding:10px 4px;background:rgba(0,0,0,0.32);
   border:1px solid rgba(201,162,39,0.14);
   position:relative;transition:border-color 0.4s,background 0.4s;
 }
 body[data-theme="light"] .ritual-block{background:rgba(201,162,39,0.06);}
 .ritual-block:hover{border-color:rgba(201,162,39,0.45);}
 .ritual-num{
-  display:block;font-family:var(--font-mono);font-size:2rem;font-weight:500;
-  color:var(--gold-200);line-height:1;margin-bottom:6px;
-  font-feature-settings:'tnum' 1;text-shadow:0 0 14px rgba(232,201,112,0.35);
+  display:block;font-family:var(--font-mono);font-size:1.6rem;font-weight:500;
+  color:var(--gold-200);line-height:1;margin-bottom:5px;
+  font-feature-settings:'tnum' 1;text-shadow:0 0 12px rgba(232,201,112,0.3);
 }
 .ritual-unit{
-  display:block;font-family:var(--font-display);font-size:0.6rem;font-weight:500;
-  letter-spacing:0.35em;color:var(--parchment-faint);text-transform:uppercase;
+  display:block;font-family:var(--font-zh);font-size:0.7rem;font-weight:500;
+  letter-spacing:0.15em;color:var(--parchment-faint);
 }
 .ritual-meta{
-  font-family:var(--font-body);font-style:italic;font-size:0.86rem;
+  font-family:var(--font-zh);font-size:0.78rem;
   color:var(--parchment-faint);letter-spacing:0.04em;
 }
 .ritual-meta-sep{margin:0 8px;opacity:0.5;}
@@ -309,20 +283,20 @@ body[data-theme="light"] .ritual-block{background:rgba(201,162,39,0.06);}
 /* ====== SEARCH ====== */
 .search-vessel{position:relative;max-width:480px;margin:0 auto;}
 .search-rune{
-  position:absolute;left:18px;top:27px;transform:translateY(-50%);
-  font-family:var(--font-display);font-size:1.25rem;color:var(--gold-400);
+  position:absolute;left:16px;top:26px;transform:translateY(-50%);
+  font-size:1.1rem;color:var(--gold-400);
   pointer-events:none;z-index:2;
 }
 .search-vessel .search-input{
-  width:100%;height:54px;padding:0 50px;
+  width:100%;height:50px;padding:0 44px;
   background:rgba(0,0,0,0.32);
   border:1px solid var(--ink-500);color:var(--parchment);
-  font-family:var(--font-body);font-size:1.1rem;font-style:italic;
+  font-family:var(--font-zh);font-size:0.95rem;font-weight:400;
   letter-spacing:0.04em;outline:none;
   transition:border-color 0.3s,box-shadow 0.3s;
 }
 body[data-theme="light"] .search-vessel .search-input{background:rgba(255,255,255,0.5);}
-.search-vessel .search-input::placeholder{color:var(--parchment-faint);font-style:italic;}
+.search-vessel .search-input::placeholder{color:var(--parchment-faint);font-weight:400;}
 .search-vessel .search-input:focus{
   border-color:var(--gold-400);
   box-shadow:0 0 0 1px rgba(201,162,39,0.3),0 0 32px rgba(201,162,39,0.18);
@@ -335,8 +309,8 @@ body[data-theme="light"] .search-vessel .search-input{background:rgba(255,255,25
 .search-vessel .search-clear.visible{display:flex;}
 .search-vessel .search-clear:hover{color:var(--gold-200);}
 .search-vessel .search-results-count{
-  margin-top:10px;font-family:var(--font-body);font-style:italic;
-  font-size:0.85rem;color:var(--parchment-faint);text-align:right;display:none;
+  margin-top:10px;font-family:var(--font-zh);
+  font-size:0.82rem;color:var(--parchment-faint);text-align:right;display:none;
 }
 .search-vessel .search-results-count.visible{display:block;}
 
@@ -357,10 +331,10 @@ main#nav-container>section h2{
   background:none!important;-webkit-text-fill-color:initial!important;
 }
 main#nav-container>section h2::before{
-  content:'⌜ ' counter(chapter,upper-roman) ' ⌝';
-  font-family:var(--font-display);font-size:0.78rem;font-weight:500;
-  letter-spacing:0.18em;color:var(--gold-400);
-  padding:4px 10px;border:1px solid var(--gold-600);
+  content:counter(chapter,decimal-leading-zero);
+  font-family:var(--font-mono);font-size:0.85rem;font-weight:500;
+  letter-spacing:0.1em;color:var(--gold-400);
+  padding:3px 9px;border:1px solid var(--gold-600);
   background:rgba(201,162,39,0.05);flex-shrink:0;
 }
 main#nav-container>section h2::after{
@@ -416,7 +390,7 @@ main#nav-container>section li .link-text{font-family:var(--font-zh);}
 footer{
   border-top:1px solid var(--ink-500);
   padding:36px 1.5rem 48px;text-align:center;
-  font-family:var(--font-body);font-style:italic;font-size:0.88rem;
+  font-family:var(--font-zh);font-size:0.85rem;
   color:var(--parchment-faint);letter-spacing:0.05em;position:relative;
   background:transparent!important;
 }
@@ -464,7 +438,7 @@ body[data-theme="light"] #back-to-top{
   main#nav-container{padding:24px 1rem 60px!important;}
   main#nav-container>section ul{grid-template-columns:1fr;gap:8px;}
   main#nav-container>section h2{font-size:1.15rem;gap:12px;}
-  .site-nav-link{font-size:0.68rem;letter-spacing:0.18em;padding:6px 10px!important;}
+  .site-nav-link{font-size:0.85rem;letter-spacing:0.06em;padding:6px 10px!important;}
 }
 </style>
 </head>
@@ -490,22 +464,6 @@ body[data-theme="light"] #back-to-top{
 <button id="back-to-top" aria-label="返回顶部">👆</button>
 
 <header class="hero">
-  <div class="hero-eyebrow"><span>Path of Exile 2 · 流放之路 II</span></div>
-
-  <h1 class="hero-title">
-    <span class="hero-title-en">Exile's Compendium</span>
-    <span class="hero-title-zh">流 放 者 编 年 史</span>
-  </h1>
-
-  <div class="hero-divider" aria-hidden="true">
-    <svg width="140" height="14" viewBox="0 0 140 14" fill="none">
-      <line x1="0" y1="7" x2="56" y2="7" stroke="currentColor" stroke-width="0.6"/>
-      <line x1="84" y1="7" x2="140" y2="7" stroke="currentColor" stroke-width="0.6"/>
-      <path d="M64 7 L70 2 L76 7 L70 12 Z" stroke="currentColor" stroke-width="0.8" fill="none"/>
-      <circle cx="70" cy="7" r="1.2" fill="currentColor"/>
-    </svg>
-  </div>
-
   <!-- 倒计时祭坛（管理端可关闭，默认隐藏） -->
   <section id="poe2-countdown" class="ritual" style="display:none">
     <span class="ritual-corner ritual-corner-tl"></span>
@@ -522,22 +480,22 @@ body[data-theme="light"] #back-to-top{
     <div class="ritual-name" id="poe2cd-title">加载中…</div>
 
     <div class="ritual-timer" id="poe2cd-timer">
-      <div class="ritual-block"><span class="ritual-num" data-seg="d">--</span><span class="ritual-unit">DIES</span></div>
-      <div class="ritual-block"><span class="ritual-num" data-seg="h">--</span><span class="ritual-unit">HORA</span></div>
-      <div class="ritual-block"><span class="ritual-num" data-seg="m">--</span><span class="ritual-unit">MIN</span></div>
-      <div class="ritual-block"><span class="ritual-num" data-seg="s">--</span><span class="ritual-unit">SEC</span></div>
+      <div class="ritual-block"><span class="ritual-num" data-seg="d">--</span><span class="ritual-unit">天</span></div>
+      <div class="ritual-block"><span class="ritual-num" data-seg="h">--</span><span class="ritual-unit">时</span></div>
+      <div class="ritual-block"><span class="ritual-num" data-seg="m">--</span><span class="ritual-unit">分</span></div>
+      <div class="ritual-block"><span class="ritual-num" data-seg="s">--</span><span class="ritual-unit">秒</span></div>
     </div>
 
     <div class="ritual-meta">
       <span id="poe2cd-date"></span>
       <span class="ritual-meta-sep">·</span>
-      <span id="poe2cd-source">poe2db.tw</span>
+      <span id="poe2cd-source">数据源 poe2db.tw</span>
     </div>
   </section>
 
   <div class="search-vessel">
     <span class="search-rune" aria-hidden="true">⌕</span>
-    <input type="text" id="search-input" class="search-input" placeholder="Search the compendium · 检索卷宗" autocomplete="off">
+    <input type="text" id="search-input" class="search-input" placeholder="搜索导航链接、攻略、工具…" autocomplete="off">
     <button class="search-clear" id="search-clear" aria-label="清空">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
