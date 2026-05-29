@@ -263,10 +263,13 @@ tr:hover td{background:rgba(26,115,232,.03)}
             <div style="font-weight:600;font-size:.95rem;color:var(--text);margin-bottom:4px">国服开服倒计时</div>
             <div style="font-size:.8rem;color:var(--sub);line-height:1.5">在首页顶部显示腾讯国服 POE2 下个赛季的开服倒计时（数据来自 poe2db.tw）</div>
           </div>
-          <label class="toggle-switch" style="position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0">
-            <input type="checkbox" id="cfgPoe2Countdown" onchange="toggleSiteConfig('poe2_cn_countdown', this.checked)" style="opacity:0;width:0;height:0">
-            <span class="toggle-slider" style="position:absolute;cursor:pointer;inset:0;background:var(--border2,#ccc);border-radius:24px;transition:.2s"></span>
-          </label>
+          <div style="display:flex;align-items:center;flex-shrink:0">
+            <span class="toggle-state-text" id="cfgPoe2CountdownText">关闭</span>
+            <label class="toggle-switch" style="position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0">
+              <input type="checkbox" id="cfgPoe2Countdown" onchange="toggleSiteConfig('poe2_cn_countdown', this.checked)" style="opacity:0;width:0;height:0">
+              <span class="toggle-slider" style="position:absolute;cursor:pointer;inset:0;border-radius:24px;transition:.2s"></span>
+            </label>
+          </div>
         </div>
 
         <div style="margin-top:14px;font-size:.78rem;color:var(--sub);line-height:1.6">
@@ -277,9 +280,34 @@ tr:hover td{background:rgba(26,115,232,.03)}
   </div>
 
   <style>
-    .toggle-switch input:checked + .toggle-slider { background: var(--brand, #1a73e8); }
-    .toggle-slider:before { content:""; position:absolute; height:18px; width:18px; left:3px; bottom:3px; background:#fff; border-radius:50%; transition:.2s; }
-    .toggle-switch input:checked + .toggle-slider:before { transform:translateX(20px); }
+    /* 关闭：灰色 + 凹陷感 */
+    .toggle-slider {
+      background: #cbd5e1 !important;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,.12);
+    }
+    [data-theme="dark"] .toggle-slider { background: #475569 !important; }
+    .toggle-slider:before {
+      content:""; position:absolute; height:18px; width:18px; left:3px; bottom:3px;
+      background:#fff; border-radius:50%; transition:.2s cubic-bezier(.4,0,.2,1);
+      box-shadow: 0 2px 4px rgba(0,0,0,.25);
+    }
+    /* 打开：渐变金色 + 发光 + 滑块右移 */
+    .toggle-switch input:checked + .toggle-slider {
+      background: linear-gradient(135deg, #34c759 0%, #22a04a 100%) !important;
+      box-shadow: 0 0 0 1px rgba(52,199,89,.4), 0 1px 4px rgba(52,199,89,.45);
+    }
+    .toggle-switch input:checked + .toggle-slider:before {
+      transform: translateX(20px);
+      box-shadow: 0 2px 6px rgba(0,0,0,.35);
+    }
+    /* 状态文字 */
+    .toggle-state-text {
+      font-size:.78rem; font-weight:600; color:#94a3b8;
+      margin-right:8px; min-width:32px; text-align:right;
+      transition: color .2s;
+    }
+    .toggle-state-text.on { color:#22a04a; }
+    [data-theme="dark"] .toggle-state-text.on { color:#34c759; }
   </style>
 </div>
 
@@ -501,6 +529,7 @@ async function toggleSiteConfig(key, val) {
     });
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
     siteConfig[key] = val;
+    updateToggleStateText(key, val);
   } catch (e) {
     alert('保存失败：' + e.message);
     // 回滚 UI
@@ -509,9 +538,23 @@ async function toggleSiteConfig(key, val) {
   }
 }
 
+function updateToggleStateText(key, val) {
+  if (key === 'poe2_cn_countdown') {
+    const t = document.getElementById('cfgPoe2CountdownText');
+    if (t) {
+      t.textContent = val ? '已开启' : '关闭';
+      t.classList.toggle('on', !!val);
+    }
+  }
+}
+
 function applySiteConfigToUI() {
   const cb = document.getElementById('cfgPoe2Countdown');
-  if (cb) cb.checked = !!siteConfig.poe2_cn_countdown;
+  if (cb) {
+    const v = !!siteConfig.poe2_cn_countdown;
+    cb.checked = v;
+    updateToggleStateText('poe2_cn_countdown', v);
+  }
 }
 
 async function loadLinks() {

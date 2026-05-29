@@ -49,7 +49,8 @@ export default async function handler(req, res) {
       if (fresh) await rebuildCache();
       if (!cache || Date.now() - cacheAt > CACHE_TTL) await rebuildCache();
       if (fresh) res.setHeader('Cache-Control', 'no-store');
-      else res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=300, stale-while-revalidate=600');
+      // 配置变更需要快速生效；数据极小，CDN 只缓存 10 秒，SWR 60 秒
+      else res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=10, stale-while-revalidate=60');
 
       if (key) return res.status(200).json({ key, value: cache[key] ?? null });
       return res.status(200).json(cache);
