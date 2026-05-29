@@ -1,0 +1,37 @@
+guides.html
+  s_9acbdd38e6b917::t_c0b5712ab77065 13-15,18
+maps.html
+  s_9acbdd38e6b917::t_123770220b381a 15-17,20
+tools.html
+  s_9acbdd38e6b917::t_328f04e4e3462c 13-15,18
+builds.html
+  s_9acbdd38e6b917::t_e69df5197ca720 182-185
+index.html
+  s_9acbdd38e6b917::t_91fcc3174b65ce 228
+  s_9acbdd38e6b917::t_b448aad8682b83 320,324
+news-detail.html
+  s_9acbdd38e6b917::t_8765c0566da0d5 45-47,50
+css/parchment.css
+  s_9acbdd38e6b917::t_419af62188ca4c 374-417
+  s_9acbdd38e6b917::t_b02561fb1dd81e 1-331,461-465
+  s_9acbdd38e6b917::t_27b40377d197b8 332-373,453-460
+  s_9acbdd38e6b917::t_80b85f598bbf5a 418-452
+news.html
+  s_9acbdd38e6b917::t_2e8419c8bb6f95 13-15,18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "ee421946379ce1973d543a6b8e9ed2b6735b95ac",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
