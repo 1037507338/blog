@@ -1,0 +1,22 @@
+builds/poe2_summoner_guide.html
+  s_9acbdd38e6b917::t_960052cb644c89 67-69
+  s_9acbdd38e6b917::t_5751aa5aff1808 192-195
+  s_9acbdd38e6b917::t_b68e2e5f4b9611 809-811
+  s_9acbdd38e6b917::t_a2c4775fc42735 276,283,294,320,329,413,463,538,702,713,715,739,757
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "b375727048ad72b30608a3b1609bbcc6b2f02c6c",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
