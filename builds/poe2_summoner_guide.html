@@ -64,6 +64,9 @@ a{color:inherit;text-decoration:none}
 .hero .meta{margin-top:1.4rem;display:flex;gap:1rem 1.8rem;justify-content:center;flex-wrap:wrap;font-size:.85rem;color:var(--text-muted)}
 .hero .meta span{display:inline-flex;align-items:center;gap:.4rem}
 .hero .meta strong{color:var(--gold);font-weight:600}
+.hero .src-link{display:inline-flex;align-items:center;gap:.5em;margin-top:1.6rem;padding:.55rem 1.2rem;font-size:.88rem;color:var(--gold);background:rgba(244,220,153,.08);border:1px solid rgba(244,220,153,.35);border-radius:2px;transition:all .25s;font-family:var(--font-zh)}
+.hero .src-link:hover{background:rgba(244,220,153,.18);border-color:var(--gold);color:#fff;transform:translateY(-1px)}
+.hero .src-link .src-arrow{font-family:var(--font-mono);color:var(--gold-mid)}
 
 /* ─── 总览卡片 ─── */
 .overview{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 1rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;position:relative;z-index:1}
@@ -186,6 +189,10 @@ footer .author{color:var(--gold);font-weight:600}
     <span>⚔ 定位 <strong>开荒 → 异界 T15</strong></span>
     <span>👤 攻略作者 <strong>灰少</strong></span>
   </div>
+  <a class="src-link" href="https://docs.qq.com/doc/DR2ZzUUR0aWJhaGJi" target="_blank" rel="noopener noreferrer">
+    📖 查看原文档（腾讯文档 · 持续更新）
+    <span class="src-arrow">↗</span>
+  </a>
 </header>
 
 <section class="overview">
@@ -263,17 +270,17 @@ footer .author{color:var(--gold);font-weight:600}
 <div class="gear">
   <div class="gear-item">
     <div class="gslot">主手 · 法杖</div>
-    <div class="gname">热切的之無法者凋零法杖</div>
+    <div class="gname">热切的之无法者凋零法杖</div>
     <div class="gen">Fervent Withered Wand of Anarchy · iLvl 10</div>
     <ul>
-      <li class="key">授予技能：荒猎人凋污憎敗</li>
+      <li class="key">授予技能：荒猎人凋污憎败</li>
       <li>14/13–15% 的额外火焰伤害</li>
       <li class="key">全部混沌法术技能等级 +1</li>
     </ul>
   </div>
   <div class="gear-item">
     <div class="gslot">副手 · 法器</div>
-    <div class="gname">疫源 榮耀之紋 紋刻法器</div>
+    <div class="gname">疫源 荣耀之纹 纹刻法器</div>
     <div class="gen">Plague Emblem Engraved Focus · iLvl 21</div>
     <ul>
       <li>15/15–26% 法术伤害</li>
@@ -284,7 +291,7 @@ footer .author{color:var(--gold);font-weight:600}
   </div>
   <div class="gear-item">
     <div class="gslot">鞋子 · 关键</div>
-    <div class="gname">暗喻之足 乾草便鞋</div>
+    <div class="gname">暗喻之足 干草便鞋</div>
     <div class="gen">iLvl 32 · 等级 10</div>
     <ul>
       <li class="key">+10% 移动速度</li>
@@ -310,7 +317,7 @@ footer .author{color:var(--gold);font-weight:600}
   <div class="flow-step"><div><div class="stitle">第一个辅助宝石</div><div class="sdesc">放给电球。先开地图，然后再去赤谷</div></div></div>
   <div class="flow-step"><div><div class="stitle">打完 boss 整理</div><div class="sdesc">鉴定金装卖掉，留意商店<strong>法杖和权杖鞋子</strong></div></div></div>
   <div class="flow-step"><div><div class="stitle">换混沌伤害装</div><div class="sdesc">换个混沌伤害导等级法杖回雨林开下一关</div></div></div>
-  <div class="flow-step"><div><div class="stitle">蓝地升 6 级</div><div class="sdesc">开 <em>灵魂取</em> 替换电球，释放给凋污憎敗</div></div></div>
+  <div class="flow-step"><div><div class="stitle">蓝地升 6 级</div><div class="sdesc">开 <em>灵魂取</em> 替换电球，释放给凋污憎败</div></div></div>
   <div class="flow-step"><div><div class="stitle">灵魂取衔接</div><div class="sdesc">极地（榨菇）+ 极速英烬，触发 +5 智慧，强化破坏目标输出</div></div></div>
   <div class="flow-step"><div><div class="stitle">执政官领地</div><div class="sdesc">辅助宝石全部拿。途中遇到金箱子可以随手开一下稀有物品</div></div></div>
   <div class="flow-step"><div><div class="stitle">打完守墓人回城</div><div class="sdesc">鉴定带有物品 + 买装备，不用的全部卖金币</div></div></div>
@@ -319,7 +326,7 @@ footer .author{color:var(--gold);font-weight:600}
   <div class="flow-step"><div><div class="stitle">精魂宝石可缓打</div><div class="sdesc">可等打到狼王前再回来拿。精魂技能先开<strong>极地装甲</strong>，升华 1 后就废了</div></div></div>
   <div class="flow-step"><div><div class="stitle">拿任务道具 + 4 级技能石</div><div class="sdesc">这张图拿完后回 NPC 交任务，得天赋点和技能石</div></div></div>
   <div class="flow-step"><div><div class="stitle">狼王宅邸前小 boss</div><div class="sdesc">回去一路推进狼王宅邸打小 boss</div></div></div>
-  <div class="flow-step"><div><div class="stitle">狐玉护符</div><div class="sdesc">打到狼王前，回精魂取 NPC 拿 <em>鼠玉護行</em>（持续 4 秒，每次使用消耗 20/40 充能，+25% 冰冷防御）</div></div></div>
+  <div class="flow-step"><div><div class="stitle">狐玉护符</div><div class="sdesc">打到狼王前，回精魂取 NPC 拿 <em>鼠玉护行</em>（持续 4 秒，每次使用消耗 20/40 充能，+25% 冰冷防御）</div></div></div>
   <div class="flow-step"><div><div class="stitle">14 级用 5 级技能</div><div class="sdesc">5 级技能开 <em>余开齐射</em> 配合凤暴满打 boss，<em>极速 1 精准破坏</em></div></div></div>
   <div class="flow-step"><div><div class="stitle">第二章营地</div><div class="sdesc">必拿 <strong>2 级辅助宝石</strong>和 <strong>5 级技能宝石</strong></div></div></div>
   <div class="flow-step"><div><div class="stitle">哈拉尼克关口</div><div class="sdesc">打完 boss，再打石塔 boss。5 级技能再开一个 <em>闪电凤暴</em>，留升华 1 后用</div></div></div>
@@ -400,17 +407,17 @@ footer .author{color:var(--gold);font-weight:600}
 <div class="gear">
   <div class="gear-item">
     <div class="gslot">主手 · 权杖</div>
-    <div class="gname">蕴的之監管者精靈權杖</div>
+    <div class="gname">藏蓝之监管者精灵权杖</div>
     <div class="gen">Cobalt Rattling Sceptre of the Tasker · iLvl 16</div>
     <ul>
-      <li class="key">授予技能：荒猎人凋污憎敗</li>
+      <li class="key">授予技能：荒猎人凋污憎败</li>
       <li>+20/15–24% 最大魔力</li>
       <li class="key">全部召唤物技能等级 +1</li>
     </ul>
   </div>
   <div class="gear-item">
     <div class="gslot">副手 · 监管者</div>
-    <div class="gname">精靈的之監管者精霸之径</div>
+    <div class="gname">精灵之监管者精霸之径</div>
     <div class="gen">iLvl 23</div>
     <ul>
       <li>+18 命中等级</li>
@@ -453,7 +460,7 @@ footer .author{color:var(--gold);font-weight:600}
     <span class="sup">召集</span>
     <span class="sup">集中范围</span>
     <span class="sup">分量</span>
-    <span class="sup">柯戈的鳴（通货兑换）</span>
+    <span class="sup">柯戈的鸣（通货兑换）</span>
   </div>
 </div>
 
@@ -528,7 +535,7 @@ footer .author{color:var(--gold);font-weight:600}
 
 <h3>亡灵统治者机制</h3>
 <div class="callout">
-  <p>召唤物受 +帆統治者使用法者，仁靈統治者持持有 35% 更多召唤物伤害值。</p>
+  <p>召唤物受 +帆统治者使用法者，仁灵统治者持持有 35% 更多召唤物伤害值。</p>
   <p><strong>死亡时获得仁灵统治者</strong>，召唤物伤害提升 200%。当召唤物在仁灵统治者周围时，其受到的相和狀態效果是 100%。</p>
 </div>
 
@@ -616,7 +623,7 @@ footer .author{color:var(--gold);font-weight:600}
 <div class="gear">
   <div class="gear-item">
     <div class="gslot">头盔 · +2 召唤</div>
-    <div class="gname">恐怖 真黄之意 苦頸先祖羅冠</div>
+    <div class="gname">恐怖 真黄之意 苦颈先祖罗冠</div>
     <div class="gen">Dread Ward Runeforged Ancestral Tiara · iLvl 81</div>
     <ul>
       <li>能量护展 72</li>
@@ -692,7 +699,7 @@ footer .author{color:var(--gold);font-weight:600}
       <li>攻击附加 16/14–30 法地霊</li>
       <li>+10% 沖混伤害</li>
       <li>+148 最大魔力</li>
-      <li>+26 點別覓</li>
+      <li>+26 点別覓</li>
       <li>+13% 全元素抗性</li>
       <li>+20% 闪电防御</li>
     </ul>
@@ -703,9 +710,9 @@ footer .author{color:var(--gold);font-weight:600}
     <div class="gname">道达 蝴勰 生家腰带</div>
     <div class="gen">Stranglepool Ostentatious Belt · 等级 58</div>
     <ul>
-      <li>+20% 暴勞的生命物善值</li>
+      <li>+20% 暴劳的生命物善值</li>
       <li>1 个强符魔位</li>
-      <li>+34% 最大震勞的攻击</li>
+      <li>+34% 最大震劳的攻击</li>
       <li>+33% 元能量保镖</li>
       <li>+30% 心想抗性</li>
       <li>+21.9 标卡生命召唤</li>
@@ -729,7 +736,7 @@ footer .author{color:var(--gold);font-weight:600}
 
   <div class="gear-item">
     <div class="gslot">鞋子 · 30 移速</div>
-    <div class="gname">恐惧 速幕 苻骰銀脫便鞋</div>
+    <div class="gname">恐惧 速幕 符骰银脫便鞋</div>
     <div class="gen">能量护展 65,86 · 保护 42</div>
     <ul>
       <li class="key">+30% 移动速度</li>
@@ -747,7 +754,7 @@ footer .author{color:var(--gold);font-weight:600}
     <div class="gen">Sunburst Dousing Charm of the Brewer · 等级 39</div>
     <ul>
       <li class="key">免疫点燃</li>
-      <li>每次受兒充能 40 充能次数</li>
+      <li>每次受儿充能 40 充能次数</li>
       <li>+60/30–37% 防力</li>
     </ul>
   </div>
@@ -799,6 +806,9 @@ footer .author{color:var(--gold);font-weight:600}
 
 <footer>
   <p>攻略原作：<span class="author">灰少</span> · 0.5 赛季 · 在线持续更新中</p>
+  <p style="margin-top:.4rem">原文档：
+    <a href="https://docs.qq.com/doc/DR2ZzUUR0aWJhaGJi" target="_blank" rel="noopener noreferrer" style="color:var(--gold);border-bottom:1px solid currentColor;font-family:var(--font-mono);font-size:.85em">docs.qq.com/doc/DR2ZzUUR0aWJhaGJi ↗</a>
+  </p>
   <p style="margin-top:.5rem">页面整理：POE2 Hub · <a href="../builds.html" style="color:var(--gold-mid);border-bottom:1px solid currentColor">返回 BD 列表</a></p>
 </footer>
 
