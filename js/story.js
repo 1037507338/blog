@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 // 加载所有章节
 async function loadAllActs() {
-    const acts = ['act1', 'act2', 'act3', 'act4'];
+    const acts = ['act1', 'act2', 'act3', 'act4', 'act5'];
     for (const act of acts) {
         try {
             const response = await fetch(`data/story/${act}.json`);
@@ -46,7 +46,8 @@ function renderActTabs() {
         { id: 'act1', name: 'Act 1' },
         { id: 'act2', name: 'Act 2' },
         { id: 'act3', name: 'Act 3' },
-        { id: 'act4', name: 'Act 4' }
+        { id: 'act4', name: 'Act 4' },
+        { id: 'act5', name: 'Act 5' }
     ];
     
     container.innerHTML = acts.map(act => `
@@ -131,13 +132,16 @@ function showNodeDetail(nodeId) {
     document.getElementById('nodeHint').textContent = node.hint || '';
     document.getElementById('nodeDescription').textContent = node.description || '';
     
-    // 徽章
+    // 徽章 + 赛季奖励
     const badgeEl = document.getElementById('nodeBadge');
+    let badgeHtml = '';
     if (node.badge) {
-        badgeEl.innerHTML = `<span class="badge ${node.badge.type}">${node.badge.text}</span>`;
-    } else {
-        badgeEl.innerHTML = '';
+        badgeHtml += `<span class="badge ${node.badge.type}">${node.badge.text}</span>`;
     }
+    if (node.seasonReward) {
+        badgeHtml += `<span class="badge season-reward" title="赛季奖励">🎁 ${node.seasonReward}</span>`;
+    }
+    badgeEl.innerHTML = badgeHtml;
     
     // 步骤 - 用 div 彻底避免 li 竖排问题
     const stepsEl = document.getElementById('nodeSteps');
