@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>0.5 赛季 · 武圣开荒全攻略 · POE2 Hub</title>
+<meta name="description" content="流放之路2 0.5赛季武僧武圣开荒攻略，冰川之刺转浪涌奔雷鸣，覆盖逐章技能链路、装备词缀、天赋树和升华路线">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root{
+  --bg-deep:#0d0a07;
+  --bg-surface:#1a140c;
+  --bg-raised:#251c11;
+  --bg-card:#322615;
+  --gold:#f4dc99;
+  --gold-mid:#c9a227;
+  --gold-dim:#8b6914;
+  --amber:#e8a948;
+  --fire:#e85d3a;
+  --ice:#7fb6e0;
+  --shock:#9d7ee0;
+  --chaos:#b65fc7;
+  --text-primary:#e8d9b8;
+  --text-secondary:#b8a47a;
+  --text-muted:#897653;
+  --border-subtle:#4d3a1f;
+  --border-mid:#6b4f2a;
+  --accent-red:#d04848;
+  --accent-green:#5fb86b;
+  --font-zh:'Noto Serif SC','Noto Sans SC',serif;
+  --font-body:'Noto Sans SC',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:clamp(15px,1.05vw,16px);scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg-deep);color:var(--text-primary);line-height:1.75;min-height:100vh;-webkit-font-smoothing:antialiased}
+
+body::before{
+  content:'';position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse at 15% 5%,rgba(157,126,224,0.08) 0%,transparent 55%),
+    radial-gradient(ellipse at 85% 95%,rgba(127,182,224,0.05) 0%,transparent 55%),
+    repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(157,126,224,0.012) 2px,rgba(157,126,224,0.012) 4px);
+  pointer-events:none;z-index:0;
+}
+
+a{color:inherit;text-decoration:none}
+
+.top-bar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,10,7,0.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border-subtle);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;font-size:.88rem}
+.top-bar a{color:var(--text-secondary);transition:color .2s}
+.top-bar a:hover{color:var(--shock)}
+.top-bar .crumb{display:flex;gap:10px;align-items:center}
+.top-bar .crumb span{color:var(--border-mid)}
+
+.hero{position:relative;z-index:1;padding:clamp(5rem,10vw,7rem) 1.5rem clamp(2.5rem,5vw,4rem);text-align:center;border-bottom:1px solid var(--border-subtle);max-width:1100px;margin:0 auto}
+.hero::after{content:'';display:block;width:140px;height:2px;background:linear-gradient(90deg,transparent,var(--shock),transparent);margin:1.8rem auto 0}
+.hero .badge{display:inline-block;font-family:var(--font-zh);font-size:.78rem;font-weight:700;letter-spacing:.2em;color:var(--shock);border:1px solid rgba(157,126,224,.35);padding:.32em 1.4em;margin-bottom:1.4rem}
+.hero h1{font-family:var(--font-zh);font-size:clamp(1.9rem,4.8vw,3.2rem);font-weight:900;color:var(--shock);letter-spacing:.04em;text-shadow:0 0 80px rgba(157,126,224,.25);line-height:1.25}
+.hero .subtitle{color:var(--text-secondary);font-size:clamp(.95rem,1.6vw,1.15rem);margin-top:.8rem;font-weight:300}
+.hero .meta{margin-top:1.4rem;display:flex;gap:1rem 1.8rem;justify-content:center;flex-wrap:wrap;font-size:.85rem;color:var(--text-muted)}
+.hero .meta span{display:inline-flex;align-items:center;gap:.4rem}
+.hero .meta strong{color:var(--shock);font-weight:600}
+
+.overview{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 1rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;position:relative;z-index:1}
+.ov-card{background:linear-gradient(135deg,var(--bg-surface),var(--bg-raised));border:1px solid var(--border-subtle);padding:1.2rem 1.4rem;border-radius:2px;position:relative}
+.ov-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--shock)}
+.ov-card .label{font-size:.72rem;letter-spacing:.18em;color:var(--text-muted);text-transform:uppercase;margin-bottom:.4rem}
+.ov-card .value{font-family:var(--font-zh);font-size:1.15rem;font-weight:700;color:var(--shock);line-height:1.4}
+.ov-card .desc{font-size:.82rem;color:var(--text-secondary);margin-top:.3rem}
+
+main{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 5rem;position:relative;z-index:1}
+
+.toc{position:sticky;top:60px;background:rgba(13,10,7,0.85);backdrop-filter:blur(8px);border:1px solid var(--border-subtle);padding:.9rem 1.2rem;margin-bottom:2.5rem;z-index:50;border-radius:2px}
+.toc h4{font-family:var(--font-zh);font-size:.78rem;letter-spacing:.18em;color:var(--text-muted);text-transform:uppercase;margin-bottom:.5rem;font-weight:600}
+.toc ol{list-style:none;display:flex;gap:.5rem 1.4rem;flex-wrap:wrap;font-size:.85rem;counter-reset:tocnum}
+.toc li{counter-increment:tocnum}
+.toc li::before{content:counter(tocnum,decimal-leading-zero) '.';font-family:var(--font-mono);color:var(--gold-dim);margin-right:.4em;font-size:.78rem}
+.toc a{color:var(--text-secondary);transition:color .2s;border-bottom:1px solid transparent;padding-bottom:1px}
+.toc a:hover{color:var(--shock);border-bottom-color:var(--shock)}
+
+section{margin-bottom:4rem;scroll-margin-top:80px}
+section > h2{font-family:var(--font-zh);font-size:clamp(1.4rem,2.6vw,1.85rem);font-weight:700;color:var(--shock);letter-spacing:.04em;padding-bottom:.5rem;margin-bottom:1.5rem;border-bottom:1px solid var(--border-subtle);display:flex;align-items:baseline;gap:.7rem}
+section > h2::before{content:counter(secnum,decimal-leading-zero);counter-increment:secnum;font-family:var(--font-mono);font-size:.85rem;color:var(--gold-dim);font-weight:500;letter-spacing:.05em}
+main{counter-reset:secnum}
+section > h3{font-family:var(--font-zh);font-size:1.15rem;font-weight:700;color:var(--amber);margin:2rem 0 .8rem;padding-left:.7rem;border-left:3px solid var(--shock)}
+section > h4{font-family:var(--font-zh);font-size:1rem;font-weight:600;color:var(--shock);margin:1.4rem 0 .6rem}
+
+p{margin:.7rem 0;color:var(--text-primary)}
+ul,ol{margin:.6rem 0 1rem 1.4rem;color:var(--text-primary)}
+li{margin:.3rem 0}
+strong{color:var(--shock);font-weight:600}
+em{color:var(--ice);font-style:normal}
+
+.callout{margin:1.2rem 0;padding:1rem 1.2rem;border:1px solid var(--border-mid);border-left:4px solid var(--shock);background:rgba(157,126,224,0.06);border-radius:2px}
+.callout.warn{border-left-color:var(--accent-red);background:rgba(208,72,72,0.06)}
+.callout.tip{border-left-color:var(--accent-green);background:rgba(95,184,107,0.06)}
+.callout .ctitle{font-weight:700;color:var(--shock);margin-bottom:.3rem;font-size:.92rem;display:flex;align-items:center;gap:.4em}
+.callout.warn .ctitle{color:var(--accent-red)}
+.callout.tip .ctitle{color:var(--accent-green)}
+.callout p{margin:.3rem 0;font-size:.92rem}
+.callout code{font-family:var(--font-mono);background:rgba(0,0,0,.4);padding:1px 6px;border-radius:2px;color:var(--shock);font-size:.86em;border:1px solid var(--border-subtle)}
+
+.skill-link{margin:1rem 0;padding:.85rem 1rem;background:rgba(0,0,0,.3);border:1px solid var(--border-subtle);border-radius:2px;display:grid;grid-template-columns:auto 1fr;gap:.8rem 1rem;align-items:start}
+.skill-link .main-skill{font-family:var(--font-zh);font-weight:700;color:var(--shock);font-size:1rem;padding:.3rem .7rem;background:rgba(157,126,224,.08);border:1px solid rgba(157,126,224,.3);border-radius:2px;display:inline-block;white-space:nowrap}
+.skill-link .supports{color:var(--text-secondary);font-size:.92rem;display:flex;flex-wrap:wrap;gap:.3rem .8rem;align-items:center}
+.skill-link .supports .sup{color:var(--ice);background:rgba(127,182,224,.08);border:1px solid rgba(127,182,224,.25);padding:.18rem .55rem;border-radius:2px;font-size:.85rem;display:inline-block}
+.skill-link .note{grid-column:1/-1;font-size:.84rem;color:var(--text-muted);margin-top:.2rem}
+
+.flow{counter-reset:flowstep;margin:1rem 0}
+.flow-step{display:grid;grid-template-columns:auto 1fr;gap:1rem;padding:.8rem 0;border-bottom:1px dashed var(--border-subtle)}
+.flow-step:last-child{border-bottom:none}
+.flow-step::before{counter-increment:flowstep;content:counter(flowstep,decimal-leading-zero);font-family:var(--font-mono);color:var(--gold-mid);font-weight:600;font-size:.95rem;letter-spacing:.05em;padding-top:2px}
+.flow-step .stitle{font-weight:600;color:var(--shock);margin-bottom:.15rem}
+.flow-step .sdesc{color:var(--text-secondary);font-size:.92rem}
+
+.affix-table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem}
+.affix-table th,.affix-table td{padding:.65rem .9rem;border:1px solid var(--border-subtle);text-align:left;vertical-align:top}
+.affix-table th{background:var(--bg-surface);color:var(--shock);font-weight:600;font-family:var(--font-zh);font-size:.88rem}
+.affix-table td:first-child{color:var(--amber);font-weight:600;white-space:nowrap;width:140px}
+.affix-table tr:nth-child(even) td{background:rgba(40,30,15,.3)}
+
+.tag{display:inline-block;padding:.12em .65em;font-size:.76rem;font-family:var(--font-mono);border-radius:2px;margin:0 .2em;letter-spacing:.04em}
+.tag.fire{background:rgba(232,93,58,.15);color:var(--fire);border:1px solid rgba(232,93,58,.3)}
+.tag.ice{background:rgba(127,182,224,.15);color:var(--ice);border:1px solid rgba(127,182,224,.3)}
+.tag.shock{background:rgba(157,126,224,.15);color:var(--shock);border:1px solid rgba(157,126,224,.3)}
+.tag.gold{background:rgba(244,220,153,.12);color:var(--gold);border:1px solid rgba(244,220,153,.3)}
+
+.server-tag{display:inline-block;padding:.1em .5em;font-size:.72rem;border-radius:2px;margin-left:.3em;vertical-align:middle;letter-spacing:.02em}
+.server-tag.cn{background:rgba(232,93,58,.12);color:var(--fire);border:1px solid rgba(232,93,58,.25)}
+.server-tag.tw{background:rgba(95,184,107,.12);color:var(--accent-green);border:1px solid rgba(95,184,107,.25)}
+
+.route-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin:1.2rem 0}
+.route-card{background:linear-gradient(180deg,rgba(40,30,15,.9),rgba(20,14,7,.9));border:1px solid var(--border-mid);padding:1.2rem 1.4rem;border-radius:2px;position:relative}
+.route-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--shock),transparent)}
+.route-card .rname{font-family:var(--font-zh);font-weight:700;color:var(--shock);font-size:1.05rem;margin-bottom:.4rem}
+.route-card .rdesc{font-size:.88rem;color:var(--text-secondary);margin-bottom:.5rem}
+.route-card ul{list-style:none;margin:0;padding:0}
+.route-card li{margin:.2rem 0;font-size:.85rem;color:var(--text-secondary);padding-left:1em;position:relative}
+.route-card li::before{content:'▸';position:absolute;left:0;color:var(--shock);font-weight:600}
+.route-card li.rec{color:var(--gold);font-weight:500}
+.route-card li.rec::before{content:'★';color:var(--gold)}
+
+footer{max-width:1100px;margin:3rem auto 0;padding:2rem 1.5rem;border-top:1px solid var(--border-subtle);text-align:center;color:var(--text-muted);font-size:.85rem;position:relative;z-index:1}
+footer .author{color:var(--shock);font-weight:600}
+
+@media(max-width:640px){
+  .toc{position:static}
+  .toc ol{flex-direction:column;gap:.4rem}
+  .skill-link{grid-template-columns:1fr}
+  .gear,.route-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="crumb">
+    <a href="../index.html">首页</a>
+    <span>›</span>
+    <a href="../builds.html">BD推荐</a>
+    <span>›</span>
+    <span style="color:var(--shock)">武僧·武圣</span>
+  </div>
+  <a href="../builds.html">← 返回BD列表</a>
+</div>
+
+<header class="hero">
+  <div class="badge">0.5 赛季 · 武僧开荒</div>
+  <h1>武圣 · 浪涌奔雷鸣</h1>
+  <p class="subtitle">冰川之刺 → 移风岚引爆 · 近战打击感拉满</p>
+  <div class="meta">
+    <span>🏷 版本 <strong>0.5</strong></span>
+    <span>🎯 难度 <strong>中等</strong></span>
+    <span>⚔ 定位 <strong>开荒 → 异界</strong></span>
+    <span>👤 攻略作者 <strong>老孤独</strong></span>
+  </div>
+</header>
+
+<section class="overview">
+  <div class="ov-card">
+    <div class="label">职业 · 升华</div>
+    <div class="value">武僧 → 武圣</div>
+    <div class="desc">冰川之刺过渡，22级转浪涌奔雷鸣体系</div>
+  </div>
+  <div class="ov-card">
+    <div class="label">核心玩法</div>
+    <div class="value">引爆 + 近战</div>
+    <div class="desc">冰凌座铺场 → 移风岚上感电 → 霹雳闪引爆，打击感极强</div>
+  </div>
+  <div class="ov-card">
+    <div class="label">属性需求</div>
+    <div class="value">敏捷 > 智慧</div>
+    <div class="desc">敏捷为主，智慧其次，装备补少量力量</div>
+  </div>
+  <div class="ov-card">
+    <div class="label">核心天赋</div>
+    <div class="value">空明拳</div>
+    <div class="desc">第一章尽早点出，提供力量加成</div>
+  </div>
+</section>
+
+<main>
+
+<nav class="toc">
+  <h4>目录 · CONTENTS</h4>
+  <ol>
+    <li><a href="#preface">前言</a></li>
+    <li><a href="#act1">第一章 · 冰川之刺起步</a></li>
+    <li><a href="#act2">第二章 · 浪涌奔雷鸣成形</a></li>
+    <li><a href="#act3">第三章 · 开孔扩链</a></li>
+    <li><a href="#act4">第四章 · 跑图与装备</a></li>
+    <li><a href="#ascend">升华选择</a></li>
+    <li><a href="#endgame">后期BD · 无限球影分身</a></li>
+    <li><a href="#glossary">国服/国际服技能对照</a></li>
+  </ol>
+</nav>
+
+<!-- ════════════════ 前言 ════════════════ -->
+<section id="preface">
+<h2>前言</h2>
+<p>老孤独 0.5 版本国际服首发用<strong>武圣</strong>开荒起手。</p>
+<p>优点是<strong>打击感极强</strong>，缺点是打 BOSS 时 GGG 喜欢连招，武僧开荒有一定难度。冰川之刺转浪涌奔雷鸣最舒服，不需要太多猴戏，按键可以相对少点。</p>
+
+<div class="callout">
+  <div class="ctitle">💡 核心思路</div>
+  <p>第一章用 <span class="tag ice">冰川之刺</span> 过渡，第二章 22 级拿到 3 个 7 级技能石后转 <span class="tag shock">移风岚</span> + <span class="tag shock">霹雳闪</span> 引爆体系，一路推到异界。</p>
+</div>
+
+<div class="callout warn">
+  <div class="ctitle">⚠ 注意</div>
+  <p><strong>第一章技能千万别拿错</strong>，前期技能拿错了会大幅降低效率。</p>
+</div>
+</section>
+
+<!-- ════════════════ 第一章 ════════════════ -->
+<section id="act1">
+<h2>第一章 · 冰川之刺起步</h2>
+
+<div class="flow">
+  <div class="flow-step"><div><div class="stitle">创建角色</div><div class="sdesc">打完 BOSS 入门，领 <strong>1 级技能</strong>拿到 <span class="tag ice">冰川之刺</span><br>⚠ 注意：冰川之刺要最后一段才有高额输出</div></div></div>
+  <div class="flow-step"><div><div class="stitle">克里费尔</div><div class="sdesc">不要打怪，绕着墙跑一圈踩到传送点和营地箱子<br>获得第二个技能：<span class="tag ice">顽疾 <span class="server-tag tw">国际服：瘟疫</span></span></div></div></div>
+  <div class="flow-step"><div><div class="stitle">韧木森林</div><div class="sdesc">跑图开传送点，用 冰川之刺 + 顽疾 刷怪<br>去<strong>红谷</strong>练级</div></div></div>
+  <div class="flow-step"><div><div class="stitle">克里费尔洞穴</div><div class="sdesc">打大虫子，获得 <strong>2 级技能</strong>和 <strong>1 级辅助</strong></div></div></div>
+  <div class="flow-step"><div><div class="stitle">领寒霜暴</div><div class="sdesc">元素系技能，<strong>打 BOSS 降抗性</strong><br>辅助换 <span class="tag ice">范围集中 <span class="server-tag tw">国际服：集中光環</span></span></div></div></div>
+  <div class="flow-step"><div><div class="stitle">药剂怪</div><div class="sdesc">给 <span class="tag ice">冰冷协调</span>，冰川之刺连上 集中效应 + 冰冷协调</div></div></div>
+  <div class="flow-step"><div><div class="stitle">3 级技能</div><div class="sdesc">拿 <span class="tag shock">秘术精华吸取 <span class="server-tag tw">国际服：灵魂吸取</span></span><br>打怪用 精华吸取 + 顽疾</div></div></div>
+  <div class="flow-step"><div><div class="stitle">第二个 3 级技能</div><div class="sdesc">换 <span class="tag gold">原始猛扑</span>，买德鲁伊武器<strong>变狼</strong>跑快点</div></div></div>
+  <div class="flow-step"><div><div class="stitle">BOSS 战</div><div class="sdesc"><span class="tag ice">寒霜暴</span> + <span class="tag ice">冰川之刺</span>（冰刺拉最远距离，用最后一段输出）</div></div></div>
+</div>
+
+<h3>第一章技能链接</h3>
+
+<div class="skill-link">
+  <div class="main-skill">冰川之刺 <span class="server-tag cn">国服</span></div>
+  <div class="supports">
+    <span class="sup">范围集中</span>
+    <span class="sup">冰冷协调</span>
+  </div>
+</div>
+
+<div class="skill-link">
+  <div class="main-skill">冰川之刺 <span class="server-tag tw">国际服</span></div>
+  <div class="supports">
+    <span class="sup">集中光環</span>
+  </div>
+</div>
+
+<div class="skill-link">
+  <div class="main-skill">寒霜暴</div>
+  <div class="note">打 BOSS 降抗性辅助</div>
+</div>
+
+<div class="skill-link">
+  <div class="main-skill">寒冰之捷 <span class="server-tag cn">国服</span></div>
+  <div class="supports"><span class="sup">扩大范围</span></span>
+  <div class="note">光环增伤</div>
+</div>
+
+<div class="skill-link">
+  <div class="main-skill">冰凌座 <span class="server-tag cn">国服</span></div>
+  <div class="supports"><span class="sup">元素武装</span><span class="sup">霜咬</span></span>
+</div>
+<div class="skill-link">
+  <div class="main-skill">寒冰轨迹 <span class="server-tag tw">国际服</span></div>
+  <div class="supports"><span class="sup">元素军械</span><span class="sup">霜咬</span></span>
+</div>
+
+<div class="skill-link">
+  <div class="main-skill">精华吸取 <span class="server-tag cn">国服</span> / 灵魂吸取 <span class="server-tag tw">国际服</span></div>
+  <div class="note">13 级后扔掉</div>
+</div>
+
+<div class="skill-link">
+  <div class="main-skill">顽疾 <span class="server-tag cn">国服</span> / 瘟疫 <span class="server-tag tw">国际服</span></div>
+  <div class="note">13 级后扔掉</div>
+</div>
+
+<div class="skill-link">
+  <div class="main-skill">猛扑</div>
+  <div class="note">赶路用，买德鲁伊武器变狼加速</div>
+</div>
+
+<h3>天赋</h3>
+<p>到狼王面前最好 <strong>13 级</strong>，点出 <span class="tag gold">空明拳</span>（装备没力量的话需 +5 力量）。</p>
+
+<h3>属性需求</h3>
+<p><strong>敏捷</strong>为主，<strong>智慧</strong>其次，装备补少部分力量。</p>
+
+<div class="callout tip">
+  <div class="ctitle">💡 小提示</div>
+  <p>5 级 / 11 级记得看 NPC 换武器，<strong>每次升级都看看 NPC 更新了什么</strong>。</p>
+</div>
+
+<h3>NPC 搜索词缀</h3>
+
+<table class="affix-table">
+  <thead><tr><th>服务器</th><th>搜索正则</th></tr></thead>
+  <tbody>
+    <tr><td>国际服</td><td><code>\d+\s閃|\d+\s冰|\d+\s物|%\s物理傷|大生|近戰技能|偷取|移動速度</code></td></tr>
+    <tr><td>国服</td><td><code>\d+\s閃|\d+\s冰|\d+\s物|%\s物理伤|大生|近战技能|偷取|移动速度</code></td></tr>
+  </tbody>
+</table>
+</section>
+
+<!-- ════════════════ 第二章 ════════════════ -->
+<section id="act2">
+<h2>第二章 · 浪涌奔雷鸣成形</h2>
+
+<h3>22 级之前</h3>
+<p><span class="tag ice">冰凌座</span> + <span class="tag ice">冰刺</span> 引爆清小怪，BOSS 用 <span class="tag ice">寒霜暴</span> + <span class="tag ice">冰刺</span>。</p>
+
+<h3>22 级以后（需要 3 个 7 级技能石）</h3>
+
+<div class="callout">
+  <div class="ctitle">⚔ BOSS 循环输出手法</div>
+  <p><span class="tag shock">移风岚</span> 上感电 → <span class="tag shock">汲能击</span> 消耗感电获取暴击球 → <span class="tag ice">冰凌座</span> 取消后摇 → <span class="tag shock">霹雳闪</span> 消耗暴击球打爆冰凌座高额伤害 → 大概率再挂感电循环</p>
+</div>
+
+<h3>第二章技能链接（3 个 7 级技能）</h3>
+
+<div class="skill-link">
+  <div class="main-skill">移风岚 <span class="server-tag cn">国服</span></div>
+  <div class="supports">
+    <span class="sup">亢奋</span>
+    <span class="sup">元素武装 2</span>
+    <span class="sup">分叉裂隙 1</span>
+  </div>
+</div>
+<div class="skill-link">
+  <div class="main-skill">风暴浪涌 <span class="server-tag tw">国际服</span></div>
+  <div class="supports">
+    <span class="sup">亢奋</span>
+    <span class="sup">元素军械</span>
+    <span class="sup">分叉裂隙</span>
+  </div>
+</div>
+
+<div class="skill-link">
+  <div class="main-skill">汲能击 <span class="server-tag cn">国服</span></div>
+  <div class="supports"><span class="sup">范围集中</span><span class="sup">能量球激增</span></div>
+</div>
+<div class="skill-link">
+  <div class="main-skill">虹吸打击 <span class="server-tag tw">国际服</span></div>
+  <div class="supports"><span class="sup">集中效应</span><span class="sup">充能满盈</span></div>
+</div>
+
+<div class="skill-link">
+  <div class="main-skill">冰凌座 <span class="server-tag cn">国服</span></div>
+  <div class="supports"><span class="sup">元素武装</span><span class="sup">霜咬</span></div>
+</div>
+<div class="skill-link">
+  <div class="main-skill">寒冰轨迹 <span class="server-tag tw">国际服</span></div>
+  <div class="supports"><span class="sup">元素军械</span><span class="sup">霜咬</span></div>
+</div>
+
+<div class="skill-link">
+  <div class="main-skill">霹雳闪 <span class="server-tag cn">国服</span></div>
+  <div class="supports"><span class="sup">元素武装</span><span class="sup">永续充能</span></div>
+</div>
+<div class="skill-link">
+  <div class="main-skill">崩雷鸣 <span class="server-tag tw">国际服</span></div>
+  <div class="supports"><span class="sup">元素军械</span><span class="sup">永恒充能</span></div>
+</div>
+
+<div class="skill-link">
+  <div class="main-skill">寒冰之捷</div>
+  <div class="supports">
+    <span class="sup">元素武装 / 元素军械</span>
+    <span class="sup">范围扩大 / 范围光環</span>
+  </div>
+</div>
+
+<div class="skill-link">
+  <div class="main-skill">猛扑</div>
+  <div class="note">赶路用</div>
+</div>
+
+<div class="callout tip">
+  <div class="ctitle">💡 可选</div>
+  <p>可额外拿 <span class="tag fire">灰烬之捷</span> + <span class="sup">范围扩大 / 范围光環</span> 增加额外伤害。</p>
+</div>
+
+<h3>天赋</h3>
+<p>把附近能加的<strong>伤害点</strong>优先点出来。</p>
+</section>
+
+<!-- ════════════════ 第三章 ════════════════ -->
+<section id="act3">
+<h2>第三章 · 开孔扩链</h2>
+
+<p>给技能开 <strong>3 洞 / 4 洞</strong>，输出手法不变。</p>
+
+<h3>国服技能链接</h3>
+
+<div class="skill-link">
+  <div class="main-skill">移风岚</div>
+  <div class="supports">
+    <span class="sup">亢奋</span>
+    <span class="sup">元素武装 2</span>
+    <span class="sup">分叉裂隙 1</span>
+    <span class="sup">快速攻击 或 盛怒</span>
+  </div>
+</div>
+<div class="skill-link">
+  <div class="main-skill">汲能击</div>
+  <div class="supports"><span class="sup">范围集中</span><span class="sup">能量球激增</span></div>
+</div>
+<div class="skill-link">
+  <div class="main-skill">冰凌座</div>
+  <div class="supports"><span class="sup">元素武装</span><span class="sup">霜咬</span><span class="sup">冰冷同调</span></div>
+</div>
+<div class="skill-link">
+  <div class="main-skill">霹雳闪</div>
+  <div class="supports"><span class="sup">元素武装</span><span class="sup">永续充能</span><span class="sup">闪电同调</span></div>
+</div>
+<div class="skill-link">
+  <div class="main-skill">猛扑</div>
+</div>
+<div class="skill-link">
+  <div class="main-skill">寒冰之捷</div>
+  <div class="supports"><span class="sup">元素武装</span><span class="sup">范围扩大</span></div>
+</div>
+<div class="skill-link">
+  <div class="main-skill">灰烬之捷</div>
+  <div class="supports"><span class="sup">范围扩大</span></div>
+</div>
+
+<h3>国际服技能链接</h3>
+
+<div class="skill-link">
+  <div class="main-skill">风暴浪涌</div>
+  <div class="supports">
+    <span class="sup">亢奋</span>
+    <span class="sup">元素军械</span>
+    <span class="sup">分叉裂隙</span>
+    <span class="sup">武术节奏</span>
+    <span class="sup">怒气</span>
+  </div>
+</div>
+<div class="skill-link">
+  <div class="main-skill">虹吸打击</div>
+  <div class="supports"><span class="sup">集中效应</span><span class="sup">充能满盈</span></div>
+</div>
+<div class="skill-link">
+  <div class="main-skill">寒冰轨迹</div>
+  <div class="supports"><span class="sup">元素军械</span><span class="sup">霜咬</span><span class="sup">冰冷同调</span></div>
+</div>
+<div class="skill-link">
+  <div class="main-skill">崩雷鸣</div>
+  <div class="supports"><span class="sup">元素军械</span><span class="sup">永恒充能</span><span class="sup">闪电同调</span></div>
+</div>
+<div class="skill-link">
+  <div class="main-skill">猛扑</div>
+</div>
+<div class="skill-link">
+  <div class="main-skill">寒冰之捷</div>
+  <div class="supports"><span class="sup">元素军械</span><span class="sup">范围光環</span></div>
+</div>
+<div class="skill-link">
+  <div class="main-skill">灰烬之捷</div>
+  <div class="supports"><span class="sup">范围光環</span></div>
+</div>
+</section>
+
+<!-- ════════════════ 第四章 ════════════════ -->
+<section id="act4">
+<h2>第四章 · 跑图与装备</h2>
+
+<h3>跑图优先级</h3>
+<div class="callout warn">
+  <div class="ctitle">⚠ 跑图顺序</div>
+  <p>先跑能拿到<strong>冰火电 5 点抗性 + 2 天赋点</strong>的两个图，再跑别的。</p>
+  <p><strong>监狱放最后打</strong>，怪恶心 + 潮水机制。</p>
+</div>
+
+<h3>装备选择</h3>
+<table class="affix-table">
+  <thead><tr><th>部位</th><th>核心词缀</th><th>备注</th></tr></thead>
+  <tbody>
+    <tr><td>武器</td><td>1-12 级细杖</td><td>13 级后<strong>空手</strong>，45 级后有好词缀武器可替换</td></tr>
+    <tr><td>防具</td><td>高闪避 / 闪避护甲底子</td><td>剧情用闪避底子，异界换闪避+护盾底子</td></tr>
+    <tr><td>鞋子</td><td>移动速度优先</td><td>次选生命+抗性</td></tr>
+    <tr><td>手套</td><td>攻击附加伤害 + 近战等级</td><td>次选生命+抗性</td></tr>
+    <tr><td>腰带</td><td>高血量抗性</td><td>—</td></tr>
+    <tr><td>戒指</td><td>攻击附加伤害</td><td>其次生命抗性</td></tr>
+    <tr><td>项链</td><td>生命抗性优先</td><td>有近战等级更好</td></tr>
+  </tbody>
+</table>
+</section>
+
+<!-- ════════════════ 升华 ════════════════ -->
+<section id="ascend">
+<h2>升华选择</h2>
+
+<div class="route-grid">
+  <div class="route-card">
+    <div class="rname">🛡 黑武僧（萌新推荐）</div>
+    <div class="rdesc">点出"拥抱黑暗"，不容易死</div>
+    <ul>
+      <li class="rec">拥抱黑暗 — 大幅提升生存</li>
+      <li>适合新手过渡</li>
+    </ul>
+  </div>
+  <div class="route-card">
+    <div class="rname">⚡ 武圣（老孤独路线）</div>
+    <div class="rdesc">先点山岳之道，冰凌座刷图触发；后期石拳</div>
+    <ul>
+      <li class="rec">山岳之道 — 冰凌座刷图触发</li>
+      <li>后期转石拳</li>
+      <li>配合无限球影分身 BD</li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════ 后期BD ════════════════ -->
+<section id="endgame">
+<h2>后期 BD · 武圣无限球影分身回旋击</h2>
+
+<p>90 级解锁 <strong>5 洞技能</strong>，完整技能链接如下：</p>
+
+<div class="skill-link">
+  <div class="main-skill">空无专注</div>
+  <div class="supports">
+    <span class="sup">冷却 2</span>
+    <span class="sup">增幅光环 2</span>
+    <span class="sup">致盲 1</span>
+    <span class="sup">护甲破坏 3</span>
+    <span class="sup">流血 3</span>
+  </div>
+</div>
+
+<div class="skill-link">
+  <div class="main-skill">空无形态</div>
+  <div class="supports">
+    <span class="sup">回旋击（要升级）</span>
+    <span class="sup">偷袭</span>
+    <span class="sup">沉重挥击</span>
+    <span class="sup">能量球增强</span>
+    <span class="sup">流血 4</span>
+  </div>
+</div>
+
+<div class="skill-link">
+  <div class="main-skill">催命掌</div>
+  <div class="supports">
+    <span class="sup">燃焰暴击</span>
+    <span class="sup">先祖怒嚎 2</span>
+    <span class="sup">充能满盈</span>
+    <span class="sup">杀戮渴望</span>
+  </div>
+</div>
+
+<div class="skill-link">
+  <div class="main-skill">充能调节</div>
+  <div class="supports">
+    <span class="sup">精准 1</span>
+    <span class="sup">清晰 1</span>
+  </div>
+</div>
+
+<div class="skill-link">
+  <div class="main-skill">鬼魂舞步</div>
+  <div class="supports"><span class="sup">清晰 2</span></div>
+</div>
+
+<div class="skill-link">
+  <div class="main-skill">猛扑</div>
+  <div class="supports"><span class="sup">冷却 2</span></div>
+</div>
+
+<div class="skill-link">
+  <div class="main-skill">凶猛怒吼</div>
+</div>
+
+<div class="skill-link">
+  <div class="main-skill">驳斥（Refutation）</div>
+  <div class="supports"><span class="sup">时间延迟 2</span><span class="sup">冷却 2</span></div>
+  <div class="note">英文名 Refutation，交易所里搜索</div>
+</div>
+
+<div class="callout tip">
+  <div class="ctitle">📺 视频教程</div>
+  <p>BD 完整演示：<a href="https://www.bilibili.com/video/BV13iV36sEdf/" target="_blank" rel="noopener noreferrer" style="color:var(--shock);border-bottom:1px solid currentCurrentColor">BV13iV36sEdf ↗</a></p>
+  <p>完整版教学：<a href="https://www.bilibili.com/video/BV14hVZ65EDG/" target="_blank" rel="noopener noreferrer" style="color:var(--shock);border-bottom:1px solid currentColor">BV14hVZ65EDG ↗</a></p>
+</div>
+</section>
+
+<!-- ════════════════ 技能对照表 ════════════════ -->
+<section id="glossary">
+<h2>国服 / 国际服技能名对照</h2>
+
+<table class="affix-table">
+  <thead><tr><th>国服</th><th>国际服（繁体）</th><th>用途</th></tr></thead>
+  <tbody>
+    <tr><td>冰川之刺</td><td>冰川之刺</td><td>第一章过渡输出</td></tr>
+    <tr><td>顽疾</td><td>瘟疫</td><td>第一章过渡 AOE</td></tr>
+    <tr><td>寒霜暴</td><td>寒霜暴</td><td>BOSS 降抗</td></tr>
+    <tr><td>范围集中</td><td>集中光環</td><td>冰川之刺辅助</td></tr>
+    <tr><td>冰冷协调</td><td>冰冷协调</td><td>冰川之刺辅助</td></tr>
+    <tr><td>精华吸取</td><td>靈魂吸取</td><td>第一章过渡（13级后扔）</td></tr>
+    <tr><td>原始猛扑</td><td>原始猛扑</td><td>变狼赶路</td></tr>
+    <tr><td>冰凌座</td><td>寒冰轨迹</td><td>引爆铺场</td></tr>
+    <tr><td>移风岚</td><td>風暴浪湧</td><td>核心上感电</td></tr>
+    <tr><td>汲能击</td><td>虹吸打擊</td><td>消耗感电获取暴击球</td></tr>
+    <tr><td>霹雳闪</td><td>崩雷鳴</td><td>消耗暴击球引爆</td></tr>
+    <tr><td>寒冰之捷</td><td>寒冰之捷</td><td>光环增伤</td></tr>
+    <tr><td>元素武装</td><td>元素軍械</td><td>通用辅助</td></tr>
+    <tr><td>范围扩大</td><td>範圍光環</td><td>光环范围辅助</td></tr>
+    <tr><td>永续充能</td><td>永恆充能</td><td>霹雳闪辅助</td></tr>
+    <tr><td>能量球激增</td><td>充能滿盈</td><td>汲能击辅助</td></tr>
+    <tr><td>霜咬</td><td>霜咬</td><td>冰凌座辅助</td></tr>
+    <tr><td>冰冷同调</td><td>冰冷同調</td><td>第三章新增辅助</td></tr>
+    <tr><td>闪电同调</td><td>閃電同調</td><td>第三章新增辅助</td></tr>
+    <tr><td>灰烬之捷</td><td>灰燼之捷</td><td>可选额外光环</td></tr>
+    <tr><td>空无专注</td><td>空無專注</td><td>后期BD核心</td></tr>
+    <tr><td>空无形态</td><td>空無形態</td><td>后期BD核心</td></tr>
+    <tr><td>回旋击</td><td>迴旋擊</td><td>后期BD主输出</td></tr>
+    <tr><td>驳斥</td><td>Refutation</td><td>后期BD控制技能</td></tr>
+  </tbody>
+</table>
+</section>
+
+</main>
+
+<footer>
+  <p>攻略原作：<span class="author">老孤独</span>（B站） · 0.5 赛季 · 武僧武圣开荒</p>
+  <p style="margin-top:.5rem">视频教程：
+    <a href="https://www.bilibili.com/video/BV13iV36sEdf/" target="_blank" rel="noopener noreferrer" style="color:var(--shock);border-bottom:1px solid currentColor;font-family:var(--font-mono);font-size:.85em">BV13iV36sEdf ↗</a> ·
+    <a href="https://www.bilibili.com/video/BV14hVZ65EDG/" target="_blank" rel="noopener noreferrer" style="color:var(--shock);border-bottom:1px solid currentColor;font-family:var(--font-mono);font-size:.85em">BV14hVZ65EDG ↗</a>
+  </p>
+  <p style="margin-top:.5rem">页面整理：POE2 Hub · <a href="../builds.html" style="color:var(--shock);border-bottom:1px solid currentColor">返回 BD 列表</a></p>
+</footer>
+
+</body>
+</html>
