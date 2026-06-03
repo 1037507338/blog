@@ -526,6 +526,14 @@ section h2{
 .step-item .step-body{color:var(--parchment)!important;}
 .steps-list li,.steps-list p{color:var(--parchment)!important;}
 
+/* 浅色主题下，step-title 改为深金棕色，避免浅黄叠在浅奶油背景上看不清 */
+body[data-theme="light"] .step-item{
+  background:#f3e3b5!important;
+  border-left-color:#8b6914!important;
+}
+body[data-theme="light"] .step-item .step-title{color:#6b4f0f!important;}
+body[data-theme="light"] .step-item .step-body{color:#2a1d0e!important;}
+
 /* maps.html — node description (inline style "color:var(--subtext)") */
 #nodeDescription{color:var(--parchment-muted)!important;}
 
