@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "update_time": "2026-06-05T17:30:00+08:00",
+    "update_time": "2026-06-05T17:54:00+08:00",
     "source": "腾讯文档",
-    "note": "1D ≈ 90E",
-    "description": "POE2 0.5赛季物价参考表"
+    "note": "1D ≈ 90E，从腾讯文档手动填充价格",
+    "description": "POE2 0.5赛季物价参考表（占位符版本，待填充价格）"
   },
   "gems_global": [
     {"en": "Alacrity's Desire", "cn": "阿拉卡力的欲望", "price_int": "-", "price_cn": "-"},
@@ -82,13 +82,22 @@
       {"en": "Ordained Vestment", "cn": "圣礼束衣", "price_int": "3E", "price_cn": "-", "level": "82+"}
     ],
     "gloves": [
-      {"en": "示例手套", "cn": "示例手套CN", "price_int": "-", "price_cn": "-", "level": "82+"}
+      {"en": "Giant's Gauntlets", "cn": "巨型护手", "price_int": "15E", "price_cn": "-", "level": "82+"},
+      {"en": "Shining Bracers", "cn": "闪耀护腕", "price_int": "5E", "price_cn": "-", "level": "82+"},
+      {"en": "Kraken's Scale Gauntlets", "cn": "海妖之鳞手套", "price_int": "6E", "price_cn": "-", "level": "82+"},
+      {"en": "Blacksteel Gauntlets", "cn": "黑钢手甲", "price_int": "5E", "price_cn": "-", "level": "82+"},
+      {"en": "Devotee's Bands", "cn": "信徒袖带", "price_int": "-", "price_cn": "-", "level": "82+"}
     ],
     "belts": [
-      {"en": "示例腰带", "cn": "示例腰带CN", "price_int": "-", "price_cn": "-", "level": "82+"}
+      {"en": "Heavy Leather Belt", "cn": "重革腰带", "price_int": "16E", "price_cn": "-", "level": "82+"}
     ],
     "rings": [
-      {"en": "示例戒指", "cn": "示例戒指CN", "price_int": "-", "price_cn": "-", "level": "82+"}
+      {"en": "Gold Ring", "cn": "金光戒指", "price_int": "25E", "price_cn": "-", "level": "82+"},
+      {"en": "Three-stone Ring", "cn": "三相戒指", "price_int": "22E", "price_cn": "-", "level": "82+"}
+    ],
+    "amulets": [
+      {"en": "Imperial Amulet", "cn": "帝金护身符", "price_int": "1D", "price_cn": "-", "level": "82+"},
+      {"en": "Sun Amulet", "cn": "日曜护身符", "price_int": "24E", "price_cn": "-", "level": "82+"}
     ]
   },
   "uniques": [
@@ -108,7 +117,11 @@
     {"category": "盾牌", "en": "Nightfall", "cn": "夜坠", "source": "裂隙巅峰BOSS", "price_int": "20D", "price_cn": "-"}
   ],
   "recipes": [
-    {"count": "4", "recipe": "示例配方", "price_int": "-", "price_cn": "-"},
-    {"count": "5", "recipe": "示例配方", "price_int": "-", "price_cn": "-"}
+    {"count": "4", "recipe": "合金 + 气旋合金/延展合金", "price_int": "2-4E", "price_cn": "-"},
+    {"count": "4", "recipe": "通货 + 玻璃弹珠 x3/神圣石 x1", "price_int": "6-93E", "price_cn": "-"},
+    {"count": "4", "recipe": "宝石 + 治愈符文 x1/天坠 x1", "price_int": "1E", "price_cn": "-"},
+    {"count": "4", "recipe": "符文 + 稳定保护符文 x1/斜擦保护符文 x1", "price_int": "3-7E", "price_cn": "-"},
+    {"count": "5", "recipe": "合金 + 焕彩合金/秘能合金", "price_int": "4-10E", "price_cn": "-"},
+    {"count": "5", "recipe": "通货 + 碎雷熔剂/奇术溶剂", "price_int": "4-8E", "price_cn": "-"}
   ]
 }
