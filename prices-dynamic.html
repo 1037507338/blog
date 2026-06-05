@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POE2 物价参考 · POE2 Hub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Noto Sans SC", sans-serif; background: #0d0a07; color: #e8d9b8; line-height: 1.6; }
+        .top-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(13,10,7,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #4d3a1f; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; }
+        .top-bar a { color: #b8a47a; text-decoration: none; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 80px 20px 40px; }
+        .page-title { font-family: "Noto Serif SC", serif; font-size: 2rem; font-weight: 900; color: #f4dc99; text-align: center; margin-bottom: 10px; }
+        .tab { padding: 10px 20px; background: rgba(37,28,17,0.8); border: 1px solid #4d3a1f; color: #b8a47a; cursor: pointer; margin: 5px; display: inline-block; }
+        .tab.active { background: rgba(201,162,39,0.2); border-color: #c9a227; color: #f4dc99; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .data-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .data-table th { background: rgba(201,162,39,0.15); color: #f4dc99; padding: 12px 15px; text-align: left; border-bottom: 2px solid #c9a227; }
+        .data-table td { padding: 10px 15px; border-bottom: 1px solid #4d3a1f; }
+        .price-int { color: #7fb6e0; font-weight: 600; }
+        .note { color: #897653; font-size: 0.82rem; margin: 10px 0; padding: 10px; background: rgba(201,162,39,0.06); border-left: 3px solid #c9a227; }
+        .section-title { font-family: "Noto Serif SC", serif; font-size: 1.3rem; color: #f4dc99; margin: 30px 0 15px; padding-bottom: 8px; border-bottom: 1px solid #4d3a1f; }
+        .loading { text-align: center; color: #897653; margin: 50px 0; }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div><a href="index.html">← 返回首页</a></div>
+        <div style="color:#897653;font-size:0.82rem;">数据来源：腾讯文档 | 实时更新</div>
+    </div>
+    <div class="container">
+        <h1 class="page-title">⚔️ POE2 物价参考表</h1>
+        <p style="text-align:center;color:#897653;margin-bottom:30px;">0.5 赛季 · 国际服 & 国服价格对照</p>
+        <div id="update-time" style="text-align:center;color:#c9a227;margin-bottom:20px;">📊 加载中...</div>
+        
+        <div style="text-align:center;margin:20px 0;">
+            <div class="tab active" onclick="showTab('gems')">血脉宝石</div>
+            <div class="tab" onclick="showTab('recipes')">配方优先级</div>
+            <div class="tab" onclick="showTab('bases')">高价值底材</div>
+            <div class="tab" onclick="showTab('uniques')">暗金装备</div>
+        </div>
+        
+        <div id="gems" class="tab-content active">
+            <div class="note">⚠️ 所有物品采取购买价记录 | 崇高价不是神圣价！！大致参考！！</div>
+            <div id="gems-content" class="loading">正在加载血脉宝石数据...</div>
+        </div>
+        
+        <div id="bases" class="tab-content">
+            <div id="bases-content" class="loading">正在加载底材数据...</div>
+        </div>
+        
+        <div id="uniques" class="tab-content">
+            <div id="uniques-content" class="loading">正在加载暗金装备数据...</div>
+        </div>
+        
+        <div id="recipes" class="tab-content">
+            <div id="recipes-content" class="loading">正在加载配方数据...</div>
+        </div>
+    </div>
+    
+    <script>
+        let priceData = null;
+        
+        // 加载数据
+        async function loadData() {
+            try {
+                const response = await fetch('data/prices-data.json?t=' + new Date().getTime());
+                priceData = await response.json();
+                
+                // 更新时间
+                const updateTime = new Date(priceData.metadata.update_time);
+                document.getElementById('update-time').textContent = 
+                    `📊 统计时间：${updateTime.toLocaleDateString('zh-CN')} | ${priceData.metadata.note}`;
+                
+                // 渲染各个Tab
+                renderGems();
+                renderBases();
+                renderUniques();
+                renderRecipes();
+                
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                document.querySelectorAll('.loading').forEach(el => {
+                    el.textContent = '❌ 数据加载失败，请刷新页面重试';
+                });
+            }
+        }
+        
+        // 渲染血脉宝石
+        function renderGems() {
+            if (!priceData || !priceData.gems_global) return;
+            
+            let html = '';
+            
+            // 全局掉落
+            html += '<h3 class="section-title">🌍 全局掉落血脉宝石</h3>';
+            html += '<table class="data-table"><thead><tr><th>名称（国际服）</th><th>名称（国服）</th><th>国际服价格</th><th>国服价格</th></tr></thead><tbody>';
+            priceData.gems_global.forEach(item => {
+                html += `<tr><td>${item.en}</td><td>${item.cn}</td><td class="price-int">${item.price_int}</td><td>${item.price_cn || '-'}</td></tr>`;
+            });
+            html += '</tbody></table>';
+            
+            // 限定掉落
+            if (priceData.gems_limited && priceData.gems_limited.length > 0) {
+                html += '<h3 class="section-title">🎯 限定掉落血脉宝石</h3>';
+                html += '<table class="data-table"><thead><tr><th>名称（国际服）</th><th>名称（国服）</th><th>出处</th><th>国际服价格</th><th>国服价格</th></tr></thead><tbody>';
+                priceData.gems_limited.forEach(item => {
+                    html += `<tr><td>${item.en}</td><td>${item.cn}</td><td>${item.source}</td><td class="price-int">${item.price_int}</td><td>${item.price_cn || '-'}</td></tr>`;
+                });
+                html += '</tbody></table>';
+            }
+            
+            document.getElementById('gems-content').innerHTML = html;
+        }
+        
+        // 渲染底材
+        function renderBases() {
+            if (!priceData || !priceData.bases) return;
+            
+            let html = '';
+            
+            // 遍历所有底材类别
+            const categoryNames = {
+                'shoes': '👟 鞋子类底材',
+                'helmets': '⛑️ 头盔类底材',
+                'armors': '👕 衣服类底材',
+                'gloves': '🧤 手套类底材',
+                'belts': '📿 腰带类底材',
+                'rings': '💍 戒指类底材',
+                'amulets': '📿 项链类底材',
+                'bows': '🏹 弓类底材',
+                'spears': '🔱 长矛类底材',
+                'staves': '🪄 法杖类底材'
+            };
+            
+            for (const [category, items] of Object.entries(priceData.bases)) {
+                if (!items || items.length === 0) continue;
+                
+                const title = categoryNames[category] || category;
+                html += `<h3 class="section-title">${title}（物品等级 82+）</h3>`;
+                html += '<table class="data-table"><thead><tr><th>物品名称（国际服）</th><th>物品名称（国服）</th><th>国际服价格</th><th>国服价格</th><th>物品等级</th></tr></thead><tbody>';
+                
+                items.forEach(item => {
+                    html += `<tr><td>${item.en}</td><td>${item.cn}</td><td class="price-int">${item.price_int}</td><td>${item.price_cn || '-'}</td><td>${item.level || '82+'}</td></tr>`;
+                });
+                
+                html += '</tbody></table>';
+            }
+            
+            document.getElementById('bases-content').innerHTML = html || '<p style="text-align:center;color:#897653;">暂无底材数据</p>';
+        }
+        
+        // 渲染暗金装备
+        function renderUniques() {
+            if (!priceData || !priceData.uniques) return;
+            
+            let html = '<h3 class="section-title">💎 高价值暗金装备</h3>';
+            html += '<table class="data-table"><thead><tr><th>基础分类</th><th>物品名称（国际服）</th><th>物品名称（国服）</th><th>出处</th><th>国际服价格</th><th>国服价格</th></tr></thead><tbody>';
+            
+            priceData.uniques.forEach(item => {
+                html += `<tr><td>${item.category}</td><td>${item.en}</td><td>${item.cn}</td><td>${item.source}</td><td class="price-int">${item.price_int}</td><td>${item.price_cn || '-'}</td></tr>`;
+            });
+            
+            html += '</tbody></table>';
+            document.getElementById('uniques-content').innerHTML = html;
+        }
+        
+        // 渲染配方
+        function renderRecipes() {
+            if (!priceData || !priceData.recipes) return;
+            
+            let html = '<h3 class="section-title">🧪 符文配方优先级</h3>';
+            html += '<table class="data-table"><thead><tr><th>符文数量</th><th>配方</th><th>国际服价格</th><th>国服价格</th></tr></thead><tbody>';
+            
+            priceData.recipes.forEach(item => {
+                html += `<tr><td>${item.count}</td><td>${item.recipe}</td><td class="price-int">${item.price_int}</td><td>${item.price_cn || '-'}</td></tr>`;
+            });
+            
+            html += '</tbody></table>';
+            document.getElementById('recipes-content').innerHTML = html;
+        }
+        
+        // Tab 切换
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        // 页面加载时执行
+        loadData();
+    </script>
+</body>
+</html>

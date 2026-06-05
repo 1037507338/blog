@@ -1,0 +1,114 @@
+{
+  "metadata": {
+    "update_time": "2026-06-05T17:30:00+08:00",
+    "source": "腾讯文档",
+    "note": "1D ≈ 90E",
+    "description": "POE2 0.5赛季物价参考表"
+  },
+  "gems_global": [
+    {"en": "Alacrity's Desire", "cn": "阿拉卡力的欲望", "price_int": "-", "price_cn": "-"},
+    {"en": "Theist's Grip", "cn": "神主之握", "price_int": "-", "price_cn": "-"},
+    {"en": "Arjann's Insignia", "cn": "阿尔琼的勋章", "price_int": "-", "price_cn": "-"},
+    {"en": "Latha's Raid", "cn": "拉莎的突袭", "price_int": "-", "price_cn": "-"},
+    {"en": "Takati's Fury", "cn": "塔卡提之怒", "price_int": "-", "price_cn": "-"},
+    {"en": "Hein's Contest", "cn": "汉恩的竞赛", "price_int": "-", "price_cn": "-"},
+    {"en": "Battalion's Revenge", "cn": "巴蒂尔的复仇", "price_int": "-", "price_cn": "-"},
+    {"en": "Dara's Lust", "cn": "达拉的渴望", "price_int": "-", "price_cn": "-"},
+    {"en": "Doryani's Ruin", "cn": "德瑞的毁灭", "price_int": "-", "price_cn": "-"},
+    {"en": "Callissa's Note", "cn": "卡莉莎的强音", "price_int": "-", "price_cn": "-"},
+    {"en": "Morgana's Storm", "cn": "莫甘娜的暴风", "price_int": "-", "price_cn": "-"},
+    {"en": "Osin's Vow", "cn": "奥辛之誓", "price_int": "-", "price_cn": "-"},
+    {"en": "Romira's Payback", "cn": "罗米拉的报复", "price_int": "1.2D", "price_cn": "-"},
+    {"en": "Xoph's Anger", "cn": "西奥妮的怒火", "price_int": "-", "price_cn": "-"},
+    {"en": "Valinta's Drive", "cn": "薇伦塔之推进", "price_int": "-", "price_cn": "-"},
+    {"en": "Brutus' Brain", "cn": "布鲁特斯之脑", "price_int": "8.5D", "price_cn": "-"},
+    {"en": "Cereberus' Tutelage", "cn": "西雷尔的教化", "price_int": "-", "price_cn": "-"},
+    {"en": "Doedre's Passion", "cn": "德瑞索的热情", "price_int": "-", "price_cn": "-"},
+    {"en": "EOrek's Smelting", "cn": "厄罗克的熔炼术", "price_int": "-", "price_cn": "-"}
+  ],
+  "gems_limited": [
+    {"en": "Sevf's Bural Offerings", "cn": "索伏的葬火", "source": "裂隙玩法BOSS薛斯掉落", "price_int": "21D", "price_cn": "-"},
+    {"en": "Xir's Radiance", "cn": "艾许的光辉", "source": "裂隙玩法BOSS薛斯掉落", "price_int": "14D", "price_cn": "-"},
+    {"en": "Urnido's Embrace", "cn": "乌尔尼多的拥抱", "source": "裂隙玩法BOSS薛斯掉落", "price_int": "96D", "price_cn": "-"},
+    {"en": "Tovor's Silence", "cn": "托沃的寂静", "source": "裂隙玩法BOSS薛斯掉落", "price_int": "32D", "price_cn": "-"},
+    {"en": "Zalocia's Revolt", "cn": "扎洛卡的反叛", "source": "丝克玛试炼4层BOSS掉落", "price_int": "-", "price_cn": "-"},
+    {"en": "Archbishop's Ignition", "cn": "仲裁官的点燃", "source": "火焰巅峰的灰烬仲裁官掉落", "price_int": "7.1D", "price_cn": "-"},
+    {"en": "Uhtred's Exit", "cn": "乌崔德的出走", "source": "卡古兰(挖坟)玩法BOSS乌崔德掉落", "price_int": "14D", "price_cn": "-"},
+    {"en": "Uhtred's Omen", "cn": "乌崔德的预兆", "source": "卡古兰(挖坟)玩法BOSS乌崔德掉落", "price_int": "3.1D", "price_cn": "-"},
+    {"en": "Uhtred's Divination", "cn": "乌崔德的占卜", "source": "卡古兰(挖坟)玩法BOSS乌崔德掉落", "price_int": "5.3D", "price_cn": "-"},
+    {"en": "Ikiael's Torment", "cn": "伊克切尔的折磨", "source": "混沌试炼(混沌叔叔)掉落", "price_int": "1.4D", "price_cn": "-"}
+  ],
+  "bases": {
+    "shoes": [
+      {"en": "Sikhama Sandals", "cn": "丝克玛便鞋", "price_int": "54E", "price_cn": "-", "level": "82+"},
+      {"en": "Dune Pact Treads", "cn": "沙誓鞋履", "price_int": "30E", "price_cn": "-", "level": "82+"},
+      {"en": "Dragonscale Treads", "cn": "龙皮长靴", "price_int": "24E", "price_cn": "-", "level": "82+"},
+      {"en": "Dragonscale Boots", "cn": "龙鳞长靴", "price_int": "10E", "price_cn": "-", "level": "82+"},
+      {"en": "Tasalio's Greaves", "cn": "塔萨里奥胫甲", "price_int": "2E", "price_cn": "-", "level": "82+"},
+      {"en": "Vaal Greaves", "cn": "瓦尔胫甲", "price_int": "-", "price_cn": "-", "level": "82+"},
+      {"en": "Blacksteel Sabatons", "cn": "黑钢战靴", "price_int": "3E", "price_cn": "-", "level": "82+"},
+      {"en": "Fortress Treads", "cn": "要塞战靴", "price_int": "-", "price_cn": "-", "level": "82+"},
+      {"en": "Covert Leggings", "cn": "隐秘绑腿", "price_int": "-", "price_cn": "-", "level": "82+"},
+      {"en": "Warlock's Gaiters", "cn": "术士护腿", "price_int": "-", "price_cn": "-", "level": "82+"},
+      {"en": "Swiftstep Slippers", "cn": "捷足便鞋", "price_int": "60E", "price_cn": "-", "level": "82+"},
+      {"en": "Hastened Treads", "cn": "急迅便鞋", "price_int": "22E", "price_cn": "-", "level": "82+"}
+    ],
+    "helmets": [
+      {"en": "Imperial Greathelm", "cn": "帝国巨盔", "price_int": "2E", "price_cn": "-", "level": "82+"},
+      {"en": "Paragon Greathelm", "cn": "典范巨盔", "price_int": "-", "price_cn": "-", "level": "82+"},
+      {"en": "Marauder's Visor", "cn": "劫掠者之帽", "price_int": "2E", "price_cn": "-", "level": "82+"},
+      {"en": "Hunter's Coif", "cn": "猎人兜帽", "price_int": "-", "price_cn": "-", "level": "82+"},
+      {"en": "Ancestral Circlet", "cn": "先祖冠冕", "price_int": "45E", "price_cn": "-", "level": "82+"},
+      {"en": "Kamasa Headdress", "cn": "卡马萨冠冕", "price_int": "12E", "price_cn": "-", "level": "82+"},
+      {"en": "Gladiator Helm", "cn": "角斗士头盔", "price_int": "2E", "price_cn": "-", "level": "82+"},
+      {"en": "Warrior Helm", "cn": "勇士头盔", "price_int": "-", "price_cn": "-", "level": "82+"},
+      {"en": "Covert Crown", "cn": "隐秘之冠", "price_int": "-", "price_cn": "-", "level": "82+"},
+      {"en": "Ordained Diadem", "cn": "神礼王冠", "price_int": "-", "price_cn": "-", "level": "82+"},
+      {"en": "Grinning Mask", "cn": "狞笑面罩", "price_int": "4E", "price_cn": "-", "level": "82+"},
+      {"en": "Soaring Visage", "cn": "翱翔面具", "price_int": "2E", "price_cn": "-", "level": "82+"}
+    ],
+    "armors": [
+      {"en": "Soldier's Plate", "cn": "士兵胸甲", "price_int": "2E", "price_cn": "-", "level": "82+"},
+      {"en": "Splendid Plate", "cn": "华丽战铠", "price_int": "5E", "price_cn": "-", "level": "82+"},
+      {"en": "Marshal's Plate", "cn": "督军胸甲", "price_int": "2E", "price_cn": "-", "level": "82+"},
+      {"en": "Pirate's Frock", "cn": "海盗外套", "price_int": "5E", "price_cn": "-", "level": "82+"},
+      {"en": "Slickvest", "cn": "滑击背心", "price_int": "30E", "price_cn": "-", "level": "82+"},
+      {"en": "Ordained Vestment", "cn": "神礼束衣", "price_int": "3E", "price_cn": "-", "level": "82+"},
+      {"en": "Deathlink Hauberk", "cn": "死亡锁甲", "price_int": "8E", "price_cn": "-", "level": "82+"},
+      {"en": "Wolfpelt Cloak", "cn": "狼皮斗篷", "price_int": "-", "price_cn": "-", "level": "82+"},
+      {"en": "Slickcloth", "cn": "滑布外衣", "price_int": "43E", "price_cn": "-", "level": "82+"},
+      {"en": "Falconer's Frock", "cn": "猎鹰师外衣", "price_int": "4E", "price_cn": "-", "level": "82+"},
+      {"en": "Wickedwrap", "cn": "邪恶束衣", "price_int": "40E", "price_cn": "-", "level": "82+"},
+      {"en": "Ordained Vestment", "cn": "圣礼束衣", "price_int": "3E", "price_cn": "-", "level": "82+"}
+    ],
+    "gloves": [
+      {"en": "示例手套", "cn": "示例手套CN", "price_int": "-", "price_cn": "-", "level": "82+"}
+    ],
+    "belts": [
+      {"en": "示例腰带", "cn": "示例腰带CN", "price_int": "-", "price_cn": "-", "level": "82+"}
+    ],
+    "rings": [
+      {"en": "示例戒指", "cn": "示例戒指CN", "price_int": "-", "price_cn": "-", "level": "82+"}
+    ]
+  },
+  "uniques": [
+    {"category": "腰带", "en": "Headhunter", "cn": "猎首", "source": "全域掉落", "price_int": "298D", "price_cn": "-"},
+    {"category": "腰带", "en": "Mageblood", "cn": "法师之血", "source": "全域掉落", "price_int": "327D", "price_cn": "-"},
+    {"category": "戒指", "en": "Circle of Guilt", "cn": "卡兰德之触", "source": "全域掉落", "price_int": "21D", "price_cn": "-"},
+    {"category": "戒指", "en": "Sikhama's Resolve (Sapphire)", "cn": "丝克玛的决心(蓝宝石)", "source": "丝克玛试炼", "price_int": "26D", "price_cn": "-"},
+    {"category": "戒指", "en": "Berek's Ice and Thunder", "cn": "贝雷克的冰与雷之曲", "source": "暂不确定", "price_int": "15D", "price_cn": "-"},
+    {"category": "武器", "en": "Raven's Cluster", "cn": "渡鸦集束", "source": "迷雾巅峰BOSS", "price_int": "61D", "price_cn": "-"},
+    {"category": "武器", "en": "Sacred Fire", "cn": "神圣之火", "source": "火焰巅峰灰烬仲裁官", "price_int": "36D", "price_cn": "-"},
+    {"category": "衣服", "en": "Timeweave", "cn": "时空之肌", "source": "丝克玛试炼(1血)", "price_int": "352D", "price_cn": "-"},
+    {"category": "衣服", "en": "Garment of the Infinite", "cn": "无尽之衣", "source": "全域掉落", "price_int": "50D", "price_cn": "-"},
+    {"category": "手套", "en": "Terror Claw", "cn": "恐惧飞掠", "source": "迷雾巅峰BOSS", "price_int": "25D", "price_cn": "-"},
+    {"category": "药剂", "en": "Oro's Resolve", "cn": "欧罗什的决心", "source": "炸坟BOSS欧罗什", "price_int": "23D", "price_cn": "-"},
+    {"category": "珠宝", "en": "Personality Card", "cn": "人格分裂", "source": "暂不确定", "price_int": "35D+", "price_cn": "-"},
+    {"category": "珠宝", "en": "Vanity", "cn": "浮华", "source": "混沌试炼BOSS", "price_int": "20D", "price_cn": "-"},
+    {"category": "盾牌", "en": "Nightfall", "cn": "夜坠", "source": "裂隙巅峰BOSS", "price_int": "20D", "price_cn": "-"}
+  ],
+  "recipes": [
+    {"count": "4", "recipe": "示例配方", "price_int": "-", "price_cn": "-"},
+    {"count": "5", "recipe": "示例配方", "price_int": "-", "price_cn": "-"}
+  ]
+}
