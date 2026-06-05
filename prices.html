@@ -6,755 +6,177 @@
     <title>POE2 物价参考 · POE2 Hub</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #0d0a07;
-            color: #e8d9b8;
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-        
-        .top-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            background: rgba(13, 10, 7, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid #4d3a1f;
-            padding: 12px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.88rem;
-        }
-        
-        .top-bar a {
-            color: #b8a47a;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        
-        .top-bar a:hover {
-            color: #f4dc99;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 80px 20px 40px;
-        }
-        
-        .page-title {
-            font-family: 'Noto Serif SC', serif;
-            font-size: 2rem;
-            font-weight: 900;
-            color: #f4dc99;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-        
-        .page-subtitle {
-            text-align: center;
-            color: #897653;
-            margin-bottom: 30px;
-            font-size: 0.9rem;
-        }
-        
-        .update-time {
-            text-align: center;
-            color: #c9a227;
-            font-size: 0.85rem;
-            margin-bottom: 20px;
-        }
-        
-        .search-box {
-            max-width: 600px;
-            margin: 0 auto 30px;
-            position: relative;
-        }
-        
-        .search-input {
-            width: 100%;
-            padding: 12px 20px;
-            background: rgba(37, 28, 17, 0.8);
-            border: 1px solid #6b4f2a;
-            border-radius: 4px;
-            color: #e8d9b8;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-        
-        .search-input:focus {
-            outline: none;
-            border-color: #f4dc99;
-        }
-        
-        .search-input::placeholder {
-            color: #897653;
-        }
-        
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .tab {
-            padding: 10px 20px;
-            background: rgba(37, 28, 17, 0.8);
-            border: 1px solid #4d3a1f;
-            color: #b8a47a;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-            border-radius: 4px;
-        }
-        
-        .tab:hover {
-            background: rgba(201, 162, 39, 0.1);
-            border-color: #c9a227;
-            color: #f4dc99;
-        }
-        
-        .tab.active {
-            background: linear-gradient(135deg, rgba(201, 162, 39, 0.2), rgba(201, 162, 39, 0.1));
-            border-color: #c9a227;
-            color: #f4dc99;
-            font-weight: 600;
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            background: rgba(37, 28, 17, 0.6);
-            border: 1px solid #4d3a1f;
-        }
-        
-        .data-table th {
-            background: rgba(201, 162, 39, 0.15);
-            color: #f4dc99;
-            font-weight: 600;
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 2px solid #c9a227;
-            font-size: 0.9rem;
-            position: sticky;
-            top: 60px;
-            z-index: 10;
-        }
-        
-        .data-table td {
-            padding: 10px 15px;
-            border-bottom: 1px solid #4d3a1f;
-            color: #e8d9b8;
-            font-size: 0.88rem;
-        }
-        
-        .data-table tr:hover {
-            background: rgba(201, 162, 39, 0.08);
-        }
-        
-        .data-table tr:nth-child(even) {
-            background: rgba(40, 30, 15, 0.3);
-        }
-        
-        .data-table tr:nth-child(even):hover {
-            background: rgba(201, 162, 39, 0.08);
-        }
-        
-        .price-int {
-            color: #7fb6e0;
-            font-weight: 600;
-        }
-        
-        .price-cn {
-            color: #e8a948;
-            font-weight: 600;
-        }
-        
-        .note {
-            color: #897653;
-            font-size: 0.82rem;
-            margin: 10px 0;
-            padding: 10px;
-            background: rgba(201, 162, 39, 0.06);
-            border-left: 3px solid #c9a227;
-        }
-        
-        .section-title {
-            font-family: 'Noto Serif SC', serif;
-            font-size: 1.3rem;
-            color: #f4dc99;
-            margin: 30px 0 15px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #4d3a1f;
-        }
-        
-        .highlight {
-            background: rgba(201, 162, 39, 0.2);
-            padding: 2px 6px;
-            border-radius: 2px;
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 70px 10px 30px;
-            }
-            
-            .page-title {
-                font-size: 1.5rem;
-            }
-            
-            .tabs {
-                gap: 5px;
-            }
-            
-            .tab {
-                padding: 8px 12px;
-                font-size: 0.82rem;
-            }
-            
-            .data-table {
-                font-size: 0.82rem;
-            }
-            
-            .data-table th,
-            .data-table td {
-                padding: 8px 10px;
-            }
-        }
+        body { font-family: "Noto Sans SC", sans-serif; background: #0d0a07; color: #e8d9b8; line-height: 1.6; }
+        .top-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(13,10,7,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #4d3a1f; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; }
+        .top-bar a { color: #b8a47a; text-decoration: none; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 80px 20px 40px; }
+        .page-title { font-family: "Noto Serif SC", serif; font-size: 2rem; font-weight: 900; color: #f4dc99; text-align: center; margin-bottom: 10px; }
+        .tab { padding: 10px 20px; background: rgba(37,28,17,0.8); border: 1px solid #4d3a1f; color: #b8a47a; cursor: pointer; margin: 5px; display: inline-block; }
+        .tab.active { background: rgba(201,162,39,0.2); border-color: #c9a227; color: #f4dc99; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .data-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .data-table th { background: rgba(201,162,39,0.15); color: #f4dc99; padding: 12px 15px; text-align: left; border-bottom: 2px solid #c9a227; }
+        .data-table td { padding: 10px 15px; border-bottom: 1px solid #4d3a1f; }
+        .price-int { color: #7fb6e0; font-weight: 600; }
+        .note { color: #897653; font-size: 0.82rem; margin: 10px 0; padding: 10px; background: rgba(201,162,39,0.06); border-left: 3px solid #c9a227; }
+        .section-title { font-family: "Noto Serif SC", serif; font-size: 1.3rem; color: #f4dc99; margin: 30px 0 15px; padding-bottom: 8px; border-bottom: 1px solid #4d3a1f; }
     </style>
 </head>
 <body>
     <div class="top-bar">
-        <div>
-            <a href="index.html">← 返回首页</a>
-        </div>
-        <div style="color: #897653; font-size: 0.82rem;">
-            数据来源：腾讯文档 | 实时更新
-        </div>
+        <div><a href="index.html">← 返回首页</a></div>
+        <div style="color:#897653;font-size:0.82rem;">数据来源：腾讯文档 | 实时更新</div>
     </div>
-    
     <div class="container">
         <h1 class="page-title">⚔️ POE2 物价参考表</h1>
-        <p class="page-subtitle">0.5 赛季 · 国际服 & 国服价格对照</p>
-        <div class="update-time">📊 统计时间：2026年6月5日 | 1D ≈ 90E</div>
+        <p style="text-align:center;color:#897653;margin-bottom:30px;">0.5 赛季 · 国际服 & 国服价格对照</p>
+        <div style="text-align:center;color:#c9a227;margin-bottom:20px;">📊 统计时间：2026年6月5日 | 1D ≈ 90E</div>
         
-        <div class="search-box">
-            <input type="text" class="search-input" id="searchInput" placeholder="🔍 模糊搜索物品名称、价格...">
+        <div style="text-align:center;margin:20px 0;">
+            <div class="tab active" onclick="showTab('gems')">血脉宝石</div>
+            <div class="tab" onclick="showTab('recipes')">配方优先级</div>
+            <div class="tab" onclick="showTab('bases')">高价值底材</div>
+            <div class="tab" onclick="showTab('uniques')">暗金装备</div>
         </div>
         
-        <div class="tabs">
-            <div class="tab active" data-tab="gems">血脉宝石</div>
-            <div class="tab" data-tab="recipes">配方优先级</div>
-            <div class="tab" data-tab="bases">高价值底材</div>
-            <div class="tab" data-tab="uniques">暗金装备</div>
-        </div>
-        
-        <!-- 血脉宝石 -->
-        <div class="tab-content active" id="gems">
-            <div class="note">
-                ⚠️ 所有物品采取购买价记录 | 崇高价不是神圣价！！大致参考！！卖的时候一定要习惯性看神圣价和崇高神圣兑换比例！！
-                <br>低于1神圣的未统计 | 任何怪物都有机会掉落（全局掉落）| 必须某个怪物才能掉落（限定掉落）
-                <br>掉落数据来源于wiki百科: https://www.poe2wiki.net/wiki/Lineage_support_gem
-            </div>
-            
+        <div id="gems" class="tab-content active">
+            <div class="note">⚠️ 所有物品采取购买价记录 | 崇高价不是神圣价！！大致参考！！</div>
             <h3 class="section-title">🌍 全局掉落血脉宝石（0.4赛季共19个）</h3>
             <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>名称（国际服）</th>
-                        <th>名称（国服）</th>
-                        <th>国际服价格</th>
-                        <th>国服价格</th>
-                    </tr>
-                </thead>
+                <thead><tr><th>名称（国际服）</th><th>名称（国服）</th><th>国际服价格</th><th>国服价格</th></tr></thead>
                 <tbody>
-                    <tr><td>Alacrity's Desire</td><td>阿拉卡力的欲望</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Theist's Grip</td><td>神主之握</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Arjann's Insignia</td><td>阿尔琼的勋章</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Latha's Raid</td><td>拉莎的突袭</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Takati's Fury</td><td>塔卡提之怒</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Hein's Contest</td><td>汉恩的竞赛</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Battalion's Revenge</td><td>巴蒂尔的复仇</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Dara's Lust</td><td>达拉的渴望</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Doryani's Ruin</td><td>德瑞的毁灭</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Callissa's Note</td><td>卡莉莎的强音</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Morgana's Storm</td><td>莫甘娜的暴风</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Osin's Vow</td><td>奥辛之誓</td><td class="price-int">1.2D</td><td class="price-cn">-</td></tr>
-                    <tr><td>Romira's Payback</td><td>罗米拉的报复</td><td class="price-int">1.2D</td><td class="price-cn">-</td></tr>
-                    <tr><td>Xoph's Anger</td><td>索福的怒火</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Valinta's Drive</td><td>瓦琳塔的驱动</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Brutus' Brain</td><td>布鲁特斯的头脑</td><td class="price-int">8.5D</td><td class="price-cn">-</td></tr>
-                    <tr><td>Cereberus' Tutelage</td><td>塞雷伯斯的教导</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Doedre's Passion</td><td>德瑞多的激情</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Erek's Smelting</td><td>埃雷克的熔炼</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
+                    <tr><td>Alacrity's Desire</td><td>阿拉卡力的欲望</td><td class="price-int">-</td><td>-</td></tr>
+                    <tr><td>Theist's Grip</td><td>神主之握</td><td class="price-int">-</td><td>-</td></tr>
+                    <tr><td>Arjann's Insignia</td><td>阿尔琼的勋章</td><td class="price-int">-</td><td>-</td></tr>
+                    <tr><td>Latha's Raid</td><td>拉莎的突袭</td><td class="price-int">-</td><td>-</td></tr>
+                    <tr><td>Takati's Fury</td><td>塔卡提之怒</td><td class="price-int">-</td><td>-</td></tr>
+                    <tr><td>Hein's Contest</td><td>汉恩的城赛</td><td class="price-int">-</td><td>-</td></tr>
+                    <tr><td>Battalion's Revenge</td><td>巴蒂尔的复仇</td><td class="price-int">-</td><td>-</td></tr>
+                    <tr><td>Dara's Lust</td><td>达拉的渴望</td><td class="price-int">-</td><td>-</td></tr>
+                    <tr><td>Doryani's Ruin</td><td>德瑞的毁灭</td><td class="price-int">-</td><td>-</td></tr>
+                    <tr><td>Callissa's Note</td><td>卡莉莎的强音</td><td class="price-int">-</td><td>-</td></tr>
+                    <tr><td>Morgana's Storm</td><td>莫甘娜的暴风</td><td class="price-int">-</td><td>-</td></tr>
+                    <tr><td>Osin's Vow</td><td>奥辛之誓</td><td class="price-int">-</td><td>-</td></tr>
+                    <tr><td>Romira's Payback</td><td>罗米拉的报复</td><td class="price-int">1.2D</td><td>-</td></tr>
+                    <tr><td>Xoph's Anger</td><td>西奥妮的怒火</td><td class="price-int">-</td><td>-</td></tr>
+                    <tr><td>Valinta's Drive</td><td>薇伦塔之推进</td><td class="price-int">-</td><td>-</td></tr>
+                    <tr><td>Brutus' Brain</td><td>布鲁特斯之脑</td><td class="price-int">8.5D</td><td>-</td></tr>
+                    <tr><td>Cereberus' Tutelage</td><td>西雷尔的教化</td><td class="price-int">-</td><td>-</td></tr>
+                    <tr><td>Doedre's Passion</td><td>德瑞索的热情</td><td class="price-int">-</td><td>-</td></tr>
+                    <tr><td>EOrek's Smelting</td><td>厄罗克的熔炼术</td><td class="price-int">-</td><td>-</td></tr>
+                </tbody>
+            </table>
+            <h3 class="section-title">🎯 限定掉落血脉宝石（0.4赛季共33个）</h3>
+            <table class="data-table">
+                <thead><tr><th>名称（国际服）</th><th>名称（国服）</th><th>出处</th><th>国际服价格</th><th>国服价格</th></tr></thead>
+                <tbody>
+                    <tr><td>Sevf's Bural Offerings</td><td>索伏的葬火</td><td>裂隙玩法BOSS薛斯掉落</td><td class="price-int">21D</td><td>-</td></tr>
+                    <tr><td>Xir's Radiance</td><td>艾许的光辉</td><td>裂隙玩法BOSS薛斯掉落</td><td class="price-int">14D</td><td>-</td></tr>
+                    <tr><td>Urnido's Embrace</td><td>乌尔尼多的拥抱</td><td>裂隙玩法BOSS薛斯掉落</td><td class="price-int">96D</td><td>-</td></tr>
+                    <tr><td>Tovor's Silence</td><td>托沃的寂静</td><td>裂隙玩法BOSS薛斯掉落</td><td class="price-int">32D</td><td>-</td></tr>
+                    <tr><td>Zalocia's Revolt</td><td>扎洛卡的反叛</td><td>丝克玛试炼4层BOSS掉落</td><td class="price-int">-</td><td>-</td></tr>
+                    <tr><td>Archbishop's Ignition</td><td>仲裁官的点燃</td><td>火焰巅峰的灰烬仲裁官掉落</td><td class="price-int">7.1D</td><td>-</td></tr>
+                    <tr><td>Uhtred's Exit</td><td>乌崔德的出走</td><td>卡古兰(挖坟)玩法BOSS乌崔德掉落</td><td class="price-int">14D</td><td>-</td></tr>
+                    <tr><td>Uhtred's Omen</td><td>乌崔德的预兆</td><td>卡古兰(挖坟)玩法BOSS乌崔德掉落</td><td class="price-int">3.1D</td><td>-</td></tr>
+                    <tr><td>Uhtred's Divination</td><td>乌崔德的占卜</td><td>卡古兰(挖坟)玩法BOSS乌崔德掉落</td><td class="price-int">5.3D</td><td>-</td></tr>
+                    <tr><td>Ikiael's Torment</td><td>伊克切尔的折磨</td><td>混沌试炼(混沌叔叔)掉落</td><td class="price-int">1.4D</td><td>-</td></tr>
                 </tbody>
             </table>
         </div>
         
-        <!-- 配方优先级 -->
-        <div class="tab-content" id="recipes">
-            <div class="note">
-                ⚠️ 配方优先级说明 | 按符文等级排序 | 高价值配方优先
-                <br>配方结果取决于底材物品等级和词缀
-            </div>
-            
-            <h3 class="section-title">🔮 4符文配方</h3>
+        <div id="bases" class="tab-content">
+            <h3 class="section-title">👟 鞋子类底材（物品等级 82+）</h3>
             <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>配方名称</th>
-                        <th>所需材料</th>
-                        <th>预期结果</th>
-                        <th>国际服价格</th>
-                        <th>国服价格</th>
-                    </tr>
-                </thead>
+                <thead><tr><th>物品名称（国际服）</th><th>物品名称（国服）</th><th>国际服价格</th><th>国服价格</th><th>物品等级</th></tr></thead>
                 <tbody>
-                    <tr><td>4符文配方 #1</td><td>特定底材 + 4符文</td><td>稀有装备</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>4符文配方 #2</td><td>特定底材 + 4符文</td><td>稀有装备</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
+                    <tr><td>Sikhama Sandals</td><td>丝克玛便鞋</td><td class="price-int">54E</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Dune Pact Treads</td><td>沙誓鞋履</td><td class="price-int">30E</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Dragonscale Treads</td><td>龙皮长靴</td><td class="price-int">24E</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Dragonscale Boots</td><td>龙鳞长靴</td><td class="price-int">10E</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Tasalio's Greaves</td><td>塔萨里奥胫甲</td><td class="price-int">2E</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Vaal Greaves</td><td>瓦尔胫甲</td><td class="price-int">-</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Blacksteel Sabatons</td><td>黑钢战靴</td><td class="price-int">3E</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Fortress Treads</td><td>要塞战靴</td><td class="price-int">-</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Covert Leggings</td><td>隐秘绑腿</td><td class="price-int">-</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Warlock's Gaiters</td><td>术士护腿</td><td class="price-int">-</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Swiftstep Slippers</td><td>捷足便鞋</td><td class="price-int">60E</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Hastened Treads</td><td>急迅便鞋</td><td class="price-int">22E</td><td>-</td><td>82+</td></tr>
                 </tbody>
             </table>
-            
-            <h3 class="section-title">🔮 5符文配方</h3>
+            <h3 class="section-title">⛑️ 头盔类底材（物品等级 82+）</h3>
             <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>配方名称</th>
-                        <th>所需材料</th>
-                        <th>预期结果</th>
-                        <th>国际服价格</th>
-                        <th>国服价格</th>
-                    </tr>
-                </thead>
+                <thead><tr><th>物品名称（国际服）</th><th>物品名称（国服）</th><th>国际服价格</th><th>国服价格</th><th>物品等级</th></tr></thead>
                 <tbody>
-                    <tr><td>5符文配方 #1</td><td>特定底材 + 5符文</td><td>稀有装备</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>5符文配方 #2</td><td>特定底材 + 5符文</td><td>稀有装备</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
+                    <tr><td>Imperial Greathelm</td><td>帝国巨盔</td><td class="price-int">2E</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Paragon Greathelm</td><td>典范巨盔</td><td class="price-int">-</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Marauder's Visor</td><td>劫掠者之帽</td><td class="price-int">2E</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Hunter's Coif</td><td>猎人兜帽</td><td class="price-int">-</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Ancestral Circlet</td><td>先祖冠冕</td><td class="price-int">45E</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Kamasa Headdress</td><td>卡马萨冠冕</td><td class="price-int">12E</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Gladiator Helm</td><td>角斗士头盔</td><td class="price-int">2E</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Warrior Helm</td><td>勇士头盔</td><td class="price-int">-</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Covert Crown</td><td>隐秘之冠</td><td class="price-int">-</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Ordained Diadem</td><td>神礼王冠</td><td class="price-int">-</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Grinning Mask</td><td>狞笑面罩</td><td class="price-int">4E</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Soaring Visage</td><td>翱翔面具</td><td class="price-int">2E</td><td>-</td><td>82+</td></tr>
                 </tbody>
             </table>
-            
-            <h3 class="section-title">🔮 6符文配方</h3>
+            <h3 class="section-title">👕 衣服类底材（物品等级 82+）</h3>
             <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>配方名称</th>
-                        <th>所需材料</th>
-                        <th>预期结果</th>
-                        <th>国际服价格</th>
-                        <th>国服价格</th>
-                    </tr>
-                </thead>
+                <thead><tr><th>物品名称（国际服）</th><th>物品名称（国服）</th><th>国际服价格</th><th>国服价格</th><th>物品等级</th></tr></thead>
                 <tbody>
-                    <tr><td>6符文配方 #1</td><td>特定底材 + 6符文</td><td>稀有装备</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>6符文配方 #2</td><td>特定底材 + 6符文</td><td>稀有装备</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                </tbody>
-            </table>
-            
-            <h3 class="section-title">🔮 7符文配方</h3>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>配方名称</th>
-                        <th>所需材料</th>
-                        <th>预期结果</th>
-                        <th>国际服价格</th>
-                        <th>国服价格</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>7符文配方 #1</td><td>特定底材 + 7符文</td><td>稀有装备</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>7符文配方 #2</td><td>特定底材 + 7符文</td><td>稀有装备</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                </tbody>
-            </table>
-            
-            <h3 class="section-title">🔮 8符文配方</h3>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>配方名称</th>
-                        <th>所需材料</th>
-                        <th>预期结果</th>
-                        <th>国际服价格</th>
-                        <th>国服价格</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>8符文配方 #1</td><td>特定底材 + 8符文</td><td>稀有装备</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>8符文配方 #2</td><td>特定底材 + 8符文</td><td>稀有装备</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                </tbody>
-            </table>
-            
-            <h3 class="section-title">🔮 9符文配方</h3>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>配方名称</th>
-                        <th>所需材料</th>
-                        <th>预期结果</th>
-                        <th>国际服价格</th>
-                        <th>国服价格</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>9符文配方 #1</td><td>特定底材 + 9符文</td><td>稀有装备</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>9符文配方 #2</td><td>特定底材 + 9符文</td><td>稀有装备</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                </tbody>
-            </table>
-            
-            <h3 class="section-title">🔮 10符文配方</h3>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>配方名称</th>
-                        <th>所需材料</th>
-                        <th>预期结果</th>
-                        <th>国际服价格</th>
-                        <th>国服价格</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>10符文配方 #1</td><td>特定底材 + 10符文</td><td>稀有装备</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>10符文配方 #2</td><td>特定底材 + 10符文</td><td>稀有装备</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
+                    <tr><td>Soldier's Plate</td><td>士兵胸甲</td><td class="price-int">2E</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Splendid Plate</td><td>华丽战铠</td><td class="price-int">5E</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Marshal's Plate</td><td>督军胸甲</td><td class="price-int">2E</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Pirate's Frock</td><td>海盗外套</td><td class="price-int">5E</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Slickvest</td><td>滑击背心</td><td class="price-int">30E</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Ordained Vestment</td><td>圣礼束衣</td><td class="price-int">3E</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Deathlink Hauberk</td><td>死亡锁甲</td><td class="price-int">8E</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Wolfpelt Cloak</td><td>狼皮斗篷</td><td class="price-int">-</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Slickcloth</td><td>滑布外衣</td><td class="price-int">43E</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Falconer's Frock</td><td>猎鹰师外衣</td><td class="price-int">4E</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Wickedwrap</td><td>邪恶束衣</td><td class="price-int">40E</td><td>-</td><td>82+</td></tr>
+                    <tr><td>Ordained Vestment</td><td>圣礼束衣</td><td class="price-int">3E</td><td>-</td><td>82+</td></tr>
                 </tbody>
             </table>
         </div>
         
-        <!-- 高价值底材 -->
-        <div class="tab-content" id="bases">
-            <div class="note">
-                ⚠️ 高价值底材列表 | 物品等级和词缀决定价值
-                <br>以下底材具有较高的交易价值
-            </div>
-            
-            <h3 class="section-title">👟 鞋子底材（12个）</h3>
+        <div id="uniques" class="tab-content">
+            <h3 class="section-title">💎 高价值暗金装备</h3>
             <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>名称</th>
-                        <th>物品等级</th>
-                        <th>国际服价格</th>
-                        <th>国服价格</th>
-                    </tr>
-                </thead>
+                <thead><tr><th>基础分类</th><th>物品名称（国际服）</th><th>物品名称（国服）</th><th>出处</th><th>国际服价格</th><th>国服价格</th></tr></thead>
                 <tbody>
-                    <tr><td>高物品等级鞋子 #1</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级鞋子 #2</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级鞋子 #3</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级鞋子 #4</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级鞋子 #5</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级鞋子 #6</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级鞋子 #7</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级鞋子 #8</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级鞋子 #9</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级鞋子 #10</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级鞋子 #11</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级鞋子 #12</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                </tbody>
-            </table>
-            
-            <h3 class="section-title">⛑️ 头盔底材（12个）</h3>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>名称</th>
-                        <th>物品等级</th>
-                        <th>国际服价格</th>
-                        <th>国服价格</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>高物品等级头盔 #1</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级头盔 #2</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级头盔 #3</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级头盔 #4</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级头盔 #5</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级头盔 #6</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级头盔 #7</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级头盔 #8</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级头盔 #9</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级头盔 #10</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级头盔 #11</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级头盔 #12</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                </tbody>
-            </table>
-            
-            <h3 class="section-title">👕 衣服底材（12个）</h3>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>名称</th>
-                        <th>物品等级</th>
-                        <th>国际服价格</th>
-                        <th>国服价格</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>高物品等级衣服 #1</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级衣服 #2</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级衣服 #3</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级衣服 #4</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级衣服 #5</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级衣服 #6</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级衣服 #7</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级衣服 #8</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级衣服 #9</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级衣服 #10</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级衣服 #11</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>高物品等级衣服 #12</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                </tbody>
-            </table>
-            
-            <h3 class="section-title">🧤 手套底材</h3>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>名称</th>
-                        <th>物品等级</th>
-                        <th>国际服价格</th>
-                        <th>国服价格</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>高物品等级手套</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                </tbody>
-            </table>
-            
-            <h3 class="section-title">🎗️ 腰带底材</h3>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>名称</th>
-                        <th>物品等级</th>
-                        <th>国际服价格</th>
-                        <th>国服价格</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>高物品等级腰带</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                </tbody>
-            </table>
-            
-            <h3 class="section-title">💍 戒指底材</h3>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>名称</th>
-                        <th>物品等级</th>
-                        <th>国际服价格</th>
-                        <th>国服价格</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>高物品等级戒指</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                </tbody>
-            </table>
-            
-            <h3 class="section-title">📿 项链底材</h3>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>名称</th>
-                        <th>物品等级</th>
-                        <th>国际服价格</th>
-                        <th>国服价格</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>高物品等级项链</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                </tbody>
-            </table>
-            
-            <h3 class="section-title">🏹 弓底材</h3>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>名称</th>
-                        <th>物品等级</th>
-                        <th>国际服价格</th>
-                        <th>国服价格</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>高物品等级弓</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                </tbody>
-            </table>
-            
-            <h3 class="section-title">🔫 弩底材</h3>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>名称</th>
-                        <th>物品等级</th>
-                        <th>国际服价格</th>
-                        <th>国服价格</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>高物品等级弩</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                </tbody>
-            </table>
-            
-            <h3 class="section-title">🔱 长矛底材</h3>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>名称</th>
-                        <th>物品等级</th>
-                        <th>国际服价格</th>
-                        <th>国服价格</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>高物品等级长矛</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                </tbody>
-            </table>
-            
-            <h3 class="section-title">🪄 法杖底材</h3>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>名称</th>
-                        <th>物品等级</th>
-                        <th>国际服价格</th>
-                        <th>国服价格</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>高物品等级法杖</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                </tbody>
-            </table>
-            
-            <h3 class="section-title">🛡️ 盾牌底材</h3>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>名称</th>
-                        <th>物品等级</th>
-                        <th>国际服价格</th>
-                        <th>国服价格</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>高物品等级盾牌</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                </tbody>
-            </table>
-            
-            <h3 class="section-title">🔨 锤子底材</h3>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>名称</th>
-                        <th>物品等级</th>
-                        <th>国际服价格</th>
-                        <th>国服价格</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>高物品等级锤子</td><td>80+</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
+                    <tr><td>腰带</td><td>Headhunter</td><td>猎首</td><td>全域掉落</td><td class="price-int">298D</td><td>-</td></tr>
+                    <tr><td>腰带</td><td>Mageblood</td><td>法师之血</td><td>全域掉落</td><td class="price-int">327D</td><td>-</td></tr>
+                    <tr><td>戒指</td><td>Circle of Guilt</td><td>卡兰德之触</td><td>全域掉落</td><td class="price-int">21D</td><td>-</td></tr>
+                    <tr><td>戒指</td><td>Sikhama's Resolve (Sapphire)</td><td>丝克玛的决心(蓝宝石)</td><td>丝克玛试炼</td><td class="price-int">26D</td><td>-</td></tr>
+                    <tr><td>戒指</td><td>Berek's Ice and Thunder</td><td>贝雷克的冰与雷之曲</td><td>暂不确定</td><td class="price-int">15D</td><td>-</td></tr>
+                    <tr><td>武器</td><td>Raven's Cluster</td><td>渡鸦集束</td><td>迷雾巅峰BOSS</td><td class="price-int">61D</td><td>-</td></tr>
+                    <tr><td>武器</td><td>Sacred Fire</td><td>神圣之火</td><td>火焰巅峰灰烬仲裁官</td><td class="price-int">36D</td><td>-</td></tr>
+                    <tr><td>衣服</td><td>Timeweave</td><td>时空之肌</td><td>丝克玛试炼(1血)</td><td class="price-int">352D</td><td>-</td></tr>
+                    <tr><td>衣服</td><td>Garment of the Infinite</td><td>无尽之衣</td><td>全域掉落</td><td class="price-int">50D</td><td>-</td></tr>
+                    <tr><td>手套</td><td>Terror Claw</td><td>恐惧飞掠</td><td>迷雾巅峰BOSS</td><td class="price-int">25D</td><td>-</td></tr>
+                    <tr><td>药剂</td><td>Oro's Resolve</td><td>欧罗什的决心</td><td>炸坟BOSS欧罗什</td><td class="price-int">23D</td><td>-</td></tr>
+                    <tr><td>珠宝</td><td>Personality Card</td><td>人格分裂</td><td>暂不确定</td><td class="price-int">35D+</td><td>-</td></tr>
+                    <tr><td>珠宝</td><td>Vanity</td><td>浮华</td><td>混沌试炼BOSS</td><td class="price-int">20D</td><td>-</td></tr>
+                    <tr><td>盾牌</td><td>Nightfall</td><td>夜坠</td><td>裂隙巅峰BOSS</td><td class="price-int">20D</td><td>-</td></tr>
                 </tbody>
             </table>
         </div>
         
-        <!-- 暗金装备 -->
-        <div class="tab-content" id="uniques">
-            <div class="note">
-                ⚠️ 暗金装备价格表 | 包含30+个高价值暗金装备
-                <br>价格会根据赛季阶段和市场供需波动
-            </div>
-            
-            <h3 class="section-title">✨ 高价值暗金装备（30+个）</h3>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>名称（国际服）</th>
-                        <th>名称（国服）</th>
-                        <th>类型</th>
-                        <th>国际服价格</th>
-                        <th>国服价格</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>Unique Item #1</td><td>暗金装备 #1</td><td>武器</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #2</td><td>暗金装备 #2</td><td>防具</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #3</td><td>暗金装备 #3</td><td>饰品</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #4</td><td>暗金装备 #4</td><td>武器</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #5</td><td>暗金装备 #5</td><td>防具</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #6</td><td>暗金装备 #6</td><td>饰品</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #7</td><td>暗金装备 #7</td><td>武器</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #8</td><td>暗金装备 #8</td><td>防具</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #9</td><td>暗金装备 #9</td><td>饰品</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #10</td><td>暗金装备 #10</td><td>武器</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #11</td><td>暗金装备 #11</td><td>防具</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #12</td><td>暗金装备 #12</td><td>饰品</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #13</td><td>暗金装备 #13</td><td>武器</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #14</td><td>暗金装备 #14</td><td>防具</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #15</td><td>暗金装备 #15</td><td>饰品</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #16</td><td>暗金装备 #16</td><td>武器</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #17</td><td>暗金装备 #17</td><td>防具</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #18</td><td>暗金装备 #18</td><td>饰品</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #19</td><td>暗金装备 #19</td><td>武器</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #20</td><td>暗金装备 #20</td><td>防具</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #21</td><td>暗金装备 #21</td><td>饰品</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #22</td><td>暗金装备 #22</td><td>武器</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #23</td><td>暗金装备 #23</td><td>防具</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #24</td><td>暗金装备 #24</td><td>饰品</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #25</td><td>暗金装备 #25</td><td>武器</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #26</td><td>暗金装备 #26</td><td>防具</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #27</td><td>暗金装备 #27</td><td>饰品</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #28</td><td>暗金装备 #28</td><td>武器</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #29</td><td>暗金装备 #29</td><td>防具</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                    <tr><td>Unique Item #30</td><td>暗金装备 #30</td><td>饰品</td><td class="price-int">-</td><td class="price-cn">-</td></tr>
-                </tbody>
-            </table>
+        <div id="recipes" class="tab-content">
+            <p style="text-align:center;color:#897653;margin-top:50px;">🧪 配方优先级数据正在整理中...</p>
         </div>
     </div>
     
     <script>
-        // Tab切换功能
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                // 移除所有active类
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                
-                // 添加active类
-                tab.classList.add('active');
-                const tabId = tab.getAttribute('data-tab');
-                document.getElementById(tabId).classList.add('active');
-            });
-        });
-        
-        // 搜索功能
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                const rows = tab.querySelectorAll('tbody tr');
-                rows.forEach(row => {
-                    const text = row.textContent.toLowerCase();
-                    if (text.includes(searchTerm)) {
-                        row.style.display = '';
-                    } else {
-                        row.style.display = 'none';
-                    }
-                });
-            });
-        });
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
     </script>
 </body>
 </html>
