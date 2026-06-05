@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POE2 物价参考 · POE2 Hub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0d0a07;
+            color: #e8d9b8;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(13, 10, 7, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #4d3a1f;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.88rem;
+        }
+        
+        .top-bar a {
+            color: #b8a47a;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .top-bar a:hover {
+            color: #f4dc99;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 20px 40px;
+        }
+        
+        .page-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: #f4dc99;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .page-subtitle {
+            text-align: center;
+            color: #897653;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+        
+        .update-time {
+            text-align: center;
+            color: #c9a227;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+        
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 20px;
+            background: rgba(37, 28, 17, 0.8);
+            border: 1px solid #6b4f2a;
+            border-radius: 4px;
+            color: #e8d9b8;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #f4dc99;
+        }
+        
+        .search-input::placeholder {
+            color: #897653;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            background: rgba(37, 28, 17, 0.8);
+            border: 1px solid #4d3a1f;
+            color: #b8a47a;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            border-radius: 4px;
+        }
+        
+        .tab:hover {
+            background: rgba(201, 162, 39, 0.1);
+            border-color: #c9a227;
+            color: #f4dc99;
+        }
+        
+        .tab.active {
+            background: linear-gradient(135deg, rgba(201, 162, 39, 0.2), rgba(201, 162, 39, 0.1));
+            border-color: #c9a227;
+            color: #f4dc99;
+            font-weight: 600;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(37, 28, 17, 0.6);
+            border: 1px solid #4d3a1f;
+        }
+        
+        .data-table th {
+            background: rgba(201, 162, 39, 0.15);
+            color: #f4dc99;
+            font-weight: 600;
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 2px solid #c9a227;
+            font-size: 0.9rem;
+            position: sticky;
+            top: 60px;
+            z-index: 10;
+        }
+        
+        .data-table td {
+            padding: 10px 15px;
+            border-bottom: 1px solid #4d3a1f;
+            color: #e8d9b8;
+            font-size: 0.88rem;
+        }
+        
+        .data-table tr:hover {
+            background: rgba(201, 162, 39, 0.08);
+        }
+        
+        .data-table tr:nth-child(even) {
+            background: rgba(40, 30, 15, 0.3);
+        }
+        
+        .data-table tr:nth-child(even):hover {
+            background: rgba(201, 162, 39, 0.08);
+        }
+        
+        .price-int {
+            color: #7fb6e0;
+            font-weight: 600;
+        }
+        
+        .price-cn {
+            color: #e8a948;
+            font-weight: 600;
+        }
+        
+        .note {
+            color: #897653;
+            font-size: 0.82rem;
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(201, 162, 39, 0.06);
+            border-left: 3px solid #c9a227;
+        }
+        
+        .section-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.3rem;
+            color: #f4dc99;
+            margin: 30px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #4d3a1f;
+        }
+        
+        .highlight {
+            background: rgba(201, 162, 39, 0.2);
+            padding: 2px 6px;
+            border-radius: 2px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 70px 10px 30px;
+            }
+            
+            .page-title {
+                font-size: 1.5rem;
+            }
+            
+            .tabs {
+                gap: 5px;
+            }
+            
+            .tab {
+                padding: 8px 12px;
+                font-size: 0.82rem;
+            }
+            
+            .data-table {
+                font-size: 0.82rem;
+            }
+            
+            .data-table th,
+            .data-table td {
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div>
+            <a href="index.html">← 返回首页</a>
+        </div>
+        <div style="color: #897653; font-size: 0.82rem;">
+            数据来源：腾讯文档 | 实时更新
+        </div>
+    </div>
+    
+    <div class="container">
+        <h1 class="page-title">⚔️ POE2 物价参考表</h1>
+        <p class="page-subtitle">0.5 赛季 · 国际服 & 国服价格对照</p>
+        <div class="update-time">📊 统计时间：2026年6月5日 | 1D ≈ 90E</div>
+        
+        <div class="search-box">
+            <input type="text" class="search-input" id="searchInput" placeholder="🔍 模糊搜索物品名称、价格...">
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="gems">血脉宝石</div>
+            <div class="tab" data-tab="recipes">配方优先级</div>
+            <div class="tab" data-tab="bases">高价值底材</div>
+            <div class="tab" data-tab="uniques">暗金装备</div>
+        </div>
+        
+        <!-- 血脉宝石 -->
+        <div class="tab-content active" id="gems">
+            <div class="note">
+                ⚠️ 所有物品采取购买价记录 | 崇高价不是神圣价！！大致参考！！卖的时候一定要习惯性看神圣价和崇高神圣兑换比例！！
+                <br>低于1神圣的未统计 | 任何怪物都有机会掉落（全局掉落）| 必须某个怪物才能掉落（限定掉落）
+                <br>掉落数据来源于wiki百科: https://www.poe2wiki.net/wiki/Lineage_support_gem
+            </div>
+            
+            <h3 class="section-title">🌍 全局掉落血脉宝石（0.4赛季共19个）</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>国际服价格</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>阿拉卡力的欲望</td><td class="price-int">-</td></tr>
+                    <tr><td>神主之握</td><td class="price-int">-</td></tr>
+                    <tr><td>阿尔琼的勋章</td><td class="price-int">-</td></tr>
+                    <tr><td>拉莎的突袭</td><td class="price-int">-</td></tr>
+                    <tr><td>塔卡提之怒</td><td class="price-int">-</td></tr>
+                    <tr><td>汉恩的城赛</td><td class="price-int">-</td></tr>
+                    <tr><td>巴蒂尔的复仇</td><td class="price-int">-</td></tr>
+                    <tr><td>达拉的渴望</td><td class="price-int">-</td></tr>
+                    <tr><td>德瑞的毁灭</td><td class="price-int">-</td></tr>
+                    <tr><td>卡莉莎的强音</td><td class="price-int">-</td></tr>
+                    <tr><td>莫甘娜的暴风</td><td class="price-int">-</td></tr>
+                    <tr><td>奥辛之誓</td><td class="price-int">-</td></tr>
+                    <tr><td>罗米拉的报复</td><td class="price-int">1.2D</td></tr>
+                    <tr><td>西奥妮的怒火</td><td class="price-int">-</td></tr>
+                    <tr><td>薇伦塔之推进</td><td class="price-int">-</td></tr>
+                    <tr><td>布鲁特斯之脑</td><td class="price-int">8.5D</td></tr>
+                    <tr><td>西雷尔的教化</td><td class="price-int">-</td></tr>
+                    <tr><td>德瑞索的热情</td><td class="price-int">-</td></tr>
+                    <tr><td>厄罗克的熔炼术</td><td class="price-int">-</td></tr>
+                </tbody>
+            </table>
+            
+            <h3 class="section-title">🎯 限定掉落血脉宝石（0.4赛季共33个）</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>出处</th>
+                        <th>国际服价格</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>索伏的葬火</td><td>裂隙玩法BOSS薛斯掉落</td><td class="price-int">21D</td></tr>
+                    <tr><td>艾许的光辉</td><td>裂隙玩法BOSS薛斯掉落</td><td class="price-int">14D</td></tr>
+                    <tr><td>乌尔尼多的拥抱</td><td>裂隙玩法BOSS薛斯掉落</td><td class="price-int">96D</td></tr>
+                    <tr><td>托沃的寂静</td><td>裂隙玩法BOSS薛斯掉落</td><td class="price-int">32D</td></tr>
+                    <tr><td>扎洛卡的反叛</td><td>丝克玛试炼4层BOSS掉落</td><td class="price-int">-</td></tr>
+                    <tr><td>仲裁官的点燃</td><td>火焰巅峰的灰烬仲裁官掉落</td><td class="price-int">7.1D</td></tr>
+                    <tr><td>乌崔德的出走</td><td>卡古兰(挖坟)玩法BOSS乌崔德掉落</td><td class="price-int">14D</td></tr>
+                    <tr><td>乌崔德的预兆</td><td>卡古兰(挖坟)玩法BOSS乌崔德掉落</td><td class="price-int">3.1D</td></tr>
+                    <tr><td>乌崔德的占卜</td><td>卡古兰(挖坟)玩法BOSS乌崔德掉落</td><td class="price-int">5.3D</td></tr>
+                    <tr><td>伊克切尔的折磨</td><td>混沌试炼(混沌叔叔)掉落</td><td class="price-int">1.4D</td></tr>
+                    <tr><td>库勒马克的统治</td><td>深渊坑最后的宝箱</td><td class="price-int">-</td></tr>
+                    <tr><td>阿曼娜姆的奉纳</td><td>深渊坑最后的宝箱</td><td class="price-int">-</td></tr>
+                    <tr><td>特克罗的复仇</td><td>深渊坑最后的宝箱或者击杀库勒马克</td><td class="price-int">3.1D</td></tr>
+                    <tr><td>古加尔的缰绳</td><td>深渊坑最后的宝箱</td><td class="price-int">-</td></tr>
+                    <tr><td>瓜铁雷兹的消融</td><td>神庙敬畏宝库</td><td class="price-int">-</td></tr>
+                    <tr><td>海幽夏的诛罚</td><td>神庙敬畏宝库</td><td class="price-int">-</td></tr>
+                    <tr><td>阿兹里的焦躁</td><td>击败神庙女王后女王厅的金库</td><td class="price-int">-</td></tr>
+                    <tr><td>泽佛伊的恶名</td><td>击败神庙女王后女王厅的金库</td><td class="price-int">1.3D</td></tr>
+                    <tr><td>冈姆的疯狂</td><td>异界暗金地图翡翠群岛BOSS掉落</td><td class="price-int">-</td></tr>
+                    <tr><td>拉其塔之流</td><td>异界暗金地图翡翠群岛BOSS掉落</td><td class="price-int">94D</td></tr>
+                    <tr><td>塔萨里奥的律动</td><td>异界暗金地图翡翠群岛BOSS掉落</td><td class="price-int">-</td></tr>
+                    <tr><td>塔赫亚的照料</td><td>异界暗金地图翡翠群岛BOSS掉落</td><td class="price-int">-</td></tr>
+                    <tr><td>瓦拉煞的祝福</td><td>异界暗金地图神圣水库BOSS以及丝克玛试炼4层BOSS掉落</td><td class="price-int">-</td></tr>
+                    <tr><td>扎洛卡的克制</td><td>异界暗金地图神圣水库BOSS以及丝克玛试炼4层BOSS掉落</td><td class="price-int">-</td></tr>
+                    <tr><td>格鲁坎的决心</td><td>异界暗金地图神圣水库BOSS掉落</td><td class="price-int">150D</td></tr>
+                    <tr><td>卡哈塔的复苏</td><td>异界暗金地图神圣水库BOSS掉落</td><td class="price-int">-</td></tr>
+                    <tr><td>艾利丝钟琴</td><td>异界暗金地图废弃宅邸BOSS掉落</td><td class="price-int">5.5D</td></tr>
+                    <tr><td>伊恩哈尔的魔物仪式</td><td>异界暗金地图废弃宅邸BOSS掉落</td><td class="price-int">-</td></tr>
+                    <tr><td>瑞佛的凶猛</td><td>异界暗金地图废弃宅邸BOSS掉落</td><td class="price-int">43D</td></tr>
+                    <tr><td>阿图鲁伊的放血术</td><td>异界暗金地图封印宝库BOSS掉落</td><td class="price-int">-</td></tr>
+                    <tr><td>阿兹里的魅惑</td><td>异界暗金地图封印宝库BOSS掉落</td><td class="price-int">-</td></tr>
+                    <tr><td>帕夸特的契约</td><td>异界暗金地图封印宝库BOSS掉落</td><td class="price-int">-</td></tr>
+                    <tr><td>夏巴夸亚的撕裂</td><td>异界暗金地图封印宝库BOSS掉落</td><td class="price-int">-</td></tr>
+                </tbody>
+            </table>
+            
+            <h3 class="section-title">🆕 0.5新加入血脉宝石（23个）</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>国际服价格</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>弗伦的余波</td><td class="price-int">-</td></tr>
+                    <tr><td>乌崔德的仪式</td><td class="price-int">-</td></tr>
+                    <tr><td>欺诈者碎片</td><td class="price-int">1D</td></tr>
+                    <tr><td>斯泰恩的凶残</td><td class="price-int">-</td></tr>
+                    <tr><td>莫丽根的洞察</td><td class="price-int">1.4D</td></tr>
+                    <tr><td>欧罗什的傲慢</td><td class="price-int">-</td></tr>
+                    <tr><td>艾许的勇武</td><td class="price-int">-</td></tr>
+                    <tr><td>裂隙领主聚合体</td><td class="price-int">10D</td></tr>
+                    <tr><td>沃拉娜的围城</td><td class="price-int">35D</td></tr>
+                    <tr><td>奥尔罗斯的信念</td><td class="price-int">15D</td></tr>
+                    <tr><td>炽天使之心</td><td class="price-int">7.1D</td></tr>
+                    <tr><td>仲裁馆之域</td><td class="price-int">-</td></tr>
+                    <tr><td>裂痕领主的裂隙</td><td class="price-int">6D</td></tr>
+                    <tr><td>凯莎的辉煌</td><td class="price-int">5.1D</td></tr>
+                    <tr><td>她的宣告</td><td class="price-int">4.9D</td></tr>
+                    <tr><td>乌特雷的星座</td><td class="price-int">3.5D</td></tr>
+                    <tr><td>汤马祖的提炉</td><td class="price-int">2.2D</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- 配方优先级 -->
+        <div class="tab-content" id="recipes">
+            <div class="note">
+                ⚠️ 记得看统计时间！！！通货算的是总价值不是单个的！！
+                <br>自改刷82+底材过滤免费分享地址：<a href="https://pan.quark.cn/s/6150bcc796f5" style="color: #f4dc99;" target="_blank">夸克网盘</a>
+                <br>统计时间：6月5日06点，1D=90E
+            </div>
+            
+            <h3 class="section-title">🔮 4符文配方组合</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>配方组合</th>
+                        <th>道具奖励（国际服）</th>
+                        <th>国际服价值（总）</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>合金</td><td>漩涡合金</td><td class="price-int">2E</td></tr>
+                    <tr><td></td><td>延展合金</td><td class="price-int">2E</td></tr>
+                    <tr><td>通货</td><td>玻璃弹珠 x3</td><td class="price-int">6E</td></tr>
+                    <tr><td></td><td>神圣石 x1</td><td class="price-int">93E</td></tr>
+                    <tr><td></td><td>高阶混沌石 x1</td><td class="price-int">11E</td></tr>
+                    <tr><td></td><td>高阶崇高石 x1</td><td class="price-int">11E</td></tr>
+                    <tr><td></td><td>高阶富豪石 x1</td><td class="price-int">1.2E</td></tr>
+                    <tr><td></td><td>高阶工匠石 x1</td><td class="price-int">2E</td></tr>
+                    <tr><td></td><td>混沌石 x2</td><td class="price-int">8E</td></tr>
+                    <tr><td></td><td>宝石匠的棱镜 x3</td><td class="price-int">6E</td></tr>
+                    <tr><td></td><td>点金石 x3</td><td class="price-int">1E</td></tr>
+                    <tr><td></td><td>崇高石 x3</td><td class="price-int">3E</td></tr>
+                    <tr><td>宝石</td><td>治愈符文 x1</td><td class="price-int">1E</td></tr>
+                    <tr><td></td><td>天坠 x1</td><td class="price-int">1E</td></tr>
+                    <tr><td></td><td>三曲爆发 x1</td><td class="price-int">1E</td></tr>
+                    <tr><td></td><td>驳斥 x1</td><td class="price-int">12E</td></tr>
+                    <tr><td></td><td>地脉 x1</td><td class="price-int">1E</td></tr>
+                    <tr><td></td><td>意志转换 x1</td><td class="price-int">1E</td></tr>
+                    <tr><td></td><td>符文喘息 x1</td><td class="price-int">1E</td></tr>
+                </tbody>
+            </table>
+            
+            <h3 class="section-title">🔮 5符文配方组合</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>配方组合</th>
+                        <th>道具奖励（国际服）</th>
+                        <th>国际服价值（总）</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>合金</td><td>焕彩合金</td><td class="price-int">10E</td></tr>
+                    <tr><td></td><td>秘能合金</td><td class="price-int">4E</td></tr>
+                    <tr><td>通货</td><td>奇术溶剂（等级19）</td><td class="price-int">4E</td></tr>
+                    <tr><td></td><td>神圣石 x2</td><td class="price-int">2D</td></tr>
+                    <tr><td></td><td>高阶增幅石 x3</td><td class="price-int">1E</td></tr>
+                    <tr><td></td><td>高阶蜕变石 x3</td><td class="price-int">1E</td></tr>
+                    <tr><td></td><td>机会石 x1</td><td class="price-int">16E</td></tr>
+                    <tr><td></td><td>完美工匠石 x1</td><td class="price-int">1.1D</td></tr>
+                    <tr><td></td><td>混沌石 x3</td><td class="price-int">12E</td></tr>
+                    <tr><td></td><td>5个随机通货</td><td class="price-int">？</td></tr>
+                    <tr><td>宝石</td><td>维里西姆强化</td><td class="price-int">4E</td></tr>
+                    <tr><td></td><td>维里西姆显化</td><td class="price-int">1E</td></tr>
+                    <tr><td></td><td>卡尔葛之痕</td><td class="price-int">3E</td></tr>
+                    <tr><td></td><td>恐怖之柱</td><td class="price-int">4E</td></tr>
+                    <tr><td></td><td>苦涩衰亡</td><td class="price-int">2E</td></tr>
+                    <tr><td></td><td>传导符文</td><td class="price-int">1E</td></tr>
+                    <tr><td></td><td>霜火新星</td><td class="price-int">1E</td></tr>
+                    <tr><td></td><td>往昔碎片</td><td class="price-int">1E</td></tr>
+                    <tr><td></td><td>永恒行军</td><td class="price-int">1E</td></tr>
+                    <tr><td></td><td>活体引爆</td><td class="price-int">1E</td></tr>
+                    <tr><td></td><td>未切割的技能宝石（等级 19）</td><td class="price-int">13E</td></tr>
+                    <tr><td></td><td>未切割的精魂宝石（等级 19）</td><td class="price-int">14E</td></tr>
+                    <tr><td></td><td>排斥</td><td class="price-int">5E</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- 高价值底材 -->
+        <div class="tab-content" id="bases">
+            <div class="note">
+                ⚠️ 部分高价并且数量非常少(4个以下)的没有统计
+                <br>自改刷82+底材过滤免费分享地址：<a href="https://pan.quark.cn/s/6150bcc796f5" style="color: #f4dc99;" target="_blank">夸克网盘</a>
+                <br>热门的以及戒指都建议捡起来鉴定一下，0.5新增了内置查价功能 shift+alt+左键
+                <br>统计时间和DE比：6月5日，1D=90E
+            </div>
+            
+            <h3 class="section-title">👟 鞋子类底材（物品等级 82+）</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>物品名称</th>
+                        <th>国际服价格</th>
+                        <th>物品等级</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>丝克玛便鞋</td><td class="price-int">54E</td><td>82+</td></tr>
+                    <tr><td>沙誓鞋履</td><td class="price-int">30E</td><td>82+</td></tr>
+                    <tr><td>龙皮长靴</td><td class="price-int">24E</td><td>82+</td></tr>
+                    <tr><td>龙鳞长靴</td><td class="price-int">10E</td><td>82+</td></tr>
+                    <tr><td>塔萨里奥胫甲</td><td class="price-int">2E</td><td>82+</td></tr>
+                    <tr><td>捷足便鞋</td><td class="price-int">60E</td><td>82+</td></tr>
+                    <tr><td>急迅便鞋</td><td class="price-int">22E</td><td>82+</td></tr>
+                </tbody>
+            </table>
+            
+            <h3 class="section-title">⛑️ 头盔类底材（物品等级 82+）</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>物品名称</th>
+                        <th>国际服价格</th>
+                        <th>物品等级</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>先祖冠冕</td><td class="price-int">45E</td><td>82+</td></tr>
+                    <tr><td>卡马萨冠冕</td><td class="price-int">12E</td><td>82+</td></tr>
+                    <tr><td>狞笑面罩</td><td class="price-int">4E</td><td>82+</td></tr>
+                </tbody>
+            </table>
+            
+            <h3 class="section-title">👕 衣服类底材（物品等级 82+）</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>物品名称</th>
+                        <th>国际服价格</th>
+                        <th>物品等级</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>滑击背心</td><td class="price-int">30E</td><td>82+</td></tr>
+                    <tr><td>邪恶束衣</td><td class="price-int">40E</td><td>82+</td></tr>
+                    <tr><td>滑布外衣</td><td class="price-int">43E</td><td>82+</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- 暗金装备 -->
+        <div class="tab-content" id="uniques">
+            <div class="note">
+                ⚠️ 数据来源于忍者网 | 2的忍者暂时不统计已腐化装备（例如人格分裂、幻梦等）
+                <br>文档无任何收费行为不要被骗！！
+                <br>自改刷82+底材过滤免费分享地址：<a href="https://pan.quark.cn/s/6150bcc796f5" style="color: #f4dc99;" target="_blank">夸克网盘</a>
+            </div>
+            
+            <h3 class="section-title">💎 高价值暗金装备（腰带、戒指、武器、衣服、手套等）</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>基础分类</th>
+                        <th>物品名称</th>
+                        <th>出处</th>
+                        <th>国际服价格</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>腰带</td><td>猎首</td><td>全域掉落</td><td class="price-int">298D</td></tr>
+                    <tr><td>腰带</td><td>法师之血</td><td>全域掉落</td><td class="price-int">327D</td></tr>
+                    <tr><td>戒指</td><td>卡兰德之触</td><td>全域掉落</td><td class="price-int">21D</td></tr>
+                    <tr><td>戒指</td><td>丝克玛的决心(蓝宝石)</td><td>丝克玛试炼</td><td class="price-int">26D</td></tr>
+                    <tr><td>武器</td><td>渡鸦集束</td><td>迷雾巅峰BOSS</td><td class="price-int">61D</td></tr>
+                    <tr><td>武器</td><td>神圣之火</td><td>火焰巅峰灰烬仲裁官</td><td class="price-int">36D</td></tr>
+                    <tr><td>武器</td><td>神授命使</td><td>神圣仲裁官(0.5)</td><td class="price-int">22D</td></tr>
+                    <tr><td>衣服</td><td>时空之肌</td><td>丝克玛试炼(1血)</td><td class="price-int">352D</td></tr>
+                    <tr><td>衣服</td><td>无尽之衣</td><td>全域掉落</td><td class="price-int">50D</td></tr>
+                    <tr><td>手套</td><td>恐惧飞掠</td><td>迷雾巅峰BOSS</td><td class="price-int">25D</td></tr>
+                    <tr><td>药剂</td><td>欧罗什的决心</td><td>炸坟BOSS欧罗什</td><td class="price-int">23D</td></tr>
+                    <tr><td>珠宝</td><td>人格分裂</td><td>暂不确定</td><td class="price-int">35D+</td></tr>
+                    <tr><td>珠宝</td><td>浮华</td><td>混沌试炼BOSS</td><td class="price-int">20D</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script>
+        // Tab切换功能
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // 移除所有active
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // 添加active
+                tab.classList.add('active');
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // 搜索功能
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', (e) => {
+            const keyword = e.target.value.toLowerCase().trim();
+            
+            if (!keyword) {
+                // 清空高亮，显示所有行
+                document.querySelectorAll('.highlight').forEach(el => {
+                    el.outerHTML = el.innerHTML;
+                });
+                document.querySelectorAll('.data-table tbody tr').forEach(row => {
+                    row.style.display = '';
+                });
+                return;
+            }
+            
+            // 遍历所有表格行
+            document.querySelectorAll('.data-table tbody tr').forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(keyword)) {
+                    row.style.display = '';
+                    // 高亮匹配文本
+                    row.querySelectorAll('td').forEach(cell => {
+                        const cellText = cell.textContent;
+                        if (cellText.toLowerCase().includes(keyword)) {
+                            const regex = new RegExp(`(${keyword})`, 'gi');
+                            cell.innerHTML = cellText.replace(regex, '<span class="highlight">$1</span>');
+                        }
+                    });
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+        
+        // 页面加载完成
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('POE2 物价参考表加载完成');
+        });
+    </script>
+</body>
+</html>
