@@ -22,6 +22,12 @@
         .note { color: #897653; font-size: 0.82rem; margin: 10px 0; padding: 10px; background: rgba(201,162,39,0.06); border-left: 3px solid #c9a227; }
         .section-title { font-family: "Noto Serif SC", serif; font-size: 1.3rem; color: #f4dc99; margin: 30px 0 15px; padding-bottom: 8px; border-bottom: 1px solid #4d3a1f; }
         .loading { text-align: center; color: #897653; margin: 50px 0; }
+        .recipe-section { margin: 30px 0; padding: 20px; background: rgba(201,162,39,0.04); border: 1px solid #4d3a1f; border-radius: 8px; }
+        .rune-header { color: #f4dc99; font-size: 1.1rem; margin: 0 0 15px; padding-bottom: 8px; border-bottom: 1px solid #c9a227; }
+        .type-group { margin: 15px 0; }
+        .type-header { color: #b8a47a; font-size: 0.95rem; margin: 10px 0 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .stats-note { color: #897653; font-size: 0.82rem; margin: 8px 0; padding: 8px 12px; background: rgba(201,162,39,0.06); border-radius: 4px; }
+        .price-cn { color: #f0a0a0; font-weight: 600; }
     </style>
 </head>
 <body>
@@ -176,15 +182,52 @@
         // 渲染配方
         function renderRecipes() {
             if (!priceData || !priceData.recipes) return;
-            
+
+            const runeTypes = { '4': '4 符文组合', '7': '7 符文组合' };
+            const typeLabels = { '合金': '合金', '通货': '通货', '宝石': '宝石', '符文': '符文' };
             let html = '<h3 class="section-title">🧪 符文配方优先级</h3>';
-            html += '<table class="data-table"><thead><tr><th>符文数量</th><th>配方</th><th>国际服价格</th><th>国服价格</th></tr></thead><tbody>';
-            
-            priceData.recipes.forEach(item => {
-                html += `<tr><td>${item.count}</td><td>${item.recipe}</td><td class="price-int">${item.price_int}</td><td>${item.price_cn || '-'}</td></tr>`;
+
+            // 按符文数量分组
+            ['4', '7'].forEach(runeCount => {
+                const items = priceData.recipes[runeCount];
+                if (!items || items.length === 0) return;
+
+                html += `<div class="recipe-section"><h4 class="rune-header">⚔ ${runeTypes[runeCount]}（${items.length} 条）</h4>`;
+
+                // 按类型分组
+                const byType = {};
+                items.forEach(item => {
+                    const t = item.type || '符文';
+                    if (!byType[t]) byType[t] = [];
+                    byType[t].push(item);
+                });
+
+                Object.keys(byType).forEach(type => {
+                    html += `<div class="type-group"><h5 class="type-header">${typeLabels[type] || type}</h5>`;
+                    html += '<table class="data-table"><thead><tr><th>国际服物品</th><th>国际服价值</th><th>国服物品</th><th>国服价值</th><th>最低等级</th></tr></thead><tbody>';
+                    byType[type].forEach(item => {
+                        html += `<tr>
+                            <td>${item.int_name}</td>
+                            <td class="price-int">${item.int_value}</td>
+                            <td>${item.cn_name}</td>
+                            <td class="price-cn">${item.cn_value || '-'}</td>
+                            <td>${item.min_level}</td>
+                        </tr>`;
+                    });
+                    html += '</tbody></table></div>';
+                });
+                html += '</div>';
             });
-            
-            html += '</tbody></table>';
+
+            // 统计信息
+            if (priceData.metadata && priceData.metadata.stats) {
+                const s = priceData.metadata.stats;
+                html += `<div class="stats-note">📊 数据统计时间：国际服 ${s.int_stats || 'N/A'}，国服 ${s.cn_stats || 'N/A'}</div>`;
+            }
+            if (priceData.metadata && priceData.metadata.note) {
+                html += `<div class="stats-note">💡 ${priceData.metadata.note}</div>`;
+            }
+
             document.getElementById('recipes-content').innerHTML = html;
         }
         
