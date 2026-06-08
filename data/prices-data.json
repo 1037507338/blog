@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "update_time": "2026-06-08T20:55:03",
+    "update_time": "2026-06-08T20:57:52",
     "source": "腾讯文档",
     "note_int": "1D ≈ 88E",
     "note_cn": "1D ≈ 86E"
@@ -475,108 +475,288 @@
     }
   ],
   "bases": {
-    "shoes": [],
-    "helmets": [
+    "shoes": [
       {
-        "en": "基础分类",
-        "cn": "物品名称",
-        "price_int": "-",
-        "price_cn": "-",
-        "level": "国际服价格"
+        "en": "沙誓鞋履",
+        "cn": "-",
+        "price_int": "19E",
+        "price_cn": "28E",
+        "level": "-"
       },
       {
-        "en": "弓",
-        "cn": "毁灭者之弓",
-        "price_int": "-",
-        "price_cn": "-",
-        "level": "50E"
+        "en": "龙皮长靴",
+        "cn": "-",
+        "price_int": "9E",
+        "price_cn": "12E",
+        "level": "-"
       },
       {
-        "en": "弩",
-        "cn": "摧城弩",
-        "price_int": "-",
-        "price_cn": "-",
-        "level": "20E"
+        "en": "龙鳞长靴",
+        "cn": "-",
+        "price_int": "7E",
+        "price_cn": "5E",
+        "level": "-"
       },
       {
-        "en": "箭袋",
-        "cn": "贯心箭袋",
-        "price_int": "-",
-        "price_cn": "-",
-        "level": "5E"
+        "en": "塔萨里奥胫甲",
+        "cn": "-",
+        "price_int": "3E",
+        "price_cn": "8E",
+        "level": "-"
       },
       {
-        "en": "长矛",
-        "cn": "阿科扬战矛",
-        "price_int": "-",
-        "price_cn": "-",
-        "level": "10E"
-      },
-      {
-        "en": "Guardian Spear",
-        "cn": "守护者战矛",
-        "price_int": "-",
-        "price_cn": "-",
-        "level": "3E"
-      },
-      {
-        "en": "Flying Spear",
-        "cn": "翱翔战矛",
-        "price_int": "-",
-        "price_cn": "-",
-        "level": "12E"
-      },
-      {
-        "en": "基础分类",
-        "cn": "物品名称",
-        "price_int": "-",
-        "price_cn": "-",
-        "level": "国际服价格"
-      },
-      {
-        "en": "法杖",
-        "cn": "决斗法杖",
-        "price_int": "-",
-        "price_cn": "-",
-        "level": "8E"
-      },
-      {
-        "en": "法器",
-        "cn": "塔萨里奥法器",
-        "price_int": "-",
-        "price_cn": "-",
-        "level": "10E"
-      },
-      {
-        "en": "盾",
-        "cn": "沙漠轻盾",
+        "en": "瓦尔胫甲",
+        "cn": "-",
         "price_int": "-",
         "price_cn": "-",
         "level": "-"
       },
       {
-        "en": "双手锤",
-        "cn": "庞然大锤",
+        "en": "黑钢战靴",
+        "cn": "-",
+        "price_int": "2E",
+        "price_cn": "-",
+        "level": "-"
+      },
+      {
+        "en": "要塞战靴",
+        "cn": "-",
         "price_int": "-",
         "price_cn": "-",
         "level": "-"
       },
       {
-        "en": "单手锤",
-        "cn": "阿科扬战棒",
+        "en": "隐秘绑腿",
+        "cn": "-",
         "price_int": "-",
         "price_cn": "-",
         "level": "-"
       },
       {
-        "en": "长杖",
-        "cn": "鸣谐长杖",
+        "en": "术士护腿",
+        "cn": "-",
         "price_int": "-",
         "price_cn": "-",
-        "level": "6E"
+        "level": "-"
+      },
+      {
+        "en": "捷足便鞋",
+        "cn": "-",
+        "price_int": "30E",
+        "price_cn": "25E",
+        "level": "-"
+      },
+      {
+        "en": "急迅便鞋",
+        "cn": "-",
+        "price_int": "15E",
+        "price_cn": "14E",
+        "level": "-"
       }
     ],
-    "armors": []
+    "helmets": [
+      {
+        "en": "帝国巨盔",
+        "cn": "-",
+        "price_int": "3E",
+        "price_cn": "-",
+        "level": "-"
+      },
+      {
+        "en": "典范巨盔",
+        "cn": "-",
+        "price_int": "-",
+        "price_cn": "-",
+        "level": "-"
+      },
+      {
+        "en": "劫掠者之帽",
+        "cn": "-",
+        "price_int": "3E",
+        "price_cn": "2E",
+        "level": "-"
+      },
+      {
+        "en": "猎人兜帽",
+        "cn": "-",
+        "price_int": "-",
+        "price_cn": "-",
+        "level": "-"
+      },
+      {
+        "en": "先祖冠冕",
+        "cn": "-",
+        "price_int": "48E",
+        "price_cn": "45E",
+        "level": "-"
+      },
+      {
+        "en": "卡马萨冠冕",
+        "cn": "-",
+        "price_int": "12E",
+        "price_cn": "8E",
+        "level": "-"
+      },
+      {
+        "en": "角斗士头盔",
+        "cn": "-",
+        "price_int": "-",
+        "price_cn": "-",
+        "level": "-"
+      },
+      {
+        "en": "勇士头盔",
+        "cn": "-",
+        "price_int": "-",
+        "price_cn": "-",
+        "level": "-"
+      },
+      {
+        "en": "隐秘之冠",
+        "cn": "-",
+        "price_int": "-",
+        "price_cn": "-",
+        "level": "-"
+      },
+      {
+        "en": "神礼王冠",
+        "cn": "-",
+        "price_int": "-",
+        "price_cn": "-",
+        "level": "-"
+      },
+      {
+        "en": "狞笑面罩",
+        "cn": "-",
+        "price_int": "8E",
+        "price_cn": "9E",
+        "level": "-"
+      },
+      {
+        "en": "翱翔面具",
+        "cn": "-",
+        "price_int": "2E",
+        "price_cn": "-",
+        "level": "-"
+      }
+    ],
+    "quivers": [
+      {
+        "en": "精工箭袋",
+        "cn": "-",
+        "price_int": "2E",
+        "price_cn": "5E",
+        "level": "-"
+      }
+    ],
+    "bows": [
+      {
+        "en": "寻战之弓",
+        "cn": "-",
+        "price_int": "29E",
+        "price_cn": "20E",
+        "level": "-"
+      },
+      {
+        "en": "双子之弓",
+        "cn": "-",
+        "price_int": "3E",
+        "price_cn": "4E",
+        "level": "-"
+      },
+      {
+        "en": "狂热之弓",
+        "cn": "-",
+        "price_int": "4E",
+        "price_cn": "2E",
+        "level": "-"
+      }
+    ],
+    "crossbows": [
+      {
+        "en": "苍凉战弩",
+        "cn": "-",
+        "price_int": "9E",
+        "price_cn": "7E",
+        "level": "-"
+      },
+      {
+        "en": "双灵战弩",
+        "cn": "-",
+        "price_int": "17E",
+        "price_cn": "4E",
+        "level": "-"
+      }
+    ],
+    "sceptres": [
+      {
+        "en": "圣洁法器",
+        "cn": "-",
+        "price_int": "8E",
+        "price_cn": "7E",
+        "level": "-"
+      }
+    ],
+    "staves": [
+      {
+        "en": "凋零法杖",
+        "cn": "-",
+        "price_int": "-",
+        "price_cn": "4E",
+        "level": "-"
+      },
+      {
+        "en": "虹吸/调和",
+        "cn": "-",
+        "price_int": "-",
+        "price_cn": "2E",
+        "level": "-"
+      }
+    ],
+    "spears": [
+      {
+        "en": "飞行战矛",
+        "cn": "-",
+        "price_int": "12E",
+        "price_cn": "10E",
+        "level": "-"
+      },
+      {
+        "en": "守护者战矛",
+        "cn": "-",
+        "price_int": "3E",
+        "price_cn": "5E",
+        "level": "-"
+      },
+      {
+        "en": "翱翔战矛",
+        "cn": "-",
+        "price_int": "12E",
+        "price_cn": "8E",
+        "level": "-"
+      },
+      {
+        "en": "尖刺战矛",
+        "cn": "-",
+        "price_int": "2E",
+        "price_cn": "2E",
+        "level": "-"
+      },
+      {
+        "en": "宏伟战矛",
+        "cn": "-",
+        "price_int": "2E",
+        "price_cn": "10E",
+        "level": "-"
+      },
+      {
+        "en": "潜行战矛",
+        "cn": "-",
+        "price_int": "-",
+        "price_cn": "5E",
+        "level": "-"
+      }
+    ]
   },
   "uniques": [
     {
