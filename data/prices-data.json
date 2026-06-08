@@ -1,47 +1,1644 @@
 {
   "metadata": {
-    "update_time": "2026-06-08T20:05:54.000353",
+    "update_time": "2026-06-08T20:55:03",
     "source": "腾讯文档",
-    "note": "1D ≈ 90E"
+    "note_int": "1D ≈ 88E",
+    "note_cn": "1D ≈ 86E"
   },
   "gems_global": [
     {
-      "en": "Alacrity's Desire",
-      "cn": "阿拉卡力的欲望",
-      "price_int": "-",
-      "price_cn": "-"
+      "en": "卡洛翰的決心",
+      "cn": "格鲁坎的决心",
+      "price_int": "243D",
+      "price_cn": "111D"
+    },
+    {
+      "en": "烏爾尼多的擁抱",
+      "cn": "乌尔尼多的拥抱",
+      "price_int": "183D",
+      "price_cn": "149D"
+    },
+    {
+      "en": "萊基亞塔的流動",
+      "cn": "拉其塔之流",
+      "price_int": "110D",
+      "price_cn": "68D"
+    },
+    {
+      "en": "達拉的渴望",
+      "cn": "达拉的渴望",
+      "price_int": "70D",
+      "price_cn": "44D"
+    },
+    {
+      "en": "阿兹里的共融",
+      "cn": "阿兹里的圣礼",
+      "price_int": "70D",
+      "price_cn": "65D"
+    },
+    {
+      "en": "瑞佛的狂暴",
+      "cn": "瑞佛的凶猛",
+      "price_int": "59D",
+      "price_cn": "34D"
+    },
+    {
+      "en": "托沃的寧靜",
+      "cn": "托沃的寂静",
+      "price_int": "51D",
+      "price_cn": "50D"
+    },
+    {
+      "en": "沃拉娜的圍攻",
+      "cn": "沃拉娜的围城",
+      "price_int": "28D",
+      "price_cn": "10D"
+    },
+    {
+      "en": "艾許的光芒",
+      "cn": "艾许的光辉",
+      "price_int": "25D",
+      "price_cn": "15D"
+    },
+    {
+      "en": "奥爾羅斯的信念",
+      "cn": "欧罗什的信念",
+      "price_int": "24D",
+      "price_cn": "28D"
+    },
+    {
+      "en": "烏特雷的出走",
+      "cn": "乌崔德的出走",
+      "price_int": "21D",
+      "price_cn": "5D"
+    },
+    {
+      "en": "裂痕領主的融合",
+      "cn": "裂隙领主的融合体",
+      "price_int": "19D",
+      "price_cn": "15D"
+    },
+    {
+      "en": "她的宣告",
+      "cn": "她的宣言",
+      "price_int": "16D",
+      "price_cn": "5D"
+    },
+    {
+      "en": "神使之心",
+      "cn": "炽天使之心",
+      "price_int": "11D",
+      "price_cn": "7D"
+    },
+    {
+      "en": "索伏的燃焰",
+      "cn": "索伏的葬火",
+      "price_int": "10D",
+      "price_cn": "15D"
+    },
+    {
+      "en": "烏特雷的占卜術",
+      "cn": "乌崔德的占卜",
+      "price_int": "6D",
+      "price_cn": "206E"
+    },
+    {
+      "en": "凱莎的輝煌",
+      "cn": "卡莎的光辉",
+      "price_int": "5D",
+      "price_cn": "35E"
+    },
+    {
+      "en": "烏特雷的徵兆",
+      "cn": "乌崔德的预兆",
+      "price_int": "5D",
+      "price_cn": "55E"
+    },
+    {
+      "en": "布魯特斯的腦",
+      "cn": "布鲁特斯之脑",
+      "price_int": "3D",
+      "price_cn": "5D"
+    },
+    {
+      "en": "特克羅德的復仇",
+      "cn": "特克罗的复仇",
+      "price_int": "3D",
+      "price_cn": "65E"
+    },
+    {
+      "en": "欺詐者的碎片",
+      "cn": "欺诈者碎片",
+      "price_int": "3D",
+      "price_cn": "26E"
+    },
+    {
+      "en": "裂痕領主的裂隙",
+      "cn": "裂隙领主的分歧",
+      "price_int": "3D",
+      "price_cn": "8D"
+    },
+    {
+      "en": "仲裁者的燃灼",
+      "cn": "仲裁官的点燃",
+      "price_int": "2.5D",
+      "price_cn": "30E"
+    },
+    {
+      "en": "烏特雷的星座",
+      "cn": "乌崔德的星图",
+      "price_int": "2.5D",
+      "price_cn": "23E"
+    },
+    {
+      "en": "阿姆那姆的稅賦",
+      "cn": "阿曼娜姆的奉纳",
+      "price_int": "2D",
+      "price_cn": "175E"
+    },
+    {
+      "en": "卡塔爾的恢復",
+      "cn": "卡哈塔的复苏",
+      "price_int": "63E",
+      "price_cn": "39E"
+    },
+    {
+      "en": "湯馬祖的提爐",
+      "cn": "唐玛祖的香炉",
+      "price_int": "61E",
+      "price_cn": "19E"
+    },
+    {
+      "en": "薩雷許的折磨",
+      "cn": "伊克切尔的折磨",
+      "price_int": "50E",
+      "price_cn": "50E"
+    },
+    {
+      "en": "阿特路伊的出血",
+      "cn": "阿图鲁伊的放血术",
+      "price_int": "46E",
+      "price_cn": "6D"
+    },
+    {
+      "en": "艾里絲的管鐘",
+      "cn": "艾利丝钟琴",
+      "price_int": "45E",
+      "price_cn": "65E"
+    },
+    {
+      "en": "澤佛伊的惡名",
+      "cn": "泽佛伊的恶名",
+      "price_int": "34E",
+      "price_cn": "21D"
+    },
+    {
+      "en": "莫里根的洞察",
+      "cn": "莫丽根的洞察",
+      "price_int": "31E",
+      "price_cn": "10E"
+    },
+    {
+      "en": "西奥妮的鍛鍊",
+      "cn": "西奥妮的怒火",
+      "price_int": "24E",
+      "price_cn": "17E"
+    },
+    {
+      "en": "奥爾羅斯的傲慢",
+      "cn": "欧罗什的傲慢",
+      "price_int": "24E",
+      "price_cn": "37E"
+    },
+    {
+      "en": "艾許的威能",
+      "cn": "艾许的骁勇",
+      "price_int": "21E",
+      "price_cn": "50E"
+    },
+    {
+      "en": "卡莉莎的漸強",
+      "cn": "卡莉莎的强音",
+      "price_int": "15E",
+      "price_cn": "1E"
+    },
+    {
+      "en": "仲裁者的延伸",
+      "cn": "仲裁官之握",
+      "price_int": "15E",
+      "price_cn": "3E"
+    },
+    {
+      "en": "荷霖蔡的轟鳴",
+      "cn": "海幽夏的诛罚",
+      "price_int": "13E",
+      "price_cn": "18E"
+    },
+    {
+      "en": "德瑞的毀滅",
+      "cn": "德瑞的毁灭",
+      "price_int": "12E",
+      "price_cn": "21E"
     }
   ],
   "gems_limited": [
     {
-      "en": "Sevf's Bural Offerings",
-      "cn": "索伏的葬火",
-      "source": "裂隙玩法BOSS薛斯掉落",
-      "price_int": "21D",
-      "price_cn": "-"
+      "en": "阿兹里的魅惑",
+      "cn": "阿兹里的魅惑",
+      "source": "-",
+      "price_int": "9E",
+      "price_cn": "4E"
+    },
+    {
+      "en": "欧辛的誓言",
+      "cn": "奥辛之誓",
+      "source": "-",
+      "price_int": "9E",
+      "price_cn": "6E"
+    },
+    {
+      "en": "烏特雷的儀式",
+      "cn": "乌崔德仪式",
+      "source": "-",
+      "price_int": "8E",
+      "price_cn": "30E"
+    },
+    {
+      "en": "羅米拉的報復",
+      "cn": "罗米拉的报复",
+      "source": "-",
+      "price_int": "7E",
+      "price_cn": "11E"
+    },
+    {
+      "en": "伊歐涅的雷霆",
+      "cn": "伊奥尼尔的雷霆",
+      "source": "-",
+      "price_int": "7E",
+      "price_cn": "10E"
+    },
+    {
+      "en": "梅德偉的殞落",
+      "cn": "梅德维德的砍伐",
+      "source": "-",
+      "price_int": "5E",
+      "price_cn": "9E"
+    },
+    {
+      "en": "漢恩的城塞",
+      "cn": "汉恩的城塞",
+      "source": "-",
+      "price_int": "5E",
+      "price_cn": "9E"
+    },
+    {
+      "en": "澤洛克的克制",
+      "cn": "扎洛卡的克制",
+      "source": "-",
+      "price_int": "5E",
+      "price_cn": "9E"
+    },
+    {
+      "en": "十七號原型機",
+      "cn": "原型十七",
+      "source": "神圣仲裁官",
+      "price_int": "5E",
+      "price_cn": "1E"
+    },
+    {
+      "en": "拉妲的強襲",
+      "cn": "卡莉莎的强音",
+      "source": "-",
+      "price_int": "4E",
+      "price_cn": "1E"
+    },
+    {
+      "en": "亞瓊的獎章",
+      "cn": "阿尔琼的勋章",
+      "source": "-",
+      "price_int": "4E",
+      "price_cn": "1E"
+    },
+    {
+      "en": "神主的掌握",
+      "cn": "神主之握",
+      "source": "-",
+      "price_int": "4E",
+      "price_cn": "1E"
+    },
+    {
+      "en": "斯塔恩的山巔",
+      "cn": "斯泰恩的山岳",
+      "source": "-",
+      "price_int": "4E",
+      "price_cn": "4E"
+    },
+    {
+      "en": "托沃的雪崩",
+      "cn": "托沃的雪崩",
+      "source": "-",
+      "price_int": "4E",
+      "price_cn": "7E"
+    },
+    {
+      "en": "柯戈的繩索",
+      "cn": "古加尔的缰绳",
+      "source": "-",
+      "price_int": "4E",
+      "price_cn": "5E"
+    },
+    {
+      "en": "賽巴昆的撕裂",
+      "cn": "夏巴夸亚的撕裂",
+      "source": "-",
+      "price_int": "4E",
+      "price_cn": "1E"
+    },
+    {
+      "en": "埃哈的野獣儀式",
+      "cn": "伊恩哈尔的魔物仪式",
+      "source": "-",
+      "price_int": "3E",
+      "price_cn": "3E"
+    },
+    {
+      "en": "岡姆的癲狂",
+      "cn": "冈姆的疯狂",
+      "source": "-",
+      "price_int": "3E",
+      "price_cn": "2E"
+    },
+    {
+      "en": "瓦特爾的復仇",
+      "cn": "巴蒂尔的复仇",
+      "source": "-",
+      "price_int": "3E",
+      "price_cn": "1E"
+    },
+    {
+      "en": "魔甘娜的風暴",
+      "cn": "莫甘娜的暴风",
+      "source": "-",
+      "price_int": "3E",
+      "price_cn": "1E"
+    },
+    {
+      "en": "帕科特的協議",
+      "cn": "帕夸特的契约",
+      "source": "-",
+      "price_int": "1E",
+      "price_cn": "1E"
+    },
+    {
+      "en": "范尼達的奮進",
+      "cn": "薇伦塔之推进",
+      "source": "-",
+      "price_int": "1E",
+      "price_cn": "4E"
+    },
+    {
+      "en": "塔赫亞的照顧",
+      "cn": "塔赫亚的照料",
+      "source": "-",
+      "price_int": "1E",
+      "price_cn": "1E"
+    },
+    {
+      "en": "塔薩里奥的律動",
+      "cn": "塔萨里奥的律动",
+      "source": "-",
+      "price_int": "1E",
+      "price_cn": "1E"
+    },
+    {
+      "en": "特卡蒂的憤怒",
+      "cn": "塔卡提之怒",
+      "source": "-",
+      "price_int": "1E",
+      "price_cn": "1E"
+    },
+    {
+      "en": "弗倫的必然",
+      "cn": "弗伦的必然",
+      "source": "-",
+      "price_int": "1E",
+      "price_cn": "1E"
+    },
+    {
+      "en": "德瑞索的熱情",
+      "cn": "德瑞索的热情",
+      "source": "-",
+      "price_int": "1E",
+      "price_cn": "2E"
+    },
+    {
+      "en": "瓦拉什塔的祝福",
+      "cn": "瓦拉煞的祝福",
+      "source": "-",
+      "price_int": "1E",
+      "price_cn": "1E"
+    },
+    {
+      "en": "艾爾卡莉之慾",
+      "cn": "阿拉卡力的欲望",
+      "source": "-",
+      "price_int": "1E",
+      "price_cn": "1E"
+    },
+    {
+      "en": "瓜特利斯的消融",
+      "cn": "瓜铁雷兹的消融",
+      "source": "-",
+      "price_int": "1E",
+      "price_cn": "20E"
+    },
+    {
+      "en": "西瑞爾的耕植",
+      "cn": "西雷尔的教化",
+      "source": "-",
+      "price_int": "1E",
+      "price_cn": "1E"
+    },
+    {
+      "en": "海爾賓姆的躲藏",
+      "cn": "赫尔布林的隐瞒",
+      "source": "-",
+      "price_int": "1E",
+      "price_cn": "1E"
+    },
+    {
+      "en": "弗倫的餘波",
+      "cn": "弗伦的余波",
+      "source": "-",
+      "price_int": "1E",
+      "price_cn": "1E"
     }
   ],
   "bases": {
-    "shoes": [
+    "shoes": [],
+    "helmets": [
       {
-        "en": "Sikhama Sandals",
-        "cn": "丝克玛便鞋",
-        "price_int": "54E",
+        "en": "基础分类",
+        "cn": "物品名称",
+        "price_int": "-",
         "price_cn": "-",
-        "level": "82+"
+        "level": "国际服价格"
+      },
+      {
+        "en": "弓",
+        "cn": "毁灭者之弓",
+        "price_int": "-",
+        "price_cn": "-",
+        "level": "50E"
+      },
+      {
+        "en": "弩",
+        "cn": "摧城弩",
+        "price_int": "-",
+        "price_cn": "-",
+        "level": "20E"
+      },
+      {
+        "en": "箭袋",
+        "cn": "贯心箭袋",
+        "price_int": "-",
+        "price_cn": "-",
+        "level": "5E"
+      },
+      {
+        "en": "长矛",
+        "cn": "阿科扬战矛",
+        "price_int": "-",
+        "price_cn": "-",
+        "level": "10E"
+      },
+      {
+        "en": "Guardian Spear",
+        "cn": "守护者战矛",
+        "price_int": "-",
+        "price_cn": "-",
+        "level": "3E"
+      },
+      {
+        "en": "Flying Spear",
+        "cn": "翱翔战矛",
+        "price_int": "-",
+        "price_cn": "-",
+        "level": "12E"
+      },
+      {
+        "en": "基础分类",
+        "cn": "物品名称",
+        "price_int": "-",
+        "price_cn": "-",
+        "level": "国际服价格"
+      },
+      {
+        "en": "法杖",
+        "cn": "决斗法杖",
+        "price_int": "-",
+        "price_cn": "-",
+        "level": "8E"
+      },
+      {
+        "en": "法器",
+        "cn": "塔萨里奥法器",
+        "price_int": "-",
+        "price_cn": "-",
+        "level": "10E"
+      },
+      {
+        "en": "盾",
+        "cn": "沙漠轻盾",
+        "price_int": "-",
+        "price_cn": "-",
+        "level": "-"
+      },
+      {
+        "en": "双手锤",
+        "cn": "庞然大锤",
+        "price_int": "-",
+        "price_cn": "-",
+        "level": "-"
+      },
+      {
+        "en": "单手锤",
+        "cn": "阿科扬战棒",
+        "price_int": "-",
+        "price_cn": "-",
+        "level": "-"
+      },
+      {
+        "en": "长杖",
+        "cn": "鸣谐长杖",
+        "price_int": "-",
+        "price_cn": "-",
+        "level": "6E"
       }
     ],
-    "helmets": [],
     "armors": []
   },
   "uniques": [
     {
+      "category": "珠宝",
+      "en": "嗓音（3）",
+      "cn": "珠宝",
+      "source": "丝克玛试炼金色宝箱",
+      "price_int": "3M",
+      "price_cn": "-"
+    },
+    {
+      "category": "衣服",
+      "en": "时空之肌",
+      "cn": "衣服",
+      "source": "丝克玛试炼(1血)",
+      "price_int": "689D",
+      "price_cn": "-"
+    },
+    {
       "category": "腰带",
-      "en": "Headhunter",
-      "cn": "猎首",
+      "en": "法师之血",
+      "cn": "腰带",
       "source": "全域掉落",
-      "price_int": "298D",
+      "price_int": "395D",
+      "price_cn": "-"
+    },
+    {
+      "category": "衣服",
+      "en": "仪式通道",
+      "cn": "衣服",
+      "source": "小精灵附身",
+      "price_int": "26D",
+      "price_cn": "-"
+    },
+    {
+      "category": "腰带",
+      "en": "猎首",
+      "cn": "腰带",
+      "source": "全域掉落",
+      "price_int": "324D",
+      "price_cn": "-"
+    },
+    {
+      "category": "手套",
+      "en": "仪式通道",
+      "cn": "手套",
+      "source": "小精灵附身",
+      "price_int": "25D",
+      "price_cn": "-"
+    },
+    {
+      "category": "珠宝",
+      "en": "嗓音(2)",
+      "cn": "珠宝",
+      "source": "丝克玛试炼金色宝箱",
+      "price_int": "185D",
+      "price_cn": "-"
+    },
+    {
+      "category": "盾牌",
+      "en": "仇恨熔炉",
+      "cn": "盾牌",
+      "source": "混沌试炼BOSS",
+      "price_int": "12D",
+      "price_cn": "-"
+    },
+    {
+      "category": "珠宝",
+      "en": "人格分裂",
+      "cn": "珠宝",
+      "source": "暂不确定",
+      "price_int": "35D+",
+      "price_cn": "-"
+    },
+    {
+      "category": "手套",
+      "en": "败兴灾星",
+      "cn": "手套",
+      "source": "全域掉落",
+      "price_int": "10D",
+      "price_cn": "-"
+    },
+    {
+      "category": "戒指",
+      "en": "卡兰德之触",
+      "cn": "戒指",
+      "source": "全域掉落",
+      "price_int": "29D",
+      "price_cn": "-"
+    },
+    {
+      "category": "箭袋",
+      "en": "漆黑徽章",
+      "cn": "箭袋",
+      "source": "全域掉落",
+      "price_int": "9.1D",
+      "price_cn": "-"
+    },
+    {
+      "category": "武器",
+      "en": "神圣之火",
+      "cn": "武器",
+      "source": "神圣仲裁官(0.5)",
+      "price_int": "27D",
+      "price_cn": "-"
+    },
+    {
+      "category": "手套",
+      "en": "卡迪罗的赌局",
+      "cn": "手套",
+      "source": "暂不确定",
+      "price_int": "4.8D",
+      "price_cn": "-"
+    },
+    {
+      "category": "珠宝",
+      "en": "浮华",
+      "cn": "珠宝",
+      "source": "混沌试炼BOSS",
+      "price_int": "19D",
+      "price_cn": "-"
+    },
+    {
+      "category": "衣服",
+      "en": "无尽之衣",
+      "cn": "衣服",
+      "source": "全域掉落",
+      "price_int": "4D",
+      "price_cn": "-"
+    },
+    {
+      "category": "戒指",
+      "en": "元素之章",
+      "cn": "戒指",
+      "source": "配方合成",
+      "price_int": "18D",
+      "price_cn": "-"
+    },
+    {
+      "category": "手套",
+      "en": "無與倫比",
+      "cn": "手套",
+      "source": "火焰巅峰灰烬仲裁官",
+      "price_int": "4D",
+      "price_cn": "-"
+    },
+    {
+      "category": "珠宝",
+      "en": "受控的蛻變",
+      "cn": "珠宝",
+      "source": "裂隙BOSS",
+      "price_int": "17D",
+      "price_cn": "-"
+    },
+    {
+      "category": "衣服",
+      "en": "踐踏之鞋",
+      "cn": "衣服",
+      "source": "全域掉落",
+      "price_int": "4D",
+      "price_cn": "-"
+    },
+    {
+      "category": "戒指",
+      "en": "丝克玛的决心(蓝宝石)",
+      "cn": "戒指",
+      "source": "丝克玛试炼",
+      "price_int": "13D",
+      "price_cn": "-"
+    },
+    {
+      "category": "手套",
+      "en": "遺忘看守",
+      "cn": "手套",
+      "source": "仪式(祭坛)巅峰BOSS",
+      "price_int": "4D",
+      "price_cn": "-"
+    },
+    {
+      "category": "珠宝",
+      "en": "聚光之石(翡翠)",
+      "cn": "珠宝",
+      "source": "丝克玛试炼金色宝箱",
+      "price_int": "10D",
+      "price_cn": "-"
+    },
+    {
+      "category": "头盔",
+      "en": "灵魂甲胄",
+      "cn": "头盔",
+      "source": "全域掉落",
+      "price_int": "3.8D",
+      "price_cn": "-"
+    },
+    {
+      "category": "戒指",
+      "en": "腐朽迸发",
+      "cn": "戒指",
+      "source": "腐化枢纽BOSS",
+      "price_int": "6D",
+      "price_cn": "-"
+    },
+    {
+      "category": "衣服",
+      "en": "落刃时刻",
+      "cn": "衣服",
+      "source": "全域掉落",
+      "price_int": "3.8D",
+      "price_cn": "-"
+    },
+    {
+      "category": "武器",
+      "en": "渡鴉集束",
+      "cn": "武器",
+      "source": "迷雾巅峰BOSS",
+      "price_int": "6D",
+      "price_cn": "-"
+    },
+    {
+      "category": "手套",
+      "en": "极地之眼",
+      "cn": "手套",
+      "source": "全域掉落",
+      "price_int": "3.6D",
+      "price_cn": "-"
+    },
+    {
+      "category": "武器",
+      "en": "神授命使",
+      "cn": "武器",
+      "source": "神圣仲裁官(0.5)",
+      "price_int": "6D",
+      "price_cn": "-"
+    },
+    {
+      "category": "手套",
+      "en": "西里的战衣",
+      "cn": "手套",
+      "source": "全域掉落",
+      "price_int": "3D",
+      "price_cn": "-"
+    },
+    {
+      "category": "武器",
+      "en": "沉默之雷",
+      "cn": "武器",
+      "source": "全域掉落",
+      "price_int": "6D",
+      "price_cn": "-"
+    },
+    {
+      "category": "盾牌",
+      "en": "敬重絲綢",
+      "cn": "盾牌",
+      "source": "全域掉落",
+      "price_int": "2.6D",
+      "price_cn": "-"
+    },
+    {
+      "category": "戒指",
+      "en": "贝雷克的冰与雷之曲",
+      "cn": "戒指",
+      "source": "全域掉落",
+      "price_int": "5D",
+      "price_cn": "-"
+    },
+    {
+      "category": "头盔",
+      "en": "落刃时刻",
+      "cn": "头盔",
+      "source": "全域掉落",
+      "price_int": "2.4D",
+      "price_cn": "-"
+    },
+    {
+      "category": "戒指",
+      "en": "贝雷克的火与雷之乐",
+      "cn": "戒指",
+      "source": "全域掉落",
+      "price_int": "5D",
+      "price_cn": "-"
+    },
+    {
+      "category": "衣服",
+      "en": "背信忘義",
+      "cn": "衣服",
+      "source": "迷雾7层掉落(0.5改版)",
+      "price_int": "2.2D",
+      "price_cn": "-"
+    },
+    {
+      "category": "腰带",
+      "en": "腰际之门",
+      "cn": "腰带",
+      "source": "全域掉落",
+      "price_int": "5D",
+      "price_cn": "-"
+    },
+    {
+      "category": "衣服",
+      "en": "巨铜之顶",
+      "cn": "衣服",
+      "source": "全域掉落",
+      "price_int": "2D",
+      "price_cn": "-"
+    },
+    {
+      "category": "武器",
+      "en": "畸變星穹",
+      "cn": "武器",
+      "source": "炸坟巅峰BOSS",
+      "price_int": "4.9D",
+      "price_cn": "-"
+    },
+    {
+      "category": "衣服",
+      "en": "禁域面容",
+      "cn": "衣服",
+      "source": "丝克玛试炼(遗物)",
+      "price_int": "2D",
+      "price_cn": "-"
+    },
+    {
+      "category": "武器",
+      "en": "林木塑像",
+      "cn": "武器",
+      "source": "仪式(祭坛)巅峰BOSS",
+      "price_int": "4.6D",
+      "price_cn": "-"
+    },
+    {
+      "category": "头盔",
+      "en": "森林之后",
+      "cn": "头盔",
+      "source": "全域掉落",
+      "price_int": "2D",
+      "price_cn": "-"
+    },
+    {
+      "category": "珠宝",
+      "en": "抗衡黑暗",
+      "cn": "珠宝",
+      "source": "丝克玛试炼(遗物)",
+      "price_int": "4D",
+      "price_cn": "-"
+    },
+    {
+      "category": "头盔",
+      "en": "不敗亡者",
+      "cn": "头盔",
+      "source": "火焰巅峰灰烬仲裁官",
+      "price_int": "1.7D",
+      "price_cn": "-"
+    },
+    {
+      "category": "武器",
+      "en": "蘿拉塔裂片",
+      "cn": "武器",
+      "source": "全域掉落",
+      "price_int": "3D",
+      "price_cn": "-"
+    },
+    {
+      "category": "头盔",
+      "en": "死亡之聲",
+      "cn": "头盔",
+      "source": "腐化枢纽BOSS",
+      "price_int": "1.5D",
+      "price_cn": "-"
+    },
+    {
+      "category": "药剂",
+      "en": "欧罗什的决心",
+      "cn": "药剂",
+      "source": "炸坟BOSS欧罗什",
+      "price_int": "3D",
+      "price_cn": "-"
+    },
+    {
+      "category": "头盔",
+      "en": "驚懼飛掠",
+      "cn": "头盔",
+      "source": "迷雾巅峰BOSS",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "戒指",
+      "en": "贝雷克的冰与火之歌",
+      "cn": "戒指",
+      "source": "全域掉落",
+      "price_int": "2.8D",
+      "price_cn": "-"
+    },
+    {
+      "category": "衣服",
+      "en": "夜墜",
+      "cn": "衣服",
+      "source": "裂隙巅峰BOSS",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "珠宝",
+      "en": "妄想症",
+      "cn": "珠宝",
+      "source": "迷雾7层掉落(0.5改版)",
+      "price_int": "2D",
+      "price_cn": "-"
+    },
+    {
+      "category": "头盔",
+      "en": "马雷格罗的玫红手套",
+      "cn": "头盔",
+      "source": "全域掉落",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "武器",
+      "en": "眼目之指引之掌",
+      "cn": "武器",
+      "source": "全域掉落",
+      "price_int": "1.7D",
+      "price_cn": "-"
+    },
+    {
+      "category": "衣服",
+      "en": "雷拳(轰天雷)",
+      "cn": "衣服",
+      "source": "全域掉落",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "珠宝",
+      "en": "英雄的悲歌",
+      "cn": "珠宝",
+      "source": "炸坟BOSS欧罗什",
+      "price_int": "1.5D",
+      "price_cn": "-"
+    },
+    {
+      "category": "手套",
+      "en": "元素的庇護",
+      "cn": "手套",
+      "source": "全域掉落",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "珠宝",
+      "en": "聚光之石(蓝宝石)",
+      "cn": "珠宝",
+      "source": "丝克玛试炼金色宝箱",
+      "price_int": "1.4D",
+      "price_cn": "-"
+    },
+    {
+      "category": "头盔",
+      "en": "雷语",
+      "cn": "头盔",
+      "source": "全域掉落",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "戒指",
+      "en": "丝克玛的决心(翡翠)",
+      "cn": "戒指",
+      "source": "丝克玛试炼",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "鞋子",
+      "en": "福爾的戰鎧",
+      "cn": "鞋子",
+      "source": "全域掉落",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "戒指",
+      "en": "丝克玛的决心(红宝石)",
+      "cn": "戒指",
+      "source": "丝克玛试炼",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "衣服",
+      "en": "限制之令",
+      "cn": "衣服",
+      "source": "全域掉落",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "武器",
+      "en": "臨界纏繞",
+      "cn": "武器",
+      "source": "仪式(祭坛)巅峰BOSS",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "衣服",
+      "en": "斯塔空加之首",
+      "cn": "衣服",
+      "source": "全域掉落",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "武器",
+      "en": "阿茲里的輕視",
+      "cn": "武器",
+      "source": "神庙击败女王后的金库",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "衣服",
+      "en": "邪眼之冠",
+      "cn": "-",
+      "source": "全域掉落",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "武器",
+      "en": "縛舌",
+      "cn": "武器",
+      "source": "全域掉落",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "衣服",
+      "en": "顫慄之鋼",
+      "cn": "-",
+      "source": "全域掉落",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "武器",
+      "en": "引導之掌：靈",
+      "cn": "武器",
+      "source": "全域掉落",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "衣服",
+      "en": "米立斯之妻",
+      "cn": "-",
+      "source": "全域掉落",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "武器",
+      "en": "邊陲",
+      "cn": "武器",
+      "source": "仪式(祭坛)巅峰BOSS",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "咒符",
+      "en": "樹木之指",
+      "cn": "咒符",
+      "source": "全域掉落",
+      "price_int": "25D",
+      "price_cn": "-"
+    },
+    {
+      "category": "武器",
+      "en": "引導之掌：心",
+      "cn": "武器",
+      "source": "全域掉落",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "咒符",
+      "en": "落刃时刻",
+      "cn": "咒符",
+      "source": "全域掉落",
+      "price_int": "2.4D",
+      "price_cn": "-"
+    },
+    {
+      "category": "武器",
+      "en": "布魯特斯的刑具",
+      "cn": "武器",
+      "source": "全域掉落",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "武器",
+      "en": "滅世",
+      "cn": "武器",
+      "source": "全域掉落",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "武器",
+      "en": "二元性(未升级)",
+      "cn": "武器",
+      "source": "暂不确定",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "项链",
+      "en": "困苦尖啸",
+      "cn": "项链",
+      "source": "天启勇士(迷雾)",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "药剂",
+      "en": "消融漩涡",
+      "cn": "药剂",
+      "source": "迷雾7层掉落(0.5改版)",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "药剂",
+      "en": "拉维安加之灵",
+      "cn": "药剂",
+      "source": "全域掉落",
+      "price_int": "-",
+      "price_cn": "-"
+    },
+    {
+      "category": "珠宝",
+      "en": "血肉玄炉",
+      "cn": "珠宝",
+      "source": "神庙击败女王后的金库",
+      "price_int": "-",
       "price_cn": "-"
     }
-  ]
+  ],
+  "recipes": {
+    "4": {
+      "合金": [
+        {
+          "en": "延展合金",
+          "cn": "扩展合金",
+          "price_int": "1E",
+          "price_cn": "0.5E",
+          "min_level": "65-74"
+        }
+      ],
+      "通货": [
+        {
+          "en": "神聖石 x1",
+          "cn": "神圣石 x1",
+          "price_int": "1D",
+          "price_cn": "1D",
+          "min_level": "65-74"
+        },
+        {
+          "en": "高階混沌石 x1",
+          "cn": "高级混沌石 x1",
+          "price_int": "15.5E",
+          "price_cn": "7E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "高階崇高石 x1",
+          "cn": "高级崇高石 x1",
+          "price_int": "8.2E",
+          "price_cn": "7E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "高階富豪石 x1",
+          "cn": "高级富豪石 x1",
+          "price_int": "1E",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "高階工匠石 x1",
+          "cn": "高等工匠石 x1",
+          "price_int": "1.2E",
+          "price_cn": "2E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "混沌石 x2",
+          "cn": "混沌石 x2",
+          "price_int": "10.6E",
+          "price_cn": "5E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "寶石匠的稜鏡 x3",
+          "cn": "宝石匠的棱镜X3",
+          "price_int": "6E",
+          "price_cn": "9E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "點金石 x3",
+          "cn": "点金石 x3",
+          "price_int": "2E",
+          "price_cn": "5.5E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "崇高石 x3",
+          "cn": "崇高石 x3",
+          "price_int": "3E",
+          "price_cn": "3E",
+          "min_level": "65-74"
+        }
+      ],
+      "宝石": [
+        {
+          "en": "天墜",
+          "cn": "天降杀机",
+          "price_int": "1E",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "三曲爆發",
+          "cn": "三耀辉轮",
+          "price_int": "1E",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "駁斥",
+          "cn": "反制",
+          "price_int": "11-12的很贵",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "地脈",
+          "cn": "地脉",
+          "price_int": "1E",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "意志轉換",
+          "cn": "命源交换",
+          "price_int": "1E",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "符文喘息",
+          "cn": "符文援护",
+          "price_int": "1E",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        }
+      ],
+      "符文": [
+        {
+          "en": "斜擦保護符文",
+          "cn": "瞥视之结界符文",
+          "price_int": "3E",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "心源保護符文",
+          "cn": "心脏之结界符文",
+          "price_int": "4E",
+          "price_cn": "5E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "殲滅保護符文 x1",
+          "cn": "湮灭之结界符文",
+          "price_int": "2E",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "救援保護符文",
+          "cn": "回收之结界符文",
+          "price_int": "2E",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "共生保護符文",
+          "cn": "共生之结界符文",
+          "price_int": "1E",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "崇敬活力符文",
+          "cn": "活力符文",
+          "price_int": "4E",
+          "price_cn": "4E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "崇敬狩獵符文",
+          "cn": "狩猎符文",
+          "price_int": "3E",
+          "price_cn": "2E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "崇敬巧技符文",
+          "cn": "杂技符文",
+          "price_int": "6E",
+          "price_cn": "4E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "崇敬終點符文",
+          "cn": "巅峰符文",
+          "price_int": "4E",
+          "price_cn": "4E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "崇敬聲望符文",
+          "cn": "声望符文",
+          "price_int": "6E",
+          "price_cn": "10E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "崇敬積累符文",
+          "cn": "积累符文",
+          "price_int": "4E",
+          "price_cn": "6E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "崇敬基準符文",
+          "cn": "根基符文",
+          "price_int": "5E",
+          "price_cn": "4E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "崇敬稜鏡符文",
+          "cn": "棱镜符文",
+          "price_int": "2E",
+          "price_cn": "5E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "崇敬精通符文",
+          "cn": "绽放符文",
+          "price_int": "2E",
+          "price_cn": "2.5E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "崇敬連貫符文",
+          "cn": "连贯符文",
+          "price_int": "1E",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "崇敬觸及符文",
+          "cn": "延伸符文",
+          "price_int": "2E",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "遠古分裂符文",
+          "cn": "碎片之远古符文",
+          "price_int": "1E",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "遠古部族符文",
+          "cn": "部落之远古符文",
+          "price_int": "2E",
+          "price_cn": "2E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "遠古敵意符文",
+          "cn": "憎恨之远古符文",
+          "price_int": "1E",
+          "price_cn": "2E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "遠古引爆符文",
+          "cn": "引爆之远古符文",
+          "price_int": "7E",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "遠古復仇符文",
+          "cn": "报复之远古符文",
+          "price_int": "1E",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "遠古決鬥符文",
+          "cn": "决斗之远古符文",
+          "price_int": "2E",
+          "price_cn": "2E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "崇敬生命火焰符文",
+          "cn": "命焰符文",
+          "price_int": "0.5E",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "崇敬對峙符文",
+          "cn": "冲突符文",
+          "price_int": "1E",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "遠古泰坦符文",
+          "cn": "泰坦之远古符文",
+          "price_int": "2E",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "遠古粉碎符文",
+          "cn": "碎离之远古符文",
+          "price_int": "7E",
+          "price_cn": "9E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "遠古卓越符文",
+          "cn": "英勇之远古符文",
+          "price_int": "1E",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "遠古控制符文",
+          "cn": "操控之远古符文",
+          "price_int": "1E",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "遠古探索符文",
+          "cn": "披露之远古符文",
+          "price_int": "5E",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "遠古腐朽符文",
+          "cn": "腐朽之远古符文",
+          "price_int": "3E",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "en": "遠古巫術符文",
+          "cn": "巫术之远古符文",
+          "price_int": "1E",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        }
+      ]
+    },
+    "7": {
+      "合金": [
+        {
+          "en": "超凡合金",
+          "cn": "超凡合金",
+          "price_int": "1.4D",
+          "price_cn": "380E",
+          "min_level": "78+"
+        },
+        {
+          "en": "符文縛者的合金",
+          "cn": "符文缚者的合金",
+          "price_int": "8D",
+          "price_cn": "480E",
+          "min_level": "78+"
+        },
+        {
+          "en": "符文之父的合金",
+          "cn": "符文之父的合金",
+          "price_int": "8D",
+          "price_cn": "-",
+          "min_level": "78+"
+        }
+      ],
+      "通货": [
+        {
+          "en": "無效石 x2",
+          "cn": "剥离石 x2",
+          "price_int": "52E",
+          "price_cn": "29E",
+          "min_level": "78+"
+        }
+      ],
+      "宝石": [],
+      "符文": [
+        {
+          "en": "阿德爾的熱情",
+          "cn": "奥杜尔之热情",
+          "price_int": "4E",
+          "price_cn": "4E",
+          "min_level": "78+"
+        },
+        {
+          "en": "阿德爾的聖怒",
+          "cn": "奥杜尔之忿怒",
+          "price_int": "5E",
+          "price_cn": "10E",
+          "min_level": "78+"
+        },
+        {
+          "en": "阿斯垂德的創造",
+          "cn": "阿斯特丽德的创造",
+          "price_int": "21D",
+          "price_cn": "13D",
+          "min_level": "78+"
+        },
+        {
+          "en": "阿德爾的背叛",
+          "cn": "奥杜尔之背叛",
+          "price_int": "12E",
+          "price_cn": "9E",
+          "min_level": "78+"
+        },
+        {
+          "en": "卡迪根的頓悟",
+          "cn": "卡迪甘的顿悟",
+          "price_int": "11D",
+          "price_cn": "6D",
+          "min_level": "78+"
+        }
+      ]
+    }
+  }
 }
