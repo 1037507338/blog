@@ -21,17 +21,31 @@
         .price-int { color: #7fb6e0; font-weight: 600; }
         .note { color: #897653; font-size: 0.82rem; margin: 10px 0; padding: 10px; background: rgba(201,162,39,0.06); border-left: 3px solid #c9a227; }
         .section-title { font-family: "Noto Serif SC", serif; font-size: 1.3rem; color: #f4dc99; margin: 30px 0 15px; padding-bottom: 8px; border-bottom: 1px solid #4d3a1f; }
+        .loading { text-align: center; color: #897653; margin: 50px 0; }
+        .recipe-section { margin: 30px 0; padding: 20px; background: rgba(201,162,39,0.04); border: 1px solid #4d3a1f; border-radius: 8px; }
+        .rune-header { color: #f4dc99; font-size: 1.1rem; margin: 0 0 15px; padding-bottom: 8px; border-bottom: 1px solid #c9a227; }
+        .type-group { margin: 15px 0; }
+        .type-header { color: #b8a47a; font-size: 0.95rem; margin: 10px 0 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .stats-note { color: #897653; font-size: 0.82rem; margin: 8px 0; padding: 8px 12px; background: rgba(201,162,39,0.06); border-radius: 4px; }
+        .price-cn { color: #f0a0a0; font-weight: 600; }
     </style>
 </head>
 <body>
     <div class="top-bar">
         <div><a href="index.html">← 返回首页</a></div>
-        <div style="color:#897653;font-size:0.82rem;">数据来源：腾讯文档 | 实时更新</div>
+        <div style="color:#897653;font-size:0.82rem;">
+            数据来源：<a href="https://docs.qq.com/sheet/DRnNidnZ5cXp3R2F0?tab=lv6tt6" target="_blank" style="color:#c9a227;font-weight:600;">腾讯文档</a>
+            | 每小时自动同步
+        </div>
     </div>
     <div class="container">
         <h1 class="page-title">⚔️ POE2 物价参考表</h1>
-        <p style="text-align:center;color:#897653;margin-bottom:30px;">0.5 赛季 · 国际服 & 国服价格对照</p>
-        <div style="text-align:center;color:#c9a227;margin-bottom:20px;">📊 统计时间：2026年6月5日 | 1D ≈ 90E</div>
+        <p style="text-align:center;color:#897653;margin-bottom:30px;">
+            0.5 赛季 · 国际服 & 国服价格对照
+            <br>
+            <a href="https://docs.qq.com/sheet/DRnNidnZ5cXp3R2F0?tab=lv6tt6" target="_blank" style="color:#c9a227;font-size:0.9rem;">📊 查看原始数据表（腾讯文档）</a>
+        </p>
+        <div id="update-time" style="text-align:center;color:#c9a227;margin-bottom:20px;font-size:0.9rem;">📊 加载中...</div>
         
         <div style="text-align:center;margin:20px 0;">
             <div class="tab active" onclick="showTab('gems')">血脉宝石</div>
@@ -42,141 +56,191 @@
         
         <div id="gems" class="tab-content active">
             <div class="note">⚠️ 所有物品采取购买价记录 | 崇高价不是神圣价！！大致参考！！</div>
-            <h3 class="section-title">🌍 全局掉落血脉宝石（0.4赛季共19个）</h3>
-            <table class="data-table">
-                <thead><tr><th>名称（国际服）</th><th>名称（国服）</th><th>国际服价格</th><th>国服价格</th></tr></thead>
-                <tbody>
-                    <tr><td>Alacrity's Desire</td><td>阿拉卡力的欲望</td><td class="price-int">-</td><td>-</td></tr>
-                    <tr><td>Theist's Grip</td><td>神主之握</td><td class="price-int">-</td><td>-</td></tr>
-                    <tr><td>Arjann's Insignia</td><td>阿尔琼的勋章</td><td class="price-int">-</td><td>-</td></tr>
-                    <tr><td>Latha's Raid</td><td>拉莎的突袭</td><td class="price-int">-</td><td>-</td></tr>
-                    <tr><td>Takati's Fury</td><td>塔卡提之怒</td><td class="price-int">-</td><td>-</td></tr>
-                    <tr><td>Hein's Contest</td><td>汉恩的城赛</td><td class="price-int">-</td><td>-</td></tr>
-                    <tr><td>Battalion's Revenge</td><td>巴蒂尔的复仇</td><td class="price-int">-</td><td>-</td></tr>
-                    <tr><td>Dara's Lust</td><td>达拉的渴望</td><td class="price-int">-</td><td>-</td></tr>
-                    <tr><td>Doryani's Ruin</td><td>德瑞的毁灭</td><td class="price-int">-</td><td>-</td></tr>
-                    <tr><td>Callissa's Note</td><td>卡莉莎的强音</td><td class="price-int">-</td><td>-</td></tr>
-                    <tr><td>Morgana's Storm</td><td>莫甘娜的暴风</td><td class="price-int">-</td><td>-</td></tr>
-                    <tr><td>Osin's Vow</td><td>奥辛之誓</td><td class="price-int">-</td><td>-</td></tr>
-                    <tr><td>Romira's Payback</td><td>罗米拉的报复</td><td class="price-int">1.2D</td><td>-</td></tr>
-                    <tr><td>Xoph's Anger</td><td>西奥妮的怒火</td><td class="price-int">-</td><td>-</td></tr>
-                    <tr><td>Valinta's Drive</td><td>薇伦塔之推进</td><td class="price-int">-</td><td>-</td></tr>
-                    <tr><td>Brutus' Brain</td><td>布鲁特斯之脑</td><td class="price-int">8.5D</td><td>-</td></tr>
-                    <tr><td>Cereberus' Tutelage</td><td>西雷尔的教化</td><td class="price-int">-</td><td>-</td></tr>
-                    <tr><td>Doedre's Passion</td><td>德瑞索的热情</td><td class="price-int">-</td><td>-</td></tr>
-                    <tr><td>EOrek's Smelting</td><td>厄罗克的熔炼术</td><td class="price-int">-</td><td>-</td></tr>
-                </tbody>
-            </table>
-            <h3 class="section-title">🎯 限定掉落血脉宝石（0.4赛季共33个）</h3>
-            <table class="data-table">
-                <thead><tr><th>名称（国际服）</th><th>名称（国服）</th><th>出处</th><th>国际服价格</th><th>国服价格</th></tr></thead>
-                <tbody>
-                    <tr><td>Sevf's Bural Offerings</td><td>索伏的葬火</td><td>裂隙玩法BOSS薛斯掉落</td><td class="price-int">21D</td><td>-</td></tr>
-                    <tr><td>Xir's Radiance</td><td>艾许的光辉</td><td>裂隙玩法BOSS薛斯掉落</td><td class="price-int">14D</td><td>-</td></tr>
-                    <tr><td>Urnido's Embrace</td><td>乌尔尼多的拥抱</td><td>裂隙玩法BOSS薛斯掉落</td><td class="price-int">96D</td><td>-</td></tr>
-                    <tr><td>Tovor's Silence</td><td>托沃的寂静</td><td>裂隙玩法BOSS薛斯掉落</td><td class="price-int">32D</td><td>-</td></tr>
-                    <tr><td>Zalocia's Revolt</td><td>扎洛卡的反叛</td><td>丝克玛试炼4层BOSS掉落</td><td class="price-int">-</td><td>-</td></tr>
-                    <tr><td>Archbishop's Ignition</td><td>仲裁官的点燃</td><td>火焰巅峰的灰烬仲裁官掉落</td><td class="price-int">7.1D</td><td>-</td></tr>
-                    <tr><td>Uhtred's Exit</td><td>乌崔德的出走</td><td>卡古兰(挖坟)玩法BOSS乌崔德掉落</td><td class="price-int">14D</td><td>-</td></tr>
-                    <tr><td>Uhtred's Omen</td><td>乌崔德的预兆</td><td>卡古兰(挖坟)玩法BOSS乌崔德掉落</td><td class="price-int">3.1D</td><td>-</td></tr>
-                    <tr><td>Uhtred's Divination</td><td>乌崔德的占卜</td><td>卡古兰(挖坟)玩法BOSS乌崔德掉落</td><td class="price-int">5.3D</td><td>-</td></tr>
-                    <tr><td>Ikiael's Torment</td><td>伊克切尔的折磨</td><td>混沌试炼(混沌叔叔)掉落</td><td class="price-int">1.4D</td><td>-</td></tr>
-                </tbody>
-            </table>
+            <div id="gems-content" class="loading">正在加载血脉宝石数据...</div>
         </div>
         
         <div id="bases" class="tab-content">
-            <h3 class="section-title">👟 鞋子类底材（物品等级 82+）</h3>
-            <table class="data-table">
-                <thead><tr><th>物品名称（国际服）</th><th>物品名称（国服）</th><th>国际服价格</th><th>国服价格</th><th>物品等级</th></tr></thead>
-                <tbody>
-                    <tr><td>Sikhama Sandals</td><td>丝克玛便鞋</td><td class="price-int">54E</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Dune Pact Treads</td><td>沙誓鞋履</td><td class="price-int">30E</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Dragonscale Treads</td><td>龙皮长靴</td><td class="price-int">24E</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Dragonscale Boots</td><td>龙鳞长靴</td><td class="price-int">10E</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Tasalio's Greaves</td><td>塔萨里奥胫甲</td><td class="price-int">2E</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Vaal Greaves</td><td>瓦尔胫甲</td><td class="price-int">-</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Blacksteel Sabatons</td><td>黑钢战靴</td><td class="price-int">3E</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Fortress Treads</td><td>要塞战靴</td><td class="price-int">-</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Covert Leggings</td><td>隐秘绑腿</td><td class="price-int">-</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Warlock's Gaiters</td><td>术士护腿</td><td class="price-int">-</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Swiftstep Slippers</td><td>捷足便鞋</td><td class="price-int">60E</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Hastened Treads</td><td>急迅便鞋</td><td class="price-int">22E</td><td>-</td><td>82+</td></tr>
-                </tbody>
-            </table>
-            <h3 class="section-title">⛑️ 头盔类底材（物品等级 82+）</h3>
-            <table class="data-table">
-                <thead><tr><th>物品名称（国际服）</th><th>物品名称（国服）</th><th>国际服价格</th><th>国服价格</th><th>物品等级</th></tr></thead>
-                <tbody>
-                    <tr><td>Imperial Greathelm</td><td>帝国巨盔</td><td class="price-int">2E</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Paragon Greathelm</td><td>典范巨盔</td><td class="price-int">-</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Marauder's Visor</td><td>劫掠者之帽</td><td class="price-int">2E</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Hunter's Coif</td><td>猎人兜帽</td><td class="price-int">-</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Ancestral Circlet</td><td>先祖冠冕</td><td class="price-int">45E</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Kamasa Headdress</td><td>卡马萨冠冕</td><td class="price-int">12E</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Gladiator Helm</td><td>角斗士头盔</td><td class="price-int">2E</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Warrior Helm</td><td>勇士头盔</td><td class="price-int">-</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Covert Crown</td><td>隐秘之冠</td><td class="price-int">-</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Ordained Diadem</td><td>神礼王冠</td><td class="price-int">-</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Grinning Mask</td><td>狞笑面罩</td><td class="price-int">4E</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Soaring Visage</td><td>翱翔面具</td><td class="price-int">2E</td><td>-</td><td>82+</td></tr>
-                </tbody>
-            </table>
-            <h3 class="section-title">👕 衣服类底材（物品等级 82+）</h3>
-            <table class="data-table">
-                <thead><tr><th>物品名称（国际服）</th><th>物品名称（国服）</th><th>国际服价格</th><th>国服价格</th><th>物品等级</th></tr></thead>
-                <tbody>
-                    <tr><td>Soldier's Plate</td><td>士兵胸甲</td><td class="price-int">2E</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Splendid Plate</td><td>华丽战铠</td><td class="price-int">5E</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Marshal's Plate</td><td>督军胸甲</td><td class="price-int">2E</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Pirate's Frock</td><td>海盗外套</td><td class="price-int">5E</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Slickvest</td><td>滑击背心</td><td class="price-int">30E</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Ordained Vestment</td><td>圣礼束衣</td><td class="price-int">3E</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Deathlink Hauberk</td><td>死亡锁甲</td><td class="price-int">8E</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Wolfpelt Cloak</td><td>狼皮斗篷</td><td class="price-int">-</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Slickcloth</td><td>滑布外衣</td><td class="price-int">43E</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Falconer's Frock</td><td>猎鹰师外衣</td><td class="price-int">4E</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Wickedwrap</td><td>邪恶束衣</td><td class="price-int">40E</td><td>-</td><td>82+</td></tr>
-                    <tr><td>Ordained Vestment</td><td>圣礼束衣</td><td class="price-int">3E</td><td>-</td><td>82+</td></tr>
-                </tbody>
-            </table>
+            <div id="bases-content" class="loading">正在加载底材数据...</div>
         </div>
         
         <div id="uniques" class="tab-content">
-            <h3 class="section-title">💎 高价值暗金装备</h3>
-            <table class="data-table">
-                <thead><tr><th>基础分类</th><th>物品名称（国际服）</th><th>物品名称（国服）</th><th>出处</th><th>国际服价格</th><th>国服价格</th></tr></thead>
-                <tbody>
-                    <tr><td>腰带</td><td>Headhunter</td><td>猎首</td><td>全域掉落</td><td class="price-int">298D</td><td>-</td></tr>
-                    <tr><td>腰带</td><td>Mageblood</td><td>法师之血</td><td>全域掉落</td><td class="price-int">327D</td><td>-</td></tr>
-                    <tr><td>戒指</td><td>Circle of Guilt</td><td>卡兰德之触</td><td>全域掉落</td><td class="price-int">21D</td><td>-</td></tr>
-                    <tr><td>戒指</td><td>Sikhama's Resolve (Sapphire)</td><td>丝克玛的决心(蓝宝石)</td><td>丝克玛试炼</td><td class="price-int">26D</td><td>-</td></tr>
-                    <tr><td>戒指</td><td>Berek's Ice and Thunder</td><td>贝雷克的冰与雷之曲</td><td>暂不确定</td><td class="price-int">15D</td><td>-</td></tr>
-                    <tr><td>武器</td><td>Raven's Cluster</td><td>渡鸦集束</td><td>迷雾巅峰BOSS</td><td class="price-int">61D</td><td>-</td></tr>
-                    <tr><td>武器</td><td>Sacred Fire</td><td>神圣之火</td><td>火焰巅峰灰烬仲裁官</td><td class="price-int">36D</td><td>-</td></tr>
-                    <tr><td>衣服</td><td>Timeweave</td><td>时空之肌</td><td>丝克玛试炼(1血)</td><td class="price-int">352D</td><td>-</td></tr>
-                    <tr><td>衣服</td><td>Garment of the Infinite</td><td>无尽之衣</td><td>全域掉落</td><td class="price-int">50D</td><td>-</td></tr>
-                    <tr><td>手套</td><td>Terror Claw</td><td>恐惧飞掠</td><td>迷雾巅峰BOSS</td><td class="price-int">25D</td><td>-</td></tr>
-                    <tr><td>药剂</td><td>Oro's Resolve</td><td>欧罗什的决心</td><td>炸坟BOSS欧罗什</td><td class="price-int">23D</td><td>-</td></tr>
-                    <tr><td>珠宝</td><td>Personality Card</td><td>人格分裂</td><td>暂不确定</td><td class="price-int">35D+</td><td>-</td></tr>
-                    <tr><td>珠宝</td><td>Vanity</td><td>浮华</td><td>混沌试炼BOSS</td><td class="price-int">20D</td><td>-</td></tr>
-                    <tr><td>盾牌</td><td>Nightfall</td><td>夜坠</td><td>裂隙巅峰BOSS</td><td class="price-int">20D</td><td>-</td></tr>
-                </tbody>
-            </table>
+            <div id="uniques-content" class="loading">正在加载暗金装备数据...</div>
         </div>
         
         <div id="recipes" class="tab-content">
-            <p style="text-align:center;color:#897653;margin-top:50px;">🧪 配方优先级数据正在整理中...</p>
+            <div id="recipes-content" class="loading">正在加载配方数据...</div>
         </div>
     </div>
     
     <script>
+        let priceData = null;
+        
+        // 加载数据
+        async function loadData() {
+            try {
+                const response = await fetch('data/prices-data.json?t=' + new Date().getTime());
+                priceData = await response.json();
+                
+                // 更新时间
+                const updateTime = new Date(priceData.metadata.update_time);
+                document.getElementById('update-time').textContent = 
+                    `📊 统计时间：${updateTime.toLocaleDateString('zh-CN')} | ${priceData.metadata.note}`;
+                
+                // 渲染各个Tab
+                renderGems();
+                renderBases();
+                renderUniques();
+                renderRecipes();
+                
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                document.querySelectorAll('.loading').forEach(el => {
+                    el.textContent = '❌ 数据加载失败，请刷新页面重试';
+                });
+            }
+        }
+        
+        // 渲染血脉宝石
+        function renderGems() {
+            if (!priceData || !priceData.gems_global) return;
+            
+            let html = '';
+            
+            // 全局掉落
+            html += '<h3 class="section-title">🌍 全局掉落血脉宝石</h3>';
+            html += '<table class="data-table"><thead><tr><th>名称（国际服）</th><th>名称（国服）</th><th>国际服价格</th><th>国服价格</th></tr></thead><tbody>';
+            priceData.gems_global.forEach(item => {
+                html += `<tr><td>${item.en}</td><td>${item.cn}</td><td class="price-int">${item.price_int}</td><td>${item.price_cn || '-'}</td></tr>`;
+            });
+            html += '</tbody></table>';
+            
+            // 限定掉落
+            if (priceData.gems_limited && priceData.gems_limited.length > 0) {
+                html += '<h3 class="section-title">🎯 限定掉落血脉宝石</h3>';
+                html += '<table class="data-table"><thead><tr><th>名称（国际服）</th><th>名称（国服）</th><th>出处</th><th>国际服价格</th><th>国服价格</th></tr></thead><tbody>';
+                priceData.gems_limited.forEach(item => {
+                    html += `<tr><td>${item.en}</td><td>${item.cn}</td><td>${item.source}</td><td class="price-int">${item.price_int}</td><td>${item.price_cn || '-'}</td></tr>`;
+                });
+                html += '</tbody></table>';
+            }
+            
+            document.getElementById('gems-content').innerHTML = html;
+        }
+        
+        // 渲染底材
+        function renderBases() {
+            if (!priceData || !priceData.bases) return;
+            
+            let html = '';
+            
+            // 遍历所有底材类别
+            const categoryNames = {
+                'shoes': '👟 鞋子类底材',
+                'helmets': '⛑️ 头盔类底材',
+                'armors': '👕 衣服类底材',
+                'gloves': '🧤 手套类底材',
+                'belts': '📿 腰带类底材',
+                'rings': '💍 戒指类底材',
+                'amulets': '📿 项链类底材',
+                'bows': '🏹 弓类底材',
+                'spears': '🔱 长矛类底材',
+                'staves': '🪄 法杖类底材'
+            };
+            
+            for (const [category, items] of Object.entries(priceData.bases)) {
+                if (!items || items.length === 0) continue;
+                
+                const title = categoryNames[category] || category;
+                html += `<h3 class="section-title">${title}（物品等级 82+）</h3>`;
+                html += '<table class="data-table"><thead><tr><th>物品名称（国际服）</th><th>物品名称（国服）</th><th>国际服价格</th><th>国服价格</th><th>物品等级</th></tr></thead><tbody>';
+                
+                items.forEach(item => {
+                    html += `<tr><td>${item.en}</td><td>${item.cn}</td><td class="price-int">${item.price_int}</td><td>${item.price_cn || '-'}</td><td>${item.level || '82+'}</td></tr>`;
+                });
+                
+                html += '</tbody></table>';
+            }
+            
+            document.getElementById('bases-content').innerHTML = html || '<p style="text-align:center;color:#897653;">暂无底材数据</p>';
+        }
+        
+        // 渲染暗金装备
+        function renderUniques() {
+            if (!priceData || !priceData.uniques) return;
+            
+            let html = '<h3 class="section-title">💎 高价值暗金装备</h3>';
+            html += '<table class="data-table"><thead><tr><th>基础分类</th><th>物品名称（国际服）</th><th>物品名称（国服）</th><th>出处</th><th>国际服价格</th><th>国服价格</th></tr></thead><tbody>';
+            
+            priceData.uniques.forEach(item => {
+                html += `<tr><td>${item.category}</td><td>${item.en}</td><td>${item.cn}</td><td>${item.source}</td><td class="price-int">${item.price_int}</td><td>${item.price_cn || '-'}</td></tr>`;
+            });
+            
+            html += '</tbody></table>';
+            document.getElementById('uniques-content').innerHTML = html;
+        }
+        
+        // 渲染配方
+        function renderRecipes() {
+            if (!priceData || !priceData.recipes) return;
+
+            const runeTypes = { '4': '4 符文组合', '7': '7 符文组合' };
+            const typeLabels = { '合金': '合金', '通货': '通货', '宝石': '宝石', '符文': '符文' };
+            let html = '<h3 class="section-title">🧪 符文配方优先级</h3>';
+
+            // 按符文数量分组
+            ['4', '7'].forEach(runeCount => {
+                const items = priceData.recipes[runeCount];
+                if (!items || items.length === 0) return;
+
+                html += `<div class="recipe-section"><h4 class="rune-header">⚔ ${runeTypes[runeCount]}（${items.length} 条）</h4>`;
+
+                // 按类型分组
+                const byType = {};
+                items.forEach(item => {
+                    const t = item.type || '符文';
+                    if (!byType[t]) byType[t] = [];
+                    byType[t].push(item);
+                });
+
+                Object.keys(byType).forEach(type => {
+                    html += `<div class="type-group"><h5 class="type-header">${typeLabels[type] || type}</h5>`;
+                    html += '<table class="data-table"><thead><tr><th>国际服物品</th><th>国际服价值</th><th>国服物品</th><th>国服价值</th><th>最低等级</th></tr></thead><tbody>';
+                    byType[type].forEach(item => {
+                        html += `<tr>
+                            <td>${item.int_name}</td>
+                            <td class="price-int">${item.int_value}</td>
+                            <td>${item.cn_name}</td>
+                            <td class="price-cn">${item.cn_value || '-'}</td>
+                            <td>${item.min_level}</td>
+                        </tr>`;
+                    });
+                    html += '</tbody></table></div>';
+                });
+                html += '</div>';
+            });
+
+            // 统计信息
+            if (priceData.metadata && priceData.metadata.stats) {
+                const s = priceData.metadata.stats;
+                html += `<div class="stats-note">📊 数据统计时间：国际服 ${s.int_stats || 'N/A'}，国服 ${s.cn_stats || 'N/A'}</div>`;
+            }
+            if (priceData.metadata && priceData.metadata.note) {
+                html += `<div class="stats-note">💡 ${priceData.metadata.note}</div>`;
+            }
+
+            document.getElementById('recipes-content').innerHTML = html;
+        }
+        
+        // Tab 切换
         function showTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
             document.getElementById(tabName).classList.add('active');
             event.target.classList.add('active');
         }
+        
+        // 页面加载时执行
+        loadData();
     </script>
 </body>
 </html>
