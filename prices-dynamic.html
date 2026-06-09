@@ -137,14 +137,15 @@
             const categoryNames = {
                 'shoes': '👟 鞋子类底材',
                 'helmets': '⛑️ 头盔类底材',
-                'armors': '👕 衣服类底材',
-                'gloves': '🧤 手套类底材',
-                'belts': '📿 腰带类底材',
-                'rings': '💍 戒指类底材',
-                'amulets': '📿 项链类底材',
+                'shields': '🛡️ 盾牌类底材',
+                'quivers': '🏹 箭袋类底材',
                 'bows': '🏹 弓类底材',
+                'crossbows': '🔫 弩类底材',
+                'sceptres': '🔮 法器类底材',
+                'staves': '🪄 法杖类底材',
                 'spears': '🔱 长矛类底材',
-                'staves': '🪄 法杖类底材'
+                'maces_1h': '🔨 单手锤类底材',
+                'maces_2h': '🔨 双手锤类底材'
             };
             
             for (const [category, items] of Object.entries(priceData.bases)) {
@@ -187,30 +188,22 @@
             const typeLabels = { '合金': '合金', '通货': '通货', '宝石': '宝石', '符文': '符文' };
             let html = '<h3 class="section-title">🧪 符文配方优先级</h3>';
 
-            // 按符文数量分组
             ['4', '7'].forEach(runeCount => {
-                const items = priceData.recipes[runeCount];
-                if (!items || items.length === 0) return;
+                const runeData = priceData.recipes[runeCount];
+                if (!runeData) return;
 
-                html += `<div class="recipe-section"><h4 class="rune-header">⚔ ${runeTypes[runeCount]}（${items.length} 条）</h4>`;
+                html += `<div class="recipe-section"><h4 class="rune-header">⚔ ${runeTypes[runeCount]}（${Object.values(runeData).flat().length} 条）</h4>`;
 
-                // 按类型分组
-                const byType = {};
-                items.forEach(item => {
-                    const t = item.type || '符文';
-                    if (!byType[t]) byType[t] = [];
-                    byType[t].push(item);
-                });
-
-                Object.keys(byType).forEach(type => {
+                Object.entries(runeData).forEach(([type, items]) => {
+                    if (!items || items.length === 0) return;
                     html += `<div class="type-group"><h5 class="type-header">${typeLabels[type] || type}</h5>`;
                     html += '<table class="data-table"><thead><tr><th>国际服物品</th><th>国际服价值</th><th>国服物品</th><th>国服价值</th><th>最低等级</th></tr></thead><tbody>';
-                    byType[type].forEach(item => {
+                    items.forEach(item => {
                         html += `<tr>
-                            <td>${item.int_name}</td>
-                            <td class="price-int">${item.int_value}</td>
-                            <td>${item.cn_name}</td>
-                            <td class="price-cn">${item.cn_value || '-'}</td>
+                            <td>${item.en}</td>
+                            <td class="price-int">${item.price_int}</td>
+                            <td>${item.cn}</td>
+                            <td class="price-cn">${item.price_cn || '-'}</td>
                             <td>${item.min_level}</td>
                         </tr>`;
                     });
@@ -218,15 +211,6 @@
                 });
                 html += '</div>';
             });
-
-            // 统计信息
-            if (priceData.metadata && priceData.metadata.stats) {
-                const s = priceData.metadata.stats;
-                html += `<div class="stats-note">📊 数据统计时间：国际服 ${s.int_stats || 'N/A'}，国服 ${s.cn_stats || 'N/A'}</div>`;
-            }
-            if (priceData.metadata && priceData.metadata.note) {
-                html += `<div class="stats-note">💡 ${priceData.metadata.note}</div>`;
-            }
 
             document.getElementById('recipes-content').innerHTML = html;
         }
