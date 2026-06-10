@@ -84,7 +84,7 @@
                 // 更新时间
                 const updateTime = new Date(priceData.metadata.update_time);
                 document.getElementById('update-time').textContent = 
-                    `📊 统计时间：${updateTime.toLocaleDateString('zh-CN')} | ${priceData.metadata.note}`;
+                    `📊 统计时间：${updateTime.toLocaleDateString('zh-CN')} | ${priceData.metadata.note_cn}`;
                 
                 // 渲染各个Tab
                 renderGems();
@@ -108,18 +108,18 @@
             
             // 全局掉落
             html += '<h3 class="section-title">🌍 全局掉落血脉宝石</h3>';
-            html += '<table class="data-table"><thead><tr><th>名称（国际服）</th><th>名称（国服）</th><th>国际服价格</th><th>国服价格</th></tr></thead><tbody>';
+            html += '<table class="data-table"><thead><tr><th>国服名称</th><th>国服价格</th></tr></thead><tbody>';
             priceData.gems_global.forEach(item => {
-                html += `<tr><td>${item.en}</td><td>${item.cn}</td><td class="price-int">${item.price_int}</td><td>${item.price_cn || '-'}</td></tr>`;
+                html += `<tr><td>${item.cn}</td><td>${item.price_cn || '-'}</td></tr>`;
             });
             html += '</tbody></table>';
             
             // 限定掉落
             if (priceData.gems_limited && priceData.gems_limited.length > 0) {
                 html += '<h3 class="section-title">🎯 限定掉落血脉宝石</h3>';
-                html += '<table class="data-table"><thead><tr><th>名称（国际服）</th><th>名称（国服）</th><th>出处</th><th>国际服价格</th><th>国服价格</th></tr></thead><tbody>';
+                html += '<table class="data-table"><thead><tr><th>国服名称</th><th>国服价格</th><th>出处</th></tr></thead><tbody>';
                 priceData.gems_limited.forEach(item => {
-                    html += `<tr><td>${item.en}</td><td>${item.cn}</td><td>${item.source}</td><td class="price-int">${item.price_int}</td><td>${item.price_cn || '-'}</td></tr>`;
+                    html += `<tr><td>${item.cn}</td><td>${item.price_cn || '-'}</td><td>${item.source || '-'}</td></tr>`;
                 });
                 html += '</tbody></table>';
             }
@@ -153,10 +153,10 @@
                 
                 const title = categoryNames[category] || category;
                 html += `<h3 class="section-title">${title}（物品等级 82+）</h3>`;
-                html += '<table class="data-table"><thead><tr><th>物品名称（国际服）</th><th>物品名称（国服）</th><th>国际服价格</th><th>国服价格</th><th>物品等级</th></tr></thead><tbody>';
+                html += '<table class="data-table"><thead><tr><th>国服名称</th><th>国服价格</th><th>物品等级</th></tr></thead><tbody>';
                 
                 items.forEach(item => {
-                    html += `<tr><td>${item.en}</td><td>${item.cn}</td><td class="price-int">${item.price_int}</td><td>${item.price_cn || '-'}</td><td>${item.level || '82+'}</td></tr>`;
+                    html += `<tr><td>${item.cn}</td><td>${item.price_cn || '-'}</td><td>${item.level || '82+'}</td></tr>`;
                 });
                 
                 html += '</tbody></table>';
@@ -170,10 +170,10 @@
             if (!priceData || !priceData.uniques) return;
             
             let html = '<h3 class="section-title">💎 高价值暗金装备</h3>';
-            html += '<table class="data-table"><thead><tr><th>基础分类</th><th>物品名称（国际服）</th><th>物品名称（国服）</th><th>出处</th><th>国际服价格</th><th>国服价格</th></tr></thead><tbody>';
+            html += '<table class="data-table"><thead><tr><th>基础分类</th><th>物品名称</th><th>出处</th><th>国服价格</th></tr></thead><tbody>';
             
             priceData.uniques.forEach(item => {
-                html += `<tr><td>${item.category}</td><td>${item.en}</td><td>${item.cn}</td><td>${item.source}</td><td class="price-int">${item.price_int}</td><td>${item.price_cn || '-'}</td></tr>`;
+                html += `<tr><td>${item.category}</td><td>${item.cn}</td><td>${item.source}</td><td>${item.price_cn || '-'}</td></tr>`;
             });
             
             html += '</tbody></table>';
@@ -197,12 +197,9 @@
                 Object.entries(runeData).forEach(([type, items]) => {
                     if (!items || items.length === 0) return;
                     html += `<div class="type-group"><h5 class="type-header">${typeLabels[type] || type}</h5>`;
-                    html += '<table class="data-table"><thead><tr><th>国际服物品</th><th>国际服价值</th><th>国服物品</th><th>国服价值</th><th>最低等级</th></tr></thead><tbody>';
+                    html += '<table class="data-table"><thead><tr><th>国服名称</th><th>国服价格</th><th>最低等级</th></tr></thead><tbody>';
                     items.forEach(item => {
-                        html += `<tr>
-                            <td>${item.en}</td>
-                            <td class="price-int">${item.price_int}</td>
-                            <td>${item.cn}</td>
+                        html += `<td>${item.cn}</td>
                             <td class="price-cn">${item.price_cn || '-'}</td>
                             <td>${item.min_level}</td>
                         </tr>`;
