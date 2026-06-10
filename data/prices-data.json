@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "update_time": "2026-06-10T17:05:29",
+    "update_time": "2026-06-10T17:10:08",
     "source": "腾讯文档",
     "note_cn": "国服统计于6.8日06点，1D=86E"
   },
@@ -1071,974 +1071,969 @@
     "4": {
       "合金": [
         {
-          "cn": "氣旋合金",
-          "price_cn": "2E",
-          "min_level": "飓风合金"
+          "cn": "飓风合金",
+          "price_cn": "3E",
+          "min_level": "65-74"
         },
         {
-          "cn": "延展合金",
-          "price_cn": "1E",
-          "min_level": "扩展合金"
+          "cn": "扩展合金",
+          "price_cn": "0.5E",
+          "min_level": "65-74"
         },
         {
-          "cn": "星界合金",
-          "price_cn": "9.5D",
-          "min_level": "天界合金"
+          "cn": "天界合金",
+          "price_cn": "367E",
+          "min_level": "78+"
         },
         {
           "cn": "超凡合金",
-          "price_cn": "1.4D",
-          "min_level": "超凡合金"
+          "price_cn": "380E",
+          "min_level": "78+"
         },
         {
-          "cn": "符文縛者的合金",
-          "price_cn": "8D",
-          "min_level": "符文缚者的合金"
+          "cn": "符文缚者的合金",
+          "price_cn": "480E",
+          "min_level": "78+"
         },
         {
           "cn": "符文之父的合金",
-          "price_cn": "8D",
-          "min_level": "符文之父的合金"
+          "price_cn": "",
+          "min_level": "78+"
         }
       ],
       "通货": [
         {
-          "cn": "玻璃彈珠 x3",
-          "price_cn": "5E",
-          "min_level": "玻璃弹珠 x3"
+          "cn": "玻璃弹珠 x3",
+          "price_cn": "7.5E",
+          "min_level": "65-74"
         },
         {
-          "cn": "神聖石 x1",
+          "cn": "神圣石 x1",
           "price_cn": "1D",
-          "min_level": "神圣石 x1"
+          "min_level": "65-74"
         },
         {
-          "cn": "高階混沌石 x1",
-          "price_cn": "15.5E",
-          "min_level": "高级混沌石 x1"
+          "cn": "高级混沌石 x1",
+          "price_cn": "7E",
+          "min_level": "65-74"
         },
         {
-          "cn": "高階崇高石 x1",
-          "price_cn": "8.2E",
-          "min_level": "高级崇高石 x1"
+          "cn": "高级崇高石 x1",
+          "price_cn": "7E",
+          "min_level": "65-74"
         },
         {
-          "cn": "高階富豪石 x1",
+          "cn": "高级富豪石 x1",
           "price_cn": "1E",
-          "min_level": "高级富豪石 x1"
+          "min_level": "65-74"
         },
         {
-          "cn": "高階工匠石 x1",
-          "price_cn": "1.2E",
-          "min_level": "高等工匠石 x1"
+          "cn": "高等工匠石 x1",
+          "price_cn": "2E",
+          "min_level": "65-74"
         },
         {
           "cn": "混沌石 x2",
-          "price_cn": "10.6E",
-          "min_level": "混沌石 x2"
+          "price_cn": "5E",
+          "min_level": "65-74"
         },
         {
-          "cn": "寶石匠的稜鏡 x3",
-          "price_cn": "6E",
-          "min_level": "宝石匠的棱镜X3"
+          "cn": "宝石匠的棱镜X3",
+          "price_cn": "9E",
+          "min_level": "65-74"
         },
         {
-          "cn": "點金石 x3",
-          "price_cn": "2E",
-          "min_level": "点金石 x3"
+          "cn": "点金石 x3",
+          "price_cn": "5.5E",
+          "min_level": "65-74"
         },
         {
           "cn": "崇高石 x3",
           "price_cn": "3E",
-          "min_level": "崇高石 x3"
+          "min_level": "65-74"
         },
         {
-          "cn": "阿德爾的傳奇",
-          "price_cn": "21D",
-          "min_level": "奥杜尔之传说"
+          "cn": "奥杜尔之传说",
+          "price_cn": "14D",
+          "min_level": "78+"
         },
         {
-          "cn": "無效石 x2",
-          "price_cn": "52E",
-          "min_level": "剥离石 x2"
+          "cn": "剥离石 x2",
+          "price_cn": "29E",
+          "min_level": "78+"
         }
       ],
       "宝石": [
         {
-          "cn": "治癒符文",
+          "cn": "治疗符文",
           "price_cn": "1E",
-          "min_level": "治疗符文"
+          "min_level": "65-74"
         },
         {
-          "cn": "天墜",
+          "cn": "天降杀机",
           "price_cn": "1E",
-          "min_level": "天降杀机"
+          "min_level": "65-74"
         },
         {
-          "cn": "三曲爆發",
+          "cn": "三耀辉轮",
           "price_cn": "1E",
-          "min_level": "三耀辉轮"
+          "min_level": "65-74"
         },
         {
-          "cn": "駁斥",
-          "price_cn": "11-12的很贵",
-          "min_level": "反制"
+          "cn": "反制",
+          "price_cn": "1E",
+          "min_level": "65-74"
         },
         {
-          "cn": "地脈",
+          "cn": "地脉",
           "price_cn": "1E",
-          "min_level": "地脉"
+          "min_level": "65-74"
         },
         {
-          "cn": "意志轉換",
+          "cn": "命源交换",
           "price_cn": "1E",
-          "min_level": "命源交换"
+          "min_level": "65-74"
         },
         {
-          "cn": "符文喘息",
+          "cn": "符文援护",
           "price_cn": "1E",
-          "min_level": "符文援护"
+          "min_level": "65-74"
         }
       ],
       "符文": [
         {
-          "cn": "穩定保護符文",
-          "price_cn": "3E",
-          "min_level": "稳定之结界符文"
-        },
-        {
-          "cn": "斜擦保護符文",
-          "price_cn": "3E",
-          "min_level": "瞥视之结界符文"
-        },
-        {
-          "cn": "心源保護符文",
-          "price_cn": "4E",
-          "min_level": "心脏之结界符文"
-        },
-        {
-          "cn": "殲滅保護符文 x1",
+          "cn": "稳定之结界符文",
           "price_cn": "2E",
-          "min_level": "湮灭之结界符文"
+          "min_level": "65-74"
         },
         {
-          "cn": "救援保護符文",
-          "price_cn": "2E",
-          "min_level": "回收之结界符文"
-        },
-        {
-          "cn": "共生保護符文",
+          "cn": "瞥视之结界符文",
           "price_cn": "1E",
-          "min_level": "共生之结界符文"
+          "min_level": "65-74"
         },
         {
-          "cn": "崇敬活力符文",
+          "cn": "心脏之结界符文",
+          "price_cn": "5E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "湮灭之结界符文",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "回收之结界符文",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "共生之结界符文",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "活力符文",
           "price_cn": "4E",
-          "min_level": "活力符文"
+          "min_level": "65-74"
         },
         {
-          "cn": "崇敬狩獵符文",
-          "price_cn": "3E",
-          "min_level": "狩猎符文"
+          "cn": "狩猎符文",
+          "price_cn": "2E",
+          "min_level": "65-74"
         },
         {
-          "cn": "崇敬巧技符文",
+          "cn": "杂技符文",
+          "price_cn": "4E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "巅峰符文",
+          "price_cn": "4E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "声望符文",
+          "price_cn": "10E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "积累符文",
           "price_cn": "6E",
-          "min_level": "杂技符文"
+          "min_level": "65-74"
         },
         {
-          "cn": "崇敬終點符文",
+          "cn": "根基符文",
           "price_cn": "4E",
-          "min_level": "巅峰符文"
+          "min_level": "65-74"
         },
         {
-          "cn": "崇敬聲望符文",
-          "price_cn": "6E",
-          "min_level": "声望符文"
+          "cn": "棱镜符文",
+          "price_cn": "5E",
+          "min_level": "65-74"
         },
         {
-          "cn": "崇敬積累符文",
+          "cn": "绽放符文",
+          "price_cn": "2.5E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "连贯符文",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "延伸符文",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "碎片之远古符文",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "部落之远古符文",
+          "price_cn": "2E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "憎恨之远古符文",
+          "price_cn": "2E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "引爆之远古符文",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "报复之远古符文",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "决斗之远古符文",
+          "price_cn": "2E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "命焰符文",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "冲突符文",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "泰坦之远古符文",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "碎离之远古符文",
+          "price_cn": "9E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "英勇之远古符文",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "操控之远古符文",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "披露之远古符文",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "腐朽之远古符文",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "巫术之远古符文",
+          "price_cn": "1E",
+          "min_level": "65-74"
+        },
+        {
+          "cn": "道具奖励(国服名称)",
+          "price_cn": "国服价值",
+          "min_level": "最低等级"
+        },
+        {
+          "cn": "奥杜尔之呼吸",
+          "price_cn": "10E",
+          "min_level": "78+"
+        },
+        {
+          "cn": "奥杜尔之热情",
           "price_cn": "4E",
-          "min_level": "积累符文"
+          "min_level": "78+"
         },
         {
-          "cn": "崇敬基準符文",
-          "price_cn": "5E",
-          "min_level": "根基符文"
+          "cn": "奥杜尔之忿怒",
+          "price_cn": "10E",
+          "min_level": "78+"
         },
         {
-          "cn": "崇敬稜鏡符文",
-          "price_cn": "2E",
-          "min_level": "棱镜符文"
+          "cn": "阿斯特丽德的创造",
+          "price_cn": "13D",
+          "min_level": "78+"
         },
         {
-          "cn": "崇敬精通符文",
-          "price_cn": "2E",
-          "min_level": "绽放符文"
+          "cn": "奥杜尔之背叛",
+          "price_cn": "9E",
+          "min_level": "78+"
         },
         {
-          "cn": "崇敬連貫符文",
-          "price_cn": "1E",
-          "min_level": "连贯符文"
-        },
-        {
-          "cn": "崇敬觸及符文",
-          "price_cn": "2E",
-          "min_level": "延伸符文"
-        },
-        {
-          "cn": "遠古分裂符文",
-          "price_cn": "1E",
-          "min_level": "碎片之远古符文"
-        },
-        {
-          "cn": "遠古部族符文",
-          "price_cn": "2E",
-          "min_level": "部落之远古符文"
-        },
-        {
-          "cn": "遠古敵意符文",
-          "price_cn": "1E",
-          "min_level": "憎恨之远古符文"
-        },
-        {
-          "cn": "遠古引爆符文",
-          "price_cn": "7E",
-          "min_level": "引爆之远古符文"
-        },
-        {
-          "cn": "遠古復仇符文",
-          "price_cn": "1E",
-          "min_level": "报复之远古符文"
-        },
-        {
-          "cn": "遠古決鬥符文",
-          "price_cn": "2E",
-          "min_level": "决斗之远古符文"
-        },
-        {
-          "cn": "崇敬生命火焰符文",
-          "price_cn": "0.5E",
-          "min_level": "命焰符文"
-        },
-        {
-          "cn": "崇敬對峙符文",
-          "price_cn": "1E",
-          "min_level": "冲突符文"
-        },
-        {
-          "cn": "遠古泰坦符文",
-          "price_cn": "2E",
-          "min_level": "泰坦之远古符文"
-        },
-        {
-          "cn": "遠古粉碎符文",
-          "price_cn": "7E",
-          "min_level": "碎离之远古符文"
-        },
-        {
-          "cn": "遠古卓越符文",
-          "price_cn": "1E",
-          "min_level": "英勇之远古符文"
-        },
-        {
-          "cn": "遠古控制符文",
-          "price_cn": "1E",
-          "min_level": "操控之远古符文"
-        },
-        {
-          "cn": "遠古探索符文",
-          "price_cn": "5E",
-          "min_level": "披露之远古符文"
-        },
-        {
-          "cn": "遠古腐朽符文",
-          "price_cn": "3E",
-          "min_level": "腐朽之远古符文"
-        },
-        {
-          "cn": "遠古巫術符文",
-          "price_cn": "1E",
-          "min_level": "巫术之远古符文"
-        },
-        {
-          "cn": "道具奖励(国际服名称)",
-          "price_cn": "国际服价值(总)",
-          "min_level": "道具奖励(国服名称)"
-        },
-        {
-          "cn": "阿德爾的吐息",
-          "price_cn": "19E",
-          "min_level": "奥杜尔之呼吸"
-        },
-        {
-          "cn": "阿德爾的熱情",
-          "price_cn": "4E",
-          "min_level": "奥杜尔之热情"
-        },
-        {
-          "cn": "阿德爾的聖怒",
-          "price_cn": "5E",
-          "min_level": "奥杜尔之忿怒"
-        },
-        {
-          "cn": "阿斯垂德的創造",
-          "price_cn": "21D",
-          "min_level": "阿斯特丽德的创造"
-        },
-        {
-          "cn": "阿德爾的背叛",
-          "price_cn": "12E",
-          "min_level": "奥杜尔之背叛"
-        },
-        {
-          "cn": "卡迪根的頓悟",
-          "price_cn": "11D",
-          "min_level": "卡迪甘的顿悟"
+          "cn": "卡迪甘的顿悟",
+          "price_cn": "6D",
+          "min_level": "78+"
         }
       ]
     },
     "5": {
       "合金": [
         {
-          "cn": "煥彩合金",
-          "price_cn": "6E",
-          "min_level": "棱镜合金"
+          "cn": "棱镜合金",
+          "price_cn": "3E",
+          "min_level": "75+"
         },
         {
-          "cn": "秘能合金",
-          "price_cn": "4E",
-          "min_level": "神秘合金"
+          "cn": "神秘合金",
+          "price_cn": "2E",
+          "min_level": "75+"
         }
       ],
       "通货": [
         {
-          "cn": "奇術溶劑（等級19）",
-          "price_cn": "2E",
-          "min_level": "秘术溶剂（等级19） x1"
+          "cn": "秘术溶剂（等级19） x1",
+          "price_cn": "5E",
+          "min_level": "75+"
         },
         {
-          "cn": "神聖石 x2",
+          "cn": "神圣石 x2",
           "price_cn": "2D",
-          "min_level": "神圣石 x2"
+          "min_level": "75+"
         },
         {
-          "cn": "高階增幅石 x3",
-          "price_cn": "",
-          "min_level": "高级增幅石 x3"
-        },
-        {
-          "cn": "高階蛻變石 x3",
+          "cn": "高级增幅石 x3",
           "price_cn": "1E",
-          "min_level": "高级蜕变石 x3"
+          "min_level": "75+"
         },
         {
-          "cn": "機會石 x1",
-          "price_cn": "14E",
-          "min_level": "机会石 x1"
+          "cn": "高级蜕变石 x3",
+          "price_cn": "3E",
+          "min_level": "75+"
+        },
+        {
+          "cn": "机会石 x1",
+          "price_cn": "4.6E",
+          "min_level": "75+"
         },
         {
           "cn": "完美工匠石 x1",
-          "price_cn": "77E",
-          "min_level": "完美工匠石 x1"
+          "price_cn": "42E",
+          "min_level": "75+"
         },
         {
           "cn": "混沌石 x3",
-          "price_cn": "16E",
-          "min_level": "混沌石 x3"
+          "price_cn": "7E",
+          "min_level": "75+"
         },
         {
-          "cn": "5个随机通货",
-          "price_cn": "？？",
-          "min_level": "5x随机通货"
+          "cn": "5x随机通货",
+          "price_cn": "",
+          "min_level": "75+"
         },
         {
-          "cn": "完美增幅石",
-          "price_cn": "8E",
-          "min_level": "完美增幅石 x1"
+          "cn": "完美增幅石 x1",
+          "price_cn": "4.6E",
+          "min_level": "75+"
         },
         {
-          "cn": "完美蛻變石",
-          "price_cn": "13E",
-          "min_level": "完美蜕变石 x1"
+          "cn": "完美蜕变石 x1",
+          "price_cn": "7.2E",
+          "min_level": "75+"
         },
         {
           "cn": "完美增幅石 x3",
-          "price_cn": "25E",
-          "min_level": "完美增幅石 x3"
+          "price_cn": "13E",
+          "min_level": "78+"
         },
         {
-          "cn": "完美蛻變石 x3",
-          "price_cn": "39E",
-          "min_level": "完美蜕变石 x3"
+          "cn": "完美蜕变石 x3",
+          "price_cn": "21E",
+          "min_level": "78+"
         },
         {
           "cn": "完美富豪石 x3",
-          "price_cn": "45E",
-          "min_level": "完美富豪石 x3"
+          "price_cn": "24E",
+          "min_level": "78+"
         },
         {
-          "cn": "完美熔劑",
-          "price_cn": "18D",
-          "min_level": "完美溶剂"
+          "cn": "完美溶剂",
+          "price_cn": "12D",
+          "min_level": "78+"
         }
       ],
       "宝石": [
         {
-          "cn": "維里西姆強化",
-          "price_cn": "",
-          "min_level": "维金化形"
-        },
-        {
-          "cn": "維里西姆顯化",
-          "price_cn": "",
-          "min_level": "维金供能"
-        },
-        {
-          "cn": "卡爾葛之痕",
-          "price_cn": "",
-          "min_level": "卡古兰残片"
-        },
-        {
-          "cn": "恐怖之柱",
-          "price_cn": "",
-          "min_level": "阴森之柱"
-        },
-        {
-          "cn": "苦澀衰亡",
-          "price_cn": "",
-          "min_level": "苦涩死亡"
-        },
-        {
-          "cn": "傳導符文",
+          "cn": "维金化形",
           "price_cn": "1E",
-          "min_level": "导电符文"
+          "min_level": "75+"
         },
         {
-          "cn": "霜火新星",
+          "cn": "维金供能",
+          "price_cn": "2E",
+          "min_level": "75+"
+        },
+        {
+          "cn": "卡古兰残片",
+          "price_cn": "5E",
+          "min_level": "75+"
+        },
+        {
+          "cn": "阴森之柱",
+          "price_cn": "3E",
+          "min_level": "75+"
+        },
+        {
+          "cn": "苦涩死亡",
+          "price_cn": "6E",
+          "min_level": "75+"
+        },
+        {
+          "cn": "导电符文",
           "price_cn": "1E",
-          "min_level": "霜焰新星"
+          "min_level": "75+"
+        },
+        {
+          "cn": "霜焰新星",
+          "price_cn": "1E",
+          "min_level": "75+"
         },
         {
           "cn": "往昔碎片",
           "price_cn": "1E",
-          "min_level": "往昔碎片"
+          "min_level": "75+"
         },
         {
-          "cn": "永恆行軍",
+          "cn": "永恒行军",
           "price_cn": "1E",
-          "min_level": "永恒行军"
+          "min_level": "75+"
         },
         {
-          "cn": "活體引爆",
+          "cn": "活体引爆",
           "price_cn": "1E",
-          "min_level": "活体引爆"
+          "min_level": "75+"
         },
         {
-          "cn": "未切割的技能寶石（等級 19）",
-          "price_cn": "10E",
-          "min_level": "未切割的技能宝石（等级 19）"
+          "cn": "未切割的技能宝石（等级 19）",
+          "price_cn": "4.5E",
+          "min_level": "75+"
         },
         {
-          "cn": "未切割的精魂寶石（等級 19）",
-          "price_cn": "18E",
-          "min_level": "未切割的精魂宝石（等级 19）"
+          "cn": "未切割的精魂宝石（等级 19）",
+          "price_cn": "6E",
+          "min_level": "75+"
         },
         {
-          "cn": "排斥",
-          "price_cn": "",
-          "min_level": "斥退"
+          "cn": "斥退",
+          "price_cn": "1E",
+          "min_level": "75+"
         }
       ],
       "符文": [
         {
-          "cn": "鎧甲保護符文",
-          "price_cn": "7E",
-          "min_level": "电枢之结界符文"
-        },
-        {
-          "cn": "執念保護符文",
+          "cn": "电枢之结界符文",
           "price_cn": "4E",
-          "min_level": "痴迷之结界符文"
+          "min_level": "75+"
         },
         {
-          "cn": "均衡保護符文",
-          "price_cn": "6.5E",
-          "min_level": "分点之结界符文"
+          "cn": "痴迷之结界符文",
+          "price_cn": "1E",
+          "min_level": "75+"
         },
         {
-          "cn": "護衛保護符文",
-          "price_cn": "5E",
-          "min_level": "护卫之结界符文"
+          "cn": "分点之结界符文",
+          "price_cn": "8E",
+          "min_level": "75+"
         },
         {
-          "cn": "空蝕保護符文",
+          "cn": "护卫之结界符文",
           "price_cn": "2E",
-          "min_level": "虚化之结界符文"
+          "min_level": "75+"
         },
         {
-          "cn": "匠鍛符文",
-          "price_cn": "50E",
-          "min_level": "大师符文"
-        },
-        {
-          "cn": "奎爾珊的守護符文",
-          "price_cn": "16E",
-          "min_level": "克林斯昂的守护符文"
-        },
-        {
-          "cn": "斯卡沃的侵蝕符文",
-          "price_cn": "5E",
-          "min_level": "萨奇沃的碎砾符文"
-        },
-        {
-          "cn": "費爾羅的狩獵符文",
-          "price_cn": "5E",
-          "min_level": "法瑞尔的狩猎符文"
-        },
-        {
-          "cn": "奎爾珊的恢復符文",
-          "price_cn": "5.8E",
-          "min_level": "克林斯昂的回复符文"
-        },
-        {
-          "cn": "菲恩絲的轉動符文",
-          "price_cn": "4E",
-          "min_level": "费努姆斯的飞旋符文"
-        },
-        {
-          "cn": "菲恩絲的流失符文",
-          "price_cn": "5E",
-          "min_level": "费努姆斯的流失符文"
-        },
-        {
-          "cn": "爵士邁爾克的盛夏符文",
+          "cn": "虚化之结界符文",
           "price_cn": "1E",
-          "min_level": "默克领主的仲夏符文"
+          "min_level": "75+"
         },
         {
-          "cn": "赫絲緹菈女士的寒冬符文",
-          "price_cn": "1E",
-          "min_level": "赫丝特拉女士的寒冬符文"
+          "cn": "大师符文",
+          "price_cn": "17E",
+          "min_level": "75+"
         },
         {
-          "cn": "爵士勒爾德的暖春符文",
-          "price_cn": "3E",
-          "min_level": "雷尔德领主的春光符文"
-        },
-        {
-          "cn": "巨狼之爪符文",
-          "price_cn": "10.5E",
-          "min_level": "巨狼之利爪符文"
-        },
-        {
-          "cn": "巨狼意志符文",
-          "price_cn": "11E",
-          "min_level": "巨狼之意志符文"
-        },
-        {
-          "cn": "斯卡沃的天空符文",
-          "price_cn": "12E",
-          "min_level": "萨奇沃的苍空符文"
-        },
-        {
-          "cn": "菲恩絲的苦痛符文",
+          "cn": "克林斯昂的守护符文",
           "price_cn": "4E",
-          "min_level": "费努姆斯的痛苦符文"
+          "min_level": "75+"
         },
         {
-          "cn": "費爾羅的優雅符文",
+          "cn": "萨奇沃的碎砾符文",
+          "price_cn": "4E",
+          "min_level": "75+"
+        },
+        {
+          "cn": "法瑞尔的狩猎符文",
           "price_cn": "3E",
-          "min_level": "法瑞尔的优雅符文"
+          "min_level": "75+"
         },
         {
-          "cn": "爵士格蘭內爾的專精符文",
+          "cn": "克林斯昂的回复符文",
+          "price_cn": "3E",
+          "min_level": "75+"
+        },
+        {
+          "cn": "费努姆斯的飞旋符文",
+          "price_cn": "1E",
+          "min_level": "75+"
+        },
+        {
+          "cn": "费努姆斯的流失符文",
+          "price_cn": "1E",
+          "min_level": "75+"
+        },
+        {
+          "cn": "默克领主的仲夏符文",
+          "price_cn": "1E",
+          "min_level": "75+"
+        },
+        {
+          "cn": "赫丝特拉女士的寒冬符文",
+          "price_cn": "1E",
+          "min_level": "75+"
+        },
+        {
+          "cn": "雷尔德领主的春光符文",
+          "price_cn": "2E",
+          "min_level": "75+"
+        },
+        {
+          "cn": "巨狼之利爪符文",
           "price_cn": "9E",
-          "min_level": "格兰内尔领主的掌控符文"
+          "min_level": "75+"
         },
         {
-          "cn": "斯卡沃的記憶符文",
-          "price_cn": "9E",
-          "min_level": "萨奇沃的回忆符文"
-        },
-        {
-          "cn": "花魁蔓南的殘酷符文",
+          "cn": "巨狼之意志符文",
           "price_cn": "7E",
-          "min_level": "交际花曼南的残酷符文"
+          "min_level": "75+"
         },
         {
-          "cn": "爵士格特的野性符文",
-          "price_cn": "4E",
-          "min_level": "吉尔特领主的荒野符文"
+          "cn": "萨奇沃的苍空符文",
+          "price_cn": "7E",
+          "min_level": "75+"
         },
         {
-          "cn": "道具奖励(国际服名称)",
-          "price_cn": "国际服价值(总)",
-          "min_level": "道具奖励(国服名称)"
+          "cn": "费努姆斯的痛苦符文",
+          "price_cn": "2E",
+          "min_level": "75+"
         },
         {
-          "cn": "沃拉娜的殘殺",
-          "price_cn": "16E",
-          "min_level": "沃拉娜的屠戮"
+          "cn": "法瑞尔的优雅符文",
+          "price_cn": "1E",
+          "min_level": "75+"
         },
         {
-          "cn": "瑟雷的凱旋",
-          "price_cn": "4D",
-          "min_level": "瑟尔的凯旋"
+          "cn": "格兰内尔领主的掌控符文",
+          "price_cn": "5.5E",
+          "min_level": "75+"
         },
         {
-          "cn": "卡特拉的愁悵",
-          "price_cn": "49E",
-          "min_level": "卡塔拉的阴霾"
+          "cn": "萨奇沃的回忆符文",
+          "price_cn": "3E",
+          "min_level": "75+"
         },
         {
-          "cn": "索魯德的強權",
-          "price_cn": "25E",
-          "min_level": "斯鲁德的神力"
+          "cn": "交际花曼南的残酷符文",
+          "price_cn": "3E",
+          "min_level": "75+"
         },
         {
-          "cn": "克洛爾的狩獵",
-          "price_cn": "95E",
-          "min_level": "克尔的狩猎"
+          "cn": "吉尔特领主的荒野符文",
+          "price_cn": "1E",
+          "min_level": "75+"
         },
         {
-          "cn": "梅德偉的照料",
-          "price_cn": "25E",
-          "min_level": "梅德维德的照料"
+          "cn": "道具奖励(国服名称)",
+          "price_cn": "国服价值",
+          "min_level": "最低等级"
         },
         {
-          "cn": "烏特雷的星空",
-          "price_cn": "38E",
-          "min_level": "乌崔德的星辰"
+          "cn": "沃拉娜的屠戮",
+          "price_cn": "12E",
+          "min_level": "78+"
+        },
+        {
+          "cn": "瑟尔的凯旋",
+          "price_cn": "75E",
+          "min_level": "78+"
+        },
+        {
+          "cn": "卡塔拉的阴霾",
+          "price_cn": "8E",
+          "min_level": "78+"
+        },
+        {
+          "cn": "斯鲁德的神力",
+          "price_cn": "8E",
+          "min_level": "78+"
+        },
+        {
+          "cn": "克尔的狩猎",
+          "price_cn": "28E",
+          "min_level": "78+"
+        },
+        {
+          "cn": "梅德维德的照料",
+          "price_cn": "18E",
+          "min_level": "78+"
+        },
+        {
+          "cn": "乌崔德的星辰",
+          "price_cn": "14E",
+          "min_level": "78+"
         }
       ]
     },
     "6": {
       "合金": [
         {
-          "cn": "君主合金",
-          "price_cn": "23E",
-          "min_level": "君王合金"
+          "cn": "君王合金",
+          "price_cn": "4E",
+          "min_level": "78+"
         }
       ],
       "通货": [
         {
-          "cn": "碎雷熔劑",
-          "price_cn": "4E",
-          "min_level": "雷霆溶剂"
-        },
-        {
-          "cn": "奇術溶劑（等級20）",
-          "price_cn": "103E",
-          "min_level": "秘术溶剂（等级20）"
-        },
-        {
-          "cn": "高階崇高石 x3",
-          "price_cn": "25E",
-          "min_level": "高级崇高石 x3"
-        },
-        {
-          "cn": "高階混沌石 x3",
-          "price_cn": "45E",
-          "min_level": "高级混沌石 x3"
-        },
-        {
-          "cn": "高階富豪石 x3",
+          "cn": "雷霆溶剂",
           "price_cn": "3E",
-          "min_level": "高级富豪石 x3"
+          "min_level": "78+"
         },
         {
-          "cn": "梅德偉的傳奇",
-          "price_cn": "13E",
-          "min_level": "梅德维德之传说"
+          "cn": "秘术溶剂（等级20）",
+          "price_cn": "95E",
+          "min_level": "78+"
         },
         {
-          "cn": "烏特雷的傳奇",
-          "price_cn": "48E",
-          "min_level": "乌崔德之传说"
+          "cn": "高级崇高石 x3",
+          "price_cn": "21E",
+          "min_level": "78+"
         },
         {
-          "cn": "沃拉娜的傳奇",
-          "price_cn": "25E",
-          "min_level": "沃拉娜之传说"
+          "cn": "高级混沌石 x3",
+          "price_cn": "21E",
+          "min_level": "78+"
         },
         {
-          "cn": "奧爾羅斯的傳奇",
-          "price_cn": "50E",
-          "min_level": "欧罗什之传说"
+          "cn": "高级富豪石 x3",
+          "price_cn": "4.5E",
+          "min_level": "78+"
         },
         {
-          "cn": "冰寒熔劑",
+          "cn": "梅德维德之传说",
+          "price_cn": "5E",
+          "min_level": "78+"
+        },
+        {
+          "cn": "乌崔德之传说",
+          "price_cn": "20E",
+          "min_level": "78+"
+        },
+        {
+          "cn": "沃拉娜之传说",
+          "price_cn": "17E",
+          "min_level": "78+"
+        },
+        {
+          "cn": "欧罗什之传说",
+          "price_cn": "28E",
+          "min_level": "78+"
+        },
+        {
+          "cn": "冰寒溶剂",
           "price_cn": "4E",
-          "min_level": "冰寒溶剂"
+          "min_level": "78+"
         },
         {
-          "cn": "烈火熔劑",
+          "cn": "炽焰溶剂",
           "price_cn": "4E",
-          "min_level": "炽焰溶剂"
+          "min_level": "78+"
         },
         {
           "cn": "完美崇高石 x1",
-          "price_cn": "2.1D",
-          "min_level": "完美崇高石 x1"
+          "price_cn": "1.8D",
+          "min_level": "78+"
         },
         {
-          "cn": "虛空熔劑",
-          "price_cn": "15E",
-          "min_level": "虚空溶剂"
+          "cn": "虚空溶剂",
+          "price_cn": "8E",
+          "min_level": "78+"
         },
         {
-          "cn": "神聖石 x3",
+          "cn": "神圣石 x3",
           "price_cn": "3D",
-          "min_level": "神圣石 x3"
+          "min_level": "78+"
         },
         {
           "cn": "完美混沌石 x1",
-          "price_cn": "2.5D",
-          "min_level": "完美混沌石 x1"
+          "price_cn": "2.2D",
+          "min_level": "78+"
         },
         {
-          "cn": "機會石 x2",
-          "price_cn": "28E",
-          "min_level": "机会石 x2"
+          "cn": "机会石 x2",
+          "price_cn": "9.2E",
+          "min_level": "78+"
         },
         {
-          "cn": "無效石 x1",
-          "price_cn": "27E",
-          "min_level": "剥离石 x1"
+          "cn": "剥离石 x1",
+          "price_cn": "14.5",
+          "min_level": "78+"
         },
         {
-          "cn": "未切割的技能寶石（等級 20）",
-          "price_cn": "5.5D",
-          "min_level": "未切割的技能宝石（等级 20）"
+          "cn": "未切割的技能宝石（等级 20）",
+          "price_cn": "105E",
+          "min_level": "78+"
         },
         {
-          "cn": "未切割的精魂寶石（等級 20）",
-          "price_cn": "5D",
-          "min_level": "未切割的精魂宝石（等级 20）"
+          "cn": "未切割的精魂宝石（等级 20）",
+          "price_cn": "96E",
+          "min_level": "78+"
         },
         {
           "cn": "完美崇高石 x3",
-          "price_cn": "6D",
-          "min_level": "完美崇高石 x3"
+          "price_cn": "5.4D",
+          "min_level": "78+"
         },
         {
-          "cn": "機會石 x3",
-          "price_cn": "44E",
-          "min_level": "机会石 x3"
+          "cn": "机会石 x3",
+          "price_cn": "15E",
+          "min_level": "78+"
         },
         {
-          "cn": "無效石 x3",
-          "price_cn": "80E",
-          "min_level": "剥离石 x3"
+          "cn": "剥离石 x3",
+          "price_cn": "45E",
+          "min_level": "78+"
         },
         {
-          "cn": "神聖石 x10",
+          "cn": "神圣石 x10",
           "price_cn": "10D",
-          "min_level": "神圣石 x10"
+          "min_level": "78+"
         },
         {
-          "cn": "卡蘭德的魔鏡 x1",
-          "price_cn": "1400D",
-          "min_level": "卡兰德的魔镜 x1"
+          "cn": "卡兰德的魔镜 x1",
+          "price_cn": "",
+          "min_level": "78+"
         },
         {
-          "cn": "悉妮蔻拉的髮絲 x1",
-          "price_cn": "138D",
-          "min_level": "辛格拉的发辫 x1"
+          "cn": "辛格拉的发辫 x1",
+          "price_cn": "239D",
+          "min_level": "78+"
         },
         {
           "cn": "完美混沌石 x3",
-          "price_cn": "7.5D",
-          "min_level": "完美混沌石 x3"
+          "price_cn": "7D",
+          "min_level": "78+"
         },
         {
-          "cn": "道具奖励(国际服名称)",
-          "price_cn": "",
-          "min_level": "道具奖励(国服名称)"
-        },
-        {
-          "cn": "Krillson's Bay Key",
-          "price_cn": "",
-          "min_level": ""
+          "cn": "道具奖励(国服名称)",
+          "price_cn": "国服价值",
+          "min_level": "78+"
         }
       ],
       "宝石": [
         {
-          "cn": "刀刃之雨",
+          "cn": "刀刃之雨 (20)",
           "price_cn": "",
-          "min_level": "刀刃之雨 (20)"
+          "min_level": "78+"
         },
         {
-          "cn": "戰縛召喚物",
+          "cn": "结界仆从(20)",
           "price_cn": "1E",
-          "min_level": "结界仆从(20)"
+          "min_level": "78+"
         },
         {
-          "cn": "伏打電盾",
+          "cn": "电能屏障 (20)",
           "price_cn": "1E",
-          "min_level": "电能屏障 (20)"
+          "min_level": "78+"
         },
         {
-          "cn": "空無披甲",
+          "cn": "虚空之壳 (20)",
           "price_cn": "1E",
-          "min_level": "虚空之壳 (20)"
+          "min_level": "78+"
         },
         {
-          "cn": "爆炸轉化",
+          "cn": "烈性转化(20)",
           "price_cn": "1E",
-          "min_level": "烈性转化(20)"
+          "min_level": "78+"
         },
         {
-          "cn": "意志斷片",
+          "cn": "命源碎片 (20)",
           "price_cn": "1E",
-          "min_level": "命源碎片 (20)"
+          "min_level": "78+"
         },
         {
-          "cn": "天墜",
+          "cn": "天降杀机(20)",
           "price_cn": "1E",
-          "min_level": "天降杀机(20)"
+          "min_level": "78+"
         },
         {
-          "cn": "三曲爆發",
+          "cn": "三耀辉轮 (20)",
           "price_cn": "1E",
-          "min_level": "三耀辉轮 (20)"
+          "min_level": "78+"
         },
         {
-          "cn": "駁斥",
-          "price_cn": "5E",
-          "min_level": "反制 (20)"
-        },
-        {
-          "cn": "符文喘息",
+          "cn": "反制 (20)",
           "price_cn": "1E",
-          "min_level": "符文援护(20)"
+          "min_level": "78+"
         },
         {
-          "cn": "地脈",
+          "cn": "符文援护(20)",
           "price_cn": "1E",
-          "min_level": "地脉(20)"
+          "min_level": "78+"
         },
         {
-          "cn": "意志轉換",
+          "cn": "地脉(20)",
           "price_cn": "1E",
-          "min_level": "命源交换(20)"
+          "min_level": "78+"
+        },
+        {
+          "cn": "命源交换(20)",
+          "price_cn": "1E",
+          "min_level": "78+"
         }
       ],
       "符文": [
         {
-          "cn": "伯爵夫人瑟絲可的箭術符文",
-          "price_cn": "9E",
-          "min_level": "塞丝克伯爵夫人的箭术符文"
+          "cn": "塞丝克伯爵夫人的箭术符文",
+          "price_cn": "6E",
+          "min_level": "78+"
         },
         {
-          "cn": "流浪女巫艾珊德菈的智慧符文",
-          "price_cn": "16E",
-          "min_level": "女巫阿桑德拉的智慧符文"
+          "cn": "女巫阿桑德拉的智慧符文",
+          "price_cn": "5E",
+          "min_level": "78+"
         },
         {
-          "cn": "費爾羅的追擊符文",
-          "price_cn": "37E",
-          "min_level": "法瑞尔的追逐符文"
+          "cn": "法瑞尔的追逐符文",
+          "price_cn": "12E",
+          "min_level": "78+"
         },
         {
-          "cn": "道具奖励(国际服名称)",
-          "price_cn": "国际服价值(总)",
-          "min_level": "道具奖励(国服名称)"
+          "cn": "道具奖励(国服名称)",
+          "price_cn": "国服价值",
+          "min_level": "最低等级"
         },
         {
-          "cn": "奧爾羅斯的恩惠 x1",
-          "price_cn": "武器天赋+1",
-          "min_level": "欧罗什的恩典 x1"
+          "cn": "欧罗什的恩典 x1",
+          "price_cn": "",
+          "min_level": "78+"
         },
         {
-          "cn": "沃拉娜的恩惠 x1",
-          "price_cn": "5%全元素抗",
-          "min_level": "沃拉娜的恩典 x1"
+          "cn": "沃拉娜的恩典 x1",
+          "price_cn": "",
+          "min_level": "78+"
         },
         {
-          "cn": "烏特雷的恩惠 x1",
-          "price_cn": "10精魄",
-          "min_level": "乌崔德的恩典 x1"
+          "cn": "乌崔德的恩典 x1",
+          "price_cn": "",
+          "min_level": "78+"
         },
         {
-          "cn": "梅德偉的恩惠 x1",
-          "price_cn": "5%生命和魔力",
-          "min_level": "梅德维德的恩典 x1"
+          "cn": "梅德维德的恩典 x1",
+          "price_cn": "",
+          "min_level": "78+"
         },
         {
-          "cn": "阿德爾的傳承 x1",
-          "price_cn": "89D",
-          "min_level": "奥杜尔的遗产 x1"
+          "cn": "奥杜尔的遗产 x1",
+          "price_cn": "无",
+          "min_level": "78+"
         }
       ]
     },
     "7": {
       "合金": [
         {
-          "cn": "星界合金",
-          "price_cn": "9.5D",
-          "min_level": "天界合金"
+          "cn": "天界合金",
+          "price_cn": "367E",
+          "min_level": "78+"
         },
         {
           "cn": "超凡合金",
-          "price_cn": "1.4D",
-          "min_level": "超凡合金"
+          "price_cn": "380E",
+          "min_level": "78+"
         },
         {
-          "cn": "符文縛者的合金",
-          "price_cn": "8D",
-          "min_level": "符文缚者的合金"
+          "cn": "符文缚者的合金",
+          "price_cn": "480E",
+          "min_level": "78+"
         },
         {
           "cn": "符文之父的合金",
-          "price_cn": "8D",
-          "min_level": "符文之父的合金"
+          "price_cn": "",
+          "min_level": "78+"
         }
       ],
       "通货": [
         {
-          "cn": "阿德爾的傳奇",
-          "price_cn": "21D",
-          "min_level": "奥杜尔之传说"
+          "cn": "奥杜尔之传说",
+          "price_cn": "14D",
+          "min_level": "78+"
         },
         {
-          "cn": "無效石 x2",
-          "price_cn": "52E",
-          "min_level": "剥离石 x2"
+          "cn": "剥离石 x2",
+          "price_cn": "29E",
+          "min_level": "78+"
         }
       ],
       "宝石": [],
       "符文": [
         {
-          "cn": "阿德爾的吐息",
-          "price_cn": "19E",
-          "min_level": "奥杜尔之呼吸"
+          "cn": "奥杜尔之呼吸",
+          "price_cn": "10E",
+          "min_level": "78+"
         },
         {
-          "cn": "阿德爾的熱情",
+          "cn": "奥杜尔之热情",
           "price_cn": "4E",
-          "min_level": "奥杜尔之热情"
+          "min_level": "78+"
         },
         {
-          "cn": "阿德爾的聖怒",
-          "price_cn": "5E",
-          "min_level": "奥杜尔之忿怒"
+          "cn": "奥杜尔之忿怒",
+          "price_cn": "10E",
+          "min_level": "78+"
         },
         {
-          "cn": "阿斯垂德的創造",
-          "price_cn": "21D",
-          "min_level": "阿斯特丽德的创造"
+          "cn": "阿斯特丽德的创造",
+          "price_cn": "13D",
+          "min_level": "78+"
         },
         {
-          "cn": "阿德爾的背叛",
-          "price_cn": "12E",
-          "min_level": "奥杜尔之背叛"
+          "cn": "奥杜尔之背叛",
+          "price_cn": "9E",
+          "min_level": "78+"
         },
         {
-          "cn": "卡迪根的頓悟",
-          "price_cn": "11D",
-          "min_level": "卡迪甘的顿悟"
+          "cn": "卡迪甘的顿悟",
+          "price_cn": "6D",
+          "min_level": "78+"
         }
       ]
     },
@@ -2047,61 +2042,61 @@
       "通货": [
         {
           "cn": "完美增幅石 x3",
-          "price_cn": "25E",
-          "min_level": "完美增幅石 x3"
+          "price_cn": "13E",
+          "min_level": "78+"
         },
         {
-          "cn": "完美蛻變石 x3",
-          "price_cn": "39E",
-          "min_level": "完美蜕变石 x3"
+          "cn": "完美蜕变石 x3",
+          "price_cn": "21E",
+          "min_level": "78+"
         },
         {
           "cn": "完美富豪石 x3",
-          "price_cn": "45E",
-          "min_level": "完美富豪石 x3"
+          "price_cn": "24E",
+          "min_level": "78+"
         },
         {
-          "cn": "完美熔劑",
-          "price_cn": "18D",
-          "min_level": "完美溶剂"
+          "cn": "完美溶剂",
+          "price_cn": "12D",
+          "min_level": "78+"
         }
       ],
       "宝石": [],
       "符文": [
         {
-          "cn": "沃拉娜的殘殺",
-          "price_cn": "16E",
-          "min_level": "沃拉娜的屠戮"
+          "cn": "沃拉娜的屠戮",
+          "price_cn": "12E",
+          "min_level": "78+"
         },
         {
-          "cn": "瑟雷的凱旋",
-          "price_cn": "4D",
-          "min_level": "瑟尔的凯旋"
+          "cn": "瑟尔的凯旋",
+          "price_cn": "75E",
+          "min_level": "78+"
         },
         {
-          "cn": "卡特拉的愁悵",
-          "price_cn": "49E",
-          "min_level": "卡塔拉的阴霾"
+          "cn": "卡塔拉的阴霾",
+          "price_cn": "8E",
+          "min_level": "78+"
         },
         {
-          "cn": "索魯德的強權",
-          "price_cn": "25E",
-          "min_level": "斯鲁德的神力"
+          "cn": "斯鲁德的神力",
+          "price_cn": "8E",
+          "min_level": "78+"
         },
         {
-          "cn": "克洛爾的狩獵",
-          "price_cn": "95E",
-          "min_level": "克尔的狩猎"
+          "cn": "克尔的狩猎",
+          "price_cn": "28E",
+          "min_level": "78+"
         },
         {
-          "cn": "梅德偉的照料",
-          "price_cn": "25E",
-          "min_level": "梅德维德的照料"
+          "cn": "梅德维德的照料",
+          "price_cn": "18E",
+          "min_level": "78+"
         },
         {
-          "cn": "烏特雷的星空",
-          "price_cn": "38E",
-          "min_level": "乌崔德的星辰"
+          "cn": "乌崔德的星辰",
+          "price_cn": "14E",
+          "min_level": "78+"
         }
       ]
     },
@@ -2110,76 +2105,71 @@
       "通货": [
         {
           "cn": "完美崇高石 x3",
-          "price_cn": "6D",
-          "min_level": "完美崇高石 x3"
+          "price_cn": "5.4D",
+          "min_level": "78+"
         },
         {
-          "cn": "機會石 x3",
-          "price_cn": "44E",
-          "min_level": "机会石 x3"
+          "cn": "机会石 x3",
+          "price_cn": "15E",
+          "min_level": "78+"
         },
         {
-          "cn": "無效石 x3",
-          "price_cn": "80E",
-          "min_level": "剥离石 x3"
+          "cn": "剥离石 x3",
+          "price_cn": "45E",
+          "min_level": "78+"
         },
         {
-          "cn": "神聖石 x10",
+          "cn": "神圣石 x10",
           "price_cn": "10D",
-          "min_level": "神圣石 x10"
+          "min_level": "78+"
         },
         {
-          "cn": "卡蘭德的魔鏡 x1",
-          "price_cn": "1400D",
-          "min_level": "卡兰德的魔镜 x1"
+          "cn": "卡兰德的魔镜 x1",
+          "price_cn": "",
+          "min_level": "78+"
         },
         {
-          "cn": "悉妮蔻拉的髮絲 x1",
-          "price_cn": "138D",
-          "min_level": "辛格拉的发辫 x1"
+          "cn": "辛格拉的发辫 x1",
+          "price_cn": "239D",
+          "min_level": "78+"
         },
         {
           "cn": "完美混沌石 x3",
-          "price_cn": "7.5D",
-          "min_level": "完美混沌石 x3"
+          "price_cn": "7D",
+          "min_level": "78+"
         },
         {
-          "cn": "道具奖励(国际服名称)",
-          "price_cn": "",
-          "min_level": "道具奖励(国服名称)"
-        },
-        {
-          "cn": "Krillson's Bay Key",
-          "price_cn": "",
-          "min_level": ""
+          "cn": "道具奖励(国服名称)",
+          "price_cn": "国服价值",
+          "min_level": "78+"
         }
       ],
       "宝石": [],
       "符文": [
         {
-          "cn": "奧爾羅斯的恩惠 x1",
-          "price_cn": "武器天赋+1",
-          "min_level": "欧罗什的恩典 x1"
+          "cn": "欧罗什的恩典 x1",
+          "price_cn": "",
+          "min_level": "78+"
         },
         {
-          "cn": "沃拉娜的恩惠 x1",
-          "price_cn": "5%全元素抗",
-          "min_level": "沃拉娜的恩典 x1"
+          "cn": "沃拉娜的恩典 x1",
+          "price_cn": "",
+          "min_level": "78+"
         },
         {
-          "cn": "烏特雷的恩惠 x1",
-          "price_cn": "10精魄",
-          "min_level": "乌崔德的恩典 x1"
+          "cn": "乌崔德的恩典 x1",
+          "price_cn": "",
+          "min_level": "78+"
         },
         {
-          "cn": "梅德偉的恩惠 x1",
-          "price_cn": "5%生命和魔力",
-          "min_level": "梅德维德的恩典 x1"
+          "cn": "梅德维德的恩典 x1",
+          "price_cn": "",
+          "min_level": "78+"
         },
         {
-          "cn": "阿德爾的傳承 x1",
-          "price_cn": "89D",
-          "min_level": "奥杜尔的遗产 x1"
+          "cn": "奥杜尔的遗产 x1",
+          "price_cn": "无",
+          "min_level": "78+"
         }
       ]
     },
@@ -2187,7 +2177,33 @@
       "合金": [],
       "通货": [],
       "宝石": [],
-      "符文": []
+      "符文": [
+        {
+          "cn": "欧罗什的恩典 x1",
+          "price_cn": "",
+          "min_level": "78+"
+        },
+        {
+          "cn": "沃拉娜的恩典 x1",
+          "price_cn": "",
+          "min_level": "78+"
+        },
+        {
+          "cn": "乌崔德的恩典 x1",
+          "price_cn": "",
+          "min_level": "78+"
+        },
+        {
+          "cn": "梅德维德的恩典 x1",
+          "price_cn": "",
+          "min_level": "78+"
+        },
+        {
+          "cn": "奥杜尔的遗产 x1",
+          "price_cn": "无",
+          "min_level": "78+"
+        }
+      ]
     }
   }
 }

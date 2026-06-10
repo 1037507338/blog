@@ -69,7 +69,7 @@ def read_gems():
 def read_bases():
     """
     底材表 mrwz2n：
-    col0=分类名/col2=国服名称(!!!)/col4=国际服价(空)/col6=国服价格/col8=等级
+    col0=分类标记(鞋子/头盔/...), col2=物品名称, col4=国际服价格, col6=国服价格, col8=物品等级
     """
     rows = get_rows("mrwz2n", 27, 300)
     bases = {}
@@ -96,8 +96,9 @@ def read_bases():
 # ── 暗金装备 ──────────────────────────────────────────────────────────────
 def read_uniques():
     """
-    暗金表 omvvcy：左右双列（col7=右列起点），表头行6，数据从行7起。
-    col2/col8=物品名(两服同名), col3/col9=出处, col4/col10=国际服价(忽略), col6/col11=国服价
+    暗金表 omvvcy：左右双区，表头行6，数据从行7起。
+    左区(col1-6): col1=基础分类, col2=物品名称, col3=出处, col4=国际服价格, col6=国服价格(当前为空)
+    右区(col7-11): col7=基础分类, col8=物品名称, col9=出处, col10=国际服价格, col11=国服价格(当前为空)
     """
     rows = get_rows("omvvcy", 21, 206)
     result = []
@@ -134,24 +135,26 @@ def read_uniques():
 # ── 配方 ─────────────────────────────────────────────────────────────────
 def read_recipes():
     """
-    配方表 pavqpg：7组，全在同一页(row 8-80)
-    第一行 (row 8): 4符文(col0-10) | 5符文(col11-21) | 6符文(col22-32)
-    第二行 (row 65): 7符文(col0-10) | 8符文(col11-21) | 9符文(col22-32)
-    第三行 (row 73): 10符文(col22-?) 从 col33 开始
-    类型标记在 col0/col11/col22
-    只取国服：col(base+2)=国服名称, col(base+4)=国服价, col(base+6)=最低等级
+    配方表 pavqpg：7组，全在同一页
+    Row 8: 4符文(col0-10) | 5符文(col11-21) | 6符文(col22-32)
+    Row 65: 7符文(col0-10) | 8符文(col11-21) | 9符文(col22-32)
+    Row 73: 10符文(col22-32)
+    
+    每组11列：
+    col(base+0)=类型标记, col(base+2)=国际服名称, col(base+4)=国际服价值,
+    col(base+6)=国服名称, col(base+8)=国服价格, col(base+10)=最低等级
     """
     rows = get_rows("pavqpg", 45, 204)
     TYPES = ("合金","通货","宝石","符文")
-    # 每个符文组的 (名称, base_col)
+    # 每个符文组的 (符文数, base_col, header_row)
     rune_groups = [
-        (4, 0, 8),   # (符文数, base_col, header_row)
+        (4, 0, 8),
         (5, 11, 8),
         (6, 22, 8),
         (7, 0, 65),
         (8, 11, 65),
         (9, 22, 65),
-        (10, 33, 73),
+        (10, 22, 73),
     ]
     result = {k: {t: [] for t in TYPES} for k, _, _ in rune_groups}
 
@@ -175,12 +178,12 @@ def read_recipes():
                 if r in row_type[key]:
                     active_type = row_type[key][r]; break
             if not active_type: continue
-            cn = clean(row[base + 2] if len(row)>base+2 else "")
+            cn = clean(row[base + 6] if len(row)>base+6 else "")
             if not cn: continue
             result[key][active_type].append({
                 "cn": cn,
-                "price_cn": clean(row[base + 4] if len(row)>base+4 else ""),
-                "min_level": clean(row[base + 6] if len(row)>base+6 else "")
+                "price_cn": clean(row[base + 8] if len(row)>base+8 else ""),
+                "min_level": clean(row[base + 10] if len(row)>base+10 else "")
             })
     return result
 
