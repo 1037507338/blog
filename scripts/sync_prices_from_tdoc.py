@@ -134,26 +134,44 @@ def read_uniques():
 # ── 配方 ─────────────────────────────────────────────────────────────────
 def read_recipes():
     """
-    配方表 pavqpg：3组（4符文 col0-10, 5符文 col11-21, 6符文 col22-32）
-    同列位置=同类（合金/通货/宝石/符文），类型标记在 col0(11,22)。
+    配方表 pavqpg：7组，全在同一页(row 8-80)
+    第一行 (row 8): 4符文(col0-10) | 5符文(col11-21) | 6符文(col22-32)
+    第二行 (row 65): 7符文(col0-10) | 8符文(col11-21) | 9符文(col22-32)
+    第三行 (row 73): 10符文(col22-?) 从 col33 开始
+    类型标记在 col0/col11/col22
     只取国服：col(base+2)=国服名称, col(base+4)=国服价, col(base+6)=最低等级
     """
-    rows = get_rows("pavqpg", 33, 204)
+    rows = get_rows("pavqpg", 45, 204)
     TYPES = ("合金","通货","宝石","符文")
-    rune_groups = [(4, 0), (5, 11), (6, 22)]
-    result = {k: {t: [] for t in TYPES} for k, _ in rune_groups}
+    # 每个符文组的 (名称, base_col)
+    rune_groups = [
+        (4, 0, 8),   # (符文数, base_col, header_row)
+        (5, 11, 8),
+        (6, 22, 8),
+        (7, 0, 65),
+        (8, 11, 65),
+        (9, 22, 65),
+        (10, 33, 73),
+    ]
+    result = {k: {t: [] for t in TYPES} for k, _, _ in rune_groups}
 
-    row_type = {k: {} for k, _ in rune_groups}
-    for row_idx, row in enumerate(rows):
-        for key, base in rune_groups:
-            typ = clean(row[base] if len(row)>base else "")
-            if typ in TYPES:
-                row_type[key][row_idx] = typ
+    # 收集所有类型标记: {符文组名: {row_idx: type}}
+    row_type = {}
+    for key, base, hdr_row in rune_groups:
+        row_type[key] = {}
+        for ri in range(hdr_row, min(204, len(rows))):
+            row = rows[ri] if ri < len(rows) else []
+            v = clean(row[base] if len(row)>base else "")
+            if v in TYPES:
+                row_type[key][ri] = v
 
-    for row_idx, row in enumerate(rows):
-        for key, base in rune_groups:
+    # 扫描所有行收集数据
+    for ri in range(min(204, len(rows))):
+        row = rows[ri]
+        for key, base, hdr_row in rune_groups:
+            # 找到当前行之前最近的类型标记
             active_type = None
-            for r in range(row_idx, -1, -1):
+            for r in range(ri, hdr_row - 1, -1):
                 if r in row_type[key]:
                     active_type = row_type[key][r]; break
             if not active_type: continue
@@ -176,7 +194,7 @@ def main():
     u = read_uniques()
     print(f"暗金: {len(u)}条")
     r = read_recipes()
-    for k in (4,5,6):
+    for k in sorted(r.keys()):
         n = sum(len(v) for v in r[k].values())
         parts = " ".join(f"{t}={len(v)}" for t,v in r[k].items() if v)
         print(f"{k}符文配方: {n}条 " + parts)

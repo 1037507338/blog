@@ -22,10 +22,16 @@
         .note { color: #897653; font-size: 0.82rem; margin: 10px 0; padding: 10px; background: rgba(201,162,39,0.06); border-left: 3px solid #c9a227; }
         .section-title { font-family: "Noto Serif SC", serif; font-size: 1.3rem; color: #f4dc99; margin: 30px 0 15px; padding-bottom: 8px; border-bottom: 1px solid #4d3a1f; }
         .loading { text-align: center; color: #897653; margin: 50px 0; }
-        .recipe-section { margin: 30px 0; padding: 20px; background: rgba(201,162,39,0.04); border: 1px solid #4d3a1f; border-radius: 8px; }
-        .rune-header { color: #f4dc99; font-size: 1.1rem; margin: 0 0 15px; padding-bottom: 8px; border-bottom: 1px solid #c9a227; }
-        .type-group { margin: 15px 0; }
-        .type-header { color: #b8a47a; font-size: 0.95rem; margin: 10px 0 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .recipe-section { padding: 15px; background: rgba(201,162,39,0.04); border: 1px solid #4d3a1f; border-radius: 8px; }
+        .rune-header { color: #f4dc99; font-size: 1.05rem; margin: 0 0 12px; padding-bottom: 6px; border-bottom: 1px solid #c9a227; }
+        .type-group { margin: 10px 0; }
+        .type-header { color: #b8a47a; font-size: 0.88rem; margin: 8px 0 6px; font-weight: 600; }
+        .recipe-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 15px; margin: 15px 0; }
+        .data-table-compact { width: auto; margin: 0 auto; border-collapse: collapse; }
+        .data-table-compact th { background: rgba(201,162,39,0.15); color: #f4dc99; padding: 8px 12px; text-align: left; border-bottom: 2px solid #c9a227; font-size: 0.88rem; }
+        .data-table-compact td { padding: 6px 12px; border-bottom: 1px solid #4d3a1f; font-size: 0.88rem; }
+        .data-table th { background: rgba(201,162,39,0.15); color: #f4dc99; padding: 10px 12px; text-align: left; border-bottom: 2px solid #c9a227; }
+        .data-table td { padding: 8px 12px; border-bottom: 1px solid #4d3a1f; }
         .stats-note { color: #897653; font-size: 0.82rem; margin: 8px 0; padding: 8px 12px; background: rgba(201,162,39,0.06); border-radius: 4px; }
         .price-cn { color: #f0a0a0; font-weight: 600; }
     </style>
@@ -84,7 +90,7 @@
                 // 更新时间
                 const updateTime = new Date(priceData.metadata.update_time);
                 document.getElementById('update-time').textContent = 
-                    `📊 统计时间：${updateTime.toLocaleDateString('zh-CN')} | ${priceData.metadata.note}`;
+                    `📊 统计时间：${updateTime.toLocaleDateString('zh-CN')} | ${priceData.metadata.note_cn}`;
                 
                 // 渲染各个Tab
                 renderGems();
@@ -184,31 +190,35 @@
         function renderRecipes() {
             if (!priceData || !priceData.recipes) return;
 
-            const runeTypes = { '4': '4 符文组合', '7': '7 符文组合' };
+            const runeTypes = { 
+                '4': '4 符文', '5': '5 符文', '6': '6 符文', 
+                '7': '7 符文', '8': '8 符文', '9': '9 符文', '10': '10 符文'
+            };
             const typeLabels = { '合金': '合金', '通货': '通货', '宝石': '宝石', '符文': '符文' };
-            let html = '<h3 class="section-title">🧪 符文配方优先级</h3>';
+            let html = '<h3 class="section-title">🧪 符文配方优先级（按稀有度排序）</h3>';
+            html += '<div class="recipe-grid">';
 
-            ['4', '7'].forEach(runeCount => {
+            [4, 5, 6, 7, 8, 9, 10].forEach(runeCount => {
                 const runeData = priceData.recipes[runeCount];
                 if (!runeData) return;
+                const totalItems = Object.values(runeData).flat().length;
+                if (totalItems === 0) return;
 
-                html += `<div class="recipe-section"><h4 class="rune-header">⚔ ${runeTypes[runeCount]}（${Object.values(runeData).flat().length} 条）</h4>`;
+                html += `<div class="recipe-section"><h4 class="rune-header">⚔ ${runeTypes[runeCount]}（${totalItems} 条）</h4>`;
 
                 Object.entries(runeData).forEach(([type, items]) => {
                     if (!items || items.length === 0) return;
                     html += `<div class="type-group"><h5 class="type-header">${typeLabels[type] || type}</h5>`;
-                    html += '<table class="data-table"><thead><tr><th>国服名称</th><th>国服价格</th><th>最低等级</th></tr></thead><tbody>';
+                    html += '<table class="data-table-compact"><thead><tr><th>国服名称</th><th>国服价格</th><th>等级</th></tr></thead><tbody>';
                     items.forEach(item => {
-                        html += `<td>${item.cn}</td>
-                            <td class="price-cn">${item.price_cn || '-'}</td>
-                            <td>${item.min_level}</td>
-                        </tr>`;
+                        html += `<tr><td>${item.cn}</td><td class="price-cn">${item.price_cn || '-'}</td><td>${item.min_level}</td></tr>`;
                     });
                     html += '</tbody></table></div>';
                 });
                 html += '</div>';
             });
 
+            html += '</div>';
             document.getElementById('recipes-content').innerHTML = html;
         }
         
