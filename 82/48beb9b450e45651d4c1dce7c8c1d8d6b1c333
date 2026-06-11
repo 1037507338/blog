@@ -1,0 +1,40 @@
+api/_auth.js
+  s_9acbdd38e6b917::t_dbd810fd4f7ce2 1-39
+vercel.json
+  s_9acbdd38e6b917::t_b2f359056bfd24 3
+api/auth.js
+  s_9acbdd38e6b917::t_d3e62f8097cdfb 1-35
+api/news.js
+  s_9acbdd38e6b917::t_d81cb68c6246c7 83-87
+  s_9acbdd38e6b917::t_0a45415b16db8d 4-5
+api/links.js
+  s_9acbdd38e6b917::t_1b5ef6435d4388 84-88
+  s_9acbdd38e6b917::t_f30e6afc52c880 6-7
+admin.html
+  s_9acbdd38e6b917::t_17ef5b43e74ee7 454-455,458-463
+  s_9acbdd38e6b917::t_4fe24692d959d7 1119
+  s_9acbdd38e6b917::t_d0bdabae3f27f7 496-499,502-520
+  s_9acbdd38e6b917::t_1bdafed4fbe2be 992
+  s_9acbdd38e6b917::t_e07b52cf5f0181 550
+  s_9acbdd38e6b917::t_f0f2e3bce0336b 979
+  s_9acbdd38e6b917::t_720555baa49683 1104
+api/site-config.js
+  s_9acbdd38e6b917::t_181908818dca70 62
+  s_9acbdd38e6b917::t_24e50fd0282b3c 13-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "8248beb9b450e45651d4c1dce7c8c1d8d6b1c333",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
