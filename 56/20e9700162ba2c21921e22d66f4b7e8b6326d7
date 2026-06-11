@@ -1,0 +1,27 @@
+maps.html
+  s_9acbdd38e6b917::t_968b6dd6a23c35 9
+news.html
+  s_9acbdd38e6b917::t_1afa1f4c77f6d7 9
+vercel.json
+  s_9acbdd38e6b917::t_3dde9e757c71a8 4
+guides.html
+  s_9acbdd38e6b917::t_064585e90d41d0 9
+css/style.css
+  s_9acbdd38e6b917::t_42618b83754696 7-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "5620e9700162ba2c21921e22d66f4b7e8b6326d7",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
