@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "update_time": "2026-06-12T00:05:12",
+    "update_time": "2026-06-12T06:05:12",
     "source": "腾讯文档",
     "note_cn": "国服统计于6.11日06点，1D=94E"
   },
@@ -153,7 +153,7 @@
       "type": "血脉",
       "cn": "她的宣言",
       "price_cn": "5D",
-      "source": "疑似神圣仲裁官"
+      "source": ""
     },
     {
       "type": "限定",
@@ -201,7 +201,7 @@
       "type": "血脉",
       "cn": "卡莎的光辉",
       "price_cn": "40E",
-      "source": "迷雾BOSS女王"
+      "source": "仪式(祭坛)巅峰BOSS"
     },
     {
       "type": "限定",
@@ -273,13 +273,19 @@
       "type": "血脉",
       "cn": "仲裁官的点燃",
       "price_cn": "36E",
-      "source": "神圣仲裁官"
+      "source": ""
     },
     {
       "type": "限定",
       "cn": "塔赫亚的照料",
       "price_cn": "",
       "source": ""
+    },
+    {
+      "type": "限定",
+      "cn": "阿兹里的焦躁",
+      "price_cn": "13E",
+      "source": "女王金库"
     },
     {
       "type": "血脉",
