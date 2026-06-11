@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "update_time": "2026-06-11T10:50:05",
+    "update_time": "2026-06-11T12:05:23",
     "source": "腾讯文档",
     "note_cn": "国服统计于6.11日06点，1D=94E"
   },
@@ -93,7 +93,7 @@
       "type": "血脉",
       "cn": "沃拉娜的围城",
       "price_cn": "8D",
-      "source": "远征BOSS沃拉娜？"
+      "source": "远征BOSS梅维德"
     },
     {
       "type": "限定",
@@ -117,7 +117,7 @@
       "type": "血脉",
       "cn": "欧罗什的信念",
       "price_cn": "13D",
-      "source": "远征BOSS奥尔罗斯？"
+      "source": "远征巅峰BOSS"
     },
     {
       "type": "限定",
@@ -201,7 +201,7 @@
       "type": "血脉",
       "cn": "卡莎的光辉",
       "price_cn": "40E",
-      "source": "疑似迷雾唐马祖"
+      "source": "迷雾BOSS女王"
     },
     {
       "type": "限定",
@@ -249,7 +249,7 @@
       "type": "血脉",
       "cn": "欺诈者碎片",
       "price_cn": "10E",
-      "source": "疑似迷雾唐马祖"
+      "source": "迷雾巅峰BOSS唐马祖"
     },
     {
       "type": "限定",
@@ -321,7 +321,7 @@
       "type": "血脉",
       "cn": "唐玛祖的香炉",
       "price_cn": "19E",
-      "source": "疑似迷雾唐马祖"
+      "source": "迷雾巅峰BOSS唐马祖"
     },
     {
       "type": "限定",
@@ -662,6 +662,11 @@
         "cn": "三相戒指",
         "price_cn": "33E",
         "level": "82+"
+      },
+      {
+        "cn": "所有抗性戒指",
+        "price_cn": "",
+        "level": ""
       }
     ],
     "项链": [
@@ -997,7 +1002,7 @@
     {
       "category": "武器",
       "cn": "神圣之火",
-      "source": "神圣仲裁官(0.5)",
+      "source": "迷雾7层",
       "price_cn": ""
     },
     {
@@ -1033,7 +1038,7 @@
     {
       "category": "珠宝",
       "cn": "受控的蛻變",
-      "source": "裂隙BOSS",
+      "source": "全域掉落",
       "price_cn": ""
     },
     {
@@ -1093,7 +1098,7 @@
     {
       "category": "武器",
       "cn": "神授命使",
-      "source": "神圣仲裁官(0.5)",
+      "source": "暂不确定",
       "price_cn": ""
     },
     {
@@ -1201,7 +1206,7 @@
     {
       "category": "药剂",
       "cn": "欧罗什的决心",
-      "source": "炸坟BOSS欧罗什",
+      "source": "全域掉落",
       "price_cn": ""
     },
     {
@@ -1219,7 +1224,7 @@
     {
       "category": "衣服",
       "cn": "夜墜",
-      "source": "裂隙巅峰BOSS",
+      "source": "全域掉落",
       "price_cn": ""
     },
     {
