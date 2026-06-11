@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POE2 物价参考 · POE2 Hub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Noto Sans SC", sans-serif; background: #0d0a07; color: #e8d9b8; line-height: 1.6; }
+        .top-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(13,10,7,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #4d3a1f; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; }
+        .top-bar a { color: #b8a47a; text-decoration: none; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 80px 20px 40px; }
+        .page-title { font-family: "Noto Serif SC", serif; font-size: 2rem; font-weight: 900; color: #f4dc99; text-align: center; margin-bottom: 10px; }
+        .tab { padding: 10px 20px; background: rgba(37,28,17,0.8); border: 1px solid #4d3a1f; color: #b8a47a; cursor: pointer; margin: 5px; display: inline-block; }
+        .tab.active { background: rgba(201,162,39,0.2); border-color: #c9a227; color: #f4dc99; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .data-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .data-table th { background: rgba(201,162,39,0.15); color: #f4dc99; padding: 12px 15px; text-align: left; border-bottom: 2px solid #c9a227; }
+        .data-table td { padding: 10px 15px; border-bottom: 1px solid #4d3a1f; }
+        .note { color: #897653; font-size: 0.82rem; margin: 10px 0; padding: 10px; background: rgba(201,162,39,0.06); border-left: 3px solid #c9a227; }
+        .section-title { font-family: "Noto Serif SC", serif; font-size: 1.3rem; color: #f4dc99; margin: 30px 0 15px; padding-bottom: 8px; border-bottom: 1px solid #4d3a1f; }
+        .loading { text-align: center; color: #897653; margin: 50px 0; }
+        .recipe-section { padding: 15px; background: rgba(201,162,39,0.04); border: 1px solid #4d3a1f; border-radius: 8px; }
+        .rune-header { color: #f4dc99; font-size: 1.05rem; margin: 0 0 12px; padding-bottom: 6px; border-bottom: 1px solid #c9a227; }
+        .type-group { margin: 10px 0; }
+        .type-header { color: #b8a47a; font-size: 0.88rem; margin: 8px 0 6px; font-weight: 600; }
+        .recipe-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 15px; margin: 15px 0; }
+        .data-table-compact { width: auto; margin: 0 auto; border-collapse: collapse; }
+        .data-table-compact th { background: rgba(201,162,39,0.15); color: #f4dc99; padding: 8px 12px; text-align: left; border-bottom: 2px solid #c9a227; font-size: 0.88rem; }
+        .data-table-compact td { padding: 6px 12px; border-bottom: 1px solid #4d3a1f; font-size: 0.88rem; }
+        .stats-note { color: #897653; font-size: 0.82rem; margin: 8px 0; padding: 8px 12px; background: rgba(201,162,39,0.06); border-radius: 4px; }
+        .price-cn { color: #f0a0a0; font-weight: 600; }
+        .tab-search { width: 100%; max-width: 400px; padding: 8px 14px; background: rgba(37,28,17,0.8); border: 1px solid #4d3a1f; color: #e8d9b8; border-radius: 6px; font-size: 0.9rem; outline: none; }
+        .tab-search:focus { border-color: #c9a227; }
+        .tab-search::placeholder { color: #897653; }
+        .no-results { text-align: center; color: #897653; padding: 30px; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div><a href="index.html">← 返回首页</a></div>
+        <div style="color:#897653;font-size:0.82rem;">
+            数据来源：<a href="https://docs.qq.com/sheet/DRnNidnZ5cXp3R2F0?tab=lv6tt6" target="_blank" style="color:#c9a227;font-weight:600;">腾讯文档</a>
+            | 每小时自动同步
+        </div>
+    </div>
+    <div class="container">
+        <h1 class="page-title">⚔️ POE2 物价参考表</h1>
+        <p style="text-align:center;color:#897653;margin-bottom:30px;">
+            0.5 赛季 · 国服价格对照
+            <br>
+            <a href="https://docs.qq.com/sheet/DRnNidnZ5cXp3R2F0?tab=lv6tt6" target="_blank" style="color:#c9a227;font-size:0.9rem;">📊 查看原始数据表（腾讯文档）</a>
+        </p>
+        <div id="update-time" style="text-align:center;color:#c9a227;margin-bottom:20px;font-size:0.9rem;">📊 加载中...</div>
+
+        <div style="text-align:center;margin:20px 0;">
+            <div class="tab active" onclick="showTab('gems')">血脉宝石</div>
+            <div class="tab" onclick="showTab('recipes')">配方优先级</div>
+            <div class="tab" onclick="showTab('bases')">高价值底材</div>
+            <div class="tab" onclick="showTab('uniques')">暗金装备</div>
+        </div>
+
+        <div id="gems" class="tab-content active">
+            <div style="margin:12px 0;text-align:center;"><input id="gems-search" class="tab-search" type="text" placeholder="🔍 按名称搜索..." oninput="renderGems()"></div>
+            <div id="gems-content" class="loading">正在加载血脉宝石数据...</div>
+        </div>
+
+        <div id="bases" class="tab-content">
+            <div style="margin:12px 0;text-align:center;"><input id="bases-search" class="tab-search" type="text" placeholder="🔍 按名称搜索..." oninput="renderBases()"></div>
+            <div id="bases-content" class="loading">正在加载底材数据...</div>
+        </div>
+
+        <div id="uniques" class="tab-content">
+            <div style="margin:12px 0;text-align:center;"><input id="uniques-search" class="tab-search" type="text" placeholder="🔍 按名称搜索..." oninput="renderUniques()"></div>
+            <div id="uniques-content" class="loading">正在加载暗金装备数据...</div>
+        </div>
+
+        <div id="recipes" class="tab-content">
+            <div style="margin:12px 0;text-align:center;"><input id="recipes-search" class="tab-search" type="text" placeholder="🔍 按名称搜索..." oninput="renderRecipes()"></div>
+            <div id="recipes-content" class="loading">正在加载配方数据...</div>
+        </div>
+    </div>
+
+    <script>
+        let priceData = null;
+
+        async function loadData() {
+            try {
+                const response = await fetch('data/prices-data.json?t=' + new Date().getTime());
+                priceData = await response.json();
+                const updateTime = new Date(priceData.metadata.update_time);
+                document.getElementById('update-time').textContent =
+                    '📊 统计时间：' + updateTime.toLocaleDateString('zh-CN') + ' | ' + (priceData.metadata.note_cn || '');
+                renderGems();
+                renderBases();
+                renderUniques();
+                renderRecipes();
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                document.querySelectorAll('.loading').forEach(el => {
+                    el.textContent = '❌ 数据加载失败，请刷新页面重试';
+                });
+            }
+        }
+
+        function renderGems() {
+            if (!priceData || !priceData.gems) return;
+            const kw = (document.getElementById('gems-search')?.value || '').trim().toLowerCase();
+            const bloodGems = priceData.gems.filter(g => g.type === '血脉' && (!kw || g.cn.toLowerCase().includes(kw)));
+            const limitedGems = priceData.gems.filter(g => g.type === '限定' && (!kw || g.cn.toLowerCase().includes(kw)));
+            if (bloodGems.length === 0 && limitedGems.length === 0) {
+                document.getElementById('gems-content').innerHTML = '<div class="no-results">未找到匹配结果</div>';
+                return;
+            }
+            let html = '<div class="recipe-grid">';
+            if (bloodGems.length > 0) {
+                html += '<div class="recipe-section"><h4 class="rune-header">🌍 血脉宝石（' + bloodGems.length + ' 条）</h4>';
+                html += '<table class="data-table-compact"><thead><tr><th>国服名称</th><th>国服价格</th><th>出处</th></tr></thead><tbody>';
+                bloodGems.forEach(item => { html += '<tr><td>' + item.cn + '</td><td class="price-cn">' + (item.price_cn || '-') + '</td><td>' + (item.source || '-') + '</td></tr>'; });
+                html += '</tbody></table></div>';
+            }
+            if (limitedGems.length > 0) {
+                html += '<div class="recipe-section"><h4 class="rune-header">🎯 限定掉落（' + limitedGems.length + ' 条）</h4>';
+                html += '<table class="data-table-compact"><thead><tr><th>国服名称</th><th>国服价格</th><th>出处</th></tr></thead><tbody>';
+                limitedGems.forEach(item => { html += '<tr><td>' + item.cn + '</td><td class="price-cn">' + (item.price_cn || '-') + '</td><td>' + (item.source || '-') + '</td></tr>'; });
+                html += '</tbody></table></div>';
+            }
+            html += '</div>';
+            document.getElementById('gems-content').innerHTML = html;
+        }
+
+        function renderBases() {
+            if (!priceData || !priceData.bases) return;
+            const kw = (document.getElementById('bases-search')?.value || '').trim().toLowerCase();
+            const categoryNames = {
+                '鞋子':'👟 鞋子','头盔':'⛑️ 头盔','盾':'🛡️ 盾牌','箭袋':'🏹 箭袋',
+                '弓':'🏹 弓','弩':'🔫 弩','节杖':'🔮 节杖','权杖':'⚡ 权杖',
+                '法杖':'🪄 法杖','法器':'✨ 法器','长杖':'🪄 长杖','长矛':'🔱 长矛',
+                '单手锤':'🔨 单手锤','双手锤':'🔨 双手锤','魔符':'🔮 魔符',
+                '衣服':'👕 衣服','手套':'🧤 手套','戒指':'💍 戒指',
+                '项链':'📿 项链','腰带':'🧣 腰带'
+            };
+            let html = '<div class="recipe-grid">';
+            let hasResults = false;
+            for (const [category, items] of Object.entries(priceData.bases)) {
+                const filtered = items.filter(item => !kw || item.cn.toLowerCase().includes(kw));
+                if (filtered.length === 0) continue;
+                hasResults = true;
+                const title = categoryNames[category] || category;
+                html += '<div class="recipe-section"><h4 class="rune-header">' + title + '（' + filtered.length + ' / ' + items.length + '）</h4>';
+                html += '<table class="data-table-compact"><thead><tr><th>国服名称</th><th>国服价格</th><th>物品等级</th></tr></thead><tbody>';
+                filtered.forEach(item => { html += '<tr><td>' + item.cn + '</td><td class="price-cn">' + (item.price_cn || '-') + '</td><td>' + (item.level || '82+') + '</td></tr>'; });
+                html += '</tbody></table></div>';
+            }
+            html += '</div>';
+            document.getElementById('bases-content').innerHTML = hasResults ? html : '<div class="no-results">未找到匹配结果</div>';
+        }
+
+        function renderUniques() {
+            if (!priceData || !priceData.uniques) return;
+            const kw = (document.getElementById('uniques-search')?.value || '').trim().toLowerCase();
+            const filtered = priceData.uniques.filter(item => !kw || item.cn.toLowerCase().includes(kw));
+            if (filtered.length === 0) {
+                document.getElementById('uniques-content').innerHTML = '<div class="no-results">未找到匹配结果</div>';
+                return;
+            }
+            let html = '<div class="recipe-grid"><div class="recipe-section"><h4 class="rune-header">💎 高价值暗金装备（' + filtered.length + ' 条）</h4>';
+            html += '<table class="data-table-compact"><thead><tr><th>基础分类</th><th>物品名称</th><th>出处</th><th>国服价格</th></tr></thead><tbody>';
+            filtered.forEach(item => { html += '<tr><td>' + item.category + '</td><td>' + item.cn + '</td><td>' + (item.source || '-') + '</td><td class="price-cn">' + (item.price_cn || '-') + '</td></tr>'; });
+            html += '</tbody></table></div></div>';
+            document.getElementById('uniques-content').innerHTML = html;
+        }
+
+        function renderRecipes() {
+            if (!priceData || !priceData.recipes) return;
+            const kw = (document.getElementById('recipes-search')?.value || '').trim().toLowerCase();
+            const runeTypes = { '4':'4 符文','5':'5 符文','6':'6 符文','7':'7 符文','8':'8 符文','9':'9 符文','10':'10 符文' };
+            const typeLabels = { '合金':'合金','通货':'通货','宝石':'宝石','符文':'符文' };
+            let html = '<h3 class="section-title">🧪 符文配方优先级（按稀有度排序）</h3><div class="recipe-grid">';
+            let hasResults = false;
+            [4,5,6,7,8,9,10].forEach(runeCount => {
+                const runeData = priceData.recipes[runeCount];
+                if (!runeData) return;
+                let runeHtml = '', runeCount2 = 0;
+                Object.entries(runeData).forEach(([type, items]) => {
+                    const filtered = items.filter(item => !kw || item.cn.toLowerCase().includes(kw));
+                    if (filtered.length === 0) return;
+                    runeCount2 += filtered.length;
+                    runeHtml += '<div class="type-group"><h5 class="type-header">' + (typeLabels[type]||type) + '</h5>';
+                    runeHtml += '<table class="data-table-compact"><thead><tr><th>国服名称</th><th>国服价格</th><th>等级</th></tr></thead><tbody>';
+                    filtered.forEach(item => { runeHtml += '<tr><td>' + item.cn + '</td><td class="price-cn">' + (item.price_cn||'-') + '</td><td>' + (item.min_level||'-') + '</td></tr>'; });
+                    runeHtml += '</tbody></table></div>';
+                });
+                if (runeCount2 === 0) return;
+                hasResults = true;
+                html += '<div class="recipe-section"><h4 class="rune-header">⚔ ' + runeTypes[runeCount] + '（' + runeCount2 + ' 条）</h4>' + runeHtml + '</div>';
+            });
+            html += '</div>';
+            document.getElementById('recipes-content').innerHTML = hasResults ? html : '<div class="no-results">未找到匹配结果</div>';
+        }
+
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            if (event) event.target.classList.add('active');
+        }
+
+        loadData();
+    </script>
+</body>
+</html>
