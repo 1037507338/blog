@@ -18,7 +18,6 @@
         .data-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
         .data-table th { background: rgba(201,162,39,0.15); color: #f4dc99; padding: 12px 15px; text-align: left; border-bottom: 2px solid #c9a227; }
         .data-table td { padding: 10px 15px; border-bottom: 1px solid #4d3a1f; }
-        .price-int { color: #7fb6e0; font-weight: 600; }
         .note { color: #897653; font-size: 0.82rem; margin: 10px 0; padding: 10px; background: rgba(201,162,39,0.06); border-left: 3px solid #c9a227; }
         .section-title { font-family: "Noto Serif SC", serif; font-size: 1.3rem; color: #f4dc99; margin: 30px 0 15px; padding-bottom: 8px; border-bottom: 1px solid #4d3a1f; }
         .loading { text-align: center; color: #897653; margin: 50px 0; }
@@ -30,10 +29,12 @@
         .data-table-compact { width: auto; margin: 0 auto; border-collapse: collapse; }
         .data-table-compact th { background: rgba(201,162,39,0.15); color: #f4dc99; padding: 8px 12px; text-align: left; border-bottom: 2px solid #c9a227; font-size: 0.88rem; }
         .data-table-compact td { padding: 6px 12px; border-bottom: 1px solid #4d3a1f; font-size: 0.88rem; }
-        .data-table th { background: rgba(201,162,39,0.15); color: #f4dc99; padding: 10px 12px; text-align: left; border-bottom: 2px solid #c9a227; }
-        .data-table td { padding: 8px 12px; border-bottom: 1px solid #4d3a1f; }
         .stats-note { color: #897653; font-size: 0.82rem; margin: 8px 0; padding: 8px 12px; background: rgba(201,162,39,0.06); border-radius: 4px; }
         .price-cn { color: #f0a0a0; font-weight: 600; }
+        .tab-search { width: 100%; max-width: 400px; padding: 8px 14px; background: rgba(37,28,17,0.8); border: 1px solid #4d3a1f; color: #e8d9b8; border-radius: 6px; font-size: 0.9rem; outline: none; }
+        .tab-search:focus { border-color: #c9a227; }
+        .tab-search::placeholder { color: #897653; }
+        .no-results { text-align: center; color: #897653; padding: 30px; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -47,57 +48,54 @@
     <div class="container">
         <h1 class="page-title">⚔️ POE2 物价参考表</h1>
         <p style="text-align:center;color:#897653;margin-bottom:30px;">
-            0.5 赛季 · 国际服 & 国服价格对照
+            0.5 赛季 · 国服价格对照
             <br>
             <a href="https://docs.qq.com/sheet/DRnNidnZ5cXp3R2F0?tab=lv6tt6" target="_blank" style="color:#c9a227;font-size:0.9rem;">📊 查看原始数据表（腾讯文档）</a>
         </p>
         <div id="update-time" style="text-align:center;color:#c9a227;margin-bottom:20px;font-size:0.9rem;">📊 加载中...</div>
-        
+
         <div style="text-align:center;margin:20px 0;">
             <div class="tab active" onclick="showTab('gems')">血脉宝石</div>
             <div class="tab" onclick="showTab('recipes')">配方优先级</div>
             <div class="tab" onclick="showTab('bases')">高价值底材</div>
             <div class="tab" onclick="showTab('uniques')">暗金装备</div>
         </div>
-        
+
         <div id="gems" class="tab-content active">
-            <div class="note">⚠️ 所有物品采取购买价记录 | 崇高价不是神圣价！！大致参考！！</div>
+            <div style="margin:12px 0;text-align:center;"><input id="gems-search" class="tab-search" type="text" placeholder="🔍 按名称搜索..." oninput="renderGems()"></div>
             <div id="gems-content" class="loading">正在加载血脉宝石数据...</div>
         </div>
-        
+
         <div id="bases" class="tab-content">
+            <div style="margin:12px 0;text-align:center;"><input id="bases-search" class="tab-search" type="text" placeholder="🔍 按名称搜索..." oninput="renderBases()"></div>
             <div id="bases-content" class="loading">正在加载底材数据...</div>
         </div>
-        
+
         <div id="uniques" class="tab-content">
+            <div style="margin:12px 0;text-align:center;"><input id="uniques-search" class="tab-search" type="text" placeholder="🔍 按名称搜索..." oninput="renderUniques()"></div>
             <div id="uniques-content" class="loading">正在加载暗金装备数据...</div>
         </div>
-        
+
         <div id="recipes" class="tab-content">
+            <div style="margin:12px 0;text-align:center;"><input id="recipes-search" class="tab-search" type="text" placeholder="🔍 按名称搜索..." oninput="renderRecipes()"></div>
             <div id="recipes-content" class="loading">正在加载配方数据...</div>
         </div>
     </div>
-    
+
     <script>
         let priceData = null;
-        
-        // 加载数据
+
         async function loadData() {
             try {
                 const response = await fetch('data/prices-data.json?t=' + new Date().getTime());
                 priceData = await response.json();
-                
-                // 更新时间
                 const updateTime = new Date(priceData.metadata.update_time);
-                document.getElementById('update-time').textContent = 
-                    `📊 统计时间：${updateTime.toLocaleDateString('zh-CN')} | ${priceData.metadata.note_cn}`;
-                
-                // 渲染各个Tab
+                document.getElementById('update-time').textContent =
+                    '📊 统计时间：' + updateTime.toLocaleDateString('zh-CN') + ' | ' + (priceData.metadata.note_cn || '');
                 renderGems();
                 renderBases();
                 renderUniques();
                 renderRecipes();
-                
             } catch (error) {
                 console.error('加载数据失败:', error);
                 document.querySelectorAll('.loading').forEach(el => {
@@ -105,137 +103,110 @@
                 });
             }
         }
-        
-        // 渲染血脉宝石
+
         function renderGems() {
             if (!priceData || !priceData.gems) return;
-            
-            let html = '';
-            
-            const bloodGems = priceData.gems.filter(g => g.type === '血脉');
-            const limitedGems = priceData.gems.filter(g => g.type === '限定');
-            
-            // 血脉宝石
+            const kw = (document.getElementById('gems-search')?.value || '').trim().toLowerCase();
+            const bloodGems = priceData.gems.filter(g => g.type === '血脉' && (!kw || g.cn.toLowerCase().includes(kw)));
+            const limitedGems = priceData.gems.filter(g => g.type === '限定' && (!kw || g.cn.toLowerCase().includes(kw)));
+            if (bloodGems.length === 0 && limitedGems.length === 0) {
+                document.getElementById('gems-content').innerHTML = '<div class="no-results">未找到匹配结果</div>';
+                return;
+            }
+            let html = '<div class="recipe-grid">';
             if (bloodGems.length > 0) {
-                html += '<h3 class="section-title">🌍 血脉宝石</h3>';
-                html += '<table class="data-table"><thead><tr><th>国服名称</th><th>国服价格</th><th>出处</th></tr></thead><tbody>';
-                bloodGems.forEach(item => {
-                    html += `<tr><td>${item.cn}</td><td>${item.price_cn || '-'}</td><td>${item.source || '-'}</td></tr>`;
-                });
-                html += '</tbody></table>';
+                html += '<div class="recipe-section"><h4 class="rune-header">🌍 血脉宝石（' + bloodGems.length + ' 条）</h4>';
+                html += '<table class="data-table-compact"><thead><tr><th>国服名称</th><th>国服价格</th><th>出处</th></tr></thead><tbody>';
+                bloodGems.forEach(item => { html += '<tr><td>' + item.cn + '</td><td class="price-cn">' + (item.price_cn || '-') + '</td><td>' + (item.source || '-') + '</td></tr>'; });
+                html += '</tbody></table></div>';
             }
-            
-            // 限定掉落
             if (limitedGems.length > 0) {
-                html += '<h3 class="section-title">🎯 限定掉落</h3>';
-                html += '<table class="data-table"><thead><tr><th>国服名称</th><th>国服价格</th><th>出处</th></tr></thead><tbody>';
-                limitedGems.forEach(item => {
-                    html += `<tr><td>${item.cn}</td><td>${item.price_cn || '-'}</td><td>${item.source || '-'}</td></tr>`;
-                });
-                html += '</tbody></table>';
+                html += '<div class="recipe-section"><h4 class="rune-header">🎯 限定掉落（' + limitedGems.length + ' 条）</h4>';
+                html += '<table class="data-table-compact"><thead><tr><th>国服名称</th><th>国服价格</th><th>出处</th></tr></thead><tbody>';
+                limitedGems.forEach(item => { html += '<tr><td>' + item.cn + '</td><td class="price-cn">' + (item.price_cn || '-') + '</td><td>' + (item.source || '-') + '</td></tr>'; });
+                html += '</tbody></table></div>';
             }
-            
+            html += '</div>';
             document.getElementById('gems-content').innerHTML = html;
         }
-        
-        // 渲染底材
+
         function renderBases() {
             if (!priceData || !priceData.bases) return;
-            
-            let html = '';
-            
-            // 遍历所有底材类别
+            const kw = (document.getElementById('bases-search')?.value || '').trim().toLowerCase();
             const categoryNames = {
-                'shoes': '👟 鞋子类底材',
-                'helmets': '⛑️ 头盔类底材',
-                'shields': '🛡️ 盾牌类底材',
-                'quivers': '🏹 箭袋类底材',
-                'bows': '🏹 弓类底材',
-                'crossbows': '🔫 弩类底材',
-                'sceptres': '🔮 法器类底材',
-                'staves': '🪄 法杖类底材',
-                'spears': '🔱 长矛类底材',
-                'maces_1h': '🔨 单手锤类底材',
-                'maces_2h': '🔨 双手锤类底材'
+                '鞋子':'👟 鞋子','头盔':'⛑️ 头盔','盾':'🛡️ 盾牌','箭袋':'🏹 箭袋',
+                '弓':'🏹 弓','弩':'🔫 弩','节杖':'🔮 节杖','权杖':'⚡ 权杖',
+                '法杖':'🪄 法杖','法器':'✨ 法器','长杖':'🪄 长杖','长矛':'🔱 长矛',
+                '单手锤':'🔨 单手锤','双手锤':'🔨 双手锤','魔符':'🔮 魔符',
+                '衣服':'👕 衣服','手套':'🧤 手套','戒指':'💍 戒指',
+                '项链':'📿 项链','腰带':'🧣 腰带'
             };
-            
+            let html = '<div class="recipe-grid">';
+            let hasResults = false;
             for (const [category, items] of Object.entries(priceData.bases)) {
-                if (!items || items.length === 0) continue;
-                
+                const filtered = items.filter(item => !kw || item.cn.toLowerCase().includes(kw));
+                if (filtered.length === 0) continue;
+                hasResults = true;
                 const title = categoryNames[category] || category;
-                html += `<h3 class="section-title">${title}（物品等级 82+）</h3>`;
-                html += '<table class="data-table"><thead><tr><th>国服名称</th><th>国服价格</th><th>物品等级</th></tr></thead><tbody>';
-                
-                items.forEach(item => {
-                    html += `<tr><td>${item.cn}</td><td>${item.price_cn || '-'}</td><td>${item.level || '82+'}</td></tr>`;
-                });
-                
-                html += '</tbody></table>';
+                html += '<div class="recipe-section"><h4 class="rune-header">' + title + '（' + filtered.length + ' / ' + items.length + '）</h4>';
+                html += '<table class="data-table-compact"><thead><tr><th>国服名称</th><th>国服价格</th><th>物品等级</th></tr></thead><tbody>';
+                filtered.forEach(item => { html += '<tr><td>' + item.cn + '</td><td class="price-cn">' + (item.price_cn || '-') + '</td><td>' + (item.level || '82+') + '</td></tr>'; });
+                html += '</tbody></table></div>';
             }
-            
-            document.getElementById('bases-content').innerHTML = html || '<p style="text-align:center;color:#897653;">暂无底材数据</p>';
+            html += '</div>';
+            document.getElementById('bases-content').innerHTML = hasResults ? html : '<div class="no-results">未找到匹配结果</div>';
         }
-        
-        // 渲染暗金装备
+
         function renderUniques() {
             if (!priceData || !priceData.uniques) return;
-            
-            let html = '<h3 class="section-title">💎 高价值暗金装备</h3>';
-            html += '<table class="data-table"><thead><tr><th>基础分类</th><th>物品名称</th><th>出处</th><th>国服价格</th></tr></thead><tbody>';
-            
-            priceData.uniques.forEach(item => {
-                html += `<tr><td>${item.category}</td><td>${item.cn}</td><td>${item.source}</td><td>${item.price_cn || '-'}</td></tr>`;
-            });
-            
-            html += '</tbody></table>';
+            const kw = (document.getElementById('uniques-search')?.value || '').trim().toLowerCase();
+            const filtered = priceData.uniques.filter(item => !kw || item.cn.toLowerCase().includes(kw));
+            if (filtered.length === 0) {
+                document.getElementById('uniques-content').innerHTML = '<div class="no-results">未找到匹配结果</div>';
+                return;
+            }
+            let html = '<div class="recipe-grid"><div class="recipe-section"><h4 class="rune-header">💎 高价值暗金装备（' + filtered.length + ' 条）</h4>';
+            html += '<table class="data-table-compact"><thead><tr><th>基础分类</th><th>物品名称</th><th>出处</th><th>国服价格</th></tr></thead><tbody>';
+            filtered.forEach(item => { html += '<tr><td>' + item.category + '</td><td>' + item.cn + '</td><td>' + (item.source || '-') + '</td><td class="price-cn">' + (item.price_cn || '-') + '</td></tr>'; });
+            html += '</tbody></table></div></div>';
             document.getElementById('uniques-content').innerHTML = html;
         }
-        
-        // 渲染配方
+
         function renderRecipes() {
             if (!priceData || !priceData.recipes) return;
-
-            const runeTypes = { 
-                '4': '4 符文', '5': '5 符文', '6': '6 符文', 
-                '7': '7 符文', '8': '8 符文', '9': '9 符文', '10': '10 符文'
-            };
-            const typeLabels = { '合金': '合金', '通货': '通货', '宝石': '宝石', '符文': '符文' };
-            let html = '<h3 class="section-title">🧪 符文配方优先级（按稀有度排序）</h3>';
-            html += '<div class="recipe-grid">';
-
-            [4, 5, 6, 7, 8, 9, 10].forEach(runeCount => {
+            const kw = (document.getElementById('recipes-search')?.value || '').trim().toLowerCase();
+            const runeTypes = { '4':'4 符文','5':'5 符文','6':'6 符文','7':'7 符文','8':'8 符文','9':'9 符文','10':'10 符文' };
+            const typeLabels = { '合金':'合金','通货':'通货','宝石':'宝石','符文':'符文' };
+            let html = '<h3 class="section-title">🧪 符文配方优先级（按稀有度排序）</h3><div class="recipe-grid">';
+            let hasResults = false;
+            [4,5,6,7,8,9,10].forEach(runeCount => {
                 const runeData = priceData.recipes[runeCount];
                 if (!runeData) return;
-                const totalItems = Object.values(runeData).flat().length;
-                if (totalItems === 0) return;
-
-                html += `<div class="recipe-section"><h4 class="rune-header">⚔ ${runeTypes[runeCount]}（${totalItems} 条）</h4>`;
-
+                let runeHtml = '', runeCount2 = 0;
                 Object.entries(runeData).forEach(([type, items]) => {
-                    if (!items || items.length === 0) return;
-                    html += `<div class="type-group"><h5 class="type-header">${typeLabels[type] || type}</h5>`;
-                    html += '<table class="data-table-compact"><thead><tr><th>国服名称</th><th>国服价格</th><th>等级</th></tr></thead><tbody>';
-                    items.forEach(item => {
-                        html += `<tr><td>${item.cn}</td><td class="price-cn">${item.price_cn || '-'}</td><td>${item.min_level}</td></tr>`;
-                    });
-                    html += '</tbody></table></div>';
+                    const filtered = items.filter(item => !kw || item.cn.toLowerCase().includes(kw));
+                    if (filtered.length === 0) return;
+                    runeCount2 += filtered.length;
+                    runeHtml += '<div class="type-group"><h5 class="type-header">' + (typeLabels[type]||type) + '</h5>';
+                    runeHtml += '<table class="data-table-compact"><thead><tr><th>国服名称</th><th>国服价格</th><th>等级</th></tr></thead><tbody>';
+                    filtered.forEach(item => { runeHtml += '<tr><td>' + item.cn + '</td><td class="price-cn">' + (item.price_cn||'-') + '</td><td>' + (item.min_level||'-') + '</td></tr>'; });
+                    runeHtml += '</tbody></table></div>';
                 });
-                html += '</div>';
+                if (runeCount2 === 0) return;
+                hasResults = true;
+                html += '<div class="recipe-section"><h4 class="rune-header">⚔ ' + runeTypes[runeCount] + '（' + runeCount2 + ' 条）</h4>' + runeHtml + '</div>';
             });
-
             html += '</div>';
-            document.getElementById('recipes-content').innerHTML = html;
+            document.getElementById('recipes-content').innerHTML = hasResults ? html : '<div class="no-results">未找到匹配结果</div>';
         }
-        
-        // Tab 切换
+
         function showTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
             document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
+            if (event) event.target.classList.add('active');
         }
-        
-        // 页面加载时执行
+
         loadData();
     </script>
 </body>
