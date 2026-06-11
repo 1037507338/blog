@@ -72,7 +72,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .search-input:focus{border-color:var(--accent)}
 
 /* 表格 */
-.table-wrap{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.table-wrap{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow-x:auto}
 table{width:100%;border-collapse:collapse}
 thead{background:rgba(128,128,128,.04)}
 th{padding:10px 14px;text-align:left;font-size:.82rem;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border)}
@@ -85,7 +85,8 @@ tr:hover td{background:rgba(26,115,232,.03)}
 .type-html{background:rgba(26,115,232,.1);color:var(--accent)}
 .type-external{background:rgba(200,50,50,.1);color:#c33}
 .url-cell{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--sub);font-size:.8rem}
-.actions{display:flex;gap:6px}
+.actions{display:flex;gap:6px;white-space:nowrap}
+th:last-child,td.actions{position:sticky;right:0;background:var(--card);box-shadow:-4px 0 8px -4px rgba(0,0,0,.12)}
 .btn-danger{color:var(--danger);border-color:var(--danger)}
 .btn-danger:hover{background:var(--danger);color:#fff}
 .empty{text-align:center;padding:3rem;color:var(--sub);font-size:.95rem}
@@ -700,7 +701,7 @@ function renderTable() {
     const iconHtml = (activeTab === 'BD推荐') ? `<span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:5px;background:rgba(201,162,39,.08);border:1px solid rgba(201,162,39,.2);margin-right:6px;vertical-align:middle;font-size:.85rem;overflow:hidden">${renderAdminIcon(l.icon)}</span>` : '';
     return `<tr>
       <td>${l.id}</td>
-      <td>${iconHtml}<strong>${esc(l.title)}</strong>${l.description ? `<div style="font-size:.78rem;color:var(--sub);margin-top:3px">${esc(l.description)}</div>` : ''}</td>
+      <td><strong>${iconHtml}${esc(l.title)}</strong>${l.description ? `<div style="font-size:.78rem;color:var(--sub);margin-top:3px;max-width:360px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(l.description)}">${esc(l.description)}</div>` : ''}</td>
       <td><span class="type-badge ${typeClass}">${typeLabel}</span></td>
       <td class="url-cell" title="${esc(l.url)}">${esc(l.url)}</td>
       <td><div class="cat-tags">${catTags || '<span style="color:var(--sub);font-size:.75rem">无</span>'}</div></td>
