@@ -1,0 +1,21 @@
+admin.html
+  s_9acbdd38e6b917::t_c8ce181aa6fbdb 704
+  s_9acbdd38e6b917::t_435f19548fd1fe 75
+  s_9acbdd38e6b917::t_a65f2f56a92f9c 88-89
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "95548056fabc34aff499206af4b75e4b7d4070aa",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
