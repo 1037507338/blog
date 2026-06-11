@@ -108,23 +108,29 @@
         
         // 渲染血脉宝石
         function renderGems() {
-            if (!priceData || !priceData.gems_global) return;
+            if (!priceData || !priceData.gems) return;
             
             let html = '<div class="recipe-grid">';
             
-            // 全局掉落
-            html += '<div class="recipe-section"><h4 class="rune-header">🌍 全局掉落血脉宝石</h4>';
-            html += '<table class="data-table-compact"><thead><tr><th>国服名称</th><th>国服价格</th></tr></thead><tbody>';
-            priceData.gems_global.forEach(item => {
-                html += `<tr><td>${item.cn}</td><td class="price-cn">${item.price_cn || '-'}</td></tr>`;
-            });
-            html += '</tbody></table></div>';
+            // 按类型分组
+            const bloodGems = priceData.gems.filter(g => g.type === '血脉');
+            const limitedGems = priceData.gems.filter(g => g.type === '限定');
+            
+            // 血脉宝石
+            if (bloodGems.length > 0) {
+                html += '<div class="recipe-section"><h4 class="rune-header">🌍 血脉宝石</h4>';
+                html += '<table class="data-table-compact"><thead><tr><th>国服名称</th><th>国服价格</th><th>出处</th></tr></thead><tbody>';
+                bloodGems.forEach(item => {
+                    html += `<tr><td>${item.cn}</td><td class="price-cn">${item.price_cn || '-'}</td><td>${item.source || '-'}</td></tr>`;
+                });
+                html += '</tbody></table></div>';
+            }
             
             // 限定掉落
-            if (priceData.gems_limited && priceData.gems_limited.length > 0) {
-                html += '<div class="recipe-section"><h4 class="rune-header">🎯 限定掉落血脉宝石</h4>';
+            if (limitedGems.length > 0) {
+                html += '<div class="recipe-section"><h4 class="rune-header">🎯 限定掉落</h4>';
                 html += '<table class="data-table-compact"><thead><tr><th>国服名称</th><th>国服价格</th><th>出处</th></tr></thead><tbody>';
-                priceData.gems_limited.forEach(item => {
+                limitedGems.forEach(item => {
                     html += `<tr><td>${item.cn}</td><td class="price-cn">${item.price_cn || '-'}</td><td>${item.source || '-'}</td></tr>`;
                 });
                 html += '</tbody></table></div>';

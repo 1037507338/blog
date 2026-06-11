@@ -1,380 +1,450 @@
 {
   "metadata": {
-    "update_time": "2026-06-11T06:05:17",
+    "update_time": "2026-06-11T10:50:05",
     "source": "腾讯文档",
     "note_cn": "国服统计于6.11日06点，1D=94E"
   },
-  "gems_global": [
+  "gems": [
     {
-      "cn": "国服统计于6.11日06点，1D=94E",
-      "price_cn": "",
-      "source": ""
-    },
-    {
+      "type": "血脉",
       "cn": "格鲁坎的决心",
       "price_cn": "142D",
       "source": "异界暗金地图神圣水库"
     },
     {
+      "type": "限定",
+      "cn": "阿兹里的魅惑",
+      "price_cn": "3E",
+      "source": ""
+    },
+    {
+      "type": "血脉",
       "cn": "乌尔尼多的拥抱",
       "price_cn": "125D",
       "source": "裂隙BOSS薛斯"
     },
     {
+      "type": "限定",
+      "cn": "奥辛之誓",
+      "price_cn": "23E",
+      "source": ""
+    },
+    {
+      "type": "血脉",
       "cn": "拉其塔之流",
       "price_cn": "78D",
       "source": "异界暗金地图翡翠群岛"
     },
     {
+      "type": "限定",
+      "cn": "乌崔德仪式",
+      "price_cn": "16E",
+      "source": ""
+    },
+    {
+      "type": "血脉",
       "cn": "达拉的渴望",
       "price_cn": "41D",
       "source": "全域掉落"
     },
     {
+      "type": "限定",
+      "cn": "罗米拉的报复",
+      "price_cn": "4E",
+      "source": ""
+    },
+    {
+      "type": "血脉",
       "cn": "阿兹里的圣礼",
-      "price_cn": "65D",
+      "price_cn": "波动太大",
       "source": "疑似女王相关"
     },
     {
+      "type": "限定",
+      "cn": "伊奥尼尔的雷霆",
+      "price_cn": "17E",
+      "source": ""
+    },
+    {
+      "type": "血脉",
       "cn": "瑞佛的凶猛",
-      "price_cn": "34D",
+      "price_cn": "42D",
       "source": "异界暗金地图废弃宅邸"
     },
     {
+      "type": "限定",
+      "cn": "梅德维德的砍伐",
+      "price_cn": "6E",
+      "source": ""
+    },
+    {
+      "type": "血脉",
       "cn": "托沃的寂静",
-      "price_cn": "50D",
+      "price_cn": "105D",
       "source": "裂隙BOSS薛斯"
     },
     {
+      "type": "限定",
+      "cn": "汉恩的城塞",
+      "price_cn": "6E",
+      "source": ""
+    },
+    {
+      "type": "血脉",
       "cn": "沃拉娜的围城",
-      "price_cn": "10D",
+      "price_cn": "8D",
       "source": "远征BOSS沃拉娜？"
     },
     {
+      "type": "限定",
+      "cn": "扎洛卡的克制",
+      "price_cn": "4E",
+      "source": ""
+    },
+    {
+      "type": "血脉",
       "cn": "艾许的光辉",
-      "price_cn": "15D",
+      "price_cn": "11D",
       "source": "裂隙BOSS薛斯"
     },
     {
+      "type": "限定",
+      "cn": "原型十七",
+      "price_cn": "3E",
+      "source": "神圣仲裁官"
+    },
+    {
+      "type": "血脉",
       "cn": "欧罗什的信念",
-      "price_cn": "28D",
+      "price_cn": "13D",
       "source": "远征BOSS奥尔罗斯？"
     },
     {
+      "type": "限定",
+      "cn": "卡莉莎的强音",
+      "price_cn": "4E",
+      "source": ""
+    },
+    {
+      "type": "血脉",
       "cn": "乌崔德的出走",
-      "price_cn": "5D",
+      "price_cn": "11D",
       "source": "远征BOSS奥尔罗斯"
     },
     {
+      "type": "限定",
+      "cn": "阿尔琼的勋章",
+      "price_cn": "",
+      "source": ""
+    },
+    {
+      "type": "血脉",
       "cn": "裂隙领主的融合体",
-      "price_cn": "15D",
+      "price_cn": "13D",
       "source": "疑似裂隙领主"
     },
     {
+      "type": "限定",
+      "cn": "神主之握",
+      "price_cn": "2E",
+      "source": ""
+    },
+    {
+      "type": "血脉",
       "cn": "她的宣言",
       "price_cn": "5D",
       "source": "疑似神圣仲裁官"
     },
     {
+      "type": "限定",
+      "cn": "斯泰恩的山岳",
+      "price_cn": "",
+      "source": ""
+    },
+    {
+      "type": "血脉",
       "cn": "炽天使之心",
       "price_cn": "7D",
       "source": "神圣仲裁官"
     },
     {
+      "type": "限定",
+      "cn": "托沃的雪崩",
+      "price_cn": "3E",
+      "source": ""
+    },
+    {
+      "type": "血脉",
       "cn": "索伏的葬火",
-      "price_cn": "15D",
+      "price_cn": "5D",
       "source": "裂隙BOSS薛斯"
     },
     {
+      "type": "限定",
+      "cn": "古加尔的缰绳",
+      "price_cn": "4E",
+      "source": ""
+    },
+    {
+      "type": "血脉",
       "cn": "乌崔德的占卜",
-      "price_cn": "206E",
+      "price_cn": "240E",
       "source": "远征BOSS奥尔罗斯"
     },
     {
+      "type": "限定",
+      "cn": "夏巴夸亚的撕裂",
+      "price_cn": "",
+      "source": ""
+    },
+    {
+      "type": "血脉",
       "cn": "卡莎的光辉",
-      "price_cn": "35E",
+      "price_cn": "40E",
       "source": "疑似迷雾唐马祖"
     },
     {
-      "cn": "乌崔德的预兆",
-      "price_cn": "55E",
-      "source": "远征BOSS奥尔罗斯"
-    },
-    {
-      "cn": "布鲁特斯之脑",
-      "price_cn": "5D",
-      "source": "全域掉落"
-    },
-    {
-      "cn": "特克罗的复仇",
-      "price_cn": "65E",
-      "source": "深渊宝箱/骷髅马克"
-    },
-    {
-      "cn": "欺诈者碎片",
-      "price_cn": "26E",
-      "source": "疑似迷雾唐马祖"
-    },
-    {
-      "cn": "裂隙领主的分歧",
-      "price_cn": "8D",
-      "source": "疑似裂隙领主"
-    },
-    {
-      "cn": "仲裁官的点燃",
-      "price_cn": "30E",
-      "source": "神圣仲裁官"
-    },
-    {
-      "cn": "乌崔德的星图",
-      "price_cn": "23E",
-      "source": "远征BOSS乌特雷？"
-    },
-    {
-      "cn": "阿曼娜姆的奉纳",
-      "price_cn": "175E",
-      "source": "深渊尽头宝箱"
-    },
-    {
-      "cn": "卡哈塔的复苏",
-      "price_cn": "39E",
-      "source": "异界暗金地图神圣水库"
-    },
-    {
-      "cn": "唐玛祖的香炉",
-      "price_cn": "19E",
-      "source": "疑似迷雾唐马祖"
-    },
-    {
-      "cn": "伊克切尔的折磨",
-      "price_cn": "50E",
-      "source": "混沌试炼BOSS"
-    },
-    {
-      "cn": "阿图鲁伊的放血术",
-      "price_cn": "6D",
-      "source": "异界暗金地图封印宝库"
-    },
-    {
-      "cn": "艾利丝钟琴",
-      "price_cn": "65E",
-      "source": "异界暗金地图废弃宅邸"
-    },
-    {
-      "cn": "泽佛伊的恶名",
-      "price_cn": "21D",
-      "source": "女王金库"
-    },
-    {
-      "cn": "莫丽根的洞察",
-      "price_cn": "10E",
-      "source": ""
-    },
-    {
-      "cn": "西奥妮的怒火",
-      "price_cn": "17E",
-      "source": ""
-    },
-    {
-      "cn": "欧罗什的傲慢",
-      "price_cn": "37E",
-      "source": ""
-    },
-    {
-      "cn": "艾许的骁勇",
-      "price_cn": "50E",
-      "source": ""
-    },
-    {
-      "cn": "卡莉莎的强音",
-      "price_cn": "1E",
-      "source": ""
-    },
-    {
-      "cn": "仲裁官之握",
-      "price_cn": "3E",
-      "source": "神圣仲裁官"
-    },
-    {
-      "cn": "海幽夏的诛罚",
-      "price_cn": "18E",
-      "source": ""
-    },
-    {
-      "cn": "德瑞的毁灭",
-      "price_cn": "21E",
-      "source": ""
-    }
-  ],
-  "gems_limited": [
-    {
-      "cn": "阿兹里的魅惑",
-      "price_cn": "4E",
-      "source": ""
-    },
-    {
-      "cn": "奥辛之誓",
-      "price_cn": "6E",
-      "source": ""
-    },
-    {
-      "cn": "乌崔德仪式",
-      "price_cn": "30E",
-      "source": ""
-    },
-    {
-      "cn": "罗米拉的报复",
-      "price_cn": "11E",
-      "source": ""
-    },
-    {
-      "cn": "伊奥尼尔的雷霆",
-      "price_cn": "10E",
-      "source": ""
-    },
-    {
-      "cn": "梅德维德的砍伐",
-      "price_cn": "9E",
-      "source": ""
-    },
-    {
-      "cn": "汉恩的城塞",
-      "price_cn": "9E",
-      "source": ""
-    },
-    {
-      "cn": "扎洛卡的克制",
-      "price_cn": "9E",
-      "source": ""
-    },
-    {
-      "cn": "原型十七",
-      "price_cn": "1E",
-      "source": "神圣仲裁官"
-    },
-    {
-      "cn": "卡莉莎的强音",
-      "price_cn": "1E",
-      "source": ""
-    },
-    {
-      "cn": "阿尔琼的勋章",
-      "price_cn": "1E",
-      "source": ""
-    },
-    {
-      "cn": "神主之握",
-      "price_cn": "1E",
-      "source": ""
-    },
-    {
-      "cn": "斯泰恩的山岳",
-      "price_cn": "4E",
-      "source": ""
-    },
-    {
-      "cn": "托沃的雪崩",
+      "type": "限定",
+      "cn": "伊恩哈尔的魔物仪式",
       "price_cn": "7E",
       "source": ""
     },
     {
-      "cn": "古加尔的缰绳",
-      "price_cn": "5E",
-      "source": ""
+      "type": "血脉",
+      "cn": "乌崔德的预兆",
+      "price_cn": "84E",
+      "source": "远征BOSS奥尔罗斯"
     },
     {
-      "cn": "夏巴夸亚的撕裂",
-      "price_cn": "1E",
-      "source": ""
-    },
-    {
-      "cn": "伊恩哈尔的魔物仪式",
-      "price_cn": "3E",
-      "source": ""
-    },
-    {
+      "type": "限定",
       "cn": "冈姆的疯狂",
+      "price_cn": "",
+      "source": ""
+    },
+    {
+      "type": "血脉",
+      "cn": "布鲁特斯之脑",
+      "price_cn": "6D",
+      "source": "全域掉落"
+    },
+    {
+      "type": "限定",
+      "cn": "巴蒂尔的复仇",
+      "price_cn": "",
+      "source": ""
+    },
+    {
+      "type": "血脉",
+      "cn": "特克罗的复仇",
+      "price_cn": "132E",
+      "source": "深渊宝箱/骷髅马克"
+    },
+    {
+      "type": "限定",
+      "cn": "莫甘娜的暴风",
+      "price_cn": "",
+      "source": ""
+    },
+    {
+      "type": "血脉",
+      "cn": "欺诈者碎片",
+      "price_cn": "10E",
+      "source": "疑似迷雾唐马祖"
+    },
+    {
+      "type": "限定",
+      "cn": "帕夸特的契约",
       "price_cn": "2E",
       "source": ""
     },
     {
-      "cn": "巴蒂尔的复仇",
-      "price_cn": "1E",
-      "source": ""
+      "type": "血脉",
+      "cn": "裂隙领主的分歧",
+      "price_cn": "5D",
+      "source": "疑似裂隙领主"
     },
     {
-      "cn": "莫甘娜的暴风",
-      "price_cn": "1E",
-      "source": ""
-    },
-    {
-      "cn": "帕夸特的契约",
-      "price_cn": "1E",
-      "source": ""
-    },
-    {
+      "type": "限定",
       "cn": "薇伦塔之推进",
       "price_cn": "4E",
       "source": ""
     },
     {
+      "type": "血脉",
+      "cn": "仲裁官的点燃",
+      "price_cn": "36E",
+      "source": "神圣仲裁官"
+    },
+    {
+      "type": "限定",
       "cn": "塔赫亚的照料",
-      "price_cn": "1E",
+      "price_cn": "",
       "source": ""
     },
     {
+      "type": "血脉",
+      "cn": "乌崔德的星图",
+      "price_cn": "28E",
+      "source": "远征BOSS乌特雷？"
+    },
+    {
+      "type": "限定",
       "cn": "塔萨里奥的律动",
-      "price_cn": "1E",
+      "price_cn": "",
       "source": ""
     },
     {
+      "type": "血脉",
+      "cn": "阿曼娜姆的奉纳",
+      "price_cn": "245E",
+      "source": "深渊尽头宝箱"
+    },
+    {
+      "type": "限定",
       "cn": "塔卡提之怒",
-      "price_cn": "1E",
+      "price_cn": "",
       "source": ""
     },
     {
+      "type": "血脉",
+      "cn": "卡哈塔的复苏",
+      "price_cn": "89E",
+      "source": "异界暗金地图神圣水库"
+    },
+    {
+      "type": "限定",
       "cn": "弗伦的必然",
-      "price_cn": "1E",
+      "price_cn": "9E",
       "source": ""
     },
     {
+      "type": "血脉",
+      "cn": "唐玛祖的香炉",
+      "price_cn": "19E",
+      "source": "疑似迷雾唐马祖"
+    },
+    {
+      "type": "限定",
       "cn": "德瑞索的热情",
       "price_cn": "2E",
       "source": ""
     },
     {
+      "type": "血脉",
+      "cn": "伊克切尔的折磨",
+      "price_cn": "40E",
+      "source": "混沌试炼BOSS"
+    },
+    {
+      "type": "限定",
       "cn": "瓦拉煞的祝福",
-      "price_cn": "1E",
+      "price_cn": "",
       "source": ""
     },
     {
+      "type": "血脉",
+      "cn": "阿图鲁伊的放血术",
+      "price_cn": "35E",
+      "source": "异界暗金地图封印宝库"
+    },
+    {
+      "type": "限定",
       "cn": "阿拉卡力的欲望",
-      "price_cn": "1E",
+      "price_cn": "",
       "source": ""
     },
     {
+      "type": "血脉",
+      "cn": "艾利丝钟琴",
+      "price_cn": "25E",
+      "source": "异界暗金地图废弃宅邸"
+    },
+    {
+      "type": "限定",
       "cn": "瓜铁雷兹的消融",
+      "price_cn": "6E",
+      "source": ""
+    },
+    {
+      "type": "血脉",
+      "cn": "泽佛伊的恶名",
+      "price_cn": "90E",
+      "source": "女王金库"
+    },
+    {
+      "type": "限定",
+      "cn": "西雷尔的教化",
+      "price_cn": "",
+      "source": ""
+    },
+    {
+      "type": "血脉",
+      "cn": "莫丽根的洞察",
+      "price_cn": "16E",
+      "source": ""
+    },
+    {
+      "type": "限定",
+      "cn": "赫尔布林的隐瞒",
+      "price_cn": "",
+      "source": ""
+    },
+    {
+      "type": "血脉",
+      "cn": "西奥妮的怒火",
+      "price_cn": "9E",
+      "source": ""
+    },
+    {
+      "type": "限定",
+      "cn": "弗伦的余波",
+      "price_cn": "",
+      "source": ""
+    },
+    {
+      "type": "血脉",
+      "cn": "欧罗什的傲慢",
+      "price_cn": "11E",
+      "source": ""
+    },
+    {
+      "type": "血脉",
+      "cn": "艾许的骁勇",
+      "price_cn": "1D",
+      "source": ""
+    },
+    {
+      "type": "血脉",
+      "cn": "卡莉莎的强音",
+      "price_cn": "4E",
+      "source": ""
+    },
+    {
+      "type": "血脉",
+      "cn": "仲裁官之握",
+      "price_cn": "3E",
+      "source": "神圣仲裁官"
+    },
+    {
+      "type": "血脉",
+      "cn": "海幽夏的诛罚",
       "price_cn": "20E",
       "source": ""
     },
     {
-      "cn": "西雷尔的教化",
-      "price_cn": "1E",
-      "source": ""
-    },
-    {
-      "cn": "赫尔布林的隐瞒",
-      "price_cn": "1E",
-      "source": ""
-    },
-    {
-      "cn": "弗伦的余波",
-      "price_cn": "1E",
+      "type": "血脉",
+      "cn": "德瑞的毁灭",
+      "price_cn": "8E",
       "source": ""
     }
   ],
   "bases": {
     "鞋子": [
+      {
+        "cn": "丝克玛便鞋",
+        "price_cn": "70E",
+        "level": "82+"
+      },
       {
         "cn": "沙誓鞋履",
         "price_cn": "13E",
@@ -428,6 +498,63 @@
       {
         "cn": "急迅便鞋",
         "price_cn": "15E",
+        "level": "82+"
+      }
+    ],
+    "衣服": [
+      {
+        "cn": "士兵胸甲",
+        "price_cn": "4E",
+        "level": "82+"
+      },
+      {
+        "cn": "华丽战铠",
+        "price_cn": "5E",
+        "level": "82+"
+      },
+      {
+        "cn": "督军胸甲",
+        "price_cn": "",
+        "level": "82+"
+      },
+      {
+        "cn": "滑击背心",
+        "price_cn": "50E",
+        "level": "82+"
+      },
+      {
+        "cn": "海盗外套",
+        "price_cn": "15E",
+        "level": "82+"
+      },
+      {
+        "cn": "邪恶束衣",
+        "price_cn": "22E",
+        "level": "82+"
+      },
+      {
+        "cn": "圣礼束衣",
+        "price_cn": "",
+        "level": "82+"
+      },
+      {
+        "cn": "死亡锁甲",
+        "price_cn": "",
+        "level": "82+"
+      },
+      {
+        "cn": "狼皮斗篷",
+        "price_cn": "",
+        "level": "82+"
+      },
+      {
+        "cn": "滑布外衣",
+        "price_cn": "8E",
+        "level": "82+"
+      },
+      {
+        "cn": "猎鹰师外衣",
+        "price_cn": "",
         "level": "82+"
       }
     ],
@@ -493,7 +620,75 @@
         "level": "82+"
       }
     ],
+    "手套": [
+      {
+        "cn": "巨型护手",
+        "price_cn": "4E",
+        "level": "82+"
+      },
+      {
+        "cn": "闪耀护腕",
+        "price_cn": "3E",
+        "level": "82+"
+      },
+      {
+        "cn": "海妖之鳞手套",
+        "price_cn": "20E",
+        "level": "82+"
+      },
+      {
+        "cn": "黑钢手甲",
+        "price_cn": "",
+        "level": "82+"
+      },
+      {
+        "cn": "信徒袖带",
+        "price_cn": "",
+        "level": "82+"
+      },
+      {
+        "cn": "坚固裹手",
+        "price_cn": "5E",
+        "level": "82+"
+      }
+    ],
+    "戒指": [
+      {
+        "cn": "金光戒指",
+        "price_cn": "42E",
+        "level": "82+"
+      },
+      {
+        "cn": "三相戒指",
+        "price_cn": "33E",
+        "level": "82+"
+      }
+    ],
+    "项链": [
+      {
+        "cn": "帝金护身符",
+        "price_cn": "8E",
+        "level": "82+"
+      },
+      {
+        "cn": "日曜护身符",
+        "price_cn": "70E",
+        "level": "82+"
+      }
+    ],
+    "腰带": [
+      {
+        "cn": "重革腰带",
+        "price_cn": "18E",
+        "level": "82+"
+      }
+    ],
     "弓": [
+      {
+        "cn": "毁灭者之弓",
+        "price_cn": "78E",
+        "level": "82+"
+      },
       {
         "cn": "寻战之弓",
         "price_cn": "30E",
@@ -510,7 +705,54 @@
         "level": "82+"
       }
     ],
+    "节杖": [
+      {
+        "cn": "打击节杖",
+        "price_cn": "20E",
+        "level": "82+"
+      },
+      {
+        "cn": "邪恶节杖",
+        "price_cn": "20E",
+        "level": "82+"
+      },
+      {
+        "cn": "碎颅节杖",
+        "price_cn": "7E",
+        "level": "82+"
+      },
+      {
+        "cn": "神盾节杖",
+        "price_cn": "3E",
+        "level": "82+"
+      },
+      {
+        "cn": "梦境节杖",
+        "price_cn": "2E",
+        "level": "82+"
+      },
+      {
+        "cn": "刀锋节杖",
+        "price_cn": "4E",
+        "level": "82+"
+      },
+      {
+        "cn": "霹雳节杖",
+        "price_cn": "8E",
+        "level": "82+"
+      },
+      {
+        "cn": "月光节杖",
+        "price_cn": "8E",
+        "level": "82+"
+      }
+    ],
     "弩": [
+      {
+        "cn": "摧城弩",
+        "price_cn": "30E",
+        "level": "82+"
+      },
       {
         "cn": "苍凉战弩",
         "price_cn": "",
@@ -524,19 +766,59 @@
     ],
     "箭袋": [
       {
+        "cn": "贯心箭袋",
+        "price_cn": "3E",
+        "level": "82+"
+      },
+      {
         "cn": "精工箭袋",
+        "price_cn": "",
+        "level": "82+"
+      }
+    ],
+    "权杖": [
+      {
+        "cn": "罪孽权杖",
+        "price_cn": "6E",
+        "level": "82+"
+      },
+      {
+        "cn": "克己权杖",
+        "price_cn": "2E",
+        "level": "82+"
+      },
+      {
+        "cn": "圣地权杖",
+        "price_cn": "4E",
+        "level": "82+"
+      },
+      {
+        "cn": "预兆权杖",
         "price_cn": "",
         "level": "82+"
       }
     ],
     "长矛": [
       {
+        "cn": "阿科扬战矛",
+        "price_cn": "15E",
+        "level": "82+"
+      },
+      {
         "cn": "飞行战矛",
         "price_cn": "2E",
         "level": "82+"
-      }
-    ],
-    "Flying Spear": [
+      },
+      {
+        "cn": "守护者战矛",
+        "price_cn": "2E",
+        "level": "82+"
+      },
+      {
+        "cn": "翱翔战矛",
+        "price_cn": "8E",
+        "level": "82+"
+      },
       {
         "cn": "尖刺战矛",
         "price_cn": "",
@@ -553,10 +835,37 @@
         "level": "82+"
       }
     ],
+    "魔符": [
+      {
+        "cn": "翡翠魔符",
+        "price_cn": "",
+        "level": "82+"
+      },
+      {
+        "cn": "利齿魔符",
+        "price_cn": "",
+        "level": "82+"
+      },
+      {
+        "cn": "雷霆魔符",
+        "price_cn": "",
+        "level": "82+"
+      },
+      {
+        "cn": "众神魔符",
+        "price_cn": "",
+        "level": "82+"
+      },
+      {
+        "cn": "首领魔符",
+        "price_cn": "4E",
+        "level": "82+"
+      }
+    ],
     "法杖": [
       {
-        "cn": "凋零法杖",
-        "price_cn": "2E",
+        "cn": "决斗法杖",
+        "price_cn": "10E",
         "level": "81+"
       },
       {
@@ -567,8 +876,41 @@
     ],
     "法器": [
       {
+        "cn": "塔萨里奥法器",
+        "price_cn": "30E",
+        "level": "82+"
+      },
+      {
         "cn": "圣洁法器",
         "price_cn": "5E",
+        "level": "82+"
+      }
+    ],
+    "盾": [
+      {
+        "cn": "沙漠轻盾",
+        "price_cn": "",
+        "level": "81+"
+      }
+    ],
+    "双手锤": [
+      {
+        "cn": "庞然大锤",
+        "price_cn": "",
+        "level": "82+"
+      }
+    ],
+    "单手锤": [
+      {
+        "cn": "阿科扬战棒",
+        "price_cn": "",
+        "level": "82+"
+      }
+    ],
+    "长杖": [
+      {
+        "cn": "鸣谐长杖",
+        "price_cn": "2E",
         "level": "82+"
       }
     ]
@@ -1918,6 +2260,11 @@
           "cn": "命源交换(20)",
           "price_cn": "",
           "min_level": "78+"
+        },
+        {
+          "cn": "道具奖励(国服名称)",
+          "price_cn": "国服价值",
+          "min_level": "最低等级"
         }
       ],
       "符文": [
@@ -1935,11 +2282,6 @@
           "cn": "法瑞尔的追逐符文",
           "price_cn": "19E",
           "min_level": "78+"
-        },
-        {
-          "cn": "道具奖励(国服名称)",
-          "price_cn": "国服价值",
-          "min_level": "最低等级"
         },
         {
           "cn": "欧罗什的恩典 x1",

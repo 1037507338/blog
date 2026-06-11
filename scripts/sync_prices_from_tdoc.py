@@ -36,61 +36,108 @@ def clean(v):
     return "" if v in ("''", '""', "") else v
 
 # ── 血脉宝石 ──────────────────────────────────────────────────────────────
+import re
+
+def is_chinese(s):
+    """检查字符串是否包含中文字符"""
+    return bool(re.search(r'[\u4e00-\u9fff]', s))
+
 def read_gems():
     """
     宝石表 g60x1m：左5列=血脉宝石(col0-4)，右5列=限定掉落(col5-9)
     表头在第7行，数据从第8行开始。
-    只取：国服名称(col2/col7)、国服价格(col3/col8)、出处(col4/col9)
+    合并为统一列表，每个条目带 type 字段区分血脉/限定。
+    col2/col7=国服名称, col3/col8=国服价格, col4/col9=出处
     """
     rows = get_rows("g60x1m", 10, 50)
-    global_, limited = [], []
+    gems = []
     in_data = False
     for row in rows:
         if not in_data:
             if any("国际服名称" in clean(c) for c in row):
                 in_data = True; continue
+        # 左区：血脉宝石
         cn = clean(row[2] if len(row)>2 else "")
-        if cn:
-            global_.append({
+        if cn and is_chinese(cn) and not cn.startswith("国服统计"):
+            gems.append({
+                "type": "血脉",
                 "cn": cn,
                 "price_cn": clean(row[3] if len(row)>3 else ""),
                 "source": clean(row[4] if len(row)>4 else "")
             })
+        # 右区：限定掉落
         cn2 = clean(row[7] if len(row)>7 else "")
-        if cn2:
-            limited.append({
+        if cn2 and is_chinese(cn2) and not cn2.startswith("国服统计"):
+            gems.append({
+                "type": "限定",
                 "cn": cn2,
                 "price_cn": clean(row[8] if len(row)>8 else ""),
                 "source": clean(row[9] if len(row)>9 else "")
             })
-    return global_, limited
+    return gems
 
 # ── 高价值白板底材 ─────────────────────────────────────────────────────────
 def read_bases():
     """
-    底材表 mrwz2n：
-    col0=分类标记(鞋子/头盔/...), col2=物品名称, col4=国际服价格, col6=国服价格, col8=物品等级
+    底材表 mrwz2n：左右双区，每区有独立的分类标记和物品数据。
+    左区: col0=分类标记, col2=物品名称, col4=国际服价, col6=国服价, col8=等级
+    右区: col9=分类标记, col11=物品名称, col14=国际服价, col16=国服价, col18=等级
+    
+    分类标记规则：只有包含中文字符的标记才是有效分类（红色底色）。
+    英文标记如 Guardian Spear, Skullcrusher Quarterstaff 等为无效分类，应忽略。
     """
     rows = get_rows("mrwz2n", 27, 300)
     bases = {}
-    cat = None
-    CATS = ("鞋子","头盔","盾","箭袋","弓","弩","法器","法杖","长杖","长矛",
-              "单手锤","双手锤","Guardian Spear","Flying Spear")
+    cat_left, cat_right = None, None
+    in_data = False
+    
     for row in rows:
+        # 检测数据开始行（表头含“物品名称”）
+        if not in_data:
+            if any("物品名称" in clean(c) for c in row):
+                in_data = True
+            continue
+        
+        # 左区分类检测
         c0 = clean(row[0] if len(row)>0 else "")
-        if c0 in CATS:
-            cat = c0; continue
         if c0 == "基础分类":
-            cat = None; continue
-        if not cat: continue
-        cn = clean(row[2] if len(row)>2 else "")
-        if not cn: continue
-        if cat not in bases: bases[cat] = []
-        bases[cat].append({
-            "cn": cn,
-            "price_cn": clean(row[6] if len(row)>6 else ""),
-            "level": clean(row[8] if len(row)>8 else "")
-        })
+            cat_left = None; continue
+        if c0 and is_chinese(c0) and c0 not in ("物品名称", "国际服价格", "国服价格", "物品等级", "0.5新加"):
+            cat_left = c0
+        
+        # 右区分类检测
+        c9 = clean(row[9] if len(row)>9 else "")
+        if c9 == "基础分类":
+            cat_right = None; continue
+        if c9 and is_chinese(c9) and c9 not in ("物品名称", "国际服价格", "国服价格", "物品等级", "0.5新加"):
+            cat_right = c9
+        # 右区也有些分类在 col10
+        c10 = clean(row[10] if len(row)>10 else "")
+        if c10 and is_chinese(c10) and c10 not in ("物品名称", "0.5新加"):
+            cat_right = c10
+        
+        # 左区物品
+        if cat_left:
+            cn = clean(row[2] if len(row)>2 else "")
+            if cn and is_chinese(cn):
+                if cat_left not in bases: bases[cat_left] = []
+                bases[cat_left].append({
+                    "cn": cn,
+                    "price_cn": clean(row[6] if len(row)>6 else ""),
+                    "level": clean(row[8] if len(row)>8 else "")
+                })
+        
+        # 右区物品
+        if cat_right:
+            cn2 = clean(row[11] if len(row)>11 else "")
+            if cn2 and is_chinese(cn2):
+                if cat_right not in bases: bases[cat_right] = []
+                bases[cat_right].append({
+                    "cn": cn2,
+                    "price_cn": clean(row[15] if len(row)>15 else ""),
+                    "level": clean(row[17] if len(row)>17 else "")
+                })
+    
     return bases
 
 # ── 暗金装备 ──────────────────────────────────────────────────────────────
@@ -190,8 +237,10 @@ def read_recipes():
 # ── 主程序 ────────────────────────────────────────────────────────────────
 def main():
     print("从腾讯文档同步 POE2 物价数据（仅国服）...")
-    g, l = read_gems()
-    print(f"血脉宝石: {len(g)}条, 限定掉落: {len(l)}条")
+    g = read_gems()
+    gems_blood = [x for x in g if x['type'] == '血脉']
+    gems_limited = [x for x in g if x['type'] == '限定']
+    print(f"血脉宝石: 血脉{len(gems_blood)}条, 限定{len(gems_limited)}条")
     b = read_bases()
     print(f"底材: " + " ".join(f"{k}={len(v)}" for k,v in b.items()))
     u = read_uniques()
@@ -212,8 +261,7 @@ def main():
 
     data = {
         "metadata": meta,
-        "gems_global": g,
-        "gems_limited": l,
+        "gems": g,
         "bases": b,
         "uniques": u,
         "recipes": r
