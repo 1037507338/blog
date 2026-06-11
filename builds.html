@@ -31,7 +31,7 @@ a{text-decoration:none;color:inherit}
 .site-nav{
   position:fixed;top:0;left:0;right:0;z-index:500;
   background:var(--card);backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);height:52px;
+  border-bottom:1px solid var(--border);height:48px;
   display:flex;align-items:center;
 }
 .site-nav-inner{
@@ -41,10 +41,7 @@ a{text-decoration:none;color:inherit}
 .site-nav-logo{font-size:1rem;font-weight:800;color:var(--text);white-space:nowrap;flex-shrink:0}
 .logo-icon{background:linear-gradient(135deg,var(--gold),#8b6914);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .site-nav-links{display:flex;gap:2px;align-items:center;flex:1}
-.site-nav-link{
-  padding:5px 10px;border-radius:6px;font-size:.87rem;color:var(--text2);
-  transition:.2s;white-space:nowrap;
-}
+.site-nav-link{padding:0 14px;height:48px;line-height:48px;font-size:.88rem;font-weight:500;color:var(--nav-link);text-decoration:none;transition:color .2s,background .2s;white-space:nowrap}
 .site-nav-link:hover{background:rgba(128,128,128,.06);color:var(--text)}
 .site-nav-link.active{color:var(--accent);font-weight:600;background:rgba(26,115,232,.07)}
 .site-nav-toggle{
@@ -173,7 +170,7 @@ a{text-decoration:none;color:inherit}
 
 /* ===== 响应式 ===== */
 @media(max-width:768px){
-  .site-nav-links{position:fixed;top:52px;left:0;right:0;bottom:0;background:var(--card);flex-direction:column;align-items:flex-start;padding:1rem;gap:4px;display:none;z-index:499}
+  .site-nav-links{position:fixed;top:48px;left:0;right:0;bottom:0;background:var(--card);flex-direction:column;align-items:flex-start;padding:1rem;gap:4px;display:none;z-index:499}
   .site-nav-links.open{display:flex}
   .site-nav-toggle{display:flex}
   .page-wrap{padding-top:64px}
