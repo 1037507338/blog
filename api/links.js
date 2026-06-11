@@ -3,6 +3,8 @@
 // GET ?page_type=首页导航  →  筛选指定页面类型的链接
 // GET ?page_type=BD推荐    →  BD推荐页面专用数据
 
+import { requireAuth } from './_auth.js';
+
 // Supabase 客户端（模块级单例）
 let _supabase = null;
 async function getSupabase() {
@@ -77,6 +79,11 @@ export default async function handler(req, res) {
       // 有 page_type → 筛选
       const filtered = data.filter(l => l.page_type === page_type);
       return res.status(200).json(filtered);
+    }
+
+    // 写操作统一鉴权（POST/PUT/DELETE）
+    if (req.method === 'POST' || req.method === 'PUT' || req.method === 'DELETE') {
+      if (!requireAuth(req, res)) return;
     }
 
     // POST - 新增链接

@@ -1,6 +1,8 @@
 // Vercel Serverless Function - 资讯动态 CRUD API
 // 表 news：title / summary / tag / tag_color / content_type(link|markdown) / url / content / published_at / sort_order
 
+import { requireAuth } from './_auth.js';
+
 let _supabase = null;
 async function getSupabase() {
   if (!_supabase) {
@@ -76,6 +78,11 @@ export default async function handler(req, res) {
         return res.status(200).json(data.filter(n => n.tag === tag));
       }
       return res.status(200).json(data);
+    }
+
+    // 写操作统一鉴权（POST/PUT/DELETE）
+    if (req.method === 'POST' || req.method === 'PUT' || req.method === 'DELETE') {
+      if (!requireAuth(req, res)) return;
     }
 
     if (req.method === 'POST') {

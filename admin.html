@@ -451,11 +451,16 @@ th:last-child,td.actions{position:sticky;right:0;background:var(--card);box-shad
 const API_LINKS = '/api/links';
 const API_NEWS = '/api/news';
 const API_FILES = '/api/builds-files';
-const ADMIN_USER = 'admin';
-const ADMIN_PASS = '54188wang';
-const AUTH_KEY = 'poe2_admin_auth';
+const API_AUTH = '/api/auth';
+const AUTH_KEY = 'poe2_admin_token'; // 存登录后服务端下发的 Bearer Token
 const PAGE_TYPES = ['首页导航', 'BD推荐', '资讯动态', '网站设置'];
 const API_CONFIG = '/api/site-config';
+
+// 取登录令牌；写请求统一带上 Authorization 头
+function authToken() { return sessionStorage.getItem(AUTH_KEY) || ''; }
+function authHeaders(extra) {
+  return Object.assign({ 'Authorization': 'Bearer ' + authToken() }, extra || {});
+}
 let siteConfig = {};
 
 let allLinks = [];
@@ -488,14 +493,31 @@ function updateThemeIcons(theme) {
 }
 
 // ===== 认证 =====
-function checkAuth() { return sessionStorage.getItem(AUTH_KEY) === 'true'; }
-function login() {
+// 凭证由服务端 /api/auth 校验（账号密码存 Vercel 环境变量），
+// 登录成功后服务端下发 Bearer Token，前端只持有令牌，不含明文密码。
+function checkAuth() { return !!authToken(); }
+async function login() {
   const u = document.getElementById('login-username').value.trim();
   const p = document.getElementById('login-password').value;
-  if (u === ADMIN_USER && p === ADMIN_PASS) {
-    sessionStorage.setItem(AUTH_KEY, 'true'); showAdminPanel();
-    document.getElementById('login-error').textContent = '';
-  } else { document.getElementById('login-error').textContent = '用户名或密码错误'; }
+  const errEl = document.getElementById('login-error');
+  errEl.textContent = '登录中…';
+  try {
+    const resp = await fetch(API_AUTH, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: u, password: p })
+    });
+    const data = await resp.json().catch(() => ({}));
+    if (resp.ok && data.token) {
+      sessionStorage.setItem(AUTH_KEY, data.token);
+      errEl.textContent = '';
+      showAdminPanel();
+    } else {
+      errEl.textContent = data.error || '用户名或密码错误';
+    }
+  } catch (e) {
+    errEl.textContent = '登录请求失败，请稍后重试';
+  }
 }
 function logout() { sessionStorage.removeItem(AUTH_KEY); location.reload(); }
 function showAdminPanel() {
@@ -525,7 +547,7 @@ async function toggleSiteConfig(key, val) {
   try {
     const resp = await fetch(API_CONFIG, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: authHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({ key, value: val })
     });
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
@@ -954,7 +976,7 @@ async function saveLink() {
   try {
     const method = id ? 'PUT' : 'POST';
     const u = id ? `${API_LINKS}?id=${id}` : API_LINKS;
-    const resp = await fetch(u, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    const resp = await fetch(u, { method, headers: authHeaders({ 'Content-Type': 'application/json' }), body: JSON.stringify(payload) });
     const result = await resp.json();
     if (!resp.ok) throw new Error(result.error || '保存失败');
     toast(id ? '✅ 已更新' : '✅ 已新增', 'success');
@@ -967,7 +989,7 @@ async function deleteLink(id) {
   const l = allLinks.find(x => x.id === id);
   if (!confirm(`确认删除「${l?.title}」？`)) return;
   try {
-    const resp = await fetch(`${API_LINKS}?id=${id}`, { method: 'DELETE' });
+    const resp = await fetch(`${API_LINKS}?id=${id}`, { method: 'DELETE', headers: authHeaders() });
     const result = await resp.json();
     if (!resp.ok) throw new Error(result.error || '删除失败');
     toast('🗑️ 已删除', 'info');
@@ -1079,7 +1101,7 @@ async function saveNews() {
   try {
     const method = id ? 'PUT' : 'POST';
     const u = id ? `${API_NEWS}?id=${id}` : API_NEWS;
-    const resp = await fetch(u, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    const resp = await fetch(u, { method, headers: authHeaders({ 'Content-Type': 'application/json' }), body: JSON.stringify(payload) });
     const result = await resp.json();
     if (!resp.ok) throw new Error(result.error || '保存失败');
     toast(id ? '✅ 已更新' : '✅ 已新增', 'success');
@@ -1094,7 +1116,7 @@ async function deleteNews(id) {
   const n = allNews.find(x => x.id === id);
   if (!confirm(`确认删除「${n?.title}」？`)) return;
   try {
-    const resp = await fetch(`${API_NEWS}?id=${id}`, { method: 'DELETE' });
+    const resp = await fetch(`${API_NEWS}?id=${id}`, { method: 'DELETE', headers: authHeaders() });
     const result = await resp.json();
     if (!resp.ok) throw new Error(result.error || '删除失败');
     toast('🗑️ 已删除', 'info');

@@ -10,6 +10,8 @@
 //     updated_at timestamptz default now()
 //   );
 
+import { requireAuth } from './_auth.js';
+
 let _supabase = null;
 async function getSupabase() {
   if (!_supabase) {
@@ -57,6 +59,7 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'POST') {
+      if (!requireAuth(req, res)) return;
       const { key, value } = req.body || {};
       if (!key || value === undefined) return res.status(400).json({ error: 'key 和 value 必填' });
       const c = await getSupabase();
