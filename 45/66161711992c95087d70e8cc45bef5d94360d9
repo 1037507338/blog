@@ -1,0 +1,29 @@
+news-detail.html
+  s_9acbdd38e6b917::t_c4e642bd8461be 64
+vercel.json
+  s_9acbdd38e6b917::t_9b1974ab8f0507 39-43
+robots.txt
+  s_9acbdd38e6b917::t_e2dd46edd17a90 1-6
+sitemap.xml
+  s_9acbdd38e6b917::t_4bb4b0f67a105d 1-48
+builds/poe2-freeze-mage.html
+  s_9acbdd38e6b917::t_d334c1607229c5 2,5-7,9-110,114-134,137-153,155-162,164-165,167-174,176-182,186-190,193,195-210
+news.html
+  s_9acbdd38e6b917::t_02e71c938686ce 31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "4566161711992c95087d70e8cc45bef5d94360d9",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
