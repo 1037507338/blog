@@ -300,7 +300,10 @@ def main():
     print(f"血脉宝石: 血脉{len(gems_blood)}条, 限定{len(gems_limited)}条")
     b = read_bases()
     print(f"底材: " + " ".join(f"{k}={len(v)}" for k,v in b.items()))
-    u = read_uniques()
+    # u = read_uniques()  # uniques sheet 已清空，固定使用静态文件
+    with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "uniques-static.json"), encoding="utf-8") as f:
+        u = json.load(f).get("uniques", [])
+    print(f"暗金: {len(u)}条（静态保留）")
     print(f"暗金: {len(u)}条")
     bd = read_boss_drops()
     print(f"BOSS产出: {len(bd)}条")
