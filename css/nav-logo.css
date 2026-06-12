@@ -1,0 +1,33 @@
+/* ============================================================
+   站点 LOGO 单一真相源（⚔ POE2 Hub）
+   所有页面在各自样式之后引入本文件，硬编码最终值 + !important，
+   确保首页与各子页 logo 文字与图标完全一致，不受各页变量差异影响。
+   ============================================================ */
+
+.site-nav-logo{
+  font-family:'Noto Serif SC','Cormorant Garamond',serif !important;
+  font-size:1rem !important;
+  font-weight:600 !important;
+  letter-spacing:0.06em !important;
+  color:#f4dc99 !important;
+  text-decoration:none !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:6px !important;
+  margin-right:24px !important;
+  flex-shrink:0 !important;
+  white-space:nowrap !important;
+}
+.site-nav-logo:hover{ color:#ffe89a !important; }
+
+.site-nav-logo .logo-icon{
+  font-size:1.15rem !important;
+  line-height:1 !important;
+  font-weight:400 !important;
+  letter-spacing:0 !important;
+  background:linear-gradient(135deg,#f4dc99,#8b6914) !important;
+  -webkit-background-clip:text !important;
+  background-clip:text !important;
+  -webkit-text-fill-color:transparent !important;
+  filter:drop-shadow(0 0 2px rgba(201,162,39,0.3)) !important;
+}
