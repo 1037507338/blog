@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "update_time": "2026-06-12T12:05:14",
+    "update_time": "2026-06-12T13:25:41",
     "source": "腾讯文档",
     "note_cn": "国服统计于6.11日06点，1D=94E"
   },
@@ -928,10 +928,1034 @@
   },
   "uniques": [
     {
+      "category": "-",
+      "cn": "自改刷82+底材过滤免费分享地址：https://pan.quark.cn/s/6150bcc796f5",
+      "source": "",
+      "price_cn": ""
+    },
+    {
+      "category": "珠宝",
+      "cn": "嗓音（3）",
+      "source": "丝克玛试炼金色宝箱",
+      "price_cn": ""
+    },
+    {
       "category": "衣服",
-      "cn": "The Last Flame",
-      "source": "終焉烈焰",
-      "price_cn": "931D"
+      "cn": "时空之肌",
+      "source": "丝克玛试炼(1血)",
+      "price_cn": ""
+    },
+    {
+      "category": "腰带",
+      "cn": "法师之血",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "衣服",
+      "cn": "仪式通道",
+      "source": "小精灵附身",
+      "price_cn": ""
+    },
+    {
+      "category": "腰带",
+      "cn": "猎首",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "手套",
+      "cn": "仪式通道",
+      "source": "小精灵附身",
+      "price_cn": ""
+    },
+    {
+      "category": "珠宝",
+      "cn": "嗓音(2)",
+      "source": "丝克玛试炼金色宝箱",
+      "price_cn": ""
+    },
+    {
+      "category": "盾牌",
+      "cn": "仇恨熔炉",
+      "source": "混沌试炼BOSS",
+      "price_cn": ""
+    },
+    {
+      "category": "珠宝",
+      "cn": "人格分裂",
+      "source": "暂不确定",
+      "price_cn": ""
+    },
+    {
+      "category": "手套",
+      "cn": "败兴灾星",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "戒指",
+      "cn": "卡兰德之触",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "箭袋",
+      "cn": "漆黑徽章",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "武器",
+      "cn": "神圣之火",
+      "source": "迷雾7层",
+      "price_cn": ""
+    },
+    {
+      "category": "手套",
+      "cn": "卡迪罗的赌局",
+      "source": "暂不确定",
+      "price_cn": ""
+    },
+    {
+      "category": "珠宝",
+      "cn": "浮华",
+      "source": "混沌试炼BOSS",
+      "price_cn": ""
+    },
+    {
+      "category": "衣服",
+      "cn": "无尽之衣",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "戒指",
+      "cn": "元素之章",
+      "source": "配方合成",
+      "price_cn": ""
+    },
+    {
+      "category": "手套",
+      "cn": "無與倫比",
+      "source": "火焰巅峰灰烬仲裁官",
+      "price_cn": ""
+    },
+    {
+      "category": "珠宝",
+      "cn": "受控的蛻變",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "衣服",
+      "cn": "踐踏之鞋",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "戒指",
+      "cn": "丝克玛的决心(蓝宝石)",
+      "source": "丝克玛试炼",
+      "price_cn": ""
+    },
+    {
+      "category": "手套",
+      "cn": "遺忘看守",
+      "source": "仪式(祭坛)巅峰BOSS",
+      "price_cn": ""
+    },
+    {
+      "category": "珠宝",
+      "cn": "聚光之石(翡翠)",
+      "source": "丝克玛试炼金色宝箱",
+      "price_cn": ""
+    },
+    {
+      "category": "头盔",
+      "cn": "灵魂甲胄",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "戒指",
+      "cn": "腐朽迸发",
+      "source": "腐化枢纽BOSS",
+      "price_cn": ""
+    },
+    {
+      "category": "衣服",
+      "cn": "落刃时刻",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "武器",
+      "cn": "渡鴉集束",
+      "source": "迷雾巅峰BOSS",
+      "price_cn": ""
+    },
+    {
+      "category": "手套",
+      "cn": "极地之眼",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "武器",
+      "cn": "神授命使",
+      "source": "暂不确定",
+      "price_cn": ""
+    },
+    {
+      "category": "手套",
+      "cn": "西里的战衣",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "武器",
+      "cn": "沉默之雷",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "盾牌",
+      "cn": "敬重絲綢",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "戒指",
+      "cn": "贝雷克的冰与雷之曲",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "头盔",
+      "cn": "落刃时刻",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "戒指",
+      "cn": "贝雷克的火与雷之乐",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "衣服",
+      "cn": "背信忘義",
+      "source": "迷雾7层掉落(0.5改版)",
+      "price_cn": ""
+    },
+    {
+      "category": "腰带",
+      "cn": "腰际之门",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "衣服",
+      "cn": "巨铜之顶",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "武器",
+      "cn": "畸變星穹",
+      "source": "炸坟巅峰BOSS",
+      "price_cn": ""
+    },
+    {
+      "category": "衣服",
+      "cn": "禁域面容",
+      "source": "丝克玛试炼(遗物)",
+      "price_cn": ""
+    },
+    {
+      "category": "武器",
+      "cn": "林木塑像",
+      "source": "仪式(祭坛)巅峰BOSS",
+      "price_cn": ""
+    },
+    {
+      "category": "头盔",
+      "cn": "森林之后",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "珠宝",
+      "cn": "抗衡黑暗",
+      "source": "丝克玛试炼(遗物)",
+      "price_cn": ""
+    },
+    {
+      "category": "头盔",
+      "cn": "不敗亡者",
+      "source": "火焰巅峰灰烬仲裁官",
+      "price_cn": ""
+    },
+    {
+      "category": "武器",
+      "cn": "蘿拉塔裂片",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "头盔",
+      "cn": "死亡之聲",
+      "source": "腐化枢纽BOSS",
+      "price_cn": ""
+    },
+    {
+      "category": "药剂",
+      "cn": "欧罗什的决心",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "头盔",
+      "cn": "驚懼飛掠",
+      "source": "迷雾巅峰BOSS",
+      "price_cn": ""
+    },
+    {
+      "category": "戒指",
+      "cn": "贝雷克的冰与火之歌",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "衣服",
+      "cn": "夜墜",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "珠宝",
+      "cn": "妄想症",
+      "source": "迷雾7层掉落(0.5改版)",
+      "price_cn": ""
+    },
+    {
+      "category": "头盔",
+      "cn": "马雷格罗的玫红手套",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "武器",
+      "cn": "眼目之指引之掌",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "衣服",
+      "cn": "雷拳(轰天雷)",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "珠宝",
+      "cn": "英雄的悲歌",
+      "source": "炸坟BOSS欧罗什",
+      "price_cn": ""
+    },
+    {
+      "category": "手套",
+      "cn": "元素的庇護",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "珠宝",
+      "cn": "聚光之石(蓝宝石)",
+      "source": "丝克玛试炼金色宝箱",
+      "price_cn": ""
+    },
+    {
+      "category": "头盔",
+      "cn": "雷语",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "戒指",
+      "cn": "丝克玛的决心(翡翠)",
+      "source": "丝克玛试炼",
+      "price_cn": ""
+    },
+    {
+      "category": "鞋子",
+      "cn": "福爾的戰鎧",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "戒指",
+      "cn": "丝克玛的决心(红宝石)",
+      "source": "丝克玛试炼",
+      "price_cn": ""
+    },
+    {
+      "category": "衣服",
+      "cn": "限制之令",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "武器",
+      "cn": "臨界纏繞",
+      "source": "仪式(祭坛)巅峰BOSS",
+      "price_cn": ""
+    },
+    {
+      "category": "衣服",
+      "cn": "斯塔空加之首",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "武器",
+      "cn": "阿茲里的輕視",
+      "source": "神庙击败女王后的金库",
+      "price_cn": ""
+    },
+    {
+      "category": "衣服",
+      "cn": "邪眼之冠",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "武器",
+      "cn": "縛舌",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "衣服",
+      "cn": "顫慄之鋼",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "武器",
+      "cn": "引導之掌：靈",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "衣服",
+      "cn": "米立斯之妻",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "武器",
+      "cn": "邊陲",
+      "source": "仪式(祭坛)巅峰BOSS",
+      "price_cn": ""
+    },
+    {
+      "category": "咒符",
+      "cn": "樹木之指",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "武器",
+      "cn": "引導之掌：心",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "咒符",
+      "cn": "落刃时刻",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "武器",
+      "cn": "布魯特斯的刑具",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "武器",
+      "cn": "滅世",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "武器",
+      "cn": "二元性(未升级)",
+      "source": "暂不确定",
+      "price_cn": ""
+    },
+    {
+      "category": "项链",
+      "cn": "困苦尖啸",
+      "source": "天启勇士(迷雾)",
+      "price_cn": ""
+    },
+    {
+      "category": "药剂",
+      "cn": "消融漩涡",
+      "source": "迷雾7层掉落(0.5改版)",
+      "price_cn": ""
+    },
+    {
+      "category": "药剂",
+      "cn": "拉维安加之灵",
+      "source": "全域掉落",
+      "price_cn": ""
+    },
+    {
+      "category": "珠宝",
+      "cn": "血肉玄炉",
+      "source": "神庙击败女王后的金库",
+      "price_cn": ""
+    }
+  ],
+  "boss_drops": [
+    {
+      "boss": "灰烬仲裁官",
+      "source": "燃烧高塔",
+      "cn": "无始之时 恢弘腿甲",
+      "en": "源於永恆 宏偉腿甲",
+      "price_cn": "1E",
+      "price_int": "2E"
+    },
+    {
+      "boss": "唐玛祖",
+      "source": "迷雾巅峰BOSS",
+      "cn": "恐惧之翼 雕饰护腕",
+      "en": "驚懼飛掠 紋刻護腕",
+      "price_cn": "8E",
+      "price_int": "8E"
+    },
+    {
+      "boss": "灰烬仲裁官",
+      "source": "燃烧高塔",
+      "cn": "无生之辱 恢弘盛装",
+      "en": "不敗亡者 宏偉華服",
+      "price_cn": "2D",
+      "price_int": "270E"
+    },
+    {
+      "boss": "唐玛祖",
+      "source": "迷雾巅峰BOSS",
+      "cn": "施虐者的慈悲 钉头锤",
+      "en": "殘虐者的慈悲 輪緣之錘",
+      "price_cn": "2E",
+      "price_int": "2E"
+    },
+    {
+      "boss": "灰烬仲裁官",
+      "source": "燃烧高塔",
+      "cn": "信念的棱镜 宝钻",
+      "en": "信仰棱鏡 鑽石",
+      "price_cn": "5D",
+      "price_int": "550E"
+    },
+    {
+      "boss": "唐玛祖",
+      "source": "迷雾巅峰BOSS",
+      "cn": "占星师 浮华背心",
+      "en": "觀鳥者 精美背心",
+      "price_cn": "1E",
+      "price_int": "3E"
+    },
+    {
+      "boss": "灰烬仲裁官",
+      "source": "燃烧高塔",
+      "cn": "神圣之火 圣地权杖",
+      "en": "神聖烈焰 神殿權杖",
+      "price_cn": "11D",
+      "price_int": "11D"
+    },
+    {
+      "boss": "唐玛祖",
+      "source": "迷雾巅峰BOSS",
+      "cn": "渡鸦之群 栖鸟长杖",
+      "en": "渡鴉集束 棲羽長杖",
+      "price_cn": "5E",
+      "price_int": "29E"
+    },
+    {
+      "boss": "灰烬仲裁官",
+      "source": "燃烧高塔",
+      "cn": "公理不存 恢弘袖口",
+      "en": "無與倫比 宏偉手鐲",
+      "price_cn": "20E",
+      "price_int": "30E"
+    },
+    {
+      "boss": "唐玛祖",
+      "source": "迷雾巅峰BOSS",
+      "cn": "破幕者 紫晶戒指",
+      "en": "破帷者 紫晶戒指",
+      "price_cn": "3E",
+      "price_int": "4E"
+    },
+    {
+      "boss": "灰烬仲裁官",
+      "source": "燃烧高塔",
+      "cn": "形单影只 恢弘面罩",
+      "en": "唯我論 宏偉面紗",
+      "price_cn": "1E",
+      "price_int": "5E"
+    },
+    {
+      "boss": "唐玛祖",
+      "source": "迷雾巅峰BOSS",
+      "cn": "欺诈者碎片",
+      "en": "欺詐者的碎片",
+      "price_cn": "24E",
+      "price_int": "24E"
+    },
+    {
+      "boss": "灰烬仲裁官",
+      "source": "燃烧高塔",
+      "cn": "仲裁官的点燃",
+      "en": "仲裁者的燃灼",
+      "price_cn": "24E",
+      "price_int": "1.2D"
+    },
+    {
+      "boss": "唐玛祖",
+      "source": "迷雾巅峰BOSS",
+      "cn": "唐玛祖的香炉",
+      "en": "湯馬祖的提爐",
+      "price_cn": "5E",
+      "price_int": "26E"
+    },
+    {
+      "boss": "灰烬仲裁官",
+      "source": "来源",
+      "cn": "掉落物品(国服)",
+      "en": "掉落物品(国际服)",
+      "price_cn": "国服价格",
+      "price_int": "国际服价格"
+    },
+    {
+      "boss": "唐玛祖",
+      "source": "迷雾巅峰BOSS",
+      "cn": "渡鸦之触碎片",
+      "en": "渡鸦之触碎片",
+      "price_cn": "78D",
+      "price_int": "78D"
+    },
+    {
+      "boss": "神圣仲裁官",
+      "source": "起源高塔",
+      "cn": "敏锐法令 远古面甲",
+      "en": "敏銳敕令 遠古護面盔",
+      "price_cn": "1E",
+      "price_int": "2E"
+    },
+    {
+      "boss": "唐玛祖",
+      "source": "WIKI写的疑似",
+      "cn": "人格分裂",
+      "en": "人格分裂",
+      "price_int": "不同起点价格天差地别，建议自查"
+    },
+    {
+      "boss": "神圣仲裁官",
+      "source": "起源高塔",
+      "cn": "飞行法令 远古护腿",
+      "en": "翔天敕令 遠古護腿",
+      "price_cn": "2E",
+      "price_int": "10E"
+    },
+    {
+      "boss": "唐玛祖",
+      "source": "来源",
+      "cn": "掉落物品(国服)",
+      "en": "掉落物品(国际服)",
+      "price_cn": "国服价格",
+      "price_int": "国际服价格"
+    },
+    {
+      "boss": "神圣仲裁官",
+      "source": "起源高塔",
+      "cn": "忠诚法令 远古链甲",
+      "en": "忠誠敕令 遠古鎖甲",
+      "price_cn": "1E",
+      "price_int": "2E"
+    },
+    {
+      "boss": "伯达克",
+      "source": "仪式(祭坛)巅峰BOSS",
+      "cn": "遗忘守卫 原始印记",
+      "en": "遺忘看守 野性標記",
+      "price_cn": "25E",
+      "price_int": "40E"
+    },
+    {
+      "boss": "神圣仲裁官",
+      "source": "起源高塔",
+      "cn": "机遇 终极生命药剂",
+      "en": "契機 終極生命藥劑",
+      "price_cn": "1E",
+      "price_int": "3E"
+    },
+    {
+      "boss": "伯达克",
+      "source": "仪式(祭坛)巅峰BOSS",
+      "cn": "阈限螺旋 扭曲法杖",
+      "en": "臨界纏繞 扭曲法杖",
+      "price_cn": "2E",
+      "price_int": "8E"
+    },
+    {
+      "boss": "神圣仲裁官",
+      "source": "起源高塔",
+      "cn": "天选之人 宏伟战矛",
+      "en": "神授命使 宏偉長矛",
+      "price_cn": "20D",
+      "price_int": "20D"
+    },
+    {
+      "boss": "伯达克",
+      "source": "仪式(祭坛)巅峰BOSS",
+      "cn": "边缘 心木短弓",
+      "en": "邊陲 赤木之弓",
+      "price_cn": "40E",
+      "price_int": "20E"
+    },
+    {
+      "boss": "神圣仲裁官",
+      "source": "起源高塔",
+      "cn": "原型十七",
+      "en": "十七號原型機",
+      "price_cn": "4E",
+      "price_int": "3E"
+    },
+    {
+      "boss": "伯达克",
+      "source": "仪式(祭坛)巅峰BOSS",
+      "cn": "森林灵像 克己权杖",
+      "en": "林木塑像 魔道權杖",
+      "price_cn": "3D",
+      "price_int": "90E"
+    },
+    {
+      "boss": "神圣仲裁官",
+      "source": "起源高塔",
+      "cn": "仲裁官之握",
+      "en": "仲裁者的延伸",
+      "price_cn": "3E",
+      "price_int": "5E"
+    },
+    {
+      "boss": "伯达克",
+      "source": "仪式(祭坛)巅峰BOSS",
+      "cn": "黑暗残迹 阴暗王冠",
+      "en": "幽暗殘餘 幽暗寶冠",
+      "price_cn": "5E",
+      "price_int": "4E"
+    },
+    {
+      "boss": "神圣仲裁官",
+      "source": "起源高塔",
+      "cn": "炽天使之心",
+      "en": "神使之心",
+      "price_cn": "12D",
+      "price_int": "22D"
+    },
+    {
+      "boss": "伯达克",
+      "source": "仪式(祭坛)巅峰BOSS",
+      "cn": "卡莎的光辉",
+      "en": "凱莎的輝煌",
+      "price_cn": "39E",
+      "price_int": "4.5D"
+    },
+    {
+      "boss": "伯达克",
+      "source": "来源",
+      "cn": "掉落物品(国服)",
+      "en": "掉落物品(国际服)",
+      "price_cn": "国服价格",
+      "price_int": "国际服价格"
+    },
+    {
+      "boss": "神圣仲裁官",
+      "source": "来源",
+      "cn": "掉落物品(国服)",
+      "en": "掉落物品(国际服)",
+      "price_cn": "国服价格",
+      "price_int": "国际服价格"
+    },
+    {
+      "boss": "畸变者",
+      "source": "远征(炸坟)巅峰BOSS",
+      "cn": "扭曲天穹 畸变巨锤",
+      "en": "畸變星穹 怪異攻城錘",
+      "price_cn": "25E",
+      "price_int": "20E"
+    },
+    {
+      "boss": "薛斯-万魔一体",
+      "source": "裂隙巅峰BOSS",
+      "cn": "望而不及 贯心箭袋",
+      "en": "無法到達 內臟箭袋",
+      "price_cn": "1E",
+      "price_int": "1E"
+    },
+    {
+      "boss": "畸变者",
+      "source": "远征(炸坟)巅峰BOSS",
+      "cn": "尊崇星辉矿石(重铸破禁者)",
+      "en": "崇敬星耀礦石",
+      "price_cn": "10E(矿石)",
+      "price_int": "19E"
+    },
+    {
+      "boss": "薛斯-万魔一体",
+      "source": "裂隙巅峰BOSS",
+      "cn": "暴风之语 翠玉项链",
+      "en": "暴風之語 翠玉護身符",
+      "price_cn": "30E",
+      "price_int": "5E"
+    },
+    {
+      "boss": "畸变者",
+      "source": "远征(炸坟)巅峰BOSS",
+      "cn": "庄严星辉矿石(重铸符父之眼)",
+      "en": "古老星耀礦石",
+      "price_cn": "1E(矿石)",
+      "price_int": "2E"
+    },
+    {
+      "boss": "薛斯-万魔一体",
+      "source": "裂隙巅峰BOSS",
+      "cn": "可控变形 宝钻",
+      "en": "受控的蛻變 鑽石",
+      "price_cn": "20D",
+      "price_int": "13D"
+    },
+    {
+      "boss": "畸变者",
+      "source": "远征(炸坟)巅峰BOSS",
+      "cn": "真实星辉矿石(重铸黄昏花瓣)",
+      "en": "真切星耀礦石",
+      "price_cn": "57E(矿石)",
+      "price_int": "43E"
+    },
+    {
+      "boss": "薛斯-万魔一体",
+      "source": "裂隙巅峰BOSS",
+      "cn": "智行之手 螺旋裹手",
+      "en": "智行之手 盤繞裹手",
+      "price_cn": "9E",
+      "price_int": "20E"
+    },
+    {
+      "boss": "畸变者",
+      "source": "远征(炸坟)巅峰BOSS",
+      "cn": "欧罗什的信念",
+      "en": "奧爾羅斯的信念",
+      "price_cn": "16D",
+      "price_int": "14D"
+    },
+    {
+      "boss": "薛斯-万魔一体",
+      "source": "裂隙巅峰BOSS",
+      "cn": "忠诚之肤 华服装束",
+      "en": "忠誠之膚 服裝",
+      "price_cn": "1D",
+      "price_int": "20E"
+    },
+    {
+      "boss": "畸变者",
+      "source": "WIKI写的疑似",
+      "cn": "新生系列符文",
+      "en": "新生系列符文",
+      "price_int": "价格都比较昂贵"
+    },
+    {
+      "boss": "薛斯-万魔一体",
+      "source": "裂隙巅峰BOSS",
+      "cn": "群魔殿 海玉项链",
+      "en": "群魔殿 海玉護身符",
+      "price_cn": "1E",
+      "price_int": "2E"
+    },
+    {
+      "boss": "畸变者",
+      "source": "来源",
+      "cn": "掉落物品(国服)",
+      "en": "掉落物品(国际服)",
+      "price_cn": "国服价格",
+      "price_int": "国际服价格"
+    },
+    {
+      "boss": "薛斯-万魔一体",
+      "source": "裂隙巅峰BOSS",
+      "cn": "索伏之血 琥珀项链",
+      "en": "索伏之血 琥珀護身符",
+      "price_cn": "1E",
+      "price_int": "2E"
+    },
+    {
+      "boss": "库勒马克",
+      "source": "深渊巅峰BOSS",
+      "cn": "未生巫妖 饕餮法杖",
+      "en": "未誕生的巫妖 貪婪長杖",
+      "price_cn": "1E",
+      "price_int": "6E"
+    },
+    {
+      "boss": "薛斯-万魔一体",
+      "source": "裂隙巅峰BOSS",
+      "cn": "艾许的光辉",
+      "en": "艾許的光芒",
+      "price_cn": "12D",
+      "price_int": "19D"
+    },
+    {
+      "boss": "库勒马克",
+      "source": "深渊巅峰BOSS",
+      "cn": "夜临 精致腰带",
+      "en": "夜惡降臨 精良腰帶",
+      "price_cn": "14E",
+      "price_int": "12E"
+    },
+    {
+      "boss": "薛斯-万魔一体",
+      "source": "裂隙巅峰BOSS",
+      "cn": "乌尔尼多的拥抱",
+      "en": "烏爾尼多的擁抱",
+      "price_cn": "153D",
+      "price_int": "197D"
+    },
+    {
+      "boss": "库勒马克",
+      "source": "深渊巅峰BOSS",
+      "cn": "不朽之恨 永恒珠宝",
+      "en": "不朽恨意 永恆珠寶",
+      "price_cn": "24E",
+      "price_int": "300E"
+    },
+    {
+      "boss": "薛斯-万魔一体",
+      "source": "裂隙巅峰BOSS",
+      "cn": "托沃的寂静",
+      "en": "托沃的寧靜",
+      "price_cn": "130D",
+      "price_int": "46D"
+    },
+    {
+      "boss": "库勒马克",
+      "source": "深渊巅峰BOSS",
+      "cn": "特克罗的复仇",
+      "en": "特克羅德的復仇",
+      "price_cn": "188E",
+      "price_int": "1.5D"
+    },
+    {
+      "boss": "薛斯-万魔一体",
+      "source": "裂隙巅峰BOSS",
+      "cn": "索伏的葬火",
+      "en": "索伏的燃焰",
+      "price_cn": "10D",
+      "price_int": "11D"
+    },
+    {
+      "boss": "库勒马克",
+      "source": "来源",
+      "cn": "掉落物品(国服)",
+      "en": "掉落物品(国际服)",
+      "price_cn": "国服价格",
+      "price_int": "国际服价格"
+    },
+    {
+      "boss": "薛斯-万魔一体",
+      "source": "裂隙巅峰BOSS",
+      "cn": "薛斯的圣物厅钥匙",
+      "en": "烈許的寶庫鑰匙",
+      "price_cn": "4D",
+      "price_int": "5.3D"
+    },
+    {
+      "boss": "艳红女王．阿兹里",
+      "source": "神庙女王",
+      "cn": "穿心 穿射箭袋",
+      "en": "穿心 穿透箭袋",
+      "price_cn": "5E",
+      "price_int": "1E"
+    },
+    {
+      "boss": "艳红女王．阿兹里",
+      "source": "神庙女王",
+      "cn": "阿兹里的威权 献祭盛装",
+      "en": "阿茲里的威權 獻祭法衣",
+      "price_cn": "4D",
+      "price_int": "370E"
+    },
+    {
+      "boss": "艳红女王．阿兹里",
+      "source": "神庙女王",
+      "cn": "阿兹里的金履 束带长靴",
+      "en": "阿茲里的金履 繫帶長靴",
+      "price_cn": "30E",
+      "price_int": "15E"
+    },
+    {
+      "boss": "艳红女王．阿兹里",
+      "source": "神庙女王",
+      "cn": "阿兹里的统治 反射长杖",
+      "en": "阿茲里的統御 映像長杖",
+      "price_cn": "1E",
+      "price_int": "2E"
+    },
+    {
+      "boss": "艳红女王．阿兹里",
+      "source": "神庙女王",
+      "cn": "阿兹里的蔑视 叉尖战矛",
+      "en": "阿茲里的輕視 尖叉長矛",
+      "price_cn": "1E",
+      "price_int": "10E"
+    },
+    {
+      "boss": "艳红女王．阿兹里",
+      "source": "神庙女王",
+      "cn": "血肉玄炉 宝钻",
+      "en": "阿茲里的輕視 尖叉長矛",
+      "price_cn": "8D",
+      "price_int": "6D"
+    },
+    {
+      "boss": "艳红女王．阿兹里",
+      "source": "神庙女王",
+      "cn": "献祭法衣(魔法或稀有)"
+    },
+    {
+      "boss": "艳红女王．阿兹里",
+      "source": "神庙女王",
+      "cn": "神庙专属通货"
+    },
+    {
+      "boss": "艳红女王．阿兹里",
+      "source": "神庙女王",
+      "cn": "阿兹里的焦躁",
+      "en": "阿茲里的不耐",
+      "price_cn": "13E",
+      "price_int": "12E"
+    },
+    {
+      "boss": "艳红女王．阿兹里",
+      "source": "神庙女王",
+      "cn": "泽佛伊的恶名",
+      "en": "澤佛伊的惡名",
+      "price_cn": "40E",
+      "price_int": "28E"
     }
   ],
   "recipes": {

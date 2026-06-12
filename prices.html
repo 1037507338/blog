@@ -59,6 +59,7 @@
             <div class="tab" onclick="showTab('recipes')">配方优先级</div>
             <div class="tab" onclick="showTab('bases')">高价值底材</div>
             <div class="tab" onclick="showTab('uniques')">暗金装备</div>
+            <div class="tab" onclick="showTab('boss')">终局BOSS产出</div>
         </div>
 
         <div id="gems" class="tab-content active">
@@ -74,6 +75,11 @@
         <div id="uniques" class="tab-content">
             <div style="margin:12px 0;text-align:center;"><input id="uniques-search" class="tab-search" type="text" placeholder="🔍 按名称搜索..." oninput="renderUniques()"></div>
             <div id="uniques-content" class="loading">正在加载暗金装备数据...</div>
+        </div>
+
+        <div id="boss" class="tab-content">
+            <div style="margin:12px 0;text-align:center;"><input id="boss-search" class="tab-search" type="text" placeholder="🔍 按BOSS/物品名称搜索..." oninput="renderBoss()"></div>
+            <div id="boss-content" class="loading">正在加载BOSS产出数据...</div>
         </div>
 
         <div id="recipes" class="tab-content">
@@ -96,6 +102,7 @@
                 renderBases();
                 renderUniques();
                 renderRecipes();
+                renderBoss();
             } catch (error) {
                 console.error('加载数据失败:', error);
                 document.querySelectorAll('.loading').forEach(el => {
@@ -198,6 +205,25 @@
             });
             html += '</div>';
             document.getElementById('recipes-content').innerHTML = hasResults ? html : '<div class="no-results">未找到匹配结果</div>';
+        }
+
+        function renderBoss() {
+            if (!priceData || !priceData.boss_drops) return;
+            const kw = (document.getElementById('boss-search')?.value || '').trim().toLowerCase();
+            const items = priceData.boss_drops.filter(b => !kw || b.boss.toLowerCase().includes(kw) || (b.cn||'').toLowerCase().includes(kw));
+            if (items.length === 0) { document.getElementById('boss-content').innerHTML = '<div class="no-results">未找到匹配结果</div>'; return; }
+            // Group by boss
+            const groups = {};
+            items.forEach(b => { if (!groups[b.boss]) groups[b.boss] = {source: b.source, items: []}; groups[b.boss].items.push(b); });
+            let html = '<div class="recipe-grid">';
+            Object.entries(groups).forEach(([boss, g]) => {
+                html += '<div class="recipe-section"><h4 class="rune-header">👹 ' + boss + '<span style="font-size:0.82rem;color:#897653;margin-left:8px;">' + g.source + '</span></h4>';
+                html += '<table class="data-table-compact"><thead><tr><th>国服物品</th><th>国服价格</th></tr></thead><tbody>';
+                g.items.forEach(b => { html += '<tr><td>' + (b.cn||'-') + '</td><td class="price-cn">' + (b.price_cn||'-') + '</td></tr>'; });
+                html += '</tbody></table></div>';
+            });
+            html += '</div>';
+            document.getElementById('boss-content').innerHTML = html;
         }
 
         function showTab(tabName) {

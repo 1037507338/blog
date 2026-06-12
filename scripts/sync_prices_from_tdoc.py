@@ -179,6 +179,63 @@ def read_uniques():
             })
     return result
 
+# ── 终局BOSS产出 ──────────────────────────────────────────────────────────
+def read_boss_drops():
+    """
+    BOSS产出表 9j1p5i：左右双区
+    左区: col0=BOSS名称(首次), col2=来源(首次), col4=国际服物品, col6=国服物品, col8=国际服价格, col10=国服价格
+    右区: col12=BOSS名称(首次), col14=来源(首次), col16=国际服物品, col18=国服物品, col20=国际服价格, col22=国服价格
+    BOSS名称行做分隔，后续行归属该BOSS。
+    """
+    rows = get_rows("9j1p5i", 30, 214)
+    bosses = []
+    # 左区
+    cur_boss_l, cur_src_l = "", ""
+    # 右区
+    cur_boss_r, cur_src_r = "", ""
+    in_data = False
+    for row in rows:
+        if not in_data:
+            if any("BOSS名称" in clean(c) for c in row):
+                in_data = True; continue
+        # 左区
+        c0 = clean(row[0] if len(row)>0 else "")
+        c2 = clean(row[2] if len(row)>2 else "")
+        if c0 and c0 != "BOSS名称":
+            cur_boss_l = c0
+        if c2:
+            cur_src_l = c2
+        cn_int = clean(row[4] if len(row)>4 else "")
+        cn_cn = clean(row[6] if len(row)>6 else "")
+        price_int = clean(row[8] if len(row)>8 else "")
+        price_cn = clean(row[10] if len(row)>10 else "")
+        if cn_cn or cn_int:
+            item = {"boss": cur_boss_l, "source": cur_src_l}
+            if cn_cn: item["cn"] = cn_cn
+            if cn_int: item["en"] = cn_int
+            if price_cn: item["price_cn"] = price_cn
+            if price_int: item["price_int"] = price_int
+            bosses.append(item)
+        # 右区
+        c12 = clean(row[12] if len(row)>12 else "")
+        c14 = clean(row[14] if len(row)>14 else "")
+        if c12 and c12 != "BOSS名称":
+            cur_boss_r = c12
+        if c14:
+            cur_src_r = c14
+        cn_int2 = clean(row[16] if len(row)>16 else "")
+        cn_cn2 = clean(row[18] if len(row)>18 else "")
+        price_int2 = clean(row[20] if len(row)>20 else "")
+        price_cn2 = clean(row[22] if len(row)>22 else "")
+        if cn_cn2 or cn_int2:
+            item = {"boss": cur_boss_r, "source": cur_src_r}
+            if cn_cn2: item["cn"] = cn_cn2
+            if cn_int2: item["en"] = cn_int2
+            if price_cn2: item["price_cn"] = price_cn2
+            if price_int2: item["price_int"] = price_int2
+            bosses.append(item)
+    return bosses
+
 # ── 配方 ─────────────────────────────────────────────────────────────────
 def read_recipes():
     """
@@ -245,6 +302,8 @@ def main():
     print(f"底材: " + " ".join(f"{k}={len(v)}" for k,v in b.items()))
     u = read_uniques()
     print(f"暗金: {len(u)}条")
+    bd = read_boss_drops()
+    print(f"BOSS产出: {len(bd)}条")
     r = read_recipes()
     for k in sorted(r.keys()):
         n = sum(len(v) for v in r[k].values())
@@ -264,6 +323,7 @@ def main():
         "gems": g,
         "bases": b,
         "uniques": u,
+        "boss_drops": bd,
         "recipes": r
     }
     out = "/Users/saisi/.qclaw/workspace-54nuktoh8cd83kjj/poe2-guide/data/prices-data.json"
