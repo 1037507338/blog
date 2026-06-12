@@ -3,7 +3,7 @@
 """从腾讯文档读取 POE2 物价数据，生成 prices-data.json
 只保留国服相关内容（名称+价格），不包含国际服数据。
 """
-import subprocess, json, csv, io, sys
+import subprocess, json, csv, io, sys, os
 from datetime import datetime
 
 FILE_ID = "DRnNidnZ5cXp3R2F0"
@@ -326,7 +326,7 @@ def main():
         "boss_drops": bd,
         "recipes": r
     }
-    out = "/Users/saisi/.qclaw/workspace-54nuktoh8cd83kjj/poe2-guide/data/prices-data.json"
+    out = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "prices-data.json")
     with open(out, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
     size = len(json.dumps(data, ensure_ascii=False))
