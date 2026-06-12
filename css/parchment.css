@@ -122,6 +122,8 @@ body[data-theme="light"] .site-nav{background:rgba(250,242,221,0.88)!important;}
   font-family:var(--font-zh)!important;font-size:1rem!important;
   font-weight:600!important;letter-spacing:0.06em!important;
   color:var(--gold-200)!important;
+  display:flex!important;align-items:center!important;gap:6px!important;
+  margin-right:24px!important;flex-shrink:0!important;white-space:nowrap!important;
 }
 .logo-icon{
   font-size:1.15rem!important;
