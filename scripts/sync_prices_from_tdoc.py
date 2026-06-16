@@ -236,6 +236,54 @@ def read_boss_drops():
             bosses.append(item)
     return bosses
 
+
+# ── 高价值石板词缀 ─────────────────────────────────────────────────────────
+def read_relics():
+    """
+    高价值石板词缀表 sgsr82：左右双区
+    表头行 Row 5 (0-indexed):
+    col0=石板类型(左), col2=词缀(左), col5=国际服价格(左), col7=国服价格(左)
+    col10=石板类型(右), col12=词缀(右), col15=国际服价格(右), col17=国服价格(右)
+
+    石板类型为分组标记，后续行(同组col0/col10为空)归入该组。
+    """
+    rows = get_rows("sgsr82", 27, 207)
+    result = []
+    cur_left, cur_right = "", ""
+    in_data = False
+
+    for row in rows:
+        if not in_data:
+            if any("石板类型" in clean(c) for c in row):
+                in_data = True
+                continue
+
+        # 左区: col0=类型, col2=词缀, col7=国服价
+        c0 = clean(row[0] if len(row) > 0 else "")
+        if c0 and c0 != "石板类型":
+            cur_left = c0
+        c2 = clean(row[2] if len(row) > 2 else "")
+        if c2 and c2 != "词缀":
+            result.append({
+                "type": cur_left,
+                "affix": c2,
+                "price_cn": clean(row[7] if len(row) > 7 else "")
+            })
+
+        # 右区: col10=类型, col12=词缀, col17=国服价
+        c10 = clean(row[10] if len(row) > 10 else "")
+        if c10 and c10 != "石板类型":
+            cur_right = c10
+        c12 = clean(row[12] if len(row) > 12 else "")
+        if c12 and c12 != "词缀":
+            result.append({
+                "type": cur_right,
+                "affix": c12,
+                "price_cn": clean(row[17] if len(row) > 17 else "")
+            })
+
+    return result
+
 # ── 配方 ─────────────────────────────────────────────────────────────────
 def read_recipes():
     """
@@ -304,9 +352,10 @@ def main():
     with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "uniques-static.json"), encoding="utf-8") as f:
         u = json.load(f).get("uniques", [])
     print(f"暗金: {len(u)}条（静态保留）")
-    print(f"暗金: {len(u)}条")
     bd = read_boss_drops()
     print(f"BOSS产出: {len(bd)}条")
+    rel = read_relics()
+    print(f"石板词缀: {len(rel)}条")
     r = read_recipes()
     for k in sorted(r.keys()):
         n = sum(len(v) for v in r[k].values())
@@ -327,6 +376,7 @@ def main():
         "bases": b,
         "uniques": u,
         "boss_drops": bd,
+        "relics": rel,
         "recipes": r
     }
     out = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "prices-data.json")
