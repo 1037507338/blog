@@ -119,7 +119,7 @@ export default async function handler(req, res) {
       const { id } = req.query;
       if (!id) return res.status(400).json({ error: '缺少链接ID' });
 
-      const { title, description, url, sort_order, page_type, link_type, categories, icon } = req.body;
+      const { title, description, url, sort_order, page_type, link_type, categories, icon, published_at } = req.body;
 
       const updates = {};
       if (title !== undefined) updates.title = title;
@@ -130,6 +130,7 @@ export default async function handler(req, res) {
       if (link_type !== undefined) updates.link_type = link_type;
       if (categories !== undefined) updates.categories = Array.isArray(categories) ? categories : [];
       if (icon !== undefined) updates.icon = icon || '';
+      if (published_at !== undefined) updates.published_at = published_at || null;
       updates.updated_at = new Date().toISOString();
 
       const client = await getSupabase();

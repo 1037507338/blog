@@ -359,6 +359,9 @@ th:last-child,td.actions{position:sticky;right:0;background:var(--card);box-shad
       <!-- 排序 -->
       <div class="form-group"><label>排序权重</label><input type="number" id="editSortOrder" value="0" placeholder="数字越小越靠前" style="width:140px"></div>
 
+      <!-- 时间（仅进阶攻略） -->
+      <div class="form-group" id="publishedAtGroup" style="display:none"><label>时间 <span class="hint" title="进阶攻略列表按时间倒序展示，留空则显示横线">ⓘ</span></label><input type="date" id="editPublishedAt" style="width:200px"></div>
+
       <!-- 图标选择（仅 BD 推荐） -->
       <div class="form-group" id="iconPickerGroup" style="display:none">
         <label class="cat-multi-label">图标 <span class="cat-multi-hint">（点击预设或自定义 emoji / 图片 URL / iconify 名）</span></label>
@@ -453,7 +456,7 @@ const API_NEWS = '/api/news';
 const API_FILES = '/api/builds-files';
 const API_AUTH = '/api/auth';
 const AUTH_KEY = 'poe2_admin_token'; // 存登录后服务端下发的 Bearer Token
-const PAGE_TYPES = ['首页导航', 'BD推荐', '资讯动态', '网站设置'];
+const PAGE_TYPES = ['首页导航', 'BD推荐', '进阶攻略', '资讯动态', '网站设置'];
 const API_CONFIG = '/api/site-config';
 
 // 取登录令牌；写请求统一带上 Authorization 头
@@ -929,6 +932,8 @@ function openAddModal() {
   renderCatTags();
   setIcon('');
   toggleIconPicker(activeTab === 'BD推荐');
+  document.getElementById('publishedAtGroup').style.display = activeTab === '进阶攻略' ? '' : 'none';
+  document.getElementById('editPublishedAt').value = '';
   onLinkTypeChange();
   showModal();
 }
@@ -948,7 +953,10 @@ function openEditModal(id) {
   selectedCats = [...(l.categories || (l.category ? [l.category] : []))];
   renderCatTags();
   setIcon(l.icon || '');
-  toggleIconPicker((l.page_type || activeTab) === 'BD推荐');
+  const pt = l.page_type || activeTab;
+  toggleIconPicker(pt === 'BD推荐');
+  document.getElementById('publishedAtGroup').style.display = pt === '进阶攻略' ? '' : 'none';
+  document.getElementById('editPublishedAt').value = l.published_at ? String(l.published_at).slice(0, 10) : '';
   onLinkTypeChange();
   showModal();
 }
@@ -967,11 +975,12 @@ async function saveLink() {
   const sort_order = parseInt(document.getElementById('editSortOrder').value) || 0;
   const categories = selectedCats.length ? selectedCats : [];
   const icon = (document.getElementById('editIcon').value || '').trim();
+  const published_at = (document.getElementById('editPublishedAt').value || '').trim();
 
   if (!title || !url) { toast('请填写标题和URL', 'error'); return; }
   if (link_type === 'external' && !url.startsWith('http')) { toast('外站链接需以 http(s) 开头', 'error'); return; }
 
-  const payload = { title, description, url, page_type, sort_order, link_type, categories, icon };
+  const payload = { title, description, url, page_type, sort_order, link_type, categories, icon, published_at: published_at || null };
 
   try {
     const method = id ? 'PUT' : 'POST';
