@@ -152,7 +152,7 @@ async function load(){
   }
   // 按时间倒序（无时间排末尾），再按 sort_order
   ALL.sort((a,b)=>{
-    const ta=a.published_at||'', tb=b.published_at||'';
+    const ta=a.created_at||'', tb=b.created_at||'';
     if(ta&&tb&&ta!==tb)return tb.localeCompare(ta);
     if(ta&&!tb)return -1;
     if(!ta&&tb)return 1;
@@ -183,7 +183,7 @@ function render(){
   }
   body.innerHTML=rows.map(x=>{
     const cats=(x.categories||[]).map(c=>`<span class="adv-cat">${esc(c)}</span>`).join('');
-    const t=fmtDate(x.published_at);
+    const t=fmtDate(x.created_at);
     const timeCell=t?`<span class="adv-time">${esc(t)}</span>`:`<span class="adv-time empty">—</span>`;
     // 站内 html 当前页打开，外链新标签
     const isHtml=x.link_type==='html';
