@@ -2,6 +2,7 @@
   "rewrites": [
     { "source": "/api/auth", "destination": "/api/auth.js" },
     { "source": "/api/builds-files", "destination": "/api/builds-files.js" },
+    { "source": "/api/economy", "destination": "/api/economy.js" },
     { "source": "/api/links", "destination": "/api/links.js" },
     { "source": "/api/news", "destination": "/api/news.js" },
     { "source": "/api/poe2-time", "destination": "/api/poe2-time.js" },

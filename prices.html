@@ -35,6 +35,27 @@
         .tab-search:focus { border-color: #c9a227; }
         .tab-search::placeholder { color: #897653; }
         .no-results { text-align: center; color: #897653; padding: 30px; font-size: 0.9rem; }
+        select.tab-search { cursor: pointer; }
+        #economy-fav-toggle.active { background: rgba(201,162,39,0.2); border-color: #c9a227; color: #f4dc99; }
+        .eco-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 16px 0; }
+        .eco-table { width: 100%; border-collapse: collapse; min-width: 560px; }
+        .eco-table th { background: rgba(201,162,39,0.15); color: #f4dc99; padding: 11px 14px; text-align: left; border-bottom: 2px solid #c9a227; font-size: 0.86rem; white-space: nowrap; }
+        .eco-table td { padding: 9px 14px; border-bottom: 1px solid #4d3a1f; vertical-align: middle; }
+        .eco-table tr:hover td { background: rgba(201,162,39,0.05); }
+        .eco-name { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; }
+        .eco-icon { width: 26px; height: 26px; flex-shrink: 0; object-fit: contain; }
+        .eco-itemname { color: #e8d9b8; font-weight: 600; white-space: nowrap; }
+        .eco-table th, .eco-table td { white-space: nowrap; }
+        .eco-price { font-weight: 600; white-space: nowrap; }
+        .eco-price .num { color: #f4dc99; font-size: 1.02rem; }
+        .eco-price .unit { color: #b8a47a; font-size: 0.82rem; margin-left: 3px; }
+        .eco-up { color: #6fcf6f; font-weight: 600; }
+        .eco-down { color: #f0808a; font-weight: 600; }
+        .eco-vol { color: #b8a47a; font-family: monospace; font-size: 0.88rem; white-space: nowrap; }
+        .eco-fav { cursor: pointer; font-size: 1.1rem; background: none; border: none; padding: 0 4px; line-height: 1; filter: grayscale(1) opacity(0.4); transition: filter .15s; }
+        .eco-fav.on { filter: none; }
+        .eco-fav:hover { filter: none; }
+        .eco-spark { width: 60px; height: 22px; vertical-align: middle; }
     </style>
 </head>
 <body>
@@ -55,7 +76,8 @@
         <div id="update-time" style="text-align:center;color:#c9a227;margin-bottom:20px;font-size:0.9rem;">📊 加载中...</div>
 
         <div style="text-align:center;margin:20px 0;">
-            <div class="tab active" onclick="showTab('gems')">血脉宝石</div>
+            <div class="tab active" onclick="showTab('economy')">💱 大盘行情</div>
+            <div class="tab" onclick="showTab('gems')">血脉宝石</div>
             <div class="tab" onclick="showTab('recipes')">配方优先级</div>
             <div class="tab" onclick="showTab('bases')">高价值底材</div>
             <div class="tab" onclick="showTab('uniques')">暗金装备</div>
@@ -63,7 +85,29 @@
             <div class="tab" onclick="showTab('relics')">石板词缀</div>
         </div>
 
-        <div id="gems" class="tab-content active">
+        <div id="economy" class="tab-content active">
+            <div class="note" style="margin-bottom:16px;">
+                💱 实时大盘行情 · 数据来源
+                <a href="https://poe2db.tw/cn/Economy" target="_blank" style="color:#c9a227;font-weight:600;">poe2db.tw</a>
+                （CC BY-NC-SA 3.0）· 缓存约 30 分钟刷新 · 价格以「<span class="price-cn">神圣石/混沌石</span>」计价
+                <span id="economy-fetched" style="color:#897653;"></span>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0;">
+                <input id="economy-search" class="tab-search" type="text" placeholder="🔍 按通货名称搜索（空格分隔多关键词）..." oninput="renderEconomy()" style="flex:1;min-width:240px;">
+                <select id="economy-sort" class="tab-search" style="max-width:180px;" onchange="renderEconomy()">
+                    <option value="default">默认排序</option>
+                    <option value="price-desc">价格 高→低</option>
+                    <option value="price-asc">价格 低→高</option>
+                    <option value="trend-desc">涨幅 高→低</option>
+                    <option value="trend-asc">跌幅 高→低</option>
+                    <option value="vol-desc">成交量 高→低</option>
+                </select>
+                <button id="economy-fav-toggle" class="tab" style="margin:0;" onclick="toggleEcoFavOnly()">⭐ 只看收藏</button>
+            </div>
+            <div id="economy-content" class="loading">正在加载大盘行情...</div>
+        </div>
+
+        <div id="gems" class="tab-content">
             <div style="margin:12px 0;text-align:center;"><input id="gems-search" class="tab-search" type="text" placeholder="🔍 按名称搜索..." oninput="renderGems()"></div>
             <div id="gems-content" class="loading">正在加载血脉宝石数据...</div>
         </div>
@@ -96,6 +140,96 @@
 
     <script>
         let priceData = null;
+
+        // ===== 大盘行情（poe2db）=====
+        let ecoData = null;
+        let ecoFavOnly = false;
+        const ECO_FAV_KEY = 'poe2_eco_favs';
+        function ecoFavs() { try { return new Set(JSON.parse(localStorage.getItem(ECO_FAV_KEY) || '[]')); } catch { return new Set(); } }
+        function ecoSaveFavs(set) { localStorage.setItem(ECO_FAV_KEY, JSON.stringify([...set])); }
+        function esc(s) { const d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; }
+        function parseNum(s) { return parseFloat(String(s).replace(/,/g, '')) || 0; }
+
+        async function loadEconomy() {
+            const box = document.getElementById('economy-content');
+            try {
+                const resp = await fetch('/api/economy?cat=Currency');
+                if (!resp.ok) throw new Error('HTTP ' + resp.status);
+                ecoData = await resp.json();
+                if (ecoData.fetched_at) {
+                    const t = new Date(ecoData.fetched_at * 1000);
+                    document.getElementById('economy-fetched').textContent =
+                        ' · 更新于 ' + t.toLocaleString('zh-CN', { hour12: false });
+                }
+                renderEconomy();
+            } catch (e) {
+                box.innerHTML = '<div class="no-results">❌ 行情加载失败，请稍后重试（' + esc(e.message) + '）</div>';
+            }
+        }
+
+        function toggleEcoFavOnly() {
+            ecoFavOnly = !ecoFavOnly;
+            document.getElementById('economy-fav-toggle').classList.toggle('active', ecoFavOnly);
+            renderEconomy();
+        }
+
+        function toggleEcoFav(name) {
+            const favs = ecoFavs();
+            if (favs.has(name)) favs.delete(name); else favs.add(name);
+            ecoSaveFavs(favs);
+            renderEconomy();
+        }
+
+        function sparkSvg(path, up) {
+            if (!path) return '';
+            const color = up ? '#6fcf6f' : '#f0808a';
+            return '<svg class="eco-spark" viewBox="0 0 60 22" xmlns="http://www.w3.org/2000/svg">'
+                + '<path d="' + esc(path) + '" fill="none" stroke="' + color + '" stroke-width="2"/></svg>';
+        }
+
+        function renderEconomy() {
+            const box = document.getElementById('economy-content');
+            if (!ecoData || !ecoData.items) return;
+            const favs = ecoFavs();
+            const kw = (document.getElementById('economy-search')?.value || '').trim().toLowerCase().split(/\s+/).filter(Boolean);
+            const sort = document.getElementById('economy-sort')?.value || 'default';
+
+            let rows = ecoData.items.slice();
+            if (ecoFavOnly) rows = rows.filter(r => favs.has(r.name));
+            if (kw.length) rows = rows.filter(r => kw.every(k => r.name.toLowerCase().includes(k)));
+
+            const trendVal = r => (r.trendUp ? 1 : -1) * Math.abs(parseNum(r.trendPct));
+            if (sort === 'price-desc') rows.sort((a, b) => parseNum(b.qty) - parseNum(a.qty));
+            else if (sort === 'price-asc') rows.sort((a, b) => parseNum(a.qty) - parseNum(b.qty));
+            else if (sort === 'trend-desc') rows.sort((a, b) => trendVal(b) - trendVal(a));
+            else if (sort === 'trend-asc') rows.sort((a, b) => trendVal(a) - trendVal(b));
+            else if (sort === 'vol-desc') rows.sort((a, b) => parseNum(b.volume) - parseNum(a.volume));
+
+            if (!rows.length) { box.innerHTML = '<div class="no-results">未找到匹配结果</div>'; return; }
+
+            let html = (ecoData.stale ? '<div class="note" style="margin-bottom:10px;">⚠️ 当前为缓存数据，上游暂时不可用，价格可能略有延迟</div>' : '')
+                + '<div class="eco-scroll"><table class="eco-table"><thead><tr>'
+                + '<th style="width:36px;"></th><th>名称</th><th>价格</th><th>近7天</th><th>涨跌</th><th class="col-vol">24h成交量</th>'
+                + '</tr></thead><tbody>';
+            rows.forEach(r => {
+                const fav = favs.has(r.name);
+                const trendCls = r.trendUp ? 'eco-up' : 'eco-down';
+                const arrow = r.trendUp ? '▲' : '▼';
+                html += '<tr>'
+                    + '<td><button class="eco-fav' + (fav ? ' on' : '') + '" title="收藏" data-fav="' + esc(r.name) + '">⭐</button></td>'
+                    + '<td><div class="eco-name">' + (r.icon ? '<img class="eco-icon" src="' + esc(r.icon) + '" alt="" loading="lazy">' : '') + '<span class="eco-itemname">' + esc(r.name) + '</span></div></td>'
+                    + '<td class="eco-price"><span class="num">' + esc(r.qty) + '</span><span class="unit">' + esc(r.refCn) + '</span></td>'
+                    + '<td>' + sparkSvg(r.spark, r.trendUp) + '</td>'
+                    + '<td class="' + trendCls + '">' + arrow + ' ' + esc(r.trendPct) + '</td>'
+                    + '<td class="eco-vol col-vol">' + esc(r.volume) + '</td>'
+                    + '</tr>';
+            });
+            html += '</tbody></table></div>';
+            box.innerHTML = html;
+            box.querySelectorAll('.eco-fav').forEach(btn => {
+                btn.addEventListener('click', () => toggleEcoFav(btn.dataset.fav));
+            });
+        }
 
         async function loadData() {
             try {
@@ -262,6 +396,7 @@
         }
 
         loadData();
+        loadEconomy();
     </script>
 </body>
 </html>
