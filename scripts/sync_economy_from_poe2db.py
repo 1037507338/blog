@@ -101,6 +101,9 @@ def parse_rows(html):
         trend_up = (pct_m.group(1) == 'green') if pct_m else None
         # 成交量
         volume = re.sub(r'<[^>]+>', '', tds[3]).strip()
+        # 跳过神圣石自身（无法用其他通货折算）
+        if item_key == 'divine':
+            continue
         if name and unit_qty:
             items.append({
                 'name': name,

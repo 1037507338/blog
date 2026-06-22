@@ -276,6 +276,31 @@ th:last-child,td.actions{position:sticky;right:0;background:var(--card);box-shad
         <div style="margin-top:14px;font-size:.78rem;color:var(--sub);line-height:1.6">
           💡 提示：设置保存后，首页 CDN 缓存会在 5 分钟内自动更新；用户刷新页面即可看到最新效果。
         </div>
+
+        <h3 style="font-size:1rem;font-weight:700;margin:28px 0 14px;color:var(--text)">神圣石人民币汇率</h3>
+        <div class="setting-row" style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--border)">
+          <div style="flex:1;min-width:0">
+            <div style="font-weight:600;font-size:.95rem;color:var(--text);margin-bottom:4px">汇率折线图</div>
+            <div style="font-size:.8rem;color:var(--sub);line-height:1.5">在大盘行情页面顶部展示神圣石对人民币汇率及历史走势折线图</div>
+          </div>
+          <div style="display:flex;align-items:center;flex-shrink:0">
+            <span class="toggle-state-text" id="cfgDivineCnyVisibleText">关闭</span>
+            <label class="toggle-switch" style="position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0">
+              <input type="checkbox" id="cfgDivineCnyVisible" onchange="toggleSiteConfig('economy_divine_cny_visible', this.checked)" style="opacity:0;width:0;height:0">
+              <span class="toggle-slider" style="position:absolute;cursor:pointer;inset:0;border-radius:24px;transition:.2s"></span>
+            </label>
+          </div>
+        </div>
+        <div class="setting-row" style="padding:14px 0;border-bottom:1px solid var(--border)">
+          <div style="font-weight:600;font-size:.95rem;color:var(--text);margin-bottom:10px">设置今日汇率</div>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <span style="font-size:.88rem;color:var(--sub)">1 神圣石 =</span>
+            <input id="cfgDivineCnyPrice" type="number" step="0.01" min="0" placeholder="如 3.50" style="width:120px;padding:8px 12px;border-radius:6px;border:1px solid var(--border);background:var(--input-bg);color:var(--text);font-size:.92rem;font-family:'IBM Plex Mono',monospace">
+            <span style="font-size:.88rem;color:var(--sub)">¥</span>
+            <button onclick="saveDivineCnyPrice()" style="padding:8px 16px;border-radius:6px;background:linear-gradient(135deg,#c9a227,#8b6914);color:#fff;border:none;font-size:.86rem;font-weight:600;cursor:pointer;transition:opacity .2s" onmouseover="this.style.opacity=.85" onmouseout="this.style.opacity=1">保存</button>
+          </div>
+          <div style="margin-top:8px;font-size:.76rem;color:var(--sub)">💡 价格会自动记入历史记录，用于折线图展示。日期默认为今天。</div>
+        </div>
       </div>
     </div>
   </div>
@@ -565,10 +590,11 @@ async function toggleSiteConfig(key, val) {
 function updateToggleStateText(key, val) {
   if (key === 'poe2_cn_countdown') {
     const t = document.getElementById('cfgPoe2CountdownText');
-    if (t) {
-      t.textContent = val ? '已开启' : '关闭';
-      t.classList.toggle('on', !!val);
-    }
+    if (t) { t.textContent = val ? '已开启' : '关闭'; t.classList.toggle('on', !!val); }
+  }
+  if (key === 'economy_divine_cny_visible') {
+    const t = document.getElementById('cfgDivineCnyVisibleText');
+    if (t) { t.textContent = val ? '已开启' : '关闭'; t.classList.toggle('on', !!val); }
   }
 }
 
@@ -579,6 +605,57 @@ function applySiteConfigToUI() {
     cb.checked = v;
     updateToggleStateText('poe2_cn_countdown', v);
   }
+  const cb2 = document.getElementById('cfgDivineCnyVisible');
+  if (cb2) {
+    const v = !!siteConfig.economy_divine_cny_visible;
+    cb2.checked = v;
+    updateToggleStateText('economy_divine_cny_visible', v);
+  }
+  // 填充当前汇率
+  const priceInput = document.getElementById('cfgDivineCnyPrice');
+  if (priceInput && siteConfig.economy_divine_cny) {
+    priceInput.value = siteConfig.economy_divine_cny.price != null ? siteConfig.economy_divine_cny.price : '';
+  }
+}
+
+async function saveDivineCnyPrice() {
+  const input = document.getElementById('cfgDivineCnyPrice');
+  const price = parseFloat(input.value);
+  if (isNaN(price) || price <= 0) { alert('请输入有效的价格'); return; }
+  const today = new Date().toLocaleDateString('zh-CN', { month:'2-digit', day:'2-digit' }).replace(/\//g, '/');
+  const newEntry = { date: today, price };
+  // 读取现有历史
+  let history = siteConfig.economy_divine_cny_history || [];
+  // 如果今天已有记录则更新，否则追加
+  const todayIdx = history.findIndex(h => h.date === today);
+  if (todayIdx >= 0) history[todayIdx].price = price;
+  else history.push(newEntry);
+  // 最多保留 30 天
+  if (history.length > 30) history = history.slice(-30);
+  try {
+    // 保存价格
+    await toggleSiteConfigRaw('economy_divine_cny', newEntry);
+    // 保存历史
+    await toggleSiteConfigRaw('economy_divine_cny_history', history);
+    // 自动开启显隐
+    if (!siteConfig.economy_divine_cny_visible) {
+      await toggleSiteConfig('economy_divine_cny_visible', true);
+    }
+    siteConfig.economy_divine_cny = newEntry;
+    siteConfig.economy_divine_cny_history = history;
+    alert('汇率已保存 ✓');
+  } catch (e) { alert('保存失败：' + e.message); }
+}
+
+// 直接调用 API 保存，不更新 UI toggle
+async function toggleSiteConfigRaw(key, val) {
+  const resp = await fetch(API_CONFIG, {
+    method: 'POST',
+    headers: authHeaders({ 'Content-Type': 'application/json' }),
+    body: JSON.stringify({ key, value: val })
+  });
+  if (!resp.ok) throw new Error('HTTP ' + resp.status);
+  siteConfig[key] = val;
 }
 
 async function loadLinks() {

@@ -138,6 +138,24 @@ body[data-theme="light"] .eco-group-title .eco-group-cnt{color:#a08a52;}
 
   <div class="eco-cats" id="eco-cats"></div>
 
+  <!-- 神圣石人民币汇率卡片 -->
+  <div id="eco-divine-cny" style="display:none;margin:0 0 16px;padding:14px 18px;border-radius:10px;background:linear-gradient(135deg,rgba(201,162,39,.12),rgba(139,105,20,.08));border:1px solid rgba(201,162,39,.32);">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:1.3rem">💎</span>
+        <div>
+          <div style="font-family:'Noto Serif SC',serif;font-weight:700;color:var(--text);font-size:.95rem">神圣石参考汇率</div>
+          <div style="font-size:.78rem;color:var(--subtext);margin-top:2px" id="eco-cny-date">暂无数据</div>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:1.4rem;font-weight:700;color:#c9a227" id="eco-cny-price">—</div>
+        <div style="font-size:.72rem;color:var(--subtext)">¥ / 1 神圣石</div>
+      </div>
+    </div>
+    <div id="eco-cny-chart" style="margin-top:12px;height:80px;overflow:hidden;"></div>
+  </div>
+
   <div class="eco-note">
     💱 数据来源
     <a href="https://poe2db.tw/cn/Economy" target="_blank">poe2db.tw</a>
@@ -385,7 +403,79 @@ function renderEconomy() {
 document.addEventListener('DOMContentLoaded', () => {
   renderCatTabs();
   loadEconomy();
+  loadDivineCny();
 });
+
+// 加载神圣石人民币汇率
+async function loadDivineCny() {
+  try {
+    const resp = await fetch('/api/site-config?key=economy_divine_cny');
+    if (!resp.ok) return;
+    const { value } = await resp.json();
+    if (!value) return;
+    document.getElementById('eco-divine-cny').style.display = '';
+    document.getElementById('eco-cny-price').textContent = value.price != null ? '¥' + value.price.toFixed(2) : '—';
+    document.getElementById('eco-cny-date').textContent = value.date || '暂无数据';
+    // 加载显隐配置
+    try {
+      const visResp = await fetch('/api/site-config?key=economy_divine_cny_visible');
+      if (visResp.ok) {
+        const { value: visible } = await visResp.json();
+        if (visible === false) document.getElementById('eco-divine-cny').style.display = 'none';
+      }
+    } catch {}
+    // 加载历史数据画折线图
+    try {
+      const histResp = await fetch('/api/site-config?key=economy_divine_cny_history');
+      if (histResp.ok) {
+        const { value: history } = await histResp.json();
+        if (Array.isArray(history) && history.length >= 2) renderCnyChart(history);
+      }
+    } catch {}
+  } catch {}
+}
+
+// 简易 SVG 折线图
+function renderCnyChart(data) {
+  const box = document.getElementById('eco-cny-chart');
+  if (!box || data.length < 2) return;
+  const w = Math.max(box.clientWidth || 400, 300);
+  const h = 72;
+  const pad = { t: 8, r: 8, b: 20, l: 40 };
+  const pw = w - pad.l - pad.r;
+  const ph = h - pad.t - pad.b;
+  const prices = data.map(d => d.price);
+  const minP = Math.min(...prices);
+  const maxP = Math.max(...prices);
+  const range = maxP - minP || 1;
+  const pts = data.map((d, i) => {
+    const x = pad.l + (i / (data.length - 1)) * pw;
+    const y = pad.t + (1 - (d.price - minP) / range) * ph;
+    return { x: x.toFixed(1), y: y.toFixed(1), ...d };
+  });
+  const pathD = pts.map((p, i) => (i === 0 ? 'M' : 'L') + p.x + ' ' + p.y).join(' ');
+  const areaD = pathD + ' L' + pts[pts.length - 1].x + ' ' + (pad.t + ph) + ' L' + pts[0].x + ' ' + (pad.t + ph) + ' Z';
+  // X 轴日期标签（最多显示5个）
+  const step = Math.max(1, Math.floor(data.length / 5));
+  const labels = data.map((d, i) => {
+    if (i % step !== 0 && i !== data.length - 1) return '';
+    const x = pad.l + (i / (data.length - 1)) * pw;
+    return '<text x="' + x.toFixed(1) + '" y="' + (h - 2) + '" text-anchor="middle" fill="var(--subtext)" font-size="10">' + (d.date || '').slice(-5) + '</text>';
+  }).join('');
+  // Y 轴价格标签
+  const yLabels = [
+    '<text x="' + (pad.l - 4) + '" y="' + (pad.t + 4) + '" text-anchor="end" fill="var(--subtext)" font-size="10">' + maxP.toFixed(1) + '</text>',
+    '<text x="' + (pad.l - 4) + '" y="' + (pad.t + ph + 4) + '" text-anchor="end" fill="var(--subtext)" font-size="10">' + minP.toFixed(1) + '</text>'
+  ].join('');
+  box.innerHTML = '<svg width="' + w + '" height="' + h + '" xmlns="http://www.w3.org/2000/svg">'
+    + '<defs><linearGradient id="cnyGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c9a227" stop-opacity="0.3"/><stop offset="100%" stop-color="#c9a227" stop-opacity="0.02"/></linearGradient></defs>'
+    + '<path d="' + areaD + '" fill="url(#cnyGrad)"/>'
+    + '<path d="' + pathD + '" fill="none" stroke="#c9a227" stroke-width="2" stroke-linejoin="round"/>'
+    + pts.map(p => '<circle cx="' + p.x + '" cy="' + p.y + '" r="3" fill="#c9a227" stroke="#1a140c" stroke-width="1"/>').join('')
+    + labels + yLabels
+    + '<line x1="' + pad.l + '" y1="' + (pad.t + ph) + '" x2="' + (pad.l + pw) + '" y2="' + (pad.t + ph) + '" stroke="var(--border,rgba(77,58,31,.5))" stroke-width="0.5"/>'
+    + '</svg>';
+}
 </script>
 <script src="js/common.js" defer></script>
 <script src="js/speed-insights.js" defer></script>
