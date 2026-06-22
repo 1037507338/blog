@@ -1,0 +1,13 @@
+vercel.json
+  ai_agent 5
+prices.html
+  ai_agent 38-58,79-80,88-110,144-233,399
+api/economy.js
+  ai_agent 1-124
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "ff56e0422b693a840aa4d9d9a4d1e8fd5fb8eec7",
+  "prompts": {}
+}
