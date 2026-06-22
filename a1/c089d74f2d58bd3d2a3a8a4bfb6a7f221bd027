@@ -1,0 +1,28 @@
+economy.html
+  s_9acbdd38e6b917::t_8e748522c30e34 100-103
+  s_9acbdd38e6b917::t_0c0226c5c22d18 78
+  s_9acbdd38e6b917::t_8dd4fbe4222599 284
+  s_9acbdd38e6b917::t_af50e414aeea23 197,199,205-213,225-242
+  s_9acbdd38e6b917::t_9d7559e2334850 316-317,322,339-344,348,355,362,364,371-380,385-386
+  s_9acbdd38e6b917::t_1a572f5a7fb7d0 150
+  s_9acbdd38e6b917::t_81ebab5df08691 41,43,45-51,53
+  s_9acbdd38e6b917::t_1301559ac37b59 52,54-61
+  s_9acbdd38e6b917::t_0c9d401f1ddbce 82
+  s_9acbdd38e6b917::t_064d78789d16dd 160,162,168-169,175-176
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "a1c089d74f2d58bd3d2a3a8a4bfb6a7f221bd027",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
