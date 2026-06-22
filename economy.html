@@ -20,6 +20,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica N
 <link rel="icon" href="favicon.ico">
 <style>
 /* ===== 大盘行情页 ===== */
+/* 分类切换 Tab（上侧横向） */
+.eco-cats{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 16px;}
+.eco-cat{padding:6px 14px;border-radius:3px;font-size:.84rem;font-weight:600;font-family:'Noto Serif SC',serif;letter-spacing:.03em;cursor:pointer;background:rgba(40,30,15,.55);color:#b8a47a;border:1px solid #4d3a1f;transition:all .2s;white-space:nowrap;}
+.eco-cat:hover{color:#f4dc99;border-color:#c9a227;}
+.eco-cat.active{background:linear-gradient(135deg,#c9a227,#8b6914);color:#1a140c;border-color:#c9a227;font-weight:700;}
 .eco-note{color:#897653;font-size:.82rem;margin:0 0 16px;padding:10px 12px;background:rgba(201,162,39,0.06);border-left:3px solid #c9a227;border-radius:0 4px 4px 0;}
 .eco-note a{color:#c9a227;font-weight:600;}
 .eco-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0;}
@@ -68,6 +73,12 @@ body[data-theme="light"] .eco-price .unit{color:#7a6a44;}
 body[data-theme="light"] .eco-up{color:#1f8a3b;}
 body[data-theme="light"] .eco-down{color:#c0392b;}
 body[data-theme="light"] .eco-vol{color:#6b5d3a;}
+body[data-theme="light"] .eco-cat{background:#ede0bd;color:#6b5530;border-color:#d8c080;}
+body[data-theme="light"] .eco-cat:hover{color:#3a2e15;border-color:#c9a227;}
+body[data-theme="light"] .eco-cat.active{background:linear-gradient(135deg,#c9a227,#a8841a);color:#fff;border-color:#a8841a;}
+body[data-theme="light"] .eco-search{background:#fff;border-color:#d8c9a0;color:#3a2e15;}
+body[data-theme="light"] .eco-favbtn{background:#ede0bd;color:#6b5530;border-color:#d8c080;}
+body[data-theme="light"] .eco-favbtn.active{background:rgba(201,162,39,.25);color:#6b4f0f;border-color:#c9a227;}
 </style>
 </head>
 <body>
@@ -92,7 +103,9 @@ body[data-theme="light"] .eco-vol{color:#6b5d3a;}
 
 <div class="page-wrap">
   <h1 class="page-title">大盘行情</h1>
-  <p class="page-desc">国服通货实时价格 · 24h 涨跌与成交量</p>
+  <p class="page-desc">国服实时价格 · 24h 涨跌与成交量</p>
+
+  <div class="eco-cats" id="eco-cats"></div>
 
   <div class="eco-note">
     💱 数据来源
@@ -112,7 +125,16 @@ body[data-theme="light"] .eco-vol{color:#6b5d3a;}
 <footer style="text-align:center;padding:2rem 1.5rem;font-size:0.82rem;color:#b8a47a;opacity:0.85">© 2025 POE2 Hub · 仅供学习交流 · 行情数据来源 poe2db.tw</footer>
 
 <script>
-let ecoData = null;
+// 14 个分类（key 对应后端 Economy_<key>）
+const ECO_CATS = [
+  ['Currency','通货'],['Fragments','碎片'],['Essences','精华'],['Runes','符文'],
+  ['Gems','宝石'],['Soul_Cores','灵核'],['Uncut_Gems','未切割宝石'],['Idols','雕像'],
+  ['Breach','裂隙'],['Delirium','惊悸迷雾'],['Expedition','先祖秘藏'],['Ritual','驱灵仪式'],
+  ['Abyss','深渊'],['Atziris_Temple','阿兹里神庙'],
+];
+let ecoCat = 'Currency';
+let ecoData = null;            // 当前分类数据
+const ecoCache = {};           // { [cat]: payload } 已加载分类缓存
 let ecoFavOnly = false;
 let ecoSort = { key: 'default', dir: 'desc' }; // key: price|trend|vol|default
 const ECO_FAV_KEY = 'poe2_eco_favs';
@@ -122,20 +144,55 @@ function ecoSaveFavs(set) { localStorage.setItem(ECO_FAV_KEY, JSON.stringify([..
 function esc(s) { const d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; }
 function parseNum(s) { return parseFloat(String(s).replace(/,/g, '')) || 0; }
 
+function renderCatTabs() {
+  const wrap = document.getElementById('eco-cats');
+  wrap.innerHTML = ECO_CATS.map(([k, label]) =>
+    '<button class="eco-cat' + (k === ecoCat ? ' active' : '') + '" data-cat="' + k + '">' + esc(label) + '</button>'
+  ).join('');
+  wrap.querySelectorAll('.eco-cat').forEach(btn => {
+    btn.addEventListener('click', () => switchCat(btn.dataset.cat));
+  });
+}
+
+async function switchCat(cat) {
+  if (cat === ecoCat) return;
+  ecoCat = cat;
+  // 切分类重置搜索/排序（收藏跨分类共享，保留）
+  ecoSort = { key: 'default', dir: 'desc' };
+  const s = document.getElementById('eco-search'); if (s) s.value = '';
+  renderCatTabs();
+  await loadEconomy();
+}
+
 async function loadEconomy() {
   const box = document.getElementById('eco-content');
+  // 命中缓存：直接渲染，不重抓
+  if (ecoCache[ecoCat]) {
+    ecoData = ecoCache[ecoCat];
+    updateFetchedLabel();
+    renderEconomy();
+    return;
+  }
+  box.innerHTML = '<div class="eco-state">正在加载行情...</div>';
   try {
-    const resp = await fetch('/api/economy?cat=Currency');
+    const resp = await fetch('/api/economy?cat=' + encodeURIComponent(ecoCat));
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
-    ecoData = await resp.json();
-    if (ecoData.fetched_at) {
-      const t = new Date(ecoData.fetched_at * 1000);
-      document.getElementById('eco-fetched').textContent = ' · 更新于 ' + t.toLocaleString('zh-CN', { hour12: false });
-    }
+    const data = await resp.json();
+    ecoCache[ecoCat] = data;
+    ecoData = data;
+    updateFetchedLabel();
     renderEconomy();
   } catch (e) {
     box.innerHTML = '<div class="eco-state">❌ 行情加载失败，请稍后重试（' + esc(e.message) + '）</div>';
   }
+}
+
+function updateFetchedLabel() {
+  const el = document.getElementById('eco-fetched');
+  if (ecoData && ecoData.fetched_at) {
+    const t = new Date(ecoData.fetched_at * 1000);
+    el.textContent = ' · 更新于 ' + t.toLocaleString('zh-CN', { hour12: false });
+  } else el.textContent = '';
 }
 
 function toggleEcoFavOnly() {
@@ -216,7 +273,10 @@ function renderEconomy() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', loadEconomy);
+document.addEventListener('DOMContentLoaded', () => {
+  renderCatTabs();
+  loadEconomy();
+});
 </script>
 <script src="js/common.js" defer></script>
 <script src="js/speed-insights.js" defer></script>

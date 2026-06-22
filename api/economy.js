@@ -6,9 +6,22 @@
 
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 
-// 分类清单（先只开通货；其余先登记，待铺开时启用）
+// 分类清单（key 对应 poe2db Economy_<key> 页面，值为中文标签）
 const CATS = {
   Currency: '通货',
+  Fragments: '碎片',
+  Ritual: '驱灵仪式',
+  Essences: '精华',
+  Breach: '裂隙',
+  Delirium: '惊悸迷雾',
+  Expedition: '先祖秘藏',
+  Runes: '符文',
+  Soul_Cores: '灵核',
+  Idols: '雕像',
+  Uncut_Gems: '未切割宝石',
+  Abyss: '深渊',
+  Gems: '宝石',
+  Atziris_Temple: '阿兹里神庙',
 };
 
 // 基准货币英文 key → 中文名（价格列左侧的计价货币）
