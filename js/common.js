@@ -1,6 +1,5 @@
 // 子页面共用：主题切换 / 移动端导航 / 返回顶部 / 高亮当前页
-// 用法：在 </body> 前用 <script src="js/common.js" defer></script> 加载
-
+// 用法：在 <body> 末尾 <script src="js/common.js" defer></script>
 (function(){
   function init(){
     // ---- 主题 ----
