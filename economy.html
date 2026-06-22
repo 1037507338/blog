@@ -38,17 +38,27 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica N
 .eco-group-title .eco-group-coin{color:#f4dc99;}
 .eco-group-title .eco-group-cnt{color:#897653;font-weight:400;font-size:.84rem;}
 .eco-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:8px 0 4px;border:1px solid #4d3a1f;border-radius:6px;}
-.eco-table{width:100%;border-collapse:collapse;min-width:680px;table-layout:fixed;}
+.eco-table{width:100%;border-collapse:collapse;min-width:760px;table-layout:fixed;}
 .eco-table th,.eco-table td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-/* 列宽固定，保证表头与数据对齐 */
+/* 列宽固定，保证表头与数据对齐；名称列收窄，走势/成交量加宽 */
 .eco-table .col-fav{width:38px;text-align:center;padding-left:6px;padding-right:0;}
-.eco-table .col-name{width:auto;min-width:150px;text-align:left;}
-.eco-table .col-price{width:104px;text-align:right;}
-.eco-table .col-orig{width:120px;text-align:right;}
-.eco-table .col-num{width:96px;text-align:right;}
-.eco-table .col-spark{width:70px;text-align:center;}
-.eco-orig{color:#b8a47a;font-size:.84rem;white-space:nowrap;}
-.eco-orig .unit{color:#897653;font-size:.78rem;}
+.eco-table .col-name{width:210px;text-align:left;}
+.eco-table .col-price{width:96px;text-align:right;}
+.eco-table .col-orig{width:118px;text-align:right;}
+.eco-table .col-num{width:108px;text-align:right;}
+.eco-table .col-spark{width:108px;text-align:center;}
+/* 所有数值列统一等宽字体 */
+.eco-table .col-price .num,.eco-table .col-orig,.eco-table .col-num{font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;}
+.eco-table .col-cat{width:88px;text-align:center;}
+.eco-orig{color:#b8a47a;font-size:.86rem;white-space:nowrap;}
+.eco-orig .oq{font-family:'IBM Plex Mono',ui-monospace,monospace;}
+.eco-orig .unit{color:#897653;font-size:.76rem;font-family:'Noto Serif SC',serif;margin-left:3px;}
+.eco-cattag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:.74rem;background:rgba(201,162,39,.14);color:#d6b955;border:1px solid rgba(201,162,39,.3);white-space:nowrap;}
+.eco-pager{display:flex;align-items:center;justify-content:center;gap:16px;margin:18px 0 4px;}
+.eco-pgbtn{padding:7px 18px;border-radius:5px;font-size:.86rem;font-family:'Noto Serif SC',serif;cursor:pointer;background:rgba(40,30,15,.55);color:#b8a47a;border:1px solid #4d3a1f;transition:all .2s;}
+.eco-pgbtn:hover:not([disabled]){color:#f4dc99;border-color:#c9a227;}
+.eco-pgbtn[disabled]{opacity:.4;cursor:not-allowed;}
+.eco-pginfo{color:#897653;font-size:.86rem;font-family:'IBM Plex Mono',monospace;}
 .eco-table th{background:rgba(201,162,39,.15);color:#f4dc99;padding:11px 14px;border-bottom:2px solid #c9a227;font-size:.86rem;}
 .eco-table th.sortable{cursor:pointer;user-select:none;transition:background .15s;}
 .eco-table th.sortable:hover{background:rgba(201,162,39,.28);}
@@ -65,11 +75,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica N
 .eco-price .unit{color:#b8a47a;font-size:.82rem;margin-left:3px;}
 .eco-up{color:#6fcf6f;font-weight:600;}
 .eco-down{color:#f0808a;font-weight:600;}
-.eco-vol{color:#b8a47a;font-family:monospace;font-size:.88rem;white-space:nowrap;}
+.eco-vol{color:#b8a47a;font-size:.88rem;white-space:nowrap;}
 .eco-fav{cursor:pointer;font-size:1.1rem;background:none;border:none;padding:0 4px;line-height:1;filter:grayscale(1) opacity(.4);transition:filter .15s;}
 .eco-fav.on{filter:none;}
 .eco-fav:hover{filter:none;}
-.eco-spark{width:60px;height:22px;vertical-align:middle;}
+.eco-spark{width:92px;height:24px;vertical-align:middle;}
 .eco-state{text-align:center;color:#897653;padding:3rem 1rem;font-size:.92rem;}
 /* 浅色主题：表格为深色羊皮卷设计，浅底下需改深色文字保证对比度 */
 body[data-theme="light"] .eco-scroll{border-color:#d8c9a0;}
@@ -87,6 +97,10 @@ body[data-theme="light"] .eco-down{color:#c0392b;}
 body[data-theme="light"] .eco-vol{color:#6b5d3a;}
 body[data-theme="light"] .eco-orig{color:#7a6a44;}
 body[data-theme="light"] .eco-orig .unit{color:#a08a52;}
+body[data-theme="light"] .eco-cattag{background:rgba(201,162,39,.18);color:#7a5e12;border-color:rgba(201,162,39,.4);}
+body[data-theme="light"] .eco-pgbtn{background:#ede0bd;color:#6b5530;border-color:#d8c080;}
+body[data-theme="light"] .eco-pgbtn:hover:not([disabled]){color:#3a2e15;border-color:#c9a227;}
+body[data-theme="light"] .eco-pginfo{color:#7a6a44;}
 body[data-theme="light"] .eco-cat{background:#ede0bd;color:#6b5530;border-color:#d8c080;}
 body[data-theme="light"] .eco-cat:hover{color:#3a2e15;border-color:#c9a227;}
 body[data-theme="light"] .eco-cat.active{background:linear-gradient(135deg,#c9a227,#a8841a);color:#fff;border-color:#a8841a;}
@@ -133,7 +147,7 @@ body[data-theme="light"] .eco-group-title .eco-group-cnt{color:#a08a52;}
   </div>
 
   <div class="eco-bar">
-    <input id="eco-search" class="eco-search" type="text" placeholder="🔍 按名称搜索（空格分隔多关键词）..." oninput="renderEconomy()">
+    <input id="eco-search" class="eco-search" type="text" placeholder="🔍 按名称搜索（空格分隔多关键词）..." oninput="ecoPage=1;renderEconomy()">
     <button id="eco-fav-toggle" class="eco-favbtn" onclick="toggleEcoFavOnly()">⭐ 只看收藏</button>
   </div>
 
@@ -143,18 +157,23 @@ body[data-theme="light"] .eco-group-title .eco-group-cnt{color:#a08a52;}
 <footer style="text-align:center;padding:2rem 1.5rem;font-size:0.82rem;color:#b8a47a;opacity:0.85">© 2025 POE2 Hub · 仅供学习交流 · 行情数据来源 poe2db.tw</footer>
 
 <script>
-// 14 个分类（key 对应后端 Economy_<key>）
+// 14 个分类（key 对应后端 Economy_<key>）+ 「全部」聚合
 const ECO_CATS = [
+  ['All','全部'],
   ['Currency','通货'],['Fragments','碎片'],['Essences','精华'],['Runes','符文'],
   ['Gems','宝石'],['Soul_Cores','灵核'],['Uncut_Gems','未切割宝石'],['Idols','雕像'],
   ['Breach','裂隙'],['Delirium','惊悸迷雾'],['Expedition','先祖秘藏'],['Ritual','驱灵仪式'],
   ['Abyss','深渊'],['Atziris_Temple','阿兹里神庙'],
 ];
+const REAL_CATS = ECO_CATS.filter(([k]) => k !== 'All').map(([k]) => k);
+const CAT_CN = Object.fromEntries(ECO_CATS); // key→中文
 let ecoCat = 'Currency';
 let ecoData = null;            // 当前分类数据
 const ecoCache = {};           // { [cat]: payload } 已加载分类缓存
 let ecoFavOnly = false;
 let ecoSort = { key: 'default', dir: 'desc' }; // key: price|trend|vol|default
+let ecoPage = 1;               // 当前页（仅「全部」分页）
+const PAGE_SIZE = 50;
 const ECO_FAV_KEY = 'poe2_eco_favs';
 
 function ecoFavs() { try { return new Set(JSON.parse(localStorage.getItem(ECO_FAV_KEY) || '[]')); } catch { return new Set(); } }
@@ -175,11 +194,21 @@ function renderCatTabs() {
 async function switchCat(cat) {
   if (cat === ecoCat) return;
   ecoCat = cat;
-  // 切分类重置搜索/排序（收藏跨分类共享，保留）
+  // 切分类重置搜索/排序/页码（收藏跨分类共享，保留）
   ecoSort = { key: 'default', dir: 'desc' };
+  ecoPage = 1;
   const s = document.getElementById('eco-search'); if (s) s.value = '';
   renderCatTabs();
   await loadEconomy();
+}
+
+async function fetchCat(cat) {
+  if (ecoCache[cat]) return ecoCache[cat];
+  const resp = await fetch('/api/economy?cat=' + encodeURIComponent(cat));
+  if (!resp.ok) throw new Error('HTTP ' + resp.status);
+  const data = await resp.json();
+  ecoCache[cat] = data;
+  return data;
 }
 
 async function loadEconomy() {
@@ -193,11 +222,24 @@ async function loadEconomy() {
   }
   box.innerHTML = '<div class="eco-state">正在加载行情...</div>';
   try {
-    const resp = await fetch('/api/economy?cat=' + encodeURIComponent(ecoCat));
-    if (!resp.ok) throw new Error('HTTP ' + resp.status);
-    const data = await resp.json();
-    ecoCache[ecoCat] = data;
-    ecoData = data;
+    if (ecoCat === 'All') {
+      // 并发拉取全部分类，合并（附带分类名）
+      const results = await Promise.all(REAL_CATS.map(c =>
+        fetchCat(c).then(d => ({ c, d })).catch(() => null)
+      ));
+      const items = [];
+      let rates = null, fetched = 0;
+      results.forEach(r => {
+        if (!r || !r.d) return;
+        if (!rates && r.d.rates) rates = r.d.rates;
+        if (r.d.fetched_at) fetched = Math.max(fetched, r.d.fetched_at);
+        (r.d.items || []).forEach(it => items.push({ ...it, catCn: CAT_CN[r.c] || r.c }));
+      });
+      ecoData = { cat: 'All', label: '全部', rates, items, fetched_at: fetched };
+      ecoCache['All'] = ecoData;
+    } else {
+      ecoData = await fetchCat(ecoCat);
+    }
     updateFetchedLabel();
     renderEconomy();
   } catch (e) {
@@ -239,6 +281,7 @@ function toggleEcoFav(name) {
 function ecoSortBy(key) {
   if (ecoSort.key === key) ecoSort.dir = ecoSort.dir === 'desc' ? 'asc' : 'desc';
   else { ecoSort.key = key; ecoSort.dir = 'desc'; }
+  ecoPage = 1;
   renderEconomy();
 }
 
@@ -270,10 +313,13 @@ function fmtUnit(v) {
   return (Math.round(v * 1000) / 1000).toString();
 }
 
+function ecoGoPage(p) { ecoPage = p; renderEconomy(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
 function renderEconomy() {
   const box = document.getElementById('eco-content');
   if (!ecoData || !ecoData.items) return;
   const favs = ecoFavs();
+  const isAll = ecoCat === 'All';
   const kw = (document.getElementById('eco-search')?.value || '').trim().toLowerCase().split(/\s+/).filter(Boolean);
 
   let rows = ecoData.items.slice();
@@ -290,33 +336,54 @@ function renderEconomy() {
   else if (k === 'trend') rows.sort((a, b) => (trendVal(a) - trendVal(b)) * dir);
   else if (k === 'vol') rows.sort((a, b) => (parseNum(a.volume) - parseNum(b.volume)) * dir);
 
+  // 分页（仅「全部」）
+  const total = rows.length;
+  const totalPages = isAll ? Math.max(1, Math.ceil(total / PAGE_SIZE)) : 1;
+  if (ecoPage > totalPages) ecoPage = totalPages;
+  const pageRows = isAll ? rows.slice((ecoPage - 1) * PAGE_SIZE, ecoPage * PAGE_SIZE) : rows;
+
   let html = (ecoData.stale ? '<div class="eco-note">⚠️ 当前为缓存数据，上游暂时不可用，价格可能略有延迟</div>' : '')
     + '<div class="eco-scroll"><table class="eco-table"><thead><tr>'
     + '<th class="col-fav"></th><th class="col-name">名称</th>'
+    + (isAll ? '<th class="col-cat">分类</th>' : '')
     + '<th class="col-price sortable' + (k === 'price' ? ' sort-active' : '') + '" onclick="ecoSortBy(\'price\')">神圣石价' + arrowFor('price') + '</th>'
     + '<th class="col-orig">原始价</th>'
     + '<th class="col-spark">近7天</th>'
     + '<th class="col-num sortable' + (k === 'trend' ? ' sort-active' : '') + '" onclick="ecoSortBy(\'trend\')">涨跌' + arrowFor('trend') + '</th>'
     + '<th class="col-num sortable' + (k === 'vol' ? ' sort-active' : '') + '" onclick="ecoSortBy(\'vol\')">24h成交量' + arrowFor('vol') + '</th>'
     + '</tr></thead><tbody>';
-  rows.forEach(r => {
+  pageRows.forEach(r => {
     const fav = favs.has(r.name);
     const trendCls = r.trendUp ? 'eco-up' : 'eco-down';
     const arrow = r.trendUp ? '▲' : '▼';
     html += '<tr>'
       + '<td class="col-fav"><button class="eco-fav' + (fav ? ' on' : '') + '" title="收藏" data-fav="' + esc(r.name) + '">⭐</button></td>'
       + '<td class="col-name"><div class="eco-name">' + (r.icon ? '<img class="eco-icon" src="' + esc(r.icon) + '" alt="" loading="lazy">' : '') + '<span class="eco-itemname">' + esc(r.name) + '</span></div></td>'
+      + (isAll ? '<td class="col-cat"><span class="eco-cattag">' + esc(r.catCn || '') + '</span></td>' : '')
       + '<td class="col-price eco-price"><span class="num">' + fmtDivine(r.priceDivine) + '</span></td>'
-      + '<td class="col-orig eco-orig">' + fmtUnit(r.unitQty) + ' <span class="unit">' + esc(r.baseCn) + '</span></td>'
+      + '<td class="col-orig eco-orig"><span class="oq">' + fmtUnit(r.unitQty) + '</span><span class="unit">' + esc(r.baseCn) + '</span></td>'
       + '<td class="col-spark">' + sparkSvg(r.spark, r.trendUp) + '</td>'
       + '<td class="col-num ' + trendCls + '">' + arrow + ' ' + esc(r.trendPct) + '</td>'
       + '<td class="col-num eco-vol">' + esc(r.volume) + '</td>'
       + '</tr>';
   });
   html += '</tbody></table></div>';
+
+  // 分页控件（仅「全部」且多于一页）
+  if (isAll && totalPages > 1) {
+    html += '<div class="eco-pager">';
+    html += '<button class="eco-pgbtn" ' + (ecoPage <= 1 ? 'disabled' : 'data-pg="' + (ecoPage - 1) + '"') + '>‹ 上一页</button>';
+    html += '<span class="eco-pginfo">第 ' + ecoPage + ' / ' + totalPages + ' 页 · 共 ' + total + ' 项</span>';
+    html += '<button class="eco-pgbtn" ' + (ecoPage >= totalPages ? 'disabled' : 'data-pg="' + (ecoPage + 1) + '"') + '>下一页 ›</button>';
+    html += '</div>';
+  }
+
   box.innerHTML = html;
   box.querySelectorAll('.eco-fav').forEach(btn => {
     btn.addEventListener('click', () => toggleEcoFav(btn.dataset.fav));
+  });
+  box.querySelectorAll('.eco-pgbtn[data-pg]').forEach(btn => {
+    btn.addEventListener('click', () => ecoGoPage(parseInt(btn.dataset.pg, 10)));
   });
 }
 
