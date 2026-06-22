@@ -166,13 +166,21 @@ const ECO_CATS = [
   ['Abyss','深渊'],['Atziris_Temple','阿兹里神庙'],
 ];
 let ecoCat = 'Currency';
-let ecoData = null;            // 当前分类数据
-const ecoCache = {};           // { [cat]: payload } 已加载分类缓存
+let ecoData = null;
+const ecoCache = {};
 let ecoFavOnly = false;
-let ecoSort = { key: 'default', dir: 'desc' }; // key: price|trend|vol|default
-let ecoPage = 1;               // 当前页（仅「全部」分页）
+let ecoSort = { key: 'default', dir: 'desc' };
+let ecoPage = 1;
 const PAGE_SIZE = 50;
 const ECO_FAV_KEY = 'poe2_eco_favs';
+
+// 分类 key → 中文名映射（用于过滤）
+const ECO_CAT_CN = {
+  Currency:'通货',Fragments:'碎片',Essences:'精华',Runes:'符文',
+  Gems:'宝石',Soul_Cores:'灵核',Uncut_Gems:'未切割宝石',Idols:'雕像',
+  Breach:'裂隙',Delirium:'惊悸迷雾',Expedition:'先祖秘藏',Ritual:'驱灵仪式',
+  Abyss:'深渊',Atziris_Temple:'阿兹里神庙',
+};
 
 function ecoFavs() { try { return new Set(JSON.parse(localStorage.getItem(ECO_FAV_KEY) || '[]')); } catch { return new Set(); } }
 function ecoSaveFavs(set) { localStorage.setItem(ECO_FAV_KEY, JSON.stringify([...set])); }
@@ -189,10 +197,10 @@ function renderCatTabs() {
   });
 }
 
+// 切换分类时重置页码/搜索/排序
 async function switchCat(cat) {
   if (cat === ecoCat) return;
   ecoCat = cat;
-  // 切分类重置搜索/排序/页码（收藏跨分类共享，保留）
   ecoSort = { key: 'default', dir: 'desc' };
   ecoPage = 1;
   const s = document.getElementById('eco-search'); if (s) s.value = '';
@@ -202,11 +210,17 @@ async function switchCat(cat) {
 
 async function fetchCat(cat) {
   if (ecoCache[cat]) return ecoCache[cat];
-  const resp = await fetch('/api/economy?cat=' + encodeURIComponent(cat));
+  // 直接读取预生成的 JSON 文件，废弃原 API 实时抓取
+  const resp = await fetch('/data/economy-data.json');
   if (!resp.ok) throw new Error('HTTP ' + resp.status);
-  const data = await resp.json();
-  ecoCache[cat] = data;
-  return data;
+  const allData = await resp.json();
+  // 缓存全量数据
+  ecoCache['All'] = allData;
+  // 按分类过滤（如果需要单分类）
+  if (cat === 'All') return allData;
+  const items = (allData.items || []).filter(it => it.catCn === ECO_CAT_CN[cat]);
+  ecoCache[cat] = { ...allData, cat, label: ECO_CAT_CN[cat] || cat, items };
+  return ecoCache[cat];
 }
 
 async function loadEconomy() {
@@ -220,7 +234,7 @@ async function loadEconomy() {
   }
   box.innerHTML = '<div class="eco-state">正在加载行情...</div>';
   try {
-    ecoData = await fetchCat(ecoCat); // 「全部」聚合由后端 cat=All 完成
+    ecoData = await fetchCat(ecoCat);
     updateFetchedLabel();
     renderEconomy();
   } catch (e) {
