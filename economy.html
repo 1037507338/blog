@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>大盘行情 - POE2 Hub</title>
+<meta name="description" content="流放之路2国服实时大盘行情：通货价格、24h涨跌、成交量，数据来源 poe2db.tw">
+<style>
+/* 主题变量见 css/style.css */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:linear-gradient(145deg,var(--bg-start) 0%,var(--bg-end) 100%);color:var(--text);line-height:1.6;min-height:100vh;transition:background .3s ease,color .3s ease}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="css/parchment.css?v=5">
+<link rel="stylesheet" href="css/nav-logo.css?v=1">
+<link rel="icon" href="favicon.ico">
+<style>
+/* ===== 大盘行情页 ===== */
+.eco-note{color:#897653;font-size:.82rem;margin:0 0 16px;padding:10px 12px;background:rgba(201,162,39,0.06);border-left:3px solid #c9a227;border-radius:0 4px 4px 0;}
+.eco-note a{color:#c9a227;font-weight:600;}
+.eco-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0;}
+.eco-search{flex:1;min-width:240px;padding:8px 14px;background:rgba(37,28,17,.8);border:1px solid #4d3a1f;color:#e8d9b8;border-radius:6px;font-size:.9rem;outline:none;}
+.eco-search:focus{border-color:#c9a227;}
+.eco-search::placeholder{color:#897653;}
+.eco-favbtn{padding:8px 16px;background:rgba(37,28,17,.8);border:1px solid #4d3a1f;color:#b8a47a;border-radius:6px;font-size:.86rem;cursor:pointer;font-family:'Noto Serif SC',serif;white-space:nowrap;transition:all .2s;}
+.eco-favbtn:hover{border-color:#c9a227;color:#f4dc99;}
+.eco-favbtn.active{background:rgba(201,162,39,.2);border-color:#c9a227;color:#f4dc99;}
+.eco-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px 0;border:1px solid #4d3a1f;border-radius:6px;}
+.eco-table{width:100%;border-collapse:collapse;min-width:560px;}
+.eco-table th,.eco-table td{white-space:nowrap;}
+.eco-table th{background:rgba(201,162,39,.15);color:#f4dc99;padding:11px 14px;text-align:left;border-bottom:2px solid #c9a227;font-size:.86rem;}
+.eco-table th.sortable{cursor:pointer;user-select:none;transition:background .15s;}
+.eco-table th.sortable:hover{background:rgba(201,162,39,.28);}
+.eco-table th .arrow{display:inline-block;margin-left:4px;font-size:.78rem;color:#897653;}
+.eco-table th.sort-active .arrow{color:#f4dc99;}
+.eco-table td{padding:9px 14px;border-bottom:1px solid #4d3a1f;vertical-align:middle;}
+.eco-table tr:last-child td{border-bottom:none;}
+.eco-table tr:hover td{background:rgba(201,162,39,.05);}
+.eco-name{display:flex;align-items:center;gap:8px;flex-wrap:nowrap;}
+.eco-icon{width:26px;height:26px;flex-shrink:0;object-fit:contain;}
+.eco-itemname{color:#e8d9b8;font-weight:600;white-space:nowrap;}
+.eco-price{font-weight:600;white-space:nowrap;}
+.eco-price .num{color:#f4dc99;font-size:1.02rem;}
+.eco-price .unit{color:#b8a47a;font-size:.82rem;margin-left:3px;}
+.eco-up{color:#6fcf6f;font-weight:600;}
+.eco-down{color:#f0808a;font-weight:600;}
+.eco-vol{color:#b8a47a;font-family:monospace;font-size:.88rem;white-space:nowrap;}
+.eco-fav{cursor:pointer;font-size:1.1rem;background:none;border:none;padding:0 4px;line-height:1;filter:grayscale(1) opacity(.4);transition:filter .15s;}
+.eco-fav.on{filter:none;}
+.eco-fav:hover{filter:none;}
+.eco-spark{width:60px;height:22px;vertical-align:middle;}
+.eco-state{text-align:center;color:#897653;padding:3rem 1rem;font-size:.92rem;}
+/* 浅色主题：表格为深色羊皮卷设计，浅底下需改深色文字保证对比度 */
+body[data-theme="light"] .eco-scroll{border-color:#d8c9a0;}
+body[data-theme="light"] .eco-table th{background:#ede0bd;color:#6b4f0f;border-bottom-color:#c9a227;}
+body[data-theme="light"] .eco-table th.sortable:hover{background:#e3d3a3;}
+body[data-theme="light"] .eco-table th .arrow{color:#a08a52;}
+body[data-theme="light"] .eco-table th.sort-active .arrow{color:#6b4f0f;}
+body[data-theme="light"] .eco-table td{border-bottom-color:#e0d3ac;}
+body[data-theme="light"] .eco-table tr:hover td{background:rgba(201,162,39,.1);}
+body[data-theme="light"] .eco-itemname{color:#3a2e15;}
+body[data-theme="light"] .eco-price .num{color:#8a6d12;}
+body[data-theme="light"] .eco-price .unit{color:#7a6a44;}
+body[data-theme="light"] .eco-up{color:#1f8a3b;}
+body[data-theme="light"] .eco-down{color:#c0392b;}
+body[data-theme="light"] .eco-vol{color:#6b5d3a;}
+</style>
+</head>
+<body>
+<!-- 顶部站点导航栏 -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="index.html" class="site-nav-logo"><span class="logo-icon">⚔</span> POE2 Hub</a>
+    <div class="site-nav-links">
+      <a href="index.html" class="site-nav-link">首页</a>
+      <a href="builds.html" class="site-nav-link">BD推荐</a>
+      <a href="economy.html" class="site-nav-link active">大盘行情</a>
+      <a href="maps.html" class="site-nav-link">剧情攻略</a>
+      <a href="advanced.html" class="site-nav-link">进阶攻略</a>
+      <a href="news.html" class="site-nav-link">资讯动态</a>
+      <a href="prices.html" class="site-nav-link">物价参考</a>
+    </div>
+    <button id="navToggle" class="site-nav-toggle" aria-label="菜单"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<button id="theme-toggle" aria-label="切换深浅色模式"><svg class="theme-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="theme-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
+<button id="back-to-top" aria-label="返回顶部">👆</button>
+
+<div class="page-wrap">
+  <h1 class="page-title">大盘行情</h1>
+  <p class="page-desc">国服通货实时价格 · 24h 涨跌与成交量</p>
+
+  <div class="eco-note">
+    💱 数据来源
+    <a href="https://poe2db.tw/cn/Economy" target="_blank">poe2db.tw</a>
+    （CC BY-NC-SA 3.0）· 缓存约 30 分钟刷新 · 价格以「神圣石/混沌石」计价
+    <span id="eco-fetched" style="color:#897653;"></span>
+  </div>
+
+  <div class="eco-bar">
+    <input id="eco-search" class="eco-search" type="text" placeholder="🔍 按通货名称搜索（空格分隔多关键词）..." oninput="renderEconomy()">
+    <button id="eco-fav-toggle" class="eco-favbtn" onclick="toggleEcoFavOnly()">⭐ 只看收藏</button>
+  </div>
+
+  <div id="eco-content" class="eco-state">正在加载大盘行情...</div>
+</div>
+
+<footer style="text-align:center;padding:2rem 1.5rem;font-size:0.82rem;color:#b8a47a;opacity:0.85">© 2025 POE2 Hub · 仅供学习交流 · 行情数据来源 poe2db.tw</footer>
+
+<script>
+let ecoData = null;
+let ecoFavOnly = false;
+let ecoSort = { key: 'default', dir: 'desc' }; // key: price|trend|vol|default
+const ECO_FAV_KEY = 'poe2_eco_favs';
+
+function ecoFavs() { try { return new Set(JSON.parse(localStorage.getItem(ECO_FAV_KEY) || '[]')); } catch { return new Set(); } }
+function ecoSaveFavs(set) { localStorage.setItem(ECO_FAV_KEY, JSON.stringify([...set])); }
+function esc(s) { const d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; }
+function parseNum(s) { return parseFloat(String(s).replace(/,/g, '')) || 0; }
+
+async function loadEconomy() {
+  const box = document.getElementById('eco-content');
+  try {
+    const resp = await fetch('/api/economy?cat=Currency');
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    ecoData = await resp.json();
+    if (ecoData.fetched_at) {
+      const t = new Date(ecoData.fetched_at * 1000);
+      document.getElementById('eco-fetched').textContent = ' · 更新于 ' + t.toLocaleString('zh-CN', { hour12: false });
+    }
+    renderEconomy();
+  } catch (e) {
+    box.innerHTML = '<div class="eco-state">❌ 行情加载失败，请稍后重试（' + esc(e.message) + '）</div>';
+  }
+}
+
+function toggleEcoFavOnly() {
+  ecoFavOnly = !ecoFavOnly;
+  document.getElementById('eco-fav-toggle').classList.toggle('active', ecoFavOnly);
+  renderEconomy();
+}
+
+function toggleEcoFav(name) {
+  const favs = ecoFavs();
+  if (favs.has(name)) favs.delete(name); else favs.add(name);
+  ecoSaveFavs(favs);
+  renderEconomy();
+}
+
+// 点击表头：同列切换升/降序，换列默认降序
+function ecoSortBy(key) {
+  if (ecoSort.key === key) ecoSort.dir = ecoSort.dir === 'desc' ? 'asc' : 'desc';
+  else { ecoSort.key = key; ecoSort.dir = 'desc'; }
+  renderEconomy();
+}
+
+function sparkSvg(path, up) {
+  if (!path) return '';
+  const color = up ? '#6fcf6f' : '#f0808a';
+  return '<svg class="eco-spark" viewBox="0 0 60 22" xmlns="http://www.w3.org/2000/svg">'
+    + '<path d="' + esc(path) + '" fill="none" stroke="' + color + '" stroke-width="2"/></svg>';
+}
+
+function arrowFor(key) {
+  if (ecoSort.key !== key) return '<span class="arrow">⇅</span>';
+  return '<span class="arrow">' + (ecoSort.dir === 'desc' ? '↓' : '↑') + '</span>';
+}
+
+function renderEconomy() {
+  const box = document.getElementById('eco-content');
+  if (!ecoData || !ecoData.items) return;
+  const favs = ecoFavs();
+  const kw = (document.getElementById('eco-search')?.value || '').trim().toLowerCase().split(/\s+/).filter(Boolean);
+
+  let rows = ecoData.items.slice();
+  if (ecoFavOnly) rows = rows.filter(r => favs.has(r.name));
+  if (kw.length) rows = rows.filter(r => kw.every(k => r.name.toLowerCase().includes(k)));
+
+  const trendVal = r => (r.trendUp ? 1 : -1) * Math.abs(parseNum(r.trendPct));
+  const k = ecoSort.key, asc = ecoSort.dir === 'asc';
+  if (k === 'price') rows.sort((a, b) => (parseNum(a.qty) - parseNum(b.qty)) * (asc ? 1 : -1));
+  else if (k === 'trend') rows.sort((a, b) => (trendVal(a) - trendVal(b)) * (asc ? 1 : -1));
+  else if (k === 'vol') rows.sort((a, b) => (parseNum(a.volume) - parseNum(b.volume)) * (asc ? 1 : -1));
+
+  if (!rows.length) { box.innerHTML = '<div class="eco-state">未找到匹配结果</div>'; return; }
+
+  let html = (ecoData.stale ? '<div class="eco-note">⚠️ 当前为缓存数据，上游暂时不可用，价格可能略有延迟</div>' : '')
+    + '<div class="eco-scroll"><table class="eco-table"><thead><tr>'
+    + '<th style="width:36px;"></th><th>名称</th>'
+    + '<th class="sortable' + (k === 'price' ? ' sort-active' : '') + '" onclick="ecoSortBy(\'price\')">价格' + arrowFor('price') + '</th>'
+    + '<th>近7天</th>'
+    + '<th class="sortable' + (k === 'trend' ? ' sort-active' : '') + '" onclick="ecoSortBy(\'trend\')">涨跌' + arrowFor('trend') + '</th>'
+    + '<th class="sortable' + (k === 'vol' ? ' sort-active' : '') + '" onclick="ecoSortBy(\'vol\')">24h成交量' + arrowFor('vol') + '</th>'
+    + '</tr></thead><tbody>';
+  rows.forEach(r => {
+    const fav = favs.has(r.name);
+    const trendCls = r.trendUp ? 'eco-up' : 'eco-down';
+    const arrow = r.trendUp ? '▲' : '▼';
+    html += '<tr>'
+      + '<td><button class="eco-fav' + (fav ? ' on' : '') + '" title="收藏" data-fav="' + esc(r.name) + '">⭐</button></td>'
+      + '<td><div class="eco-name">' + (r.icon ? '<img class="eco-icon" src="' + esc(r.icon) + '" alt="" loading="lazy">' : '') + '<span class="eco-itemname">' + esc(r.name) + '</span></div></td>'
+      + '<td class="eco-price"><span class="num">' + esc(r.qty) + '</span><span class="unit">' + esc(r.refCn) + '</span></td>'
+      + '<td>' + sparkSvg(r.spark, r.trendUp) + '</td>'
+      + '<td class="' + trendCls + '">' + arrow + ' ' + esc(r.trendPct) + '</td>'
+      + '<td class="eco-vol">' + esc(r.volume) + '</td>'
+      + '</tr>';
+  });
+  html += '</tbody></table></div>';
+  box.innerHTML = html;
+  box.querySelectorAll('.eco-fav').forEach(btn => {
+    btn.addEventListener('click', () => toggleEcoFav(btn.dataset.fav));
+  });
+}
+
+document.addEventListener('DOMContentLoaded', loadEconomy);
+</script>
+<script src="js/common.js" defer></script>
+<script src="js/speed-insights.js" defer></script>
+</body>
+</html>
