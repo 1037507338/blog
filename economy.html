@@ -517,14 +517,15 @@ function renderCnyChart(allData) {
   const tooltipId = 'cny-tip';
   const svg = '<svg width="' + w + '" height="' + h + '" xmlns="http://www.w3.org/2000/svg" id="cny-chart-svg" style="cursor:pointer">'
     + '<defs><linearGradient id="cnyGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c9a227" stop-opacity="0.3"/><stop offset="100%" stop-color="#c9a227" stop-opacity="0.02"/></linearGradient></defs>'
-    + '<rect x="' + pad.l + '" y="' + (pad.t-4) + '" width="' + pw + '" height="' + (ph+8) + '" fill="transparent" id="cny-hitarea"/>'
+    + '<rect x="0" y="0" width="' + w + '" height="' + h + '" fill="transparent" id="cny-hitarea"/>'
     + '<path d="' + areaD + '" fill="url(#cnyGrad)"/>'
     + '<path d="' + pathD + '" fill="none" stroke="#c9a227" stroke-width="2" stroke-linejoin="round"/>'
     + pts.map(p => '<circle cx="' + p.x + '" cy="' + p.y + '" r="3" fill="#c9a227" stroke="#1a140c" stroke-width="1"/>').join('')
     + labels + yLabels
     + '<line x1="0" y1="' + pad.t + '" x2="0" y2="' + (pad.t+ph) + '" id="' + cursorLineId + '" stroke="#c9a227" stroke-width="1" stroke-dasharray="4,3" style="opacity:0;pointer-events:none"/>'
     + '<line x1="' + pad.l + '" y1="' + (pad.t + ph) + '" x2="' + (pad.l + pw) + '" y2="' + (pad.t + ph) + '" stroke="var(--border,rgba(77,58,31,.5))" stroke-width="0.5"/>'
-    + '<text id="' + tooltipId + '" x="' + (pad.l + pw/2) + '" y="' + (pad.t - 2) + '" text-anchor="middle" fill="#c9a227" font-size="11" font-weight="600" style="opacity:0;transition:opacity .12s;pointer-events:none"/>'
+    + '<rect id="cny-tip-bg" rx="3" ry="3" fill="rgba(26,20,12,0.88)" stroke="#c9a227" stroke-width="0.5" style="opacity:0;pointer-events:none"/>'
+    + '<text id="' + tooltipId + '" x="' + (pad.l + pw/2) + '" y="' + (pad.t + 2) + '" text-anchor="middle" fill="#c9a227" font-size="13" font-weight="600" style="opacity:0;transition:opacity .12s;pointer-events:none"/>'
     + '</svg>';
   box.innerHTML = svg;
   // 绑定竖虚线悬停
@@ -532,6 +533,7 @@ function renderCnyChart(allData) {
   const hitArea = document.getElementById('cny-hitarea');
   const cursorLine = document.getElementById(cursorLineId);
   const tipEl = document.getElementById(tooltipId);
+  const tipBg = document.getElementById('cny-tip-bg');
   hitArea.addEventListener('mousemove', e => {
     const rect = svgEl.getBoundingClientRect();
     const mx = e.clientX - rect.left;
@@ -545,14 +547,42 @@ function renderCnyChart(allData) {
     cursorLine.setAttribute('x2', nearest.x);
     cursorLine.style.opacity = '1';
     tipEl.textContent = nearest.date + ': ¥' + nearest.price.toFixed(2);
-    // tooltip x 限定范围内防止溢出
-    const tipX = Math.max(pad.l, Math.min(pad.l + pw, nearest.x));
+    // tooltip动态定位：近左→靠右、近右→靠左、居中则居中
+    const tw = tipEl.getComputedTextLength();
+    const tPad = 8;
+    let anchor, tipX;
+    if (nearest.x - tw/2 < pad.l + tPad) {
+      anchor = 'start';
+      tipX = pad.l + tPad;
+    } else if (nearest.x + tw/2 > pad.l + pw - tPad) {
+      anchor = 'end';
+      tipX = pad.l + pw - tPad;
+    } else {
+      anchor = 'middle';
+      tipX = nearest.x;
+    }
+    tipEl.setAttribute('text-anchor', anchor);
     tipEl.setAttribute('x', tipX);
     tipEl.style.opacity = '1';
+    // 背景框跟随
+    const tw2 = tipEl.getComputedTextLength();
+    const bgW = tw2 + 14;
+    const bgH = 20;
+    const bgY = parseInt(tipEl.getAttribute('y')) - bgH + 6;
+    let bgX;
+    if (anchor === 'start') bgX = tipX - 5;
+    else if (anchor === 'end') bgX = tipX - bgW + 5;
+    else bgX = tipX - bgW / 2;
+    tipBg.setAttribute('x', bgX);
+    tipBg.setAttribute('y', bgY);
+    tipBg.setAttribute('width', bgW);
+    tipBg.setAttribute('height', bgH);
+    tipBg.style.opacity = '1';
   });
   hitArea.addEventListener('mouseleave', () => {
     cursorLine.style.opacity = '0';
     tipEl.style.opacity = '0';
+    tipBg.style.opacity = '0';
   });
 }
 </script>
