@@ -447,45 +447,74 @@ function applyDivineCnyVisibility() {
 }
 
 // 简易 SVG 折线图
-function renderCnyChart(data) {
+function renderCnyChart(allData) {
   const box = document.getElementById('eco-cny-chart');
-  if (!box || data.length < 2) return;
+  if (!box || allData.length < 2) return;
+  // 只展示最近 10 天
+  const data = allData.slice(-10);
   const w = Math.max(box.clientWidth || 400, 300);
   const h = 72;
-  const pad = { t: 8, r: 8, b: 20, l: 40 };
+  const pad = { t: 8, r: 12, b: 20, l: 40 };
   const pw = w - pad.l - pad.r;
   const ph = h - pad.t - pad.b;
   const prices = data.map(d => d.price);
   const minP = Math.min(...prices);
   const maxP = Math.max(...prices);
-  const range = maxP - minP || 1;
+  const yMin = 0; // Y轴最小值固定为0
+  const yMax = maxP;
+  const range = yMax - yMin || 1;
   const pts = data.map((d, i) => {
     const x = pad.l + (i / (data.length - 1)) * pw;
-    const y = pad.t + (1 - (d.price - minP) / range) * ph;
+    const y = pad.t + (1 - (d.price - yMin) / range) * ph;
     return { x: x.toFixed(1), y: y.toFixed(1), ...d };
   });
   const pathD = pts.map((p, i) => (i === 0 ? 'M' : 'L') + p.x + ' ' + p.y).join(' ');
   const areaD = pathD + ' L' + pts[pts.length - 1].x + ' ' + (pad.t + ph) + ' L' + pts[0].x + ' ' + (pad.t + ph) + ' Z';
-  // X 轴日期标签（最多显示5个）
-  const step = Math.max(1, Math.floor(data.length / 5));
+  // X 轴日期标签（最多5个，最后一个始终显示）
+  const step = data.length <= 5 ? 1 : Math.ceil((data.length - 1) / 4);
   const labels = data.map((d, i) => {
-    if (i % step !== 0 && i !== data.length - 1) return '';
+    const isLast = i === data.length - 1;
+    if (!isLast && i % step !== 0) return '';
     const x = pad.l + (i / (data.length - 1)) * pw;
-    return '<text x="' + x.toFixed(1) + '" y="' + (h - 2) + '" text-anchor="middle" fill="var(--subtext)" font-size="10">' + (d.date || '').slice(-5) + '</text>';
+    // 最后一个标签右对齐避免截断
+    const anchor = isLast ? 'end' : 'middle';
+    return '<text x="' + x.toFixed(1) + '" y="' + (h - 2) + '" text-anchor="' + anchor + '" fill="var(--subtext)" font-size="10">' + (d.date || '').slice(-5) + '</text>';
   }).join('');
   // Y 轴价格标签
   const yLabels = [
-    '<text x="' + (pad.l - 4) + '" y="' + (pad.t + 4) + '" text-anchor="end" fill="var(--subtext)" font-size="10">' + maxP.toFixed(1) + '</text>',
-    '<text x="' + (pad.l - 4) + '" y="' + (pad.t + ph + 4) + '" text-anchor="end" fill="var(--subtext)" font-size="10">' + minP.toFixed(1) + '</text>'
+    '<text x="' + (pad.l - 4) + '" y="' + (pad.t + 4) + '" text-anchor="end" fill="var(--subtext)" font-size="10">' + yMax.toFixed(1) + '</text>',
+    '<text x="' + (pad.l - 4) + '" y="' + (pad.t + ph + 4) + '" text-anchor="end" fill="var(--subtext)" font-size="10">0</text>'
   ].join('');
-  box.innerHTML = '<svg width="' + w + '" height="' + h + '" xmlns="http://www.w3.org/2000/svg">'
+  // hover tooltip
+  const tooltipId = 'cny-tip';
+  const circles = pts.map((p, i) => {
+    return '<circle data-idx="' + i + '" cx="' + p.x + '" cy="' + p.y + '" r="4" fill="#c9a227" stroke="#1a140c" stroke-width="1" style="cursor:pointer"/>';
+  }).join('');
+  const svg = '<svg width="' + w + '" height="' + h + '" xmlns="http://www.w3.org/2000/svg" id="cny-chart-svg">'
     + '<defs><linearGradient id="cnyGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c9a227" stop-opacity="0.3"/><stop offset="100%" stop-color="#c9a227" stop-opacity="0.02"/></linearGradient></defs>'
     + '<path d="' + areaD + '" fill="url(#cnyGrad)"/>'
     + '<path d="' + pathD + '" fill="none" stroke="#c9a227" stroke-width="2" stroke-linejoin="round"/>'
-    + pts.map(p => '<circle cx="' + p.x + '" cy="' + p.y + '" r="3" fill="#c9a227" stroke="#1a140c" stroke-width="1"/>').join('')
+    + circles
     + labels + yLabels
     + '<line x1="' + pad.l + '" y1="' + (pad.t + ph) + '" x2="' + (pad.l + pw) + '" y2="' + (pad.t + ph) + '" stroke="var(--border,rgba(77,58,31,.5))" stroke-width="0.5"/>'
+    + '<text id="' + tooltipId + '" x="' + (pad.l + pw/2) + '" y="' + (pad.t + 12) + '" text-anchor="middle" fill="#c9a227" font-size="11" font-weight="600" style="opacity:0;transition:opacity .15s"/>'
     + '</svg>';
+  box.innerHTML = svg;
+  // 绑定 hover 事件
+  const svgEl = document.getElementById('cny-chart-svg');
+  const tipEl = document.getElementById(tooltipId);
+  svgEl.querySelectorAll('circle[data-idx]').forEach(c => {
+    c.addEventListener('mouseenter', e => {
+      const idx = parseInt(c.getAttribute('data-idx'));
+      const p = pts[idx];
+      if (p) {
+        tipEl.textContent = p.date + ': ¥' + p.price.toFixed(2);
+        tipEl.setAttribute('x', p.x);
+        tipEl.style.opacity = '1';
+      }
+    });
+    c.addEventListener('mouseleave', () => { tipEl.style.opacity = '0'; });
+  });
 }
 </script>
 <script src="js/common.js" defer></script>
