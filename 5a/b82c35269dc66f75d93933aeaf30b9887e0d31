@@ -1,0 +1,23 @@
+api/economy.js
+  s_9acbdd38e6b917::t_da6638bfedc588 190-216
+  s_9acbdd38e6b917::t_66703eb5075c1a 223-224,230
+economy.html
+  s_9acbdd38e6b917::t_e32aaa3ba72b36 223
+  s_9acbdd38e6b917::t_479ce4798d861c 53-55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "5ab82c35269dc66f75d93933aeaf30b9887e0d31",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
