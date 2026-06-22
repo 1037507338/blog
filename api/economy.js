@@ -1,6 +1,6 @@
 // Vercel Serverless - 抓取 poe2db.tw/cn/Economy_* 国服大盘行情
-// 当前仅支持「通货」(Currency)，验证后再铺开其余分类
-// 返回: { cat, label, items:[{name,icon,qty,ref,trendPct,trendUp,spark,volume}], fetched_at }
+// 返回: { cat, label, items:[{name,icon,price,priceDivine,trendPct,trendUp,spark,volume}], rates, fetched_at }
+// 价格统一折算为「神圣石」单价(priceDivine)，避免不同计价货币混排导致排序误解
 // 数据来源: poe2db.tw (CC BY-NC-SA 3.0) —— 非商用，需署名
 // 抓取套路与 api/poe2-time.js 一致：服务端正则解析 + 三层缓存兜底
 
@@ -24,7 +24,7 @@ const CATS = {
   Atziris_Temple: '阿兹里神庙',
 };
 
-// 基准货币英文 key → 中文名（价格列左侧的计价货币）
+// 基准货币英文 key → 中文名
 const REF_CN = {
   divine: '神圣石',
   chaos: '混沌石',
@@ -32,33 +32,64 @@ const REF_CN = {
 };
 
 let memCache = {};   // { [cat]: { payload, at } }
+let rateCache = null; // { rates:{divine:1,exalted:..,chaos:..}, at }
 const MEM_TTL = 30 * 60 * 1000; // 30 分钟
+
+// 拆分价格列两侧（以 fa-left-right 图标为界），每侧返回 {qty, key}
+// poe2db 价格列结构：<数量A><货币A图标> ⟷ <数量B><货币B图标>
+// 物品自身那侧的货币 key 等于名称列的 item_key，取「对侧」为计价货币
+function parseSide(s) {
+  const noImg = s.replace(/<img[^>]*>/g, '');
+  const numM = noImg.match(/\d[\d,\.]*/);
+  const qty = numM ? parseFloat(numM[0].replace(/,/g, '')) : null;
+  // 货币 key：优先 Economy_xxx 锚点；否则取末尾文字 key（物品自身可能是无锚点的文字）
+  const ecoM = s.match(/Economy_([a-z_]+)/);
+  let key = ecoM ? ecoM[1] : null;
+  if (!key) {
+    const txt = s.replace(/<[^>]+>/g, ' ');
+    const tk = txt.match(/[a-z][a-z\-]+[a-z0-9]/g);
+    key = tk ? tk[tk.length - 1] : null;
+  }
+  return { qty, key };
+}
+
+// 解析价格列 → { unitQty, baseKey }：买 1 个该物品需要 unitQty 个 baseKey 货币
+function parsePrice(priceTd, itemKey) {
+  const parts = priceTd.split(/fa-left-right/);
+  if (parts.length < 2) return null;
+  const L = parseSide(parts[0]);
+  const R = parseSide(parts[1]);
+  if (!L.qty || !R.qty) return null;
+  // 物品自身在哪侧 → 取对侧为计价
+  let itemQty, baseQty, baseKey;
+  if (L.key === itemKey) { itemQty = L.qty; baseQty = R.qty; baseKey = R.key; }
+  else { itemQty = R.qty; baseQty = L.qty; baseKey = L.key; }
+  if (!itemQty || !baseQty || !baseKey) return null;
+  return { unitQty: baseQty / itemQty, baseKey }; // 1 个物品 = unitQty 个 baseKey
+}
 
 function parseRows(html) {
   const tbodyM = html.match(/<tbody[\s\S]*?>([\s\S]*?)<\/tbody>/);
   if (!tbodyM) return [];
-  const body = tbodyM[1];
-  const rows = body.match(/<tr[\s\S]*?<\/tr>/g) || [];
+  const rows = tbodyM[1].match(/<tr[\s\S]*?<\/tr>/g) || [];
   const items = [];
 
   for (const tr of rows) {
     const tds = tr.match(/<td[\s\S]*?<\/td>/g);
     if (!tds || tds.length !== 4) continue;
 
-    // 列1 名称：第一个 <a href="Economy_*"> 内、去 img 后的中文文本；图标取该 td 第一个 img
+    // 列1 名称 + 物品 key + 图标
     const nameA = tds[0].match(/<a href="Economy_[^"]*">[\s\S]*?<\/a>/);
     const name = nameA ? nameA[0].replace(/<[^>]+>/g, '').trim() : '';
+    const itemKeyM = tds[0].match(/Economy_([a-z_]+)/);
+    const itemKey = itemKeyM ? itemKeyM[1] : null;
     const iconM = tds[0].match(/<img[^>]*src="([^"]+)"/);
     const icon = iconM ? iconM[1] : '';
 
-    // 列2 价格：形如「3690 <divine图标> ⟷ 1 <自身图标>」→ qty=3690, ref=divine
-    const valNoImg = tds[1].replace(/<img[^>]*>/g, '');
-    const nums = valNoImg.match(/\d[\d,\.]*/g) || [];
-    const refs = tds[1].match(/Economy_([a-z]+)/g) || [];
-    const qty = nums[0] || '';
-    const refKey = refs.length ? refs[0].replace('Economy_', '') : '';
+    // 列2 价格（正确取物品对侧货币）
+    const priced = parsePrice(tds[1], itemKey);
 
-    // 列3 趋势：sparkline path + 涨跌方向/百分比
+    // 列3 趋势
     const pathM = tds[2].match(/<path d="([^"]+)"[^>]*stroke="(green|red)"/);
     const spark = pathM ? pathM[1] : '';
     const pctM = tds[2].match(/color:\s*(green|red)[^>]*>\s*([+\-][\d\.]+%)/);
@@ -68,13 +99,14 @@ function parseRows(html) {
     // 列4 成交量
     const volume = tds[3].replace(/<[^>]+>/g, '').replace(/\s+/g, '').trim();
 
-    if (!name || !qty || !refKey) continue;
+    if (!name || !priced) continue;
     items.push({
       name,
       icon,
-      qty,
-      ref: refKey,
-      refCn: REF_CN[refKey] || refKey,
+      itemKey,
+      unitQty: priced.unitQty,   // 1 个物品 = unitQty 个 baseKey
+      baseKey: priced.baseKey,
+      baseCn: REF_CN[priced.baseKey] || priced.baseKey,
       trendPct,
       trendUp,
       spark,
@@ -84,7 +116,19 @@ function parseRows(html) {
   return items;
 }
 
-async function fetchCat(cat) {
+// 从通货页 items 提取汇率：1 个 <货币> = ? 神圣石
+function extractRates(currencyItems) {
+  const rates = { divine: 1 };
+  for (const it of currencyItems) {
+    if ((it.itemKey === 'exalted' || it.itemKey === 'chaos') && it.baseKey === 'divine') {
+      // 1 个该货币 = unitQty 个 divine
+      rates[it.itemKey] = it.unitQty;
+    }
+  }
+  return rates;
+}
+
+async function fetchHtml(cat) {
   const url = `https://poe2db.tw/cn/Economy_${cat}`;
   const resp = await fetch(url, {
     headers: {
@@ -95,12 +139,49 @@ async function fetchCat(cat) {
     signal: AbortSignal.timeout(15000),
   });
   if (!resp.ok) throw new Error(`upstream HTTP ${resp.status}`);
-  const html = await resp.text();
+  return resp.text();
+}
+
+// 获取汇率（缓存 30min）；折算所有分类价格都依赖它
+async function getRates() {
+  if (rateCache && Date.now() - rateCache.at <= MEM_TTL) return rateCache.rates;
+  const html = await fetchHtml('Currency');
   const items = parseRows(html);
-  if (!items.length) throw new Error('解析结果为空，可能上游改版');
+  const rates = extractRates(items);
+  // 兜底：缺失汇率时用合理默认，避免 NaN
+  if (!rates.exalted) rates.exalted = null;
+  if (!rates.chaos) rates.chaos = null;
+  rateCache = { rates, at: Date.now() };
+  return rates;
+}
+
+async function fetchCat(cat) {
+  const rates = await getRates();
+  const html = await fetchHtml(cat);
+  const raw = parseRows(html);
+  if (!raw.length) throw new Error('解析结果为空，可能上游改版');
+
+  const items = raw.map(it => {
+    const rate = rates[it.baseKey];          // 1 个 baseKey 货币 = rate 神圣石
+    const priceDivine = (rate != null) ? it.unitQty * rate : null; // 神圣石单价
+    return {
+      name: it.name,
+      icon: it.icon,
+      unitQty: Math.round(it.unitQty * 10000) / 10000, // 原始：1物品=N base货币
+      baseKey: it.baseKey,
+      baseCn: it.baseCn,
+      priceDivine: priceDivine != null ? Math.round(priceDivine * 10000) / 10000 : null,
+      trendPct: it.trendPct,
+      trendUp: it.trendUp,
+      spark: it.spark,
+      volume: it.volume,
+    };
+  });
+
   return {
     cat,
     label: CATS[cat] || cat,
+    rates,
     items,
     fetched_at: Math.floor(Date.now() / 1000),
   };
@@ -122,12 +203,10 @@ export default async function handler(req, res) {
       const payload = await fetchCat(cat);
       memCache[cat] = { payload, at: Date.now() };
     }
-    // 浏览器 5 分钟 + CDN 30 分钟 + 1 小时 SWR
     res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=1800, stale-while-revalidate=3600');
     return res.status(200).json(memCache[cat].payload);
   } catch (e) {
     console.error('[economy]', cat, e);
-    // 兜底：有旧缓存则过期也返回
     if (memCache[cat]) {
       res.setHeader('Cache-Control', 'public, max-age=60');
       return res.status(200).json({ ...memCache[cat].payload, stale: true, error: e.message });

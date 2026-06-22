@@ -38,13 +38,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica N
 .eco-group-title .eco-group-coin{color:#f4dc99;}
 .eco-group-title .eco-group-cnt{color:#897653;font-weight:400;font-size:.84rem;}
 .eco-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:8px 0 4px;border:1px solid #4d3a1f;border-radius:6px;}
-.eco-table{width:100%;border-collapse:collapse;min-width:560px;table-layout:fixed;}
+.eco-table{width:100%;border-collapse:collapse;min-width:680px;table-layout:fixed;}
 .eco-table th,.eco-table td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 /* 列宽固定，保证表头与数据对齐 */
 .eco-table .col-fav{width:38px;text-align:center;padding-left:6px;padding-right:0;}
 .eco-table .col-name{width:auto;min-width:150px;text-align:left;}
+.eco-table .col-price{width:104px;text-align:right;}
+.eco-table .col-orig{width:120px;text-align:right;}
 .eco-table .col-num{width:96px;text-align:right;}
 .eco-table .col-spark{width:70px;text-align:center;}
+.eco-orig{color:#b8a47a;font-size:.84rem;white-space:nowrap;}
+.eco-orig .unit{color:#897653;font-size:.78rem;}
 .eco-table th{background:rgba(201,162,39,.15);color:#f4dc99;padding:11px 14px;border-bottom:2px solid #c9a227;font-size:.86rem;}
 .eco-table th.sortable{cursor:pointer;user-select:none;transition:background .15s;}
 .eco-table th.sortable:hover{background:rgba(201,162,39,.28);}
@@ -81,6 +85,8 @@ body[data-theme="light"] .eco-price .unit{color:#7a6a44;}
 body[data-theme="light"] .eco-up{color:#1f8a3b;}
 body[data-theme="light"] .eco-down{color:#c0392b;}
 body[data-theme="light"] .eco-vol{color:#6b5d3a;}
+body[data-theme="light"] .eco-orig{color:#7a6a44;}
+body[data-theme="light"] .eco-orig .unit{color:#a08a52;}
 body[data-theme="light"] .eco-cat{background:#ede0bd;color:#6b5530;border-color:#d8c080;}
 body[data-theme="light"] .eco-cat:hover{color:#3a2e15;border-color:#c9a227;}
 body[data-theme="light"] .eco-cat.active{background:linear-gradient(135deg,#c9a227,#a8841a);color:#fff;border-color:#a8841a;}
@@ -121,12 +127,13 @@ body[data-theme="light"] .eco-group-title .eco-group-cnt{color:#a08a52;}
   <div class="eco-note">
     💱 数据来源
     <a href="https://poe2db.tw/cn/Economy" target="_blank">poe2db.tw</a>
-    （CC BY-NC-SA 3.0）· 缓存约 30 分钟刷新 · 价格以「神圣石/混沌石」计价
+    （CC BY-NC-SA 3.0）· 缓存约 30 分钟刷新 · 价格统一折算为「神圣石」便于比较
+    <span id="eco-rates" style="color:#c9a227;"></span>
     <span id="eco-fetched" style="color:#897653;"></span>
   </div>
 
   <div class="eco-bar">
-    <input id="eco-search" class="eco-search" type="text" placeholder="🔍 按通货名称搜索（空格分隔多关键词）..." oninput="renderEconomy()">
+    <input id="eco-search" class="eco-search" type="text" placeholder="🔍 按名称搜索（空格分隔多关键词）..." oninput="renderEconomy()">
     <button id="eco-fav-toggle" class="eco-favbtn" onclick="toggleEcoFavOnly()">⭐ 只看收藏</button>
   </div>
 
@@ -204,6 +211,15 @@ function updateFetchedLabel() {
     const t = new Date(ecoData.fetched_at * 1000);
     el.textContent = ' · 更新于 ' + t.toLocaleString('zh-CN', { hour12: false });
   } else el.textContent = '';
+  // 汇率展示
+  const rEl = document.getElementById('eco-rates');
+  if (rEl && ecoData && ecoData.rates) {
+    const r = ecoData.rates;
+    const parts = [];
+    if (r.exalted) parts.push('1神圣石≈' + Math.round(1 / r.exalted) + '崇高石');
+    if (r.chaos) parts.push('1神圣石≈' + Math.round(1 / r.chaos) + '混沌石');
+    rEl.textContent = parts.length ? ' · 当前汇率 ' + parts.join('、') : '';
+  } else if (rEl) rEl.textContent = '';
 }
 
 function toggleEcoFavOnly() {
@@ -238,44 +254,20 @@ function arrowFor(key) {
   return '<span class="arrow">' + (ecoSort.dir === 'desc' ? '↓' : '↑') + '</span>';
 }
 
-// 计价货币分组顺序（神圣石价值最高，置顶；其余按出现顺序）
-const REF_ORDER = ['神圣石', '崇高石', '混沌石'];
-
-function sortRows(rows) {
-  const trendVal = r => (r.trendUp ? 1 : -1) * Math.abs(parseNum(r.trendPct));
-  const k = ecoSort.key, asc = ecoSort.dir === 'asc';
-  if (k === 'price') rows.sort((a, b) => (parseNum(a.qty) - parseNum(b.qty)) * (asc ? 1 : -1));
-  else if (k === 'trend') rows.sort((a, b) => (trendVal(a) - trendVal(b)) * (asc ? 1 : -1));
-  else if (k === 'vol') rows.sort((a, b) => (parseNum(a.volume) - parseNum(b.volume)) * (asc ? 1 : -1));
-  return rows;
+// 神圣石单价友好显示：大数取整/2位，小数按量级保留有效位
+function fmtDivine(v) {
+  if (v == null) return '—';
+  if (v >= 100) return Math.round(v).toLocaleString('en-US');
+  if (v >= 1) return (Math.round(v * 100) / 100).toString();
+  if (v >= 0.01) return (Math.round(v * 1000) / 1000).toString();
+  return v.toPrecision(2); // 极小值，如 0.0033
 }
-
-function groupTable(label, rows) {
-  const favs = ecoFavs();
-  const k = ecoSort.key;
-  let html = '<div class="eco-group-title"><span class="eco-group-coin">' + esc(label) + '</span> 计价 · <span class="eco-group-cnt">' + rows.length + ' 项</span></div>'
-    + '<div class="eco-scroll"><table class="eco-table"><thead><tr>'
-    + '<th class="col-fav"></th><th class="col-name">名称</th>'
-    + '<th class="col-num sortable' + (k === 'price' ? ' sort-active' : '') + '" onclick="ecoSortBy(\'price\')">价格' + arrowFor('price') + '</th>'
-    + '<th class="col-spark">近7天</th>'
-    + '<th class="col-num sortable' + (k === 'trend' ? ' sort-active' : '') + '" onclick="ecoSortBy(\'trend\')">涨跌' + arrowFor('trend') + '</th>'
-    + '<th class="col-num sortable' + (k === 'vol' ? ' sort-active' : '') + '" onclick="ecoSortBy(\'vol\')">24h成交量' + arrowFor('vol') + '</th>'
-    + '</tr></thead><tbody>';
-  rows.forEach(r => {
-    const fav = favs.has(r.name);
-    const trendCls = r.trendUp ? 'eco-up' : 'eco-down';
-    const arrow = r.trendUp ? '▲' : '▼';
-    html += '<tr>'
-      + '<td class="col-fav"><button class="eco-fav' + (fav ? ' on' : '') + '" title="收藏" data-fav="' + esc(r.name) + '">⭐</button></td>'
-      + '<td class="col-name"><div class="eco-name">' + (r.icon ? '<img class="eco-icon" src="' + esc(r.icon) + '" alt="" loading="lazy">' : '') + '<span class="eco-itemname">' + esc(r.name) + '</span></div></td>'
-      + '<td class="col-num eco-price"><span class="num">' + esc(r.qty) + '</span></td>'
-      + '<td class="col-spark">' + sparkSvg(r.spark, r.trendUp) + '</td>'
-      + '<td class="col-num ' + trendCls + '">' + arrow + ' ' + esc(r.trendPct) + '</td>'
-      + '<td class="col-num eco-vol">' + esc(r.volume) + '</td>'
-      + '</tr>';
-  });
-  html += '</tbody></table></div>';
-  return html;
+// 原始计价友好显示
+function fmtUnit(v) {
+  if (v == null) return '';
+  if (v >= 100) return Math.round(v).toLocaleString('en-US');
+  if (v >= 1) return (Math.round(v * 100) / 100).toString();
+  return (Math.round(v * 1000) / 1000).toString();
 }
 
 function renderEconomy() {
@@ -290,21 +282,38 @@ function renderEconomy() {
 
   if (!rows.length) { box.innerHTML = '<div class="eco-state">未找到匹配结果</div>'; return; }
 
-  // 按计价货币分组
-  const groups = {};
-  rows.forEach(r => { (groups[r.refCn] = groups[r.refCn] || []).push(r); });
-  const labels = Object.keys(groups).sort((a, b) => {
-    const ia = REF_ORDER.indexOf(a), ib = REF_ORDER.indexOf(b);
-    return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
-  });
+  // 统一排序（价格按神圣石单价，全表可比）
+  const trendVal = r => (r.trendUp ? 1 : -1) * Math.abs(parseNum(r.trendPct));
+  const k = ecoSort.key, asc = ecoSort.dir === 'asc';
+  const dir = asc ? 1 : -1;
+  if (k === 'price') rows.sort((a, b) => ((a.priceDivine ?? -1) - (b.priceDivine ?? -1)) * dir);
+  else if (k === 'trend') rows.sort((a, b) => (trendVal(a) - trendVal(b)) * dir);
+  else if (k === 'vol') rows.sort((a, b) => (parseNum(a.volume) - parseNum(b.volume)) * dir);
 
-  let html = (ecoData.stale ? '<div class="eco-note">⚠️ 当前为缓存数据，上游暂时不可用，价格可能略有延迟</div>' : '');
-  // 只有一种计价时不显示分组标题
-  if (labels.length === 1) {
-    html += groupTable(labels[0], sortRows(groups[labels[0]]));
-  } else {
-    labels.forEach(label => { html += groupTable(label, sortRows(groups[label])); });
-  }
+  let html = (ecoData.stale ? '<div class="eco-note">⚠️ 当前为缓存数据，上游暂时不可用，价格可能略有延迟</div>' : '')
+    + '<div class="eco-scroll"><table class="eco-table"><thead><tr>'
+    + '<th class="col-fav"></th><th class="col-name">名称</th>'
+    + '<th class="col-price sortable' + (k === 'price' ? ' sort-active' : '') + '" onclick="ecoSortBy(\'price\')">神圣石价' + arrowFor('price') + '</th>'
+    + '<th class="col-orig">原始价</th>'
+    + '<th class="col-spark">近7天</th>'
+    + '<th class="col-num sortable' + (k === 'trend' ? ' sort-active' : '') + '" onclick="ecoSortBy(\'trend\')">涨跌' + arrowFor('trend') + '</th>'
+    + '<th class="col-num sortable' + (k === 'vol' ? ' sort-active' : '') + '" onclick="ecoSortBy(\'vol\')">24h成交量' + arrowFor('vol') + '</th>'
+    + '</tr></thead><tbody>';
+  rows.forEach(r => {
+    const fav = favs.has(r.name);
+    const trendCls = r.trendUp ? 'eco-up' : 'eco-down';
+    const arrow = r.trendUp ? '▲' : '▼';
+    html += '<tr>'
+      + '<td class="col-fav"><button class="eco-fav' + (fav ? ' on' : '') + '" title="收藏" data-fav="' + esc(r.name) + '">⭐</button></td>'
+      + '<td class="col-name"><div class="eco-name">' + (r.icon ? '<img class="eco-icon" src="' + esc(r.icon) + '" alt="" loading="lazy">' : '') + '<span class="eco-itemname">' + esc(r.name) + '</span></div></td>'
+      + '<td class="col-price eco-price"><span class="num">' + fmtDivine(r.priceDivine) + '</span></td>'
+      + '<td class="col-orig eco-orig">' + fmtUnit(r.unitQty) + ' <span class="unit">' + esc(r.baseCn) + '</span></td>'
+      + '<td class="col-spark">' + sparkSvg(r.spark, r.trendUp) + '</td>'
+      + '<td class="col-num ' + trendCls + '">' + arrow + ' ' + esc(r.trendPct) + '</td>'
+      + '<td class="col-num eco-vol">' + esc(r.volume) + '</td>'
+      + '</tr>';
+  });
+  html += '</tbody></table></div>';
   box.innerHTML = html;
   box.querySelectorAll('.eco-fav').forEach(btn => {
     btn.addEventListener('click', () => toggleEcoFav(btn.dataset.fav));
