@@ -139,21 +139,18 @@ body[data-theme="light"] .eco-group-title .eco-group-cnt{color:#a08a52;}
   <div class="eco-cats" id="eco-cats"></div>
 
   <!-- 神圣石人民币汇率卡片 -->
-  <div id="eco-divine-cny" style="display:none;margin:0 0 16px;padding:14px 18px;border-radius:10px;background:linear-gradient(135deg,rgba(201,162,39,.12),rgba(139,105,20,.08));border:1px solid rgba(201,162,39,.32);">
-    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-      <div style="display:flex;align-items:center;gap:12px;">
-        <span style="font-size:1.3rem">💎</span>
+  <div id="eco-divine-cny" style="display:none;margin:0 0 16px;padding:12px 18px;border-radius:10px;background:linear-gradient(135deg,rgba(201,162,39,.12),rgba(139,105,20,.08));border:1px solid rgba(201,162,39,.32);">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <img src="https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQ3VycmVuY3lNb2RWYWx1ZXMiLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/2986e220b3/CurrencyModValues.png" alt="神圣石" style="width:28px;height:28px;flex-shrink:0">
         <div>
-          <div style="font-family:'Noto Serif SC',serif;font-weight:700;color:var(--text);font-size:.95rem">神圣石参考汇率</div>
-          <div style="font-size:.78rem;color:var(--subtext);margin-top:2px" id="eco-cny-date">暂无数据</div>
+          <div style="font-weight:700;color:var(--text);font-size:.92rem;line-height:1.3">神圣石参考汇率</div>
+          <div style="font-size:.76rem;color:var(--subtext);margin-top:1px" id="eco-cny-date">暂无数据</div>
         </div>
       </div>
-      <div style="text-align:right">
-        <div style="font-family:'IBM Plex Mono',monospace;font-size:1.4rem;font-weight:700;color:#c9a227" id="eco-cny-price">—</div>
-        <div style="font-size:.72rem;color:var(--subtext)">¥ / 1 神圣石</div>
-      </div>
+      <div style="font-size:1.1rem;font-weight:700;color:#c9a227;white-space:nowrap" id="eco-cny-price">—</div>
     </div>
-    <div id="eco-cny-chart" style="margin-top:12px;height:80px;overflow:hidden;"></div>
+    <div id="eco-cny-chart" style="margin-top:10px;height:80px;overflow:hidden;"></div>
   </div>
 
   <div class="eco-note">
@@ -223,6 +220,7 @@ async function switchCat(cat) {
   ecoPage = 1;
   const s = document.getElementById('eco-search'); if (s) s.value = '';
   renderCatTabs();
+  applyDivineCnyVisibility();
   await loadEconomy();
 }
 
@@ -413,17 +411,20 @@ async function loadDivineCny() {
     if (!resp.ok) return;
     const { value } = await resp.json();
     if (!value) return;
-    document.getElementById('eco-divine-cny').style.display = '';
-    document.getElementById('eco-cny-price').textContent = value.price != null ? '¥' + value.price.toFixed(2) : '—';
-    document.getElementById('eco-cny-date').textContent = value.date || '暂无数据';
     // 加载显隐配置
+    let visible = true;
     try {
       const visResp = await fetch('/api/site-config?key=economy_divine_cny_visible');
       if (visResp.ok) {
-        const { value: visible } = await visResp.json();
-        if (visible === false) document.getElementById('eco-divine-cny').style.display = 'none';
+        const { value: v } = await visResp.json();
+        visible = v !== false;
       }
     } catch {}
+    // 保存数据供 switchCat 使用
+    window._divineCny = { value, visible };
+    applyDivineCnyVisibility();
+    document.getElementById('eco-cny-price').textContent = value.price != null ? ('¥' + value.price.toFixed(2) + ' / 1 神圣石') : '—';
+    document.getElementById('eco-cny-date').textContent = value.date || '暂无数据';
     // 加载历史数据画折线图
     try {
       const histResp = await fetch('/api/site-config?key=economy_divine_cny_history');
@@ -433,6 +434,16 @@ async function loadDivineCny() {
       }
     } catch {}
   } catch {}
+}
+
+// 根据当前分类控制汇率卡片显隐：仅「全部」和「通货」展示
+function applyDivineCnyVisibility() {
+  const card = document.getElementById('eco-divine-cny');
+  if (!card) return;
+  const cfg = window._divineCny;
+  if (!cfg || !cfg.value || cfg.visible === false) { card.style.display = 'none'; return; }
+  const show = (ecoCat === 'All' || ecoCat === 'Currency');
+  card.style.display = show ? '' : 'none';
 }
 
 // 简易 SVG 折线图
