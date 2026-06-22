@@ -187,20 +187,47 @@ async function fetchCat(cat) {
   };
 }
 
+// 取单分类（带内存缓存），供「全部」聚合复用
+async function getCat(cat) {
+  const c = memCache[cat];
+  if (c && Date.now() - c.at <= MEM_TTL) return c.payload;
+  const payload = await fetchCat(cat);
+  memCache[cat] = { payload, at: Date.now() };
+  return payload;
+}
+
+// 聚合全部分类（并发，附带分类中文名）
+async function fetchAll() {
+  const keys = Object.keys(CATS);
+  const results = await Promise.all(keys.map(c =>
+    getCat(c).then(d => ({ c, d })).catch(() => null)
+  ));
+  const items = [];
+  let rates = null, fetched = 0;
+  for (const r of results) {
+    if (!r || !r.d) continue;
+    if (!rates && r.d.rates) rates = r.d.rates;
+    if (r.d.fetched_at) fetched = Math.max(fetched, r.d.fetched_at);
+    for (const it of (r.d.items || [])) items.push({ ...it, catCn: CATS[r.c] || r.c });
+  }
+  if (!items.length) throw new Error('聚合结果为空');
+  return { cat: 'All', label: '全部', rates, items, fetched_at: fetched || Math.floor(Date.now() / 1000) };
+}
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method Not Allowed' });
 
   const cat = (req.query.cat || 'Currency').trim();
-  if (!CATS[cat]) {
-    return res.status(400).json({ error: `暂不支持的分类: ${cat}`, supported: Object.keys(CATS) });
+  if (cat !== 'All' && !CATS[cat]) {
+    return res.status(400).json({ error: `暂不支持的分类: ${cat}`, supported: ['All', ...Object.keys(CATS)] });
   }
 
   try {
     const cached = memCache[cat];
     if (!cached || Date.now() - cached.at > MEM_TTL) {
-      const payload = await fetchCat(cat);
+      const payload = cat === 'All' ? await fetchAll() : await fetchCat(cat);
       memCache[cat] = { payload, at: Date.now() };
     }
     res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=1800, stale-while-revalidate=3600');

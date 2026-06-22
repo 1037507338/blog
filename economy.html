@@ -50,9 +50,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica N
 /* 所有数值列统一等宽字体 */
 .eco-table .col-price .num,.eco-table .col-orig,.eco-table .col-num{font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;}
 .eco-table .col-cat{width:88px;text-align:center;}
-.eco-orig{color:#b8a47a;font-size:.86rem;white-space:nowrap;}
-.eco-orig .oq{font-family:'IBM Plex Mono',ui-monospace,monospace;}
-.eco-orig .unit{color:#897653;font-size:.76rem;font-family:'Noto Serif SC',serif;margin-left:3px;}
+.eco-orig{color:#b8a47a;font-size:.9rem;white-space:nowrap;}
+.eco-orig .oq{font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:600;}
+.eco-orig .unit{color:#897653;font-size:.76rem;font-weight:400;font-family:'Noto Serif SC',serif;margin-left:3px;}
 .eco-cattag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:.74rem;background:rgba(201,162,39,.14);color:#d6b955;border:1px solid rgba(201,162,39,.3);white-space:nowrap;}
 .eco-pager{display:flex;align-items:center;justify-content:center;gap:16px;margin:18px 0 4px;}
 .eco-pgbtn{padding:7px 18px;border-radius:5px;font-size:.86rem;font-family:'Noto Serif SC',serif;cursor:pointer;background:rgba(40,30,15,.55);color:#b8a47a;border:1px solid #4d3a1f;transition:all .2s;}
@@ -165,8 +165,6 @@ const ECO_CATS = [
   ['Breach','裂隙'],['Delirium','惊悸迷雾'],['Expedition','先祖秘藏'],['Ritual','驱灵仪式'],
   ['Abyss','深渊'],['Atziris_Temple','阿兹里神庙'],
 ];
-const REAL_CATS = ECO_CATS.filter(([k]) => k !== 'All').map(([k]) => k);
-const CAT_CN = Object.fromEntries(ECO_CATS); // key→中文
 let ecoCat = 'Currency';
 let ecoData = null;            // 当前分类数据
 const ecoCache = {};           // { [cat]: payload } 已加载分类缓存
@@ -222,24 +220,7 @@ async function loadEconomy() {
   }
   box.innerHTML = '<div class="eco-state">正在加载行情...</div>';
   try {
-    if (ecoCat === 'All') {
-      // 并发拉取全部分类，合并（附带分类名）
-      const results = await Promise.all(REAL_CATS.map(c =>
-        fetchCat(c).then(d => ({ c, d })).catch(() => null)
-      ));
-      const items = [];
-      let rates = null, fetched = 0;
-      results.forEach(r => {
-        if (!r || !r.d) return;
-        if (!rates && r.d.rates) rates = r.d.rates;
-        if (r.d.fetched_at) fetched = Math.max(fetched, r.d.fetched_at);
-        (r.d.items || []).forEach(it => items.push({ ...it, catCn: CAT_CN[r.c] || r.c }));
-      });
-      ecoData = { cat: 'All', label: '全部', rates, items, fetched_at: fetched };
-      ecoCache['All'] = ecoData;
-    } else {
-      ecoData = await fetchCat(ecoCat);
-    }
+    ecoData = await fetchCat(ecoCat); // 「全部」聚合由后端 cat=All 完成
     updateFetchedLabel();
     renderEconomy();
   } catch (e) {
