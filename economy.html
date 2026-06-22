@@ -517,7 +517,6 @@ function renderCnyChart(allData) {
   const tooltipId = 'cny-tip';
   const svg = '<svg width="' + w + '" height="' + h + '" xmlns="http://www.w3.org/2000/svg" id="cny-chart-svg" style="cursor:pointer">'
     + '<defs><linearGradient id="cnyGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c9a227" stop-opacity="0.3"/><stop offset="100%" stop-color="#c9a227" stop-opacity="0.02"/></linearGradient></defs>'
-    + '<rect x="0" y="0" width="' + w + '" height="' + h + '" fill="transparent" id="cny-hitarea"/>'
     + '<path d="' + areaD + '" fill="url(#cnyGrad)"/>'
     + '<path d="' + pathD + '" fill="none" stroke="#c9a227" stroke-width="2" stroke-linejoin="round"/>'
     + pts.map(p => '<circle cx="' + p.x + '" cy="' + p.y + '" r="3" fill="#c9a227" stroke="#1a140c" stroke-width="1"/>').join('')
@@ -526,6 +525,7 @@ function renderCnyChart(allData) {
     + '<line x1="' + pad.l + '" y1="' + (pad.t + ph) + '" x2="' + (pad.l + pw) + '" y2="' + (pad.t + ph) + '" stroke="var(--border,rgba(77,58,31,.5))" stroke-width="0.5"/>'
     + '<rect id="cny-tip-bg" rx="3" ry="3" fill="rgba(26,20,12,0.88)" stroke="#c9a227" stroke-width="0.5" style="opacity:0;pointer-events:none"/>'
     + '<text id="' + tooltipId + '" x="' + (pad.l + pw/2) + '" y="' + (pad.t + 2) + '" text-anchor="middle" fill="#c9a227" font-size="13" font-weight="600" style="opacity:0;transition:opacity .12s;pointer-events:none"/>'
+    + '<rect x="0" y="0" width="' + w + '" height="' + h + '" fill="transparent" id="cny-hitarea"/>'
     + '</svg>';
   box.innerHTML = svg;
   // 绑定竖虚线悬停
