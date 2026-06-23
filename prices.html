@@ -32,6 +32,27 @@
         .tab-search:focus { border-color: #c9a227; }
         .tab-search::placeholder { color: #897653; }
         .no-results { text-align: center; color: #897653; padding: 30px; font-size: 0.9rem; }
+
+        /* ===== 白天（羊皮卷）模式对比度修复 ===== */
+        /* 页面原配色为深色底，浅底下金黄/浅棕文字会糊在背景里，这里改用深色文字 */
+        body[data-theme="light"] .page-title { color: #6b4a08; }
+        body[data-theme="light"] .section-title { color: #6b4a08; border-bottom-color: #c9a227; }
+        body[data-theme="light"] .rune-header { color: #5a3e08; border-bottom-color: #c9a227; }
+        body[data-theme="light"] .type-header { color: #6b5530; }
+        body[data-theme="light"] .tab { background: #ede0bd; border-color: #c9a227; color: #6b5530; }
+        body[data-theme="light"] .tab.active { background: rgba(201,162,39,0.32); border-color: #a8841a; color: #4a3208; }
+        body[data-theme="light"] .recipe-section { background: rgba(255,255,255,0.55); border-color: #d8c080; }
+        body[data-theme="light"] .data-table th,
+        body[data-theme="light"] .data-table-compact th { background: #ede0bd; color: #6b4a08; border-bottom-color: #c9a227; }
+        body[data-theme="light"] .data-table td,
+        body[data-theme="light"] .data-table-compact td { color: #3a2e15; border-bottom-color: #e0d3ac; }
+        body[data-theme="light"] .price-cn { color: #b3261e; }
+        body[data-theme="light"] .note,
+        body[data-theme="light"] .stats-note { color: #6b5530; }
+        body[data-theme="light"] .loading,
+        body[data-theme="light"] .no-results { color: #6b5530; }
+        body[data-theme="light"] .tab-search { background: rgba(255,255,255,0.7); border-color: #d8c080; color: #3a2e15; }
+        body[data-theme="light"] .tab-search::placeholder { color: #8a7a52; }
     </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -114,6 +135,11 @@
                 renderRecipes();
                 renderBoss();
                 renderRelics();
+                // 渲染后移除 loading 类：否则共享 style.css 的 .loading{display:flex;flex-direction:column}
+                // 会把内容容器变成纵向 flex，挤压 .recipe-grid 无法横向铺开
+                ['gems','bases','uniques','recipes','boss','relics'].forEach(id => {
+                    document.getElementById(id + '-content')?.classList.remove('loading');
+                });
             } catch (error) {
                 console.error('加载数据失败:', error);
                 document.querySelectorAll('.loading').forEach(el => {
