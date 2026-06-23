@@ -1,0 +1,69 @@
+index.html
+  s_9acbdd38e6b917::t_cc529ff10aa741 24
+  s_9acbdd38e6b917::t_76f85efa8f61ed 503-504
+  s_9acbdd38e6b917::t_512930e39b95ca 499
+  s_9acbdd38e6b917::t_647239a2f5e21b 708-710,714,717
+  s_9acbdd38e6b917::t_1f41ffc4b02e37 451
+news.html
+  s_9acbdd38e6b917::t_fb959255dd47e9 8
+  s_9acbdd38e6b917::t_f072670d2a8e5e 90-91,96,99
+  s_9acbdd38e6b917::t_48bf3eddd469f2 23
+  s_9acbdd38e6b917::t_ab75785fd8af26 35
+prices.html
+  s_9acbdd38e6b917::t_c1a4aa53e3a2f0 7
+  s_9acbdd38e6b917::t_ce15c38f4b8c62 268-276,278,281
+  s_9acbdd38e6b917::t_531c3120584e67 98,101
+  s_9acbdd38e6b917::t_b101e36067e971 48
+js/story.js
+  s_9acbdd38e6b917::t_55825786f43bdf 8-12,17-19
+  s_9acbdd38e6b917::t_f52fdc6acbfe4f 20-24
+advanced.html
+  s_9acbdd38e6b917::t_f8041413dfdb5a 191-192,195
+  s_9acbdd38e6b917::t_171d4a173569a6 97
+  s_9acbdd38e6b917::t_955bbc960c7a45 21
+  s_9acbdd38e6b917::t_0b67894f30add6 8
+  s_9acbdd38e6b917::t_264638fd2b0994 120
+  s_9acbdd38e6b917::t_edb72e3905283e 123-124
+economy.html
+  s_9acbdd38e6b917::t_91dcccf04b35ce 118
+  s_9acbdd38e6b917::t_492ea853f7416d 8
+  s_9acbdd38e6b917::t_57ae75f64782d4 149
+  s_9acbdd38e6b917::t_d6398788e7a93d 157
+  s_9acbdd38e6b917::t_277768017135e2 580,583
+  s_9acbdd38e6b917::t_298d100adea8ab 389-398
+  s_9acbdd38e6b917::t_9612e20af884d1 160-161
+  s_9acbdd38e6b917::t_fb684a01c85791 21
+js/router.js
+  s_9acbdd38e6b917::t_479242a66a1149 86-87
+  s_9acbdd38e6b917::t_88e9b459327026 8-9
+  s_9acbdd38e6b917::t_854a90a248bb4d 100,102
+  s_9acbdd38e6b917::t_1e405ae6b0203d 1-7,10-22,24,40,42-85,88-99,101,103-124
+  s_9acbdd38e6b917::t_6c3251e37c0f78 23,25-39,41
+builds.html
+  s_9acbdd38e6b917::t_050f12a4e8ae12 190
+  s_9acbdd38e6b917::t_02d5eb26ae88a3 298-300,303
+  s_9acbdd38e6b917::t_eeff9ddd11380f 205,208
+  s_9acbdd38e6b917::t_c77a8210399545 8
+maps.html
+  s_9acbdd38e6b917::t_f527d668d2dc77 143
+  s_9acbdd38e6b917::t_24819aed077d23 8
+  s_9acbdd38e6b917::t_803923258b5a80 21
+  s_9acbdd38e6b917::t_1b8aa07290a1c9 93
+  s_9acbdd38e6b917::t_35bf894c5f3993 141,145
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "1a2cf1ea0ee5bb487a5b1e843003ce8f33bfb8e3",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
