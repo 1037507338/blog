@@ -1,0 +1,20 @@
+prices.html
+  s_9acbdd38e6b917::t_0e16b4dbe02f9d 35-55
+  s_9acbdd38e6b917::t_20508667fb8dee 138-142
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "792d193a559d67dd6677ec64d31a799f9ffa02ad",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
