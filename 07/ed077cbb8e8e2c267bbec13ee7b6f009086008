@@ -1,0 +1,35 @@
+news-detail.html
+  s_9acbdd38e6b917::t_62a6bea8b2c9b1 51
+maps.html
+  s_9acbdd38e6b917::t_62a6bea8b2c9b1 19
+advanced.html
+  s_9acbdd38e6b917::t_62a6bea8b2c9b1 19
+economy.html
+  s_9acbdd38e6b917::t_62a6bea8b2c9b1 19
+builds.html
+  s_9acbdd38e6b917::t_62a6bea8b2c9b1 183
+news.html
+  s_9acbdd38e6b917::t_62a6bea8b2c9b1 18
+index.html
+  s_9acbdd38e6b917::t_62a6bea8b2c9b1 445
+css/nav-logo.css
+  s_9acbdd38e6b917::t_4f4bae7819c202 23-28
+prices.html
+  s_9acbdd38e6b917::t_62a6bea8b2c9b1 42
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "07ed077cbb8e8e2c267bbec13ee7b6f009086008",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
