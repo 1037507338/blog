@@ -20,6 +20,12 @@
 }
 .site-nav-logo:hover{ color:#ffe89a !important; }
 
+/* SPA 改造后，body>* 规则让 #view 也成为 z-index:1 的层叠上下文；
+   导航容器 #site-nav 内的 fixed nav(z-index:1000) 被困在其自身上下文里，
+   会被 DOM 靠后的 #view 覆盖导致整条导航不可点击。
+   这里把容器本身抬到 #view 之上，恢复点击。 */
+#site-nav{ position:relative !important; z-index:1000 !important; }
+
 .site-nav-logo .logo-icon{
   font-size:1.15rem !important;
   line-height:1 !important;
