@@ -446,25 +446,7 @@ body[data-theme="light"] #back-to-top{
 </head>
 <body>
 
-<nav class="site-nav">
-  <div class="site-nav-inner">
-    <a href="index.html" class="site-nav-logo"><span class="logo-icon">⚔</span> POE2 Hub</a>
-    <div class="site-nav-links">
-      <a href="index.html" class="site-nav-link active">首页</a>
-      <a href="builds.html" class="site-nav-link">BD推荐</a>
-      <a href="economy.html" class="site-nav-link">大盘行情</a>
-      <a href="maps.html" class="site-nav-link">剧情攻略</a>
-      <a href="advanced.html" class="site-nav-link">进阶攻略</a>
-      <a href="news.html" class="site-nav-link">资讯动态</a>
-      <a href="prices.html" class="site-nav-link">物价参考</a>
-      <a href="admin.html" class="site-nav-link" style="opacity:0.45;font-size:.82rem">管理</a>
-    </div>
-    <button id="navToggle" class="site-nav-toggle" aria-label="菜单"><span></span><span></span><span></span></button>
-  </div>
-</nav>
-
-<button id="theme-toggle" aria-label="切换深浅色模式"><svg class="theme-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="theme-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
-<button id="back-to-top" aria-label="返回顶部">👆</button>
+<div id="site-nav"></div>
 
 <header class="hero">
   <!-- 倒计时祭坛（管理端可关闭，默认隐藏） -->
@@ -661,39 +643,8 @@ function extractDomain(url) {
 }
 
 // ===== 初始化（HTML 已 parsed，可直接执行）=====
+// 主题 / 导航 / 返回顶部 / 高亮 由共享组件 js/site-nav.js 处理
 (function init(){
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme) document.body.setAttribute('data-theme', savedTheme);
-  else document.body.setAttribute('data-theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-
-  const themeToggleBtn = document.getElementById('theme-toggle');
-  const sun = themeToggleBtn?.querySelector('.theme-sun');
-  const moon = themeToggleBtn?.querySelector('.theme-moon');
-  function updateThemeIcon(t){ if(sun)sun.style.display=t==='dark'?'none':'block'; if(moon)moon.style.display=t==='dark'?'block':'none'; }
-  updateThemeIcon(document.body.getAttribute('data-theme'));
-  if (themeToggleBtn) themeToggleBtn.onclick = () => {
-    const cur = document.body.getAttribute('data-theme')==='dark'?'light':'dark';
-    document.body.setAttribute('data-theme', cur);
-    localStorage.setItem('theme', cur);
-    updateThemeIcon(cur);
-  };
-
-  const btt = document.getElementById('back-to-top');
-  if (btt) {
-    btt.onclick = () => window.scrollTo({top:0,behavior:'smooth'});
-    window.addEventListener('scroll', () => btt.classList.toggle('visible', scrollY > 300));
-  }
-
-  const nt = document.getElementById('navToggle');
-  const nl = document.querySelector('.site-nav-links');
-  if (nt && nl) {
-    nt.onclick = () => { nl.classList.toggle('open'); nt.classList.toggle('active'); };
-    nl.querySelectorAll('.site-nav-link').forEach(a => a.onclick = () => { nl.classList.remove('open'); nt.classList.remove('active'); });
-  }
-
-  const path = location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.site-nav-link').forEach(a => { if (a.getAttribute('href')===path) a.classList.add('active'); });
-
   loadLinks();
   setupSearch();
   setupPoe2Countdown();
@@ -755,6 +706,7 @@ function renderPoe2Countdown(target) {
 
 function escHtml(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
 </script>
+<script src="js/site-nav.js?v=1" defer></script>
 <script src="js/speed-insights.js" defer></script>
 </body>
 </html>

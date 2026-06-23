@@ -53,24 +53,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica N
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 </head>
 <body>
-<nav class="site-nav">
-  <div class="site-nav-inner">
-    <a href="index.html" class="site-nav-logo"><span class="logo-icon">⚔</span> POE2 Hub</a>
-    <div class="site-nav-links">
-      <a href="index.html" class="site-nav-link">首页</a>
-      <a href="builds.html" class="site-nav-link">BD推荐</a>
-      <a href="economy.html" class="site-nav-link">大盘行情</a>
-      <a href="maps.html" class="site-nav-link">剧情攻略</a>
-      <a href="advanced.html" class="site-nav-link">进阶攻略</a>
-      <a href="news.html" class="site-nav-link active">资讯动态</a>
-      <a href="prices.html" class="site-nav-link">物价参考</a>
-      
-    </div>
-    <button id="navToggle" class="site-nav-toggle" aria-label="菜单"><span></span><span></span><span></span></button>
-  </div>
-</nav>
-<button id="theme-toggle" aria-label="切换深浅色模式"><svg class="theme-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="theme-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
-<button id="back-to-top" aria-label="返回顶部">👆</button>
+<div id="site-nav"></div>
 
 <div class="detail-wrap">
   <a href="news.html" class="detail-back">← 返回资讯列表</a>
@@ -126,7 +109,7 @@ async function loadDetail(){
 
 document.addEventListener("DOMContentLoaded",loadDetail);
 </script>
-<script src="js/common.js" defer></script>
+<script src="js/site-nav.js?v=1" defer></script>
 <script src="js/speed-insights.js" defer></script>
 </body>
 </html>
