@@ -21,7 +21,7 @@ window.__poe2TimeReq = null; // 按需触发，仅在配置开启时发起
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
+<style data-page-style>
 /* ===== 全部样式内联（原 css/style.css，省一次 RTT） ===== */
 :root{--bg-start:#f5f5f5;--bg-end:#f0f0f0;--card-bg:rgba(255,255,255,0.95);--card-border:rgba(220,220,220,0.5);--card-shadow:0 1px 2px 0 rgba(0,0,0,0.05);--card-shadow-hover:0 3px 6px -1px rgba(0,0,0,0.1);--text:#333;--subtext:#666;--accent:#555;--link:#555;--link-hover:#000;--btn-bg:rgba(255,255,255,.9);--btn-bg-hover:rgba(255,255,255,1);--btn-icon:#555;--btn-shadow:0 1px 3px rgba(0,0,0,.05);--btn-shadow-hover:0 2px 5px rgba(0,0,0,.08);--nav-bg:rgba(255,255,255,0.92);--nav-border:rgba(220,220,220,0.6);--nav-link:#555;--nav-link-hover:#000;--nav-active:#1a73e8}
 [data-theme="dark"]{--bg-start:#222;--bg-end:#1a1a1a;--card-bg:rgba(40,40,40,0.95);--card-border:rgba(60,60,60,0.5);--card-shadow:0 1px 2px 0 rgba(0,0,0,0.2);--card-shadow-hover:0 3px 6px -1px rgba(0,0,0,0.3);--text:#e0e0e0;--subtext:#aaa;--accent:#bbb;--link:#bbb;--link-hover:#fff;--btn-bg:rgba(40,40,40,0.9);--btn-bg-hover:rgba(50,50,50,1);--btn-icon:#bbb;--btn-shadow:0 1px 3px rgba(0,0,0,0.2);--btn-shadow-hover:0 2px 5px rgba(0,0,0,0.3);--nav-bg:rgba(30,30,30,0.95);--nav-border:rgba(60,60,60,0.6);--nav-link:#bbb;--nav-link-hover:#fff;--nav-active:#5ba3f5}
@@ -448,6 +448,7 @@ body[data-theme="light"] #back-to-top{
 
 <div id="site-nav"></div>
 
+<div id="view" data-page="index" data-page-href="index.html">
 <header class="hero">
   <!-- 倒计时祭坛（管理端可关闭，默认隐藏） -->
   <section id="poe2-countdown" class="ritual" style="display:none">
@@ -495,9 +496,12 @@ body[data-theme="light"] #back-to-top{
 <footer>
   <small>© 2025 POE2 国服攻略站 · 数据来源 <a href="https://www.poe2wiki.net" target="_blank">POE2 Wiki</a> · 仅供学习交流</small>
 </footer>
+</div>
 
 <script>
 // ===== 全部脚本内联（原 js/nav.js，省一次 RTT） =====
+// IIFE 包裹：顶层变量函数局部化，支持 SPA 切页重复执行
+(function(){
 let allLinks = [];
 
 async function loadLinks() {
@@ -701,12 +705,16 @@ function renderPoe2Countdown(target) {
     segs.s.textContent = pad(s);
   }
   tick();
-  setInterval(tick, 1000);
+  // SPA 重复进入首页时清掉旧计时器，避免叠加
+  if (window.__poe2cdTimer) clearInterval(window.__poe2cdTimer);
+  window.__poe2cdTimer = setInterval(tick, 1000);
 }
 
 function escHtml(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+})();
 </script>
 <script src="js/site-nav.js?v=1" defer></script>
+<script src="js/router.js?v=1" defer></script>
 <script src="js/speed-insights.js" defer></script>
 </body>
 </html>

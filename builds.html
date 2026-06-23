@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>BD推荐 - POE2 Hub</title>
 <meta name="description" content="流放之路2当前版本T0/T1热门BD推荐">
-<style>
+<style data-page-style>
 :root{
   --bg:#f5f5f5;--card:#fff;--card2:#fafafa;--border:#e8e8e8;--border2:#ddd;
   --text:#1a1a1a;--text2:#555;--text3:#888;--accent:#1a73e8;
@@ -187,6 +187,7 @@ a{text-decoration:none;color:inherit}
 
 <div id="site-nav"></div>
 
+<main id="view" data-page="builds" data-page-href="builds.html">
 <div class="page-wrap">
   <div class="page-header">
     <h1 class="page-title">⚔️ BD推荐</h1>
@@ -201,8 +202,10 @@ a{text-decoration:none;color:inherit}
     <p class="bd-state">加载中...</p>
   </div>
 </div>
+</main>
 
 <script>
+(function(){
 const API = '/api/links?page_type=BD推荐';
 let allBuilds = [];
 let activeCat = '全部';
@@ -292,9 +295,12 @@ function renderIcon(icon) {
 function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
 function escAttr(s) { return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-document.addEventListener('DOMContentLoaded', loadBuilds);
+window.setCat = setCat;
+loadBuilds();
+})();
 </script>
 <script src="js/site-nav.js?v=1" defer></script>
+<script src="js/router.js?v=1" defer></script>
 <script src="js/speed-insights.js" defer></script>
 </body>
 </html>

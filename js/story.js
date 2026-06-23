@@ -5,12 +5,23 @@ let currentNodeId = null;
 let storyData = {};
 let progress = {};
 
-// 初始化
-document.addEventListener('DOMContentLoaded', async () => {
+// 初始化（首屏 + SPA 切页都可调用；本文件只加载一次，故顶层 let 不会重复声明）
+async function storyInit() {
+    if (!document.getElementById('mapWrapper')) return; // 当前页非剧情攻略
+    currentAct = 'act1';
+    currentNodeId = null;
     await loadAllActs();
     loadProgress();
     renderActTabs();
     loadAct(currentAct);
+}
+window.storyInit = storyInit;
+
+// 本文件按需加载：直链 defer / SPA 注入时 DOM 均已就绪，直接初始化一次
+storyInit();
+// SPA 再次切回剧情攻略（文件已加载、不再重新注入）时由 router 事件触发重新初始化
+document.addEventListener('spa:navigated', function (e) {
+  if (e.detail && e.detail.page === 'maps') storyInit();
 });
 
 // 加载所有章节

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>POE2 物价参考 · POE2 Hub</title>
-    <style>
+    <style data-page-style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
         .page-title { font-family: "Noto Serif SC", serif; font-size: 2rem; font-weight: 900; color: #f4dc99; text-align: center; margin-bottom: 10px; }
@@ -45,6 +45,7 @@
 <body>
 <div id="site-nav"></div>
 
+<main id="view" data-page="prices" data-page-href="prices.html">
 <div class="page-wrap">
         <h1 class="page-title">⚔️ POE2 物价参考表</h1>
         <p style="text-align:center;color:#897653;margin-bottom:30px;">
@@ -94,8 +95,10 @@
         </div>
     </div>
 </div>
+</main>
 
     <script>
+        (function(){
         let priceData = null;
 
         async function loadData() {
@@ -262,9 +265,20 @@
             if (event) event.target.classList.add('active');
         }
 
+        // 暴露内联 onclick/oninput 引用的处理函数到全局
+        window.showTab = showTab;
+        window.renderGems = renderGems;
+        window.renderRecipes = renderRecipes;
+        window.renderBases = renderBases;
+        window.renderUniques = renderUniques;
+        window.renderBoss = renderBoss;
+        window.renderRelics = renderRelics;
+
         loadData();
+        })();
     </script>
 <script src="js/site-nav.js?v=1" defer></script>
+<script src="js/router.js?v=1" defer></script>
 <script src="js/speed-insights.js" defer></script>
 </body>
 </html>
