@@ -1,0 +1,37 @@
+economy.html
+  s_9acbdd38e6b917::t_018c10d838bfc2 116,572
+prices.html
+  s_9acbdd38e6b917::t_018c10d838bfc2 46,267
+news-detail.html
+  s_9acbdd38e6b917::t_018c10d838bfc2 56,112
+advanced.html
+  s_9acbdd38e6b917::t_018c10d838bfc2 96,189
+news.html
+  s_9acbdd38e6b917::t_018c10d838bfc2 22,94
+builds.html
+  s_9acbdd38e6b917::t_018c10d838bfc2 188,297
+index.html
+  s_9acbdd38e6b917::t_d806b3255ddd01 646
+  s_9acbdd38e6b917::t_0a58619cef271e 709
+  s_9acbdd38e6b917::t_018c10d838bfc2 449
+js/site-nav.js
+  s_9acbdd38e6b917::t_5a6169d3d484a3 1-116
+maps.html
+  s_9acbdd38e6b917::t_018c10d838bfc2 91,142
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "5810f2071eae1a9f88254aa5a1e7c77b551f865b",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}

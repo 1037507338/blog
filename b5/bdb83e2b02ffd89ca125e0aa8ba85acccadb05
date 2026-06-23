@@ -1,0 +1,46 @@
+builds.html
+  s_9acbdd38e6b917::t_f3c29d18121a15 188
+  s_9acbdd38e6b917::t_80466ad37045ba 297
+news-detail.html
+  s_9acbdd38e6b917::t_7808d76eddadfc 56
+  s_9acbdd38e6b917::t_4042f05ceb8914 112
+maps.html
+  s_9acbdd38e6b917::t_a1cf7e60cdf576 143
+  s_9acbdd38e6b917::t_e2884de830fe88 92
+js/site-nav.js
+  s_9acbdd38e6b917::t_cbdd2e3ff0db98 1-116
+advanced.html
+  s_9acbdd38e6b917::t_2de891621daf76 190
+  s_9acbdd38e6b917::t_8407ba62d7eb9f 97
+index.html
+  s_9acbdd38e6b917::t_a3287f925846a7 709
+  s_9acbdd38e6b917::t_58686f7b838f95 449
+  s_9acbdd38e6b917::t_9cfb6ee2335660 646
+prices.html
+  s_9acbdd38e6b917::t_410ede5e8eeaee 278
+  s_9acbdd38e6b917::t_70ce21a1bd2acf 59
+  s_9acbdd38e6b917::t_6e492bf14a9641 7-10
+  s_9acbdd38e6b917::t_6ca178abe63a1d 42-55
+news.html
+  s_9acbdd38e6b917::t_6d8c001c2c5993 23
+  s_9acbdd38e6b917::t_d0a746de95549e 95
+economy.html
+  s_9acbdd38e6b917::t_10a83f3466113c 116-117
+  s_9acbdd38e6b917::t_5da0ecdad8f6e5 360
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "b5bdb83e2b02ffd89ca125e0aa8ba85acccadb05",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
