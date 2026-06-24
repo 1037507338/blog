@@ -1,0 +1,61 @@
+js/auth-client.js
+  s_9acbdd38e6b917::t_3942f7e8890422 1-85
+js/site-nav.js
+  s_9acbdd38e6b917::t_91d6287ae09620 34,39-61
+  s_9acbdd38e6b917::t_e338868b3c65c5 79-178
+  s_9acbdd38e6b917::t_ab3af3fc192641 220
+advanced.html
+  s_9acbdd38e6b917::t_948992695130ee 19
+  s_9acbdd38e6b917::t_2721804253776a 194-195
+news-detail.html
+  s_9acbdd38e6b917::t_948992695130ee 51
+  s_9acbdd38e6b917::t_2721804253776a 112-113
+api/public-config.js
+  s_9acbdd38e6b917::t_fcdde661bdf708 1-22
+css/nav-logo.css
+  s_9acbdd38e6b917::t_933bb4fee5dab4 42-43
+  s_9acbdd38e6b917::t_afc0a95ba1dfdc 40-41,44-87
+db/user_favorites.sql
+  s_9acbdd38e6b917::t_5d9ce8c38b6c91 1-30
+maps.html
+  s_9acbdd38e6b917::t_948992695130ee 19
+  s_9acbdd38e6b917::t_2721804253776a 144-145
+api/favorites.js
+  s_9acbdd38e6b917::t_e0fa2108705155 1-93
+index.html
+  s_9acbdd38e6b917::t_2721804253776a 716-717
+  s_9acbdd38e6b917::t_948992695130ee 445
+builds.html
+  s_9acbdd38e6b917::t_948992695130ee 183
+  s_9acbdd38e6b917::t_2721804253776a 302-303
+prices.html
+  s_9acbdd38e6b917::t_948992695130ee 63
+  s_9acbdd38e6b917::t_2721804253776a 306-307
+economy.html
+  s_9acbdd38e6b917::t_948992695130ee 19
+  s_9acbdd38e6b917::t_fed75423b6d2f1 187-227
+  s_9acbdd38e6b917::t_4660700871ed3b 311-326
+  s_9acbdd38e6b917::t_2721804253776a 641-642
+  s_9acbdd38e6b917::t_7eb283907fb9b0 451-458
+news.html
+  s_9acbdd38e6b917::t_948992695130ee 18
+  s_9acbdd38e6b917::t_2721804253776a 98-99
+vercel.json
+  s_9acbdd38e6b917::t_13f6d3099f1b9c 9-10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "69b4a4429248744809de6fc1938747f9a61ae4cb",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
