@@ -31,11 +31,34 @@
       '  <div class="site-nav-inner">\n' +
       '    <a href="index.html" class="site-nav-logo"><span class="logo-icon">⚔</span> POE2 Hub</a>\n' +
       '    <div class="site-nav-links">\n      ' + links + '\n    </div>\n' +
+      '    <div id="nav-account" class="nav-account"></div>\n' +
       '    <button id="navToggle" class="site-nav-toggle" aria-label="菜单"><span></span><span></span><span></span></button>\n' +
       '  </div>\n' +
       '</nav>\n' +
       '<button id="theme-toggle" aria-label="切换深浅色模式">' + SUN + MOON + '</button>\n' +
-      '<button id="back-to-top" aria-label="返回顶部">👆</button>';
+      '<button id="back-to-top" aria-label="返回顶部">👆</button>' +
+      authModalHtml();
+  }
+
+  // 登录/注册弹窗（纯原生，无新依赖）
+  function authModalHtml() {
+    return '' +
+      '<div id="auth-modal" class="auth-modal" hidden>' +
+      '  <div class="auth-mask"></div>' +
+      '  <div class="auth-dialog" role="dialog" aria-modal="true">' +
+      '    <button class="auth-close" type="button" aria-label="关闭">&times;</button>' +
+      '    <div class="auth-tabs">' +
+      '      <button type="button" class="auth-tab active" data-mode="signin">登录</button>' +
+      '      <button type="button" class="auth-tab" data-mode="signup">注册</button>' +
+      '    </div>' +
+      '    <form class="auth-form">' +
+      '      <input id="auth-email" type="email" autocomplete="email" placeholder="邮箱" required>' +
+      '      <input id="auth-password" type="password" autocomplete="current-password" placeholder="密码（至少 6 位）" minlength="6" required>' +
+      '      <div id="auth-msg" class="auth-msg"></div>' +
+      '      <button type="submit" class="auth-submit">登录</button>' +
+      '    </form>' +
+      '  </div>' +
+      '</div>';
   }
 
   // 按当前页高亮导航项；供路由切页后复用
@@ -51,6 +74,106 @@
     var moon = document.querySelector('#theme-toggle .theme-moon');
     if (sun) sun.style.display = t === 'dark' ? 'none' : 'block';
     if (moon) moon.style.display = t === 'dark' ? 'block' : 'none';
+  }
+
+  // ===== 账号区（登录入口 / 已登录显示）=====
+  function esc(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : s; return d.innerHTML; }
+
+  function renderAccount(user) {
+    var box = document.getElementById('nav-account');
+    if (!box) return;
+    if (user && user.email) {
+      var short = user.email.length > 18 ? user.email.slice(0, 16) + '…' : user.email;
+      box.innerHTML =
+        '<span class="nav-user" title="' + esc(user.email) + '">' + esc(short) + '</span>' +
+        '<button id="nav-logout" class="nav-auth-btn" type="button">退出</button>';
+      var lo = document.getElementById('nav-logout');
+      if (lo) lo.addEventListener('click', function () { if (window.Auth) Auth.signOut(); });
+    } else {
+      box.innerHTML = '<button id="nav-login" class="nav-auth-btn" type="button">登录</button>';
+      var li = document.getElementById('nav-login');
+      if (li) li.addEventListener('click', openAuthModal);
+    }
+  }
+
+  function setAuthMode(mode) {
+    var modal = document.getElementById('auth-modal');
+    if (!modal) return;
+    modal.querySelectorAll('.auth-tab').forEach(function (t) {
+      t.classList.toggle('active', t.dataset.mode === mode);
+    });
+    var submit = modal.querySelector('.auth-submit');
+    var pwd = modal.querySelector('#auth-password');
+    if (submit) submit.textContent = mode === 'signup' ? '注册' : '登录';
+    if (pwd) pwd.setAttribute('autocomplete', mode === 'signup' ? 'new-password' : 'current-password');
+    modal.dataset.mode = mode;
+    setAuthMsg('');
+  }
+
+  function setAuthMsg(text, ok) {
+    var el = document.getElementById('auth-msg');
+    if (!el) return;
+    el.textContent = text || '';
+    el.className = 'auth-msg' + (text ? (ok ? ' ok' : ' err') : '');
+  }
+
+  function openAuthModal() {
+    var modal = document.getElementById('auth-modal');
+    if (!modal) return;
+    modal.hidden = false;
+    setAuthMode('signin');
+    var email = document.getElementById('auth-email');
+    if (email) setTimeout(function () { email.focus(); }, 30);
+  }
+
+  function closeAuthModal() {
+    var modal = document.getElementById('auth-modal');
+    if (modal) modal.hidden = true;
+  }
+
+  function initAuthUI() {
+    var modal = document.getElementById('auth-modal');
+    if (modal && !modal.dataset.wired) {
+      modal.dataset.wired = '1';
+      modal.querySelector('.auth-mask').addEventListener('click', closeAuthModal);
+      modal.querySelector('.auth-close').addEventListener('click', closeAuthModal);
+      modal.querySelectorAll('.auth-tab').forEach(function (t) {
+        t.addEventListener('click', function () { setAuthMode(t.dataset.mode); });
+      });
+      modal.querySelector('.auth-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        submitAuth();
+      });
+    }
+    // 登录态驱动账号区
+    if (window.Auth && Auth.onChange) {
+      Auth.onChange(renderAccount);
+    } else {
+      renderAccount(null);
+    }
+  }
+
+  async function submitAuth() {
+    if (!window.Auth) { setAuthMsg('登录服务不可用'); return; }
+    var modal = document.getElementById('auth-modal');
+    var mode = (modal && modal.dataset.mode) || 'signin';
+    var email = (document.getElementById('auth-email').value || '').trim();
+    var pwd = document.getElementById('auth-password').value || '';
+    if (!email || pwd.length < 6) { setAuthMsg('请输入邮箱和至少 6 位密码'); return; }
+    var submit = modal.querySelector('.auth-submit');
+    submit.disabled = true;
+    setAuthMsg(mode === 'signup' ? '注册中…' : '登录中…', true);
+    try {
+      var res = mode === 'signup' ? await Auth.signUp(email, pwd) : await Auth.signIn(email, pwd);
+      if (res && res.error) { setAuthMsg(res.error); return; }
+      if (res && res.needConfirm) { setAuthMsg('注册成功，请查收邮件完成验证后登录', true); setAuthMode('signin'); return; }
+      setAuthMsg('成功', true);
+      closeAuthModal();
+    } catch (err) {
+      setAuthMsg(err && err.message ? err.message : '操作失败');
+    } finally {
+      submit.disabled = false;
+    }
   }
 
   function initInteractions() {
@@ -94,6 +217,7 @@
     }
 
     highlight();
+    initAuthUI();
   }
 
   function mount() {
