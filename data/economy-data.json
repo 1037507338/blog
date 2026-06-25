@@ -86,19 +86,6 @@
       "catCn": "通货"
     },
     {
-      "name": "秘术溶剂（等级20）",
-      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
-      "unitQty": 127.0,
-      "baseKey": "exalted",
-      "baseCn": "崇高石",
-      "priceDivine": 0.3683,
-      "trendPct": "+13%",
-      "trendUp": true,
-      "spark": "M 0 7.0362173038229 L 10 21 L 20 12.670020120724 L 30 12.670020120724 L 40 14.561368209256 L 50 1.8048289738431 L 60 1",
-      "volume": "1,250",
-      "catCn": "通货"
-    },
-    {
       "name": "高级混沌石",
       "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQ3VycmVuY3lSZXJvbGxSYXJlIiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/c0ca392a78/CurrencyRerollRare.png",
       "unitQty": 0.3472,
@@ -122,19 +109,6 @@
       "trendUp": false,
       "spark": "M 0 1 L 10 3.9145728643216 L 20 12.658291457286 L 30 15.773869346734 L 40 17.08040201005 L 50 21 L 60 20.195979899497",
       "volume": "166,102",
-      "catCn": "通货"
-    },
-    {
-      "name": "秘术溶剂（等级8）",
-      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
-      "unitQty": 63.9,
-      "baseKey": "exalted",
-      "baseCn": "崇高石",
-      "priceDivine": 0.1853,
-      "trendPct": "+190%",
-      "trendUp": true,
-      "spark": "M 0 20.324894514768 L 10 21 L 20 18.763713080169 L 30 13.489451476793 L 40 9.8185654008439 L 50 4.5864978902954 L 60 1",
-      "volume": "59",
       "catCn": "通货"
     },
     {
@@ -164,19 +138,6 @@
       "catCn": "通货"
     },
     {
-      "name": "秘术溶剂（等级11）",
-      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
-      "unitQty": 36.1,
-      "baseKey": "exalted",
-      "baseCn": "崇高石",
-      "priceDivine": 0.1047,
-      "trendPct": "+436%",
-      "trendUp": true,
-      "spark": "M 0 21 L 10 20.746233148295 L 20 18.351308485329 L 30 17.65344964314 L 40 8.8509119746233 L 50 1.0793021411578 L 60 1",
-      "volume": "211",
-      "catCn": "通货"
-    },
-    {
       "name": "完美富豪石",
       "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQ3VycmVuY3lVcGdyYWRlTWFnaWNUb1JhcmUiLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/e8fb148e80/CurrencyUpgradeMagicToRare.png",
       "unitQty": 0.082,
@@ -187,19 +148,6 @@
       "trendUp": false,
       "spark": "M 0 12.25 L 10 8.5 L 20 1 L 30 8.5 L 40 17.25 L 50 21 L 60 19.75",
       "volume": "86,442",
-      "catCn": "通货"
-    },
-    {
-      "name": "秘术溶剂（等级9）",
-      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
-      "unitQty": 22.7,
-      "baseKey": "exalted",
-      "baseCn": "崇高石",
-      "priceDivine": 0.0658,
-      "trendPct": "+162%",
-      "trendUp": true,
-      "spark": "M 0 20.952539155197 L 10 20.392501186521 L 20 21 L 30 12.105837683911 L 40 16.851922164215 L 50 1 L 60 9.922638822971",
-      "volume": "261",
       "catCn": "通货"
     },
     {
@@ -216,58 +164,6 @@
       "catCn": "通货"
     },
     {
-      "name": "秘术溶剂（等级10）",
-      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
-      "unitQty": 15.3,
-      "baseKey": "exalted",
-      "baseCn": "崇高石",
-      "priceDivine": 0.0444,
-      "trendPct": "+146%",
-      "trendUp": true,
-      "spark": "M 0 21 L 10 18.532188841202 L 20 13.017167381974 L 30 3.3605150214592 L 40 12.37339055794 L 50 9.7982832618026 L 60 1",
-      "volume": "430",
-      "catCn": "通货"
-    },
-    {
-      "name": "秘术溶剂（等级13）",
-      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
-      "unitQty": 12.9,
-      "baseKey": "exalted",
-      "baseCn": "崇高石",
-      "priceDivine": 0.0374,
-      "trendPct": "+83%",
-      "trendUp": true,
-      "spark": "M 0 21 L 10 12.618900077459 L 20 15.841208365608 L 30 11.999225406662 L 40 1 L 50 8.1262587141751 L 60 12.773818745159",
-      "volume": "513",
-      "catCn": "通货"
-    },
-    {
-      "name": "秘术溶剂（等级14）",
-      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
-      "unitQty": 13.5,
-      "baseKey": "exalted",
-      "baseCn": "崇高石",
-      "priceDivine": 0.0391,
-      "trendPct": "+68%",
-      "trendUp": true,
-      "spark": "M 0 21 L 10 14.84347826087 L 20 15.678260869565 L 30 14.321739130435 L 40 5.5217391304348 L 50 1 L 60 2.3913043478261",
-      "volume": "440",
-      "catCn": "通货"
-    },
-    {
-      "name": "秘术溶剂（等级15）",
-      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
-      "unitQty": 13.1,
-      "baseKey": "exalted",
-      "baseCn": "崇高石",
-      "priceDivine": 0.038,
-      "trendPct": "+135%",
-      "trendUp": true,
-      "spark": "M 0 21 L 10 19.795811518325 L 20 17.439790575916 L 30 10.581151832461 L 40 7.8062827225131 L 50 1 L 60 1",
-      "volume": "255",
-      "catCn": "通货"
-    },
-    {
       "name": "完美蜕变石",
       "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQ3VycmVuY3lVcGdyYWRlVG9NYWdpYyIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/2f8e1ff9f8/CurrencyUpgradeToMagic.png",
       "unitQty": 0.0318,
@@ -278,19 +174,6 @@
       "trendUp": false,
       "spark": "M 0 1 L 10 5 L 20 11 L 30 13.666666666667 L 40 18.333333333333 L 50 21 L 60 17.666666666667",
       "volume": "190,374",
-      "catCn": "通货"
-    },
-    {
-      "name": "秘术溶剂（等级12）",
-      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
-      "unitQty": 11.7,
-      "baseKey": "exalted",
-      "baseCn": "崇高石",
-      "priceDivine": 0.0339,
-      "trendPct": "+52%",
-      "trendUp": true,
-      "spark": "M 0 18.628635346756 L 10 14.557046979866 L 20 21 L 30 9.0536912751678 L 40 9.0536912751678 L 50 1 L 60 11.134228187919",
-      "volume": "328",
       "catCn": "通货"
     },
     {
@@ -307,19 +190,6 @@
       "catCn": "通货"
     },
     {
-      "name": "秘术溶剂（等级17）",
-      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
-      "unitQty": 7.75,
-      "baseKey": "exalted",
-      "baseCn": "崇高石",
-      "priceDivine": 0.0225,
-      "trendPct": "-19%",
-      "trendUp": false,
-      "spark": "M 0 1 L 10 21 L 20 7.5634674922601 L 30 4.2198142414861 L 40 9.8544891640867 L 50 2.8575851393189 L 60 11.46439628483",
-      "volume": "581",
-      "catCn": "通货"
-    },
-    {
       "name": "高级崇高石",
       "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvQ3VycmVuY3lBZGRNb2RUb1JhcmUiLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/ad7c366789/CurrencyAddModToRare.png",
       "unitQty": 0.0121,
@@ -330,45 +200,6 @@
       "trendUp": false,
       "spark": "M 0 1 L 10 1 L 20 9 L 30 17 L 40 17 L 50 21 L 60 21",
       "volume": "598,209",
-      "catCn": "通货"
-    },
-    {
-      "name": "秘术溶剂（等级16）",
-      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
-      "unitQty": 4.19,
-      "baseKey": "exalted",
-      "baseCn": "崇高石",
-      "priceDivine": 0.0122,
-      "trendPct": "+138%",
-      "trendUp": true,
-      "spark": "M 0 21 L 10 20.620253164557 L 20 10.430379746835 L 30 12.518987341772 L 40 9.3544303797468 L 50 12.26582278481 L 60 1",
-      "volume": "344",
-      "catCn": "通货"
-    },
-    {
-      "name": "秘术溶剂（等级18）",
-      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
-      "unitQty": 4.96,
-      "baseKey": "exalted",
-      "baseCn": "崇高石",
-      "priceDivine": 0.0144,
-      "trendPct": "+38%",
-      "trendUp": true,
-      "spark": "M 0 21 L 10 9.3098591549296 L 20 4.943661971831 L 30 7.1971830985915 L 40 12.12676056338 L 50 7.1971830985915 L 60 1",
-      "volume": "1,062",
-      "catCn": "通货"
-    },
-    {
-      "name": "秘术溶剂（等级19）",
-      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
-      "unitQty": 5.55,
-      "baseKey": "exalted",
-      "baseCn": "崇高石",
-      "priceDivine": 0.0161,
-      "trendPct": "+23%",
-      "trendUp": true,
-      "spark": "M 0 10.82905982906 L 10 21 L 20 15.529914529915 L 30 14.760683760684 L 40 12.452991452991 L 50 7.7521367521368 L 60 1",
-      "volume": "1,783",
       "catCn": "通货"
     },
     {
@@ -3128,6 +2959,19 @@
       "catCn": "先祖秘藏"
     },
     {
+      "name": "秘术溶剂（等级20）",
+      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
+      "unitQty": 127.0,
+      "baseKey": "exalted",
+      "baseCn": "崇高石",
+      "priceDivine": 0.3683,
+      "trendPct": "+13%",
+      "trendUp": true,
+      "spark": "M 0 7.0362173038229 L 10 21 L 20 12.670020120724 L 30 12.670020120724 L 40 14.561368209256 L 50 1.8048289738431 L 60 1",
+      "volume": "1,250",
+      "catCn": "先祖秘藏"
+    },
+    {
       "name": "超凡合金",
       "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvQWxsb3k1Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/4ffca7b84e/Alloy5.png",
       "unitQty": 88.3,
@@ -3151,6 +2995,19 @@
       "trendUp": false,
       "spark": "M 0 15.604316546763 L 10 9.8489208633094 L 20 6.1798561151079 L 30 1 L 40 15.604316546763 L 50 13.446043165468 L 60 21",
       "volume": "1,663",
+      "catCn": "先祖秘藏"
+    },
+    {
+      "name": "秘术溶剂（等级8）",
+      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
+      "unitQty": 63.9,
+      "baseKey": "exalted",
+      "baseCn": "崇高石",
+      "priceDivine": 0.1853,
+      "trendPct": "+190%",
+      "trendUp": true,
+      "spark": "M 0 20.324894514768 L 10 21 L 20 18.763713080169 L 30 13.489451476793 L 40 9.8185654008439 L 50 4.5864978902954 L 60 1",
+      "volume": "59",
       "catCn": "先祖秘藏"
     },
     {
@@ -3206,6 +3063,19 @@
       "catCn": "先祖秘藏"
     },
     {
+      "name": "秘术溶剂（等级11）",
+      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
+      "unitQty": 36.1,
+      "baseKey": "exalted",
+      "baseCn": "崇高石",
+      "priceDivine": 0.1047,
+      "trendPct": "+436%",
+      "trendUp": true,
+      "spark": "M 0 21 L 10 20.746233148295 L 20 18.351308485329 L 30 17.65344964314 L 40 8.8509119746233 L 50 1.0793021411578 L 60 1",
+      "volume": "211",
+      "catCn": "先祖秘藏"
+    },
+    {
       "name": "符文缚者的合金",
       "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvQWxsb3kyIiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/e0ba7ace00/Alloy2.png",
       "unitQty": 30.5,
@@ -3258,6 +3128,19 @@
       "catCn": "先祖秘藏"
     },
     {
+      "name": "秘术溶剂（等级9）",
+      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
+      "unitQty": 22.7,
+      "baseKey": "exalted",
+      "baseCn": "崇高石",
+      "priceDivine": 0.0658,
+      "trendPct": "+162%",
+      "trendUp": true,
+      "spark": "M 0 20.952539155197 L 10 20.392501186521 L 20 21 L 30 12.105837683911 L 40 16.851922164215 L 50 1 L 60 9.922638822971",
+      "volume": "261",
+      "catCn": "先祖秘藏"
+    },
+    {
       "name": "尊崇星辉矿石",
       "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3JhZnRpbmcvVmVyaXNpdW0vVmVyaXNpdW1PcmVfU3RhcmxpdF8yeDRfQXJtb3VyIiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/6b74e4cff7/VerisiumOre_Starlit_2x4_Armour.png",
       "unitQty": 19.6,
@@ -3271,6 +3154,45 @@
       "catCn": "先祖秘藏"
     },
     {
+      "name": "秘术溶剂（等级10）",
+      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
+      "unitQty": 15.3,
+      "baseKey": "exalted",
+      "baseCn": "崇高石",
+      "priceDivine": 0.0444,
+      "trendPct": "+146%",
+      "trendUp": true,
+      "spark": "M 0 21 L 10 18.532188841202 L 20 13.017167381974 L 30 3.3605150214592 L 40 12.37339055794 L 50 9.7982832618026 L 60 1",
+      "volume": "430",
+      "catCn": "先祖秘藏"
+    },
+    {
+      "name": "秘术溶剂（等级13）",
+      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
+      "unitQty": 12.9,
+      "baseKey": "exalted",
+      "baseCn": "崇高石",
+      "priceDivine": 0.0374,
+      "trendPct": "+83%",
+      "trendUp": true,
+      "spark": "M 0 21 L 10 12.618900077459 L 20 15.841208365608 L 30 11.999225406662 L 40 1 L 50 8.1262587141751 L 60 12.773818745159",
+      "volume": "513",
+      "catCn": "先祖秘藏"
+    },
+    {
+      "name": "秘术溶剂（等级14）",
+      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
+      "unitQty": 13.5,
+      "baseKey": "exalted",
+      "baseCn": "崇高石",
+      "priceDivine": 0.0391,
+      "trendPct": "+68%",
+      "trendUp": true,
+      "spark": "M 0 21 L 10 14.84347826087 L 20 15.678260869565 L 30 14.321739130435 L 40 5.5217391304348 L 50 1 L 60 2.3913043478261",
+      "volume": "440",
+      "catCn": "先祖秘藏"
+    },
+    {
       "name": "符文之父的合金",
       "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvQWxsb3kzIiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/226e099997/Alloy3.png",
       "unitQty": 14.3,
@@ -3281,6 +3203,19 @@
       "trendUp": true,
       "spark": "M 0 21 L 10 18.278382581649 L 20 12.353032659409 L 30 9.398133748056 L 40 9.2426127527216 L 50 1 L 60 12.664074650078",
       "volume": "1,158",
+      "catCn": "先祖秘藏"
+    },
+    {
+      "name": "秘术溶剂（等级15）",
+      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
+      "unitQty": 13.1,
+      "baseKey": "exalted",
+      "baseCn": "崇高石",
+      "priceDivine": 0.038,
+      "trendPct": "+135%",
+      "trendUp": true,
+      "spark": "M 0 21 L 10 19.795811518325 L 20 17.439790575916 L 30 10.581151832461 L 40 7.8062827225131 L 50 1 L 60 1",
+      "volume": "255",
       "catCn": "先祖秘藏"
     },
     {
@@ -3307,6 +3242,19 @@
       "trendUp": true,
       "spark": "M 0 18.762711864407 L 10 21 L 20 19.474576271186 L 30 9.135593220339 L 40 8.7966101694915 L 50 1 L 60 1.3389830508475",
       "volume": "9,528",
+      "catCn": "先祖秘藏"
+    },
+    {
+      "name": "秘术溶剂（等级12）",
+      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
+      "unitQty": 11.7,
+      "baseKey": "exalted",
+      "baseCn": "崇高石",
+      "priceDivine": 0.0339,
+      "trendPct": "+52%",
+      "trendUp": true,
+      "spark": "M 0 18.628635346756 L 10 14.557046979866 L 20 21 L 30 9.0536912751678 L 40 9.0536912751678 L 50 1 L 60 11.134228187919",
+      "volume": "328",
       "catCn": "先祖秘藏"
     },
     {
@@ -3349,6 +3297,19 @@
       "catCn": "先祖秘藏"
     },
     {
+      "name": "秘术溶剂（等级17）",
+      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
+      "unitQty": 7.75,
+      "baseKey": "exalted",
+      "baseCn": "崇高石",
+      "priceDivine": 0.0225,
+      "trendPct": "-19%",
+      "trendUp": false,
+      "spark": "M 0 1 L 10 21 L 20 7.5634674922601 L 30 4.2198142414861 L 40 9.8544891640867 L 50 2.8575851393189 L 60 11.46439628483",
+      "volume": "581",
+      "catCn": "先祖秘藏"
+    },
+    {
       "name": "沃拉娜之传说",
       "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvU3BlY2lhbEV4cGVkaXRpb25QYWdlMiIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/057899d625/SpecialExpeditionPage2.png",
       "unitQty": 7.58,
@@ -3359,6 +3320,19 @@
       "trendUp": false,
       "spark": "M 0 5.5689655172414 L 10 1 L 20 21 L 30 11.172413793103 L 40 4.7068965517241 L 50 14.534482758621 L 60 9.448275862069",
       "volume": "8,537",
+      "catCn": "先祖秘藏"
+    },
+    {
+      "name": "秘术溶剂（等级19）",
+      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
+      "unitQty": 5.55,
+      "baseKey": "exalted",
+      "baseCn": "崇高石",
+      "priceDivine": 0.0161,
+      "trendPct": "+23%",
+      "trendUp": true,
+      "spark": "M 0 10.82905982906 L 10 21 L 20 15.529914529915 L 30 14.760683760684 L 40 12.452991452991 L 50 7.7521367521368 L 60 1",
+      "volume": "1,783",
       "catCn": "先祖秘藏"
     },
     {
@@ -3385,6 +3359,32 @@
       "trendUp": true,
       "spark": "M 0 14.804347826087 L 10 21 L 20 19.858695652174 L 30 11.108695652174 L 40 12.358695652174 L 50 18.826086956522 L 60 1",
       "volume": "9,885",
+      "catCn": "先祖秘藏"
+    },
+    {
+      "name": "秘术溶剂（等级16）",
+      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
+      "unitQty": 4.19,
+      "baseKey": "exalted",
+      "baseCn": "崇高石",
+      "priceDivine": 0.0122,
+      "trendPct": "+138%",
+      "trendUp": true,
+      "spark": "M 0 21 L 10 20.620253164557 L 20 10.430379746835 L 30 12.518987341772 L 40 9.3544303797468 L 50 12.26582278481 L 60 1",
+      "volume": "344",
+      "catCn": "先祖秘藏"
+    },
+    {
+      "name": "秘术溶剂（等级18）",
+      "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRXhwZWRpdGlvbjIvRXhwZWRpdGlvbkdlbUN1cnJlbmN5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/51fec6d0d5/ExpeditionGemCurrency.png",
+      "unitQty": 4.96,
+      "baseKey": "exalted",
+      "baseCn": "崇高石",
+      "priceDivine": 0.0144,
+      "trendPct": "+38%",
+      "trendUp": true,
+      "spark": "M 0 21 L 10 9.3098591549296 L 20 4.943661971831 L 30 7.1971830985915 L 40 12.12676056338 L 50 7.1971830985915 L 60 1",
+      "volume": "1,062",
       "catCn": "先祖秘藏"
     },
     {
@@ -8211,5 +8211,5 @@
       "catCn": "阿兹里神庙"
     }
   ],
-  "fetched_at": 1782365031
+  "fetched_at": 1782366833
 }
