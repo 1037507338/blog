@@ -9,6 +9,20 @@
 
   function notify() { _listeners.forEach(fn => { try { fn(_user); } catch (e) {} }); }
 
+  // Supabase 返回的英文错误 → 友好中文
+  function zhError(msg) {
+    if (!msg) return '操作失败，请稍后重试';
+    const m = String(msg).toLowerCase();
+    if (m.includes('email not confirmed')) return '邮箱尚未验证，请先到邮箱点击验证链接后再登录';
+    if (m.includes('invalid login credentials')) return '邮箱或密码错误';
+    if (m.includes('user already registered') || m.includes('already been registered')) return '该邮箱已注册，请直接登录';
+    if (m.includes('password should be at least')) return '密码至少 6 位';
+    if (m.includes('unable to validate email') || m.includes('invalid email')) return '邮箱格式不正确';
+    if (m.includes('rate limit') || m.includes('too many requests')) return '操作过于频繁，请稍后再试';
+    if (m.includes('signups not allowed') || m.includes('signup is disabled')) return '当前未开放注册';
+    return msg;
+  }
+
   // 初始化：拉公开配置 → 动态加载 supabase-js → 建客户端 → 恢复会话
   function init() {
     if (_ready) return _ready;
@@ -38,18 +52,20 @@
     await init();
     if (!_client) return { error: '登录服务不可用' };
     const { data, error } = await _client.auth.signUp({ email, password });
-    if (error) return { error: error.message };
-    // 关闭邮箱验证时 signUp 直接返回 session；开启时需先验证
+    if (error) return { error: zhError(error.message) };
+    // 开启邮箱验证时无 session，此时不视为登录态（避免导航误显示已登录）
+    if (!data.session) return { needConfirm: true };
+    // 关闭邮箱验证时直接返回 session，视为登录
     _user = data.user || null;
     notify();
-    return { user: _user, needConfirm: !data.session };
+    return { user: _user, needConfirm: false };
   }
 
   async function signIn(email, password) {
     await init();
     if (!_client) return { error: '登录服务不可用' };
     const { data, error } = await _client.auth.signInWithPassword({ email, password });
-    if (error) return { error: error.message };
+    if (error) return { error: zhError(error.message), code: error.message };
     _user = data.user || null;
     notify();
     return { user: _user };

@@ -66,6 +66,8 @@ body[data-theme="light"] .nav-auth-btn:hover{ background:rgba(201,162,39,.34); c
 body[data-theme="light"] .auth-dialog{ background:#fdf6e3; color:#3a2e15; }
 .auth-close{ position:absolute; top:10px; right:12px; background:none; border:none; font-size:24px; line-height:1; color:#897653; cursor:pointer; }
 .auth-close:hover{ color:#c9a227; }
+/* hidden 属性需压过下面 .auth-form/.auth-tabs 的 display:flex（UA 的 [hidden] 优先级过低） */
+.auth-dialog [hidden]{ display:none !important; }
 .auth-tabs{ display:flex; gap:0; margin-bottom:18px; border-bottom:1px solid rgba(201,162,39,.3); }
 .auth-tab{ flex:1; padding:8px 0; background:none; border:none; font-size:.95rem; font-family:'Noto Serif SC',serif; color:#897653; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-1px; }
 .auth-tab.active{ color:#c9a227; border-bottom-color:#c9a227; font-weight:700; }
@@ -85,3 +87,16 @@ body[data-theme="light"] .auth-form input{ background:#fffdf5; border-color:#d8c
 }
 .auth-submit:hover{ filter:brightness(1.08); }
 .auth-submit:disabled{ opacity:.6; cursor:not-allowed; }
+
+/* 注册成功 → 去邮箱验证提示视图 */
+.auth-confirm{ text-align:center; padding:8px 4px 4px; }
+.auth-confirm[hidden]{ display:none; }
+.auth-confirm-icon{ font-size:2.4rem; line-height:1; margin-bottom:10px; }
+.auth-confirm-title{ font-family:'Noto Serif SC',serif; font-size:1.15rem; color:#c9a227; margin:0 0 12px; font-weight:700; }
+.auth-confirm-text{ font-size:.9rem; line-height:1.7; color:#b8a47a; margin:0 0 12px; }
+.auth-confirm-text b{ color:#f4dc99; word-break:break-all; }
+.auth-confirm-hint{ font-size:.78rem; color:#897653; margin:0 0 16px; }
+body[data-theme="light"] .auth-confirm-text{ color:#5a4a2a; }
+body[data-theme="light"] .auth-confirm-text b{ color:#6b4a08; }
+body[data-theme="light"] .auth-confirm-hint{ color:#8a7a52; }
+.auth-confirm-back{ width:100%; }

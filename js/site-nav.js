@@ -57,6 +57,13 @@
       '      <div id="auth-msg" class="auth-msg"></div>' +
       '      <button type="submit" class="auth-submit">登录</button>' +
       '    </form>' +
+      '    <div class="auth-confirm" hidden>' +
+      '      <div class="auth-confirm-icon">✉️</div>' +
+      '      <h3 class="auth-confirm-title">验证邮件已发送</h3>' +
+      '      <p class="auth-confirm-text">我们已向 <b id="auth-confirm-email"></b> 发送了一封验证邮件。<br>请点击邮件中的链接完成验证，然后回到这里登录。</p>' +
+      '      <p class="auth-confirm-hint">没收到？请检查垃圾邮件，或稍等片刻。</p>' +
+      '      <button type="button" class="auth-submit auth-confirm-back">去登录</button>' +
+      '    </div>' +
       '  </div>' +
       '</div>';
   }
@@ -117,11 +124,40 @@
     el.className = 'auth-msg' + (text ? (ok ? ' ok' : ' err') : '');
   }
 
+  // 注册成功 → 展示「去邮箱验证」提示视图（隐藏表单与切换 tab）
+  function showConfirmSent(email) {
+    var modal = document.getElementById('auth-modal');
+    if (!modal) return;
+    var form = modal.querySelector('.auth-form');
+    var tabs = modal.querySelector('.auth-tabs');
+    var confirm = modal.querySelector('.auth-confirm');
+    var emailEl = document.getElementById('auth-confirm-email');
+    if (emailEl) emailEl.textContent = email;
+    if (form) form.hidden = true;
+    if (tabs) tabs.hidden = true;
+    if (confirm) confirm.hidden = false;
+  }
+
+  // 恢复表单视图（登录/注册）
+  function showAuthForm() {
+    var modal = document.getElementById('auth-modal');
+    if (!modal) return;
+    var form = modal.querySelector('.auth-form');
+    var tabs = modal.querySelector('.auth-tabs');
+    var confirm = modal.querySelector('.auth-confirm');
+    if (form) form.hidden = false;
+    if (tabs) tabs.hidden = false;
+    if (confirm) confirm.hidden = true;
+  }
+
   function openAuthModal() {
     var modal = document.getElementById('auth-modal');
     if (!modal) return;
     modal.hidden = false;
+    showAuthForm();
     setAuthMode('signin');
+    var pwd = document.getElementById('auth-password');
+    if (pwd) pwd.value = '';
     var email = document.getElementById('auth-email');
     if (email) setTimeout(function () { email.focus(); }, 30);
   }
@@ -144,6 +180,8 @@
         e.preventDefault();
         submitAuth();
       });
+      var back = modal.querySelector('.auth-confirm-back');
+      if (back) back.addEventListener('click', function () { showAuthForm(); setAuthMode('signin'); });
     }
     // 登录态驱动账号区
     if (window.Auth && Auth.onChange) {
@@ -166,8 +204,8 @@
     try {
       var res = mode === 'signup' ? await Auth.signUp(email, pwd) : await Auth.signIn(email, pwd);
       if (res && res.error) { setAuthMsg(res.error); return; }
-      if (res && res.needConfirm) { setAuthMsg('注册成功，请查收邮件完成验证后登录', true); setAuthMode('signin'); return; }
-      setAuthMsg('成功', true);
+      if (res && res.needConfirm) { showConfirmSent(email); return; }
+      setAuthMsg('登录成功', true);
       closeAuthModal();
     } catch (err) {
       setAuthMsg(err && err.message ? err.message : '操作失败');
