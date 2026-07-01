@@ -1,0 +1,29 @@
+prices.html
+  s_9acbdd38e6b917::t_58b04892f5f0ab 307
+builds.html
+  s_9acbdd38e6b917::t_58b04892f5f0ab 303
+economy.html
+  s_9acbdd38e6b917::t_58b04892f5f0ab 642
+advanced.html
+  s_9acbdd38e6b917::t_58b04892f5f0ab 195
+index.html
+  s_9acbdd38e6b917::t_58b04892f5f0ab 717
+maps.html
+  s_9acbdd38e6b917::t_58b04892f5f0ab 145
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "034e4b2cbc7bf56de033bd9d3131ebd539e8758e",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
