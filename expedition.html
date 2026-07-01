@@ -106,7 +106,7 @@ a:hover{color:var(--link-hover)}
   </div>
 
   <div class="search-box">
-    <input type="text" class="search-input" id="search-input" placeholder="搜索传言名称、地图、Boss…" autocomplete="off">
+    <input type="text" class="search-input" id="search-input" placeholder="搜索传言名称、地图、Boss…" autocomplete="off" oninput="renderAll(this.value)">
   </div>
 
   <div class="note-box">
@@ -210,19 +210,7 @@ function renderTbl(tblId, data, fn) {
 
 function esc(s) { var d = document.createElement('div'); d.textContent = s||''; return d.innerHTML; }
 
-var st, composing = false;
-var searchInput = document.getElementById('search-input');
-// 中文输入法组合期间不触发过滤，避免影响连续输入
-searchInput.addEventListener('compositionstart', function () { composing = true; });
-searchInput.addEventListener('compositionend', function () {
-  composing = false;
-  renderAll(searchInput.value);
-});
-searchInput.addEventListener('input', function () {
-  if (composing) return;
-  clearTimeout(st);
-  st = setTimeout(function () { renderAll(searchInput.value); }, 80);
-});
+// 搜索：与物价参考页一致，用内联 oninput="renderAll(this.value)" 直接过滤
 
 renderAll('');
 </script>
