@@ -65,10 +65,11 @@ a:hover{color:var(--link-hover)}
 .page-header{text-align:center;margin-bottom:2rem}
 .page-title{font-size:1.9rem;font-weight:700;color:var(--section-title);margin-bottom:.4rem;letter-spacing:0.1em}
 .page-subtitle{font-size:.9rem;color:var(--subtext)}
-.search-box{margin-bottom:1.5rem;text-align:center}
-.search-input{width:100%;max-width:420px;padding:10px 16px;background:var(--search-bg);border:1px solid var(--search-border);border-radius:10px;color:var(--text);font-size:.9rem;font-family:inherit;outline:none;transition:border-color .2s}
-.search-input:focus{border-color:var(--accent)}
-.search-input::placeholder{color:var(--subtext);opacity:.7}
+/* 搜索框：自包含、显式定位，避免被任何遮罩/层叠影响点击与光标 */
+.exp-search-wrap{position:relative;z-index:5;margin:0 auto 1.5rem;max-width:420px}
+.exp-search{display:block;width:100%;padding:10px 16px;background:var(--search-bg);border:1px solid var(--search-border);border-radius:10px;color:var(--text);font-size:.9rem;font-family:inherit;line-height:1.4;outline:none;cursor:text;pointer-events:auto;position:relative;z-index:1;transition:border-color .2s}
+.exp-search:focus{border-color:var(--accent)}
+.exp-search::placeholder{color:var(--subtext);opacity:.7}
 .note-box{background:rgba(201,162,39,.06);border:1px solid var(--page-border);border-radius:8px;padding:12px 16px;margin-bottom:1.5rem;font-size:.85rem;color:var(--subtext);line-height:1.8}
 .note-box strong{color:var(--accent)}
 .category-group{margin-bottom:2rem}
@@ -105,8 +106,8 @@ a:hover{color:var(--link-hover)}
     <p class="page-subtitle">航海流言全收录 — 首领传言 · 炸坟岛屿 · 传奇地图</p>
   </div>
 
-  <div class="search-box">
-    <input type="text" class="search-input" id="search-input" placeholder="搜索传言名称、地图、Boss…" autocomplete="off" oninput="renderAll(this.value)">
+  <div class="exp-search-wrap">
+    <input type="text" class="exp-search" id="search-input" placeholder="搜索传言名称、地图、Boss…" autocomplete="off" oninput="renderAll(this.value)">
   </div>
 
   <div class="note-box">
