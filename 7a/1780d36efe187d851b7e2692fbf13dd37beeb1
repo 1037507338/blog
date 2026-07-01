@@ -1,0 +1,20 @@
+expedition.html
+  s_9acbdd38e6b917::t_d5ab2d79925460 109
+  s_9acbdd38e6b917::t_198059c222f0f2 213
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "7a1780d36efe187d851b7e2692fbf13dd37beeb1",
+  "prompts": {},
+  "sessions": {
+    "s_9acbdd38e6b917": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9a888219-9460-4119-a18e-a14e84d70a11",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "saisi <saisi@xiaohongshu.com>"
+    }
+  }
+}
