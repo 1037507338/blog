@@ -232,27 +232,6 @@ th:last-child,td.actions{position:sticky;right:0;background:var(--card);box-shad
       </div>
     </div>
 
-    <!-- 资讯动态 Tab 内容 -->
-    <div class="tab-content" id="newsTabContent" style="display:none">
-      <div class="toolbar">
-        <button class="btn btn-primary btn-sm" onclick="openAddNewsModal()">+ 新增资讯</button>
-        <input type="text" class="search-input" id="newsFilterInput" placeholder="搜索标题/摘要/标签..." oninput="renderNewsTable()">
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr>
-            <th style="width:40px">ID</th>
-            <th>标题 / 摘要</th>
-            <th style="width:90px">标签</th>
-            <th style="width:90px">类型</th>
-            <th style="width:110px">发布日期</th>
-            <th style="width:50px">排序</th>
-            <th style="width:80px">操作</th>
-          </tr></thead>
-          <tbody id="newsTableBody"></tbody>
-        </table>
-      </div>
-    </div>
 
     <!-- 网站设置 Tab 内容 -->
     <div class="tab-content" id="settingsTabContent" style="display:none">
@@ -416,50 +395,6 @@ th:last-child,td.actions{position:sticky;right:0;background:var(--card);box-shad
   </div>
 </div>
 
-<!-- 资讯编辑模态框 -->
-<div class="modal-overlay" id="newsModal">
-  <div class="modal" style="width:640px">
-    <div class="modal-header">
-      <h2 id="newsModalTitle">新增资讯</h2>
-      <button class="modal-close" onclick="closeNewsModal()">×</button>
-    </div>
-    <div class="modal-body">
-      <input type="hidden" id="newsEditId">
-
-      <div class="form-group"><label>标题 *</label><input type="text" id="newsTitle" placeholder="如：0.3.0 第三教条更新"></div>
-
-      <div class="form-group"><label>摘要</label><textarea id="newsSummary" rows="2" placeholder="列表页显示的简短摘要（选填）"></textarea></div>
-
-      <div style="display:flex;gap:12px">
-        <div class="form-group" style="flex:1"><label>标签</label><input type="text" id="newsTag" placeholder="如：版本更新 / 联赛 / 国服" list="newsTagSuggest"><datalist id="newsTagSuggest"><option value="版本更新"><option value="联赛"><option value="国服"><option value="攻略"><option value="新内容"></datalist></div>
-        <div class="form-group" style="width:140px"><label>标签颜色</label><input type="color" id="newsTagColor" value="#1a73e8" style="height:38px;padding:2px"></div>
-      </div>
-
-      <div style="display:flex;gap:12px">
-        <div class="form-group" style="flex:1">
-          <label>正文类型 * <span class="hint" title="跳转链接：点击卡片新窗口打开\nMarkdown：在站内详情页渲染">ⓘ</span></label>
-          <select id="newsContentType" onchange="onNewsContentTypeChange()">
-            <option value="link">🔗 跳转链接</option>
-            <option value="markdown">📝 Markdown 正文</option>
-          </select>
-        </div>
-        <div class="form-group" style="width:180px"><label>发布日期</label><input type="date" id="newsPublishedAt"></div>
-        <div class="form-group" style="width:100px"><label>排序</label><input type="number" id="newsSortOrder" value="0" placeholder="0"></div>
-      </div>
-
-      <div class="form-group" id="newsUrlWrap"><label>跳转 URL *</label><input type="url" id="newsUrl" placeholder="https://..."></div>
-
-      <div class="form-group" id="newsContentWrap" style="display:none">
-        <label>Markdown 正文 *</label>
-        <textarea id="newsContent" rows="12" placeholder="支持标准 Markdown 语法，如：&#10;## 标题&#10;- 列表&#10;**加粗** *斜体*&#10;[链接](https://...)&#10;```代码块```" style="font-family:'SF Mono','Menlo',monospace;font-size:.85rem"></textarea>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn" onclick="closeNewsModal()">取消</button>
-      <button class="btn btn-primary" onclick="saveNews()">保存</button>
-    </div>
-  </div>
-</div>
 
 <!-- 新建分类弹窗 -->
 <div class="cat-new-modal-overlay" id="catNewModal">
@@ -476,11 +411,10 @@ th:last-child,td.actions{position:sticky;right:0;background:var(--card);box-shad
 
 <script>
 const API_LINKS = '/api/links';
-const API_NEWS = '/api/news';
 const API_FILES = '/api/builds-files';
 const API_AUTH = '/api/auth';
 const AUTH_KEY = 'poe2_admin_token'; // 存登录后服务端下发的 Bearer Token
-const PAGE_TYPES = ['首页导航', 'BD推荐', '进阶攻略', '资讯动态', '网站设置'];
+const PAGE_TYPES = ['首页导航', 'BD推荐', '进阶攻略', '网站设置'];
 const API_CONFIG = '/api/site-config';
 
 // 取登录令牌；写请求统一带上 Authorization 头
@@ -491,7 +425,6 @@ function authHeaders(extra) {
 let siteConfig = {};
 
 let allLinks = [];
-let allNews = [];
 let htmlFiles = [];
 let activeTab = '首页导航';
 let activeCat = '全部';
@@ -557,7 +490,7 @@ function showAdminPanel() {
 
 // ===== 加载 =====
 async function loadAllData() {
-  await Promise.all([loadLinks(), loadNews(), loadHtmlFiles(), loadSiteConfig()]);
+  await Promise.all([loadLinks(), loadHtmlFiles(), loadSiteConfig()]);
   renderPageTabs();
   switchTab(activeTab);
   renderHtmlFileSelect();
@@ -682,13 +615,6 @@ async function loadLinks() {
   } catch (e) { allLinks = []; }
 }
 
-async function loadNews() {
-  try {
-    const resp = await fetch(API_NEWS + '?fresh=1', { cache: 'no-store' });
-    allNews = resp.ok ? await resp.json() : [];
-  } catch (e) { allNews = []; }
-}
-
 async function loadHtmlFiles() {
   try {
     const resp = await fetch(API_FILES);
@@ -700,8 +626,7 @@ async function loadHtmlFiles() {
 function renderPageTabs() {
   document.getElementById('pageTabs').innerHTML = PAGE_TYPES.map(pt => {
     let count;
-    if (pt === '资讯动态') count = allNews.length;
-    else if (pt === '网站设置') count = '';
+    if (pt === '网站设置') count = '';
     else count = allLinks.filter(l => l.page_type === pt).length;
     const countHtml = count !== '' ? `<span class="tab-count">${count}</span>` : '';
     return `<button class="page-tab${pt === activeTab ? ' active' : ''}" onclick="switchTab('${escAttr(pt)}')">${esc(pt)} ${countHtml}</button>`;
@@ -713,15 +638,12 @@ function switchTab(pt) {
   activeCat = '全部';
   document.getElementById('catFilterLabel').textContent = '全部';
   closeCatDropdown();
-  const isNews = pt === '资讯动态';
   const isSettings = pt === '网站设置';
-  const isLinks = !isNews && !isSettings;
+  const isLinks = !isSettings;
   document.getElementById('tabContent').style.display = isLinks ? 'block' : 'none';
-  document.getElementById('newsTabContent').style.display = isNews ? 'block' : 'none';
   document.getElementById('settingsTabContent').style.display = isSettings ? 'block' : 'none';
   renderPageTabs();
-  if (isNews) renderNewsTable();
-  else if (isSettings) applySiteConfigToUI();
+  if (isSettings) applySiteConfigToUI();
   else renderTable();
 }
 
@@ -1100,135 +1022,6 @@ document.getElementById('tableBody').addEventListener('click', e => {
   if (btn.classList.contains('btn-edit')) openEditModal(id);
   else if (btn.classList.contains('btn-delete')) deleteLink(id);
 });
-// ===== 资讯动态 CRUD =====
-function renderNewsTable() {
-  const q = (document.getElementById('newsFilterInput').value || '').toLowerCase();
-  let data = [...allNews];
-  if (q) data = data.filter(n =>
-    (n.title||'').toLowerCase().includes(q) ||
-    (n.summary||'').toLowerCase().includes(q) ||
-    (n.tag||'').toLowerCase().includes(q)
-  );
-  const tbody = document.getElementById('newsTableBody');
-  if (!data.length) { tbody.innerHTML='<tr><td colspan="7" class="empty">无数据，点击上方「+ 新增资讯」添加</td></tr>'; return; }
-  tbody.innerHTML = data.map(n => {
-    const typeClass = n.content_type === 'markdown' ? 'type-html' : 'type-external';
-    const typeLabel = n.content_type === 'markdown' ? '📝 Markdown' : '🔗 链接';
-    const tagStyle = n.tag_color ? `background:${n.tag_color}22;color:${n.tag_color}` : '';
-    const tagHtml = n.tag ? `<span class="cat-tag" style="${tagStyle}">${esc(n.tag)}</span>` : '<span style="color:var(--sub);font-size:.75rem">无</span>';
-    const date = n.published_at ? n.published_at.slice(0, 10) : '-';
-    return `<tr>
-      <td>${n.id}</td>
-      <td><strong>${esc(n.title)}</strong>${n.summary ? `<div style="font-size:.78rem;color:var(--sub);margin-top:3px;max-width:380px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(n.summary)}</div>` : ''}</td>
-      <td>${tagHtml}</td>
-      <td><span class="type-badge ${typeClass}">${typeLabel}</span></td>
-      <td style="font-size:.82rem;color:var(--sub)">${date}</td>
-      <td>${n.sort_order ?? 0}</td>
-      <td class="actions">
-        <button class="btn btn-sm btn-news-edit" data-id="${n.id}">✏️</button>
-        <button class="btn btn-sm btn-danger btn-news-delete" data-id="${n.id}">🗑️</button>
-      </td>
-    </tr>`;
-  }).join('');
-}
-
-function onNewsContentTypeChange() {
-  const t = document.getElementById('newsContentType').value;
-  document.getElementById('newsUrlWrap').style.display = t === 'link' ? 'block' : 'none';
-  document.getElementById('newsContentWrap').style.display = t === 'markdown' ? 'block' : 'none';
-}
-
-function openAddNewsModal() {
-  document.getElementById('newsModalTitle').textContent = '新增资讯';
-  document.getElementById('newsEditId').value = '';
-  document.getElementById('newsTitle').value = '';
-  document.getElementById('newsSummary').value = '';
-  document.getElementById('newsTag').value = '';
-  document.getElementById('newsTagColor').value = '#1a73e8';
-  document.getElementById('newsContentType').value = 'link';
-  document.getElementById('newsUrl').value = '';
-  document.getElementById('newsContent').value = '';
-  document.getElementById('newsPublishedAt').value = new Date().toISOString().slice(0, 10);
-  document.getElementById('newsSortOrder').value = '0';
-  onNewsContentTypeChange();
-  document.getElementById('newsModal').classList.add('show');
-}
-
-function openEditNewsModal(id) {
-  const n = allNews.find(x => x.id === id);
-  if (!n) return;
-  document.getElementById('newsModalTitle').textContent = '编辑资讯';
-  document.getElementById('newsEditId').value = id;
-  document.getElementById('newsTitle').value = n.title || '';
-  document.getElementById('newsSummary').value = n.summary || '';
-  document.getElementById('newsTag').value = n.tag || '';
-  document.getElementById('newsTagColor').value = n.tag_color || '#1a73e8';
-  document.getElementById('newsContentType').value = n.content_type || 'link';
-  document.getElementById('newsUrl').value = n.url || '';
-  document.getElementById('newsContent').value = n.content || '';
-  document.getElementById('newsPublishedAt').value = n.published_at ? n.published_at.slice(0, 10) : '';
-  document.getElementById('newsSortOrder').value = n.sort_order ?? 0;
-  onNewsContentTypeChange();
-  document.getElementById('newsModal').classList.add('show');
-}
-
-function closeNewsModal() { document.getElementById('newsModal').classList.remove('show'); }
-
-async function saveNews() {
-  const id = document.getElementById('newsEditId').value;
-  const title = (document.getElementById('newsTitle').value || '').trim();
-  const summary = (document.getElementById('newsSummary').value || '').trim();
-  const tag = (document.getElementById('newsTag').value || '').trim();
-  const tag_color = document.getElementById('newsTagColor').value;
-  const content_type = document.getElementById('newsContentType').value;
-  const url = (document.getElementById('newsUrl').value || '').trim();
-  const content = document.getElementById('newsContent').value;
-  const published_at = document.getElementById('newsPublishedAt').value || null;
-  const sort_order = parseInt(document.getElementById('newsSortOrder').value) || 0;
-
-  if (!title) { toast('请填写标题', 'error'); return; }
-  if (content_type === 'link' && !url) { toast('跳转链接类型需填写 URL', 'error'); return; }
-  if (content_type === 'link' && !url.startsWith('http')) { toast('URL 需以 http(s) 开头', 'error'); return; }
-  if (content_type === 'markdown' && !content.trim()) { toast('Markdown 类型需填写正文', 'error'); return; }
-
-  const payload = { title, summary, tag, tag_color, content_type, url: content_type === 'link' ? url : null, content: content_type === 'markdown' ? content : null, published_at, sort_order };
-
-  try {
-    const method = id ? 'PUT' : 'POST';
-    const u = id ? `${API_NEWS}?id=${id}` : API_NEWS;
-    const resp = await fetch(u, { method, headers: authHeaders({ 'Content-Type': 'application/json' }), body: JSON.stringify(payload) });
-    const result = await resp.json();
-    if (!resp.ok) throw new Error(result.error || '保存失败');
-    toast(id ? '✅ 已更新' : '✅ 已新增', 'success');
-    closeNewsModal();
-    await loadNews();
-    renderPageTabs();
-    renderNewsTable();
-  } catch (e) { toast('保存失败: ' + e.message, 'error'); }
-}
-
-async function deleteNews(id) {
-  const n = allNews.find(x => x.id === id);
-  if (!confirm(`确认删除「${n?.title}」？`)) return;
-  try {
-    const resp = await fetch(`${API_NEWS}?id=${id}`, { method: 'DELETE', headers: authHeaders() });
-    const result = await resp.json();
-    if (!resp.ok) throw new Error(result.error || '删除失败');
-    toast('🗑️ 已删除', 'info');
-    await loadNews();
-    renderPageTabs();
-    renderNewsTable();
-  } catch (e) { toast('删除失败: ' + e.message, 'error'); }
-}
-
-document.getElementById('newsTableBody').addEventListener('click', e => {
-  const btn = e.target.closest('.btn-news-edit, .btn-news-delete');
-  if (!btn) return;
-  const id = parseInt(btn.dataset.id);
-  if (btn.classList.contains('btn-news-edit')) openEditNewsModal(id);
-  else if (btn.classList.contains('btn-news-delete')) deleteNews(id);
-});
-
 function toast(msg, type='info') {
   const el = document.createElement('div');
   el.className = `toast toast-${type}`; el.textContent = msg;

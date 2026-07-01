@@ -7,9 +7,9 @@
     { href: 'index.html',    text: '首页' },
     { href: 'builds.html',   text: 'BD推荐' },
     { href: 'economy.html',  text: '大盘行情' },
-    { href: 'maps.html',     text: '剧情攻略' },
+    { href: 'story.html',    text: '剧情攻略' },
     { href: 'advanced.html', text: '进阶攻略' },
-    { href: 'news.html',     text: '资讯动态' },
+    { href: 'maps.html',     text: '异界攻略' },
     { href: 'prices.html',   text: '物价参考' },
     { href: 'admin.html',    text: '管理', style: 'opacity:0.45;font-size:.82rem' },
   ];
