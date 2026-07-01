@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>异界攻略 - POE2 Hub</title>
+<style>
+:root {
+  --bg-start: #12100e;
+  --bg-end: #1a1610;
+  --text: #e8d9b8;
+  --subtext: #a89868;
+  --accent: #c9a227;
+  --accent-hover: #f4dc99;
+  --nav-bg: rgba(18,14,10,0.96);
+  --nav-border: #3d2e14;
+  --nav-link: #a89868;
+  --nav-link-hover: #f4dc99;
+  --nav-active: #c9a227;
+  --section-title: #f4dc99;
+  --table-th-bg: rgba(201,162,39,0.12);
+  --table-border: #3d2e14;
+  --page-bg: rgba(30,24,18,0.55);
+  --page-border: #3d2e14;
+  --search-bg: rgba(37,28,17,0.8);
+  --search-border: #4d3a1f;
+  --badge-rumor: #c9a227;
+  --badge-tomb: #9b7d3f;
+  --badge-legend: #6b8e5a;
+  --type-bg-boss: rgba(201,162,39,0.15);
+  --type-bg-tomb: rgba(155,125,63,0.15);
+  --type-bg-legend: rgba(107,142,90,0.15);
+}
+[data-theme="light"] {
+  --bg-start: #f5f0e4;
+  --bg-end: #ece6d8;
+  --text: #3a2e15;
+  --subtext: #6b5530;
+  --accent: #b8860b;
+  --accent-hover: #8b6508;
+  --nav-bg: rgba(245,235,210,0.96);
+  --nav-border: #d8c080;
+  --nav-link: #6b5530;
+  --nav-link-hover: #3a2e15;
+  --nav-active: #8b6508;
+  --section-title: #6b4a08;
+  --table-th-bg: #ede0bd;
+  --table-border: #d8c080;
+  --page-bg: rgba(255,250,238,0.7);
+  --page-border: #d8c080;
+  --search-bg: rgba(255,255,255,0.7);
+  --search-border: #d8c080;
+  --badge-rumor: #b8860b;
+  --badge-tomb: #8b6914;
+  --badge-legend: #5a7a4a;
+  --type-bg-boss: rgba(184,134,11,0.12);
+  --type-bg-tomb: rgba(139,105,20,0.12);
+  --type-bg-legend: rgba(90,122,74,0.12);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Noto Serif SC","SimSun",serif;background:linear-gradient(160deg,var(--bg-start) 0%,var(--bg-end) 100%);color:var(--text);min-height:100vh;line-height:1.7;transition:background .3s,color .3s}
+a{color:var(--link);text-decoration:none}
+a:hover{color:var(--link-hover)}
+.page-container{max-width:1100px;margin:0 auto;padding:64px 1.5rem 4rem}
+.page-header{text-align:center;margin-bottom:2rem}
+.page-title{font-size:1.9rem;font-weight:700;color:var(--section-title);margin-bottom:.4rem;letter-spacing:0.1em}
+.page-subtitle{font-size:.9rem;color:var(--subtext)}
+.search-box{margin-bottom:1.5rem;text-align:center}
+.search-input{width:100%;max-width:420px;padding:10px 16px;background:var(--search-bg);border:1px solid var(--search-border);border-radius:10px;color:var(--text);font-size:.9rem;font-family:inherit;outline:none;transition:border-color .2s}
+.search-input:focus{border-color:var(--accent)}
+.search-input::placeholder{color:var(--subtext);opacity:.7}
+.note-box{background:rgba(201,162,39,.06);border:1px solid var(--page-border);border-radius:8px;padding:12px 16px;margin-bottom:1.5rem;font-size:.85rem;color:var(--subtext);line-height:1.8}
+.note-box strong{color:var(--accent)}
+.category-group{margin-bottom:2rem}
+.category-group:last-child{margin-bottom:0}
+.group-title{font-size:1.1rem;font-weight:600;color:var(--section-title);margin-bottom:.6rem;padding-bottom:.4rem;border-bottom:1px solid var(--accent);letter-spacing:0.05em}
+.data-table{width:100%;border-collapse:collapse}
+.data-table th{background:var(--table-th-bg);color:var(--accent);padding:10px 14px;text-align:left;border-bottom:2px solid var(--accent);font-size:.88rem;font-weight:600;white-space:nowrap}
+.data-table td{padding:9px 14px;border-bottom:1px solid var(--table-border);font-size:.9rem;vertical-align:top}
+.data-table tr:hover td{background:rgba(201,162,39,.05)}
+.data-table .col-name{font-weight:600;color:var(--accent)}
+.data-table .col-map{color:var(--text)}
+.data-table .col-detail{color:var(--subtext);font-size:.85rem}
+.type-badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:.75rem;font-weight:600;margin-right:4px}
+.type-boss{background:var(--type-bg-boss);color:var(--badge-rumor)}
+.type-tomb{background:var(--type-bg-tomb);color:var(--badge-tomb)}
+.type-legend{background:var(--type-bg-legend);color:var(--badge-legend)}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75rem;font-weight:600}
+.badge-yes{background:#2d6e2d;color:#a8e8a8}
+.badge-no{background:#444;color:#999}
+.no-results{padding:2rem;text-align:center;color:var(--subtext);font-size:.9rem}
+</style>
+</head>
+<body>
+
+<div id="site-nav"></div>
+
+<div class="page-container">
+  <div class="page-header">
+    <h1 class="page-title">异界攻略</h1>
+    <p class="page-subtitle">航海流言全收录 — 首领传言 · 炸坟岛屿 · 传奇地图</p>
+  </div>
+
+  <div class="search-box">
+    <input type="text" class="search-input" id="search-input" placeholder="搜索传言名称、地图、Boss…" autocomplete="off">
+  </div>
+
+  <div class="note-box">
+    <strong>🌊 航海流言</strong> 在异界地图仪右下方放大镜查看流言界面。<br>
+    首领传言触发条件：鼠标悬停小船图标，会显示前方岛屿对应的传言。沃拉娜的围攻实际由梅德维德掉落。炸坟岛带有漩涡图标，不会掉落探险日志。
+  </div>
+
+  <!-- 首领传言 -->
+  <div class="category-group" id="group-rumor">
+    <h2 class="group-title">👑 首领传言</h2>
+    <table class="data-table" id="table-rumor">
+      <thead><tr><th>传言名称</th><th>地图</th><th>首领</th><th>高价值掉落</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- 炸坟岛屿 -->
+  <div class="category-group" id="group-tomb">
+    <h2 class="group-title">💥 炸坟岛屿</h2>
+    <table class="data-table" id="table-tomb">
+      <thead><tr><th>传言名称</th><th>地图</th><th>无限复活</th><th>额外内容</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- 传奇地图 -->
+  <div class="category-group" id="group-legend">
+    <h2 class="group-title">🏆 传奇地图</h2>
+    <table class="data-table" id="table-legend">
+      <thead><tr><th>传言名称</th><th>地图</th><th>内容</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+// ===== 数据 =====
+const DATA = {
+  rumor: [
+    { name:"陨落的源头", map:"无名之岛", boss:"欧罗什", drop:"英雄悲剧珠宝、太阳徽记、破碎三曲" },
+    { name:"吞星者", map:"静谧神庙", boss:"乌崔德", drop:"魔力符文任务道具、乌特雷系列技能" },
+    { name:"最后一个倒下", map:"恸哭悬崖", boss:"沃拉娜", drop:"—" },
+    { name:"循环的尽头", map:"蔓生丛林", boss:"梅德维德", drop:"沃拉娜的围攻" },
+  ],
+  tomb: [
+    { name:"未知的废墟", map:"掘尸遗迹", respawn:false, extra:"免费日志" },
+    { name:"无尽的悬崖", map:"乱石半岛", respawn:false, extra:"—" },
+    { name:"荒凉而可怕", map:"褪色浅滩", respawn:false, extra:"—" },
+    { name:"肆意奔走的野性", map:"牧野荒原", respawn:false, extra:"小精灵" },
+    { name:"至少很干燥", map:"脱落沟壑", respawn:false, extra:"—" },
+    { name:"亚硫酸！", map:"焦灼小岛", respawn:false, extra:"—" },
+    { name:"有点可疑", map:"贫瘠环礁", respawn:true, extra:"保险箱" },
+    { name:"寒冷如冰", map:"凛风悬崖", respawn:true, extra:"—" },
+    { name:"温暖但危险", map:"笼葱海岛", respawn:true, extra:"—" },
+    { name:"没东西喝", map:"死水盆地", respawn:false, extra:"—" },
+  ],
+  legend: [
+    { name:"一个好人", map:"顿悟时刻", content:"无名先知" },
+    { name:"倒映的水面", map:"千裂泽", content:"碎裂的魔镜" },
+    { name:"近乎天堂", map:"纯净乐园", content:"经验图" },
+    { name:"坠落的星辰", map:"天陨荒原", content:"8孔遗物" },
+    { name:"所有闪闪发光之物", map:"颠沛领域", content:"金币图" },
+  ]
+};
+
+function renderAll(q) {
+  const ql = (q||'').toLowerCase();
+  const fil = (arr, keys) => !ql ? arr : arr.filter(i => keys.some(k => (i[k]||'').toLowerCase().includes(ql)));
+
+  // 首领传言
+  var rnum = fil(DATA.rumor, ['name','map','boss','drop']);
+  renderTbl('table-rumor', rnum, i =>
+    `<tr><td class="col-name">${esc(i.name)}</td><td class="col-map">${esc(i.map)}</td><td class="col-map">${esc(i.boss)}</td><td class="col-detail">${esc(i.drop)}</td></tr>`
+  );
+
+  // 炸坟岛屿
+  var rtmb = fil(DATA.tomb, ['name','map','extra']);
+  renderTbl('table-tomb', rtmb, i =>
+    `<tr><td class="col-name">${esc(i.name)}</td><td class="col-map">${esc(i.map)}</td><td class="col-detail"><span class="badge ${i.respawn?'badge-yes':'badge-no'}">${i.respawn?'可':'—'}</span></td><td class="col-detail">${esc(i.extra)}</td></tr>`
+  );
+
+  // 传奇地图
+  var rlgn = fil(DATA.legend, ['name','map','content']);
+  renderTbl('table-legend', rlgn, i =>
+    `<tr><td class="col-name">${esc(i.name)}</td><td class="col-map">${esc(i.map)}</td><td class="col-detail">${esc(i.content)}</td></tr>`
+  );
+
+  // 显示/隐藏分组
+  ['group-rumor','group-tomb','group-legend'].forEach(id => {
+    var tbl = document.querySelector('#' + id + ' tbody');
+    document.getElementById(id).style.display = tbl && tbl.children.length > 0 ? '' : 'none';
+  });
+}
+
+function renderTbl(tblId, data, fn) {
+  var tbody = document.getElementById(tblId).querySelector('tbody');
+  if (!data.length) { tbody.innerHTML = ''; return; }
+  tbody.innerHTML = data.map(fn).join('');
+}
+
+function esc(s) { var d = document.createElement('div'); d.textContent = s||''; return d.innerHTML; }
+
+var st;
+document.getElementById('search-input').addEventListener('input', function() {
+  clearTimeout(st);
+  st = setTimeout(function() { renderAll(this.value); }.bind(this), 80);
+});
+
+renderAll('');
+</script>
+<script src="js/site-nav.js?v=3" defer></script>
+</body>
+</html>
