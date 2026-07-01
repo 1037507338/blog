@@ -111,7 +111,8 @@ a:hover{color:var(--link-hover)}
 
   <div class="note-box">
     <strong>🌊 航海流言</strong> 在异界地图仪右下方放大镜查看流言界面。<br>
-    首领传言触发条件：鼠标悬停小船图标，会显示前方岛屿对应的传言。沃拉娜的围攻实际由梅德维德掉落。炸坟岛带有漩涡图标，不会掉落探险日志。
+    首领传言触发条件：鼠标悬停小船图标，会显示前方岛屿对应的传言。沃拉娜的围攻实际由梅德维德掉落。炸坟岛带有漩涡图标，不会掉落探险日志。<br>
+    <span style="opacity:.85">📄 数据参考：<a href="https://docs.qq.com/sheet/DZG9ERUtZQmdVSUFp?tab=jrgcvi" target="_blank" rel="noopener">腾讯文档 · 航海流言表</a></span>
   </div>
 
   <!-- 首领传言 -->
@@ -209,10 +210,18 @@ function renderTbl(tblId, data, fn) {
 
 function esc(s) { var d = document.createElement('div'); d.textContent = s||''; return d.innerHTML; }
 
-var st;
-document.getElementById('search-input').addEventListener('input', function() {
+var st, composing = false;
+var searchInput = document.getElementById('search-input');
+// 中文输入法组合期间不触发过滤，避免影响连续输入
+searchInput.addEventListener('compositionstart', function () { composing = true; });
+searchInput.addEventListener('compositionend', function () {
+  composing = false;
+  renderAll(searchInput.value);
+});
+searchInput.addEventListener('input', function () {
+  if (composing) return;
   clearTimeout(st);
-  st = setTimeout(function() { renderAll(this.value); }.bind(this), 80);
+  st = setTimeout(function () { renderAll(searchInput.value); }, 80);
 });
 
 renderAll('');
