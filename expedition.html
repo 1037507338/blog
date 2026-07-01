@@ -90,10 +90,14 @@ a:hover{color:var(--link-hover)}
 .badge-no{background:#444;color:#999}
 .no-results{padding:2rem;text-align:center;color:var(--subtext);font-size:.9rem}
 </style>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="css/parchment.css?v=5">
+<link rel="stylesheet" href="css/nav-logo.css?v=6">
 </head>
 <body>
 
-<div id="site-nav"></div>
+<div id="site-nav" data-no-auth></div>
 
 <div class="page-container">
   <div class="page-header">
@@ -213,6 +217,6 @@ document.getElementById('search-input').addEventListener('input', function() {
 
 renderAll('');
 </script>
-<script src="js/site-nav.js?v=3" defer></script>
+<script src="js/site-nav.js?v=4" defer></script>
 </body>
 </html>

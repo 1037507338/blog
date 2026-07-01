@@ -168,6 +168,15 @@
   }
 
   function initAuthUI() {
+    // 页面可通过 <div id="site-nav" data-no-auth> 关闭登录入口
+    var slot = document.getElementById('site-nav');
+    if (slot && slot.hasAttribute('data-no-auth')) {
+      var acct = document.getElementById('nav-account');
+      if (acct) acct.remove();
+      var m = document.getElementById('auth-modal');
+      if (m) m.remove();
+      return;
+    }
     var modal = document.getElementById('auth-modal');
     if (modal && !modal.dataset.wired) {
       modal.dataset.wired = '1';
